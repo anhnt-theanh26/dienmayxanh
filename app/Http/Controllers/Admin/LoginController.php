@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendEmail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
@@ -26,6 +29,14 @@ class LoginController extends Controller
             ]);
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
+                $infor = [
+                    'title' => 'Thong bao Dang nhap',
+                    'email' => $request->email,
+                    'content' => "Tai khoan co email: $request->email vua dang nhap vao he thong cua ban!",
+                    'time' => "Thoi gian: " . Carbon::now() . "!",
+                ];
+                // send mail
+                // Mail::to('anhntph43180@fpt.edu.vn')->send(new SendEmail($infor));
                 Alert::success('Đăng nhập thành công:', 'Xin chào: ' . $request->email);
                 return redirect()->route('admin.dashboard');
             } else {

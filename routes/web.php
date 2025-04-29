@@ -10,7 +10,11 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\client\HomeController;
+// use App\Http\Controllers\SendEmailController;
+// use App\Mail\SendEmail;
+// use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+// use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -174,6 +178,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [RoleController::class, 'index'])->name('index');
         Route::post('/', [RoleController::class, 'store'])->name('store');
         Route::delete('{id}/', [RoleController::class, 'destroy'])->name('destroy');
+        Route::put('/{id}/update', [RoleController::class, 'update'])->name('update');
 
     });
 
@@ -188,3 +193,8 @@ Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderCon
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
 });
+// Route::get('/send-test-email', function () {
+//     Mail::to('anhntph43180@fpt.edu.vn')->send(new SendEmail());
+//     Alert::success('Thanh cong', 'Gui mail thanh cong');
+//     return 'Test email sent!';
+// });

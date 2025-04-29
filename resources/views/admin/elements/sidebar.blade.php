@@ -27,229 +27,157 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        @if (Auth::user()->can('manage category parent') ||
-                Auth::user()->can('index category parent') ||
-                Auth::user()->can('create category parent') ||
-                Auth::user()->can('deleted category parent'))
-            <li class="menu-item {{ request()->routeIs('admin.category-parent.*') ? 'active open' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-folder"></i>
-                    <div data-i18n="Category Parent">Category Parent</div>
-                </a>
-                <ul class="menu-sub">
-                    @if (Auth::user()->can('index category parent'))
-                        <li class="menu-item {{ request()->routeIs('admin.category-parent.index') ? 'active' : '' }}">
-                            <a href="{{ route('admin.category-parent.index') }}" class="menu-link">
-                                <div data-i18n="List">List</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('create category parent'))
-                        <li class="menu-item {{ request()->routeIs('admin.category-parent.create') ? 'active' : '' }}">
-                            <a href="{{ route('admin.category-parent.create') }}" class="menu-link">
-                                <div data-i18n="Create">Create</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('deleted category parent'))
-                        <li class="menu-item {{ request()->routeIs('admin.category-parent.deleted') ? 'active' : '' }}">
-                            <a href="{{ route('admin.category-parent.deleted') }}" class="menu-link">
-                                <div data-i18n="Restore">Restore</div>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-        @endif
-        @if (Auth::user()->can('manage category') ||
-                Auth::user()->can('index category') ||
-                Auth::user()->can('create category') ||
-                Auth::user()->can('deleted category'))
-            <li class="menu-item {{ request()->routeIs('admin.category.*') ? 'active open' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-folders"></i>
-                    <div data-i18n="Category">Category</div>
-                </a>
-                <ul class="menu-sub">
-
-                    @if (Auth::user()->can('index category'))
-                        <li class="menu-item {{ request()->routeIs('admin.category.index') ? 'active' : '' }}">
-                            <a href="{{ route('admin.category.index') }}" class="menu-link">
-                                <div data-i18n="List">List</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('create category'))
-                        <li class="menu-item {{ request()->routeIs('admin.category.create') ? 'active' : '' }}">
-                            <a href="{{ route('admin.category.create') }}" class="menu-link">
-                                <div data-i18n="Create">Create</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('deleted category'))
-                        <li class="menu-item {{ request()->routeIs('admin.category.deleted') ? 'active' : '' }}">
-                            <a href="{{ route('admin.category.deleted') }}" class="menu-link">
-                                <div data-i18n="Restore">Restore</div>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-        @endif
-        @if (Auth::user()->can('manage post') ||
-                Auth::user()->can('index post') ||
-                Auth::user()->can('create post') ||
-                Auth::user()->can('deleted post'))
-            <li class="menu-item {{ request()->routeIs('admin.post.*') ? 'active open' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-news"></i>
-                    <div data-i18n="Post">Post</div>
-                </a>
-                <ul class="menu-sub">
-                    @if (Auth::user()->can('index post'))
-                        <li class="menu-item {{ request()->routeIs('admin.post.index') ? 'active' : '' }}">
-                            <a href="{{ route('admin.post.index') }}" class="menu-link">
-                                <div data-i18n="List">List</div>
-                            </a>
-                        </li>
-                    @endif
-
-                    @if (Auth::user()->can('create post'))
-                        <li class="menu-item {{ request()->routeIs('admin.post.create') ? 'active' : '' }}">
-                            <a href="{{ route('admin.post.create') }}" class="menu-link">
-                                <div data-i18n="Create">Create</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('deleted post'))
-                        <li class="menu-item {{ request()->routeIs('admin.post.deleted') ? 'active' : '' }}">
-                            <a href="{{ route('admin.post.deleted') }}" class="menu-link">
-                                <div data-i18n="Restore">Restore</div>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-        @endif
-        @if (Auth::user()->can('manage attribute') ||
-                Auth::user()->can('index attribute') ||
-                Auth::user()->can('create attribute') ||
-                Auth::user()->can('deleted attribute'))
-            <li class="menu-item {{ request()->routeIs('admin.attribute.*') ? 'active open' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-tags"></i>
-                    <div data-i18n="Attribute">Attribute</div>
-                </a>
-                <ul class="menu-sub">
-                    @if (Auth::user()->can('index attribute'))
-                        <li class="menu-item {{ request()->routeIs('admin.attribute.index') ? 'active' : '' }}">
-                            <a href="{{ route('admin.attribute.index') }}" class="menu-link">
-                                <div data-i18n="List">List</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('create attribute'))
-                        <li class="menu-item {{ request()->routeIs('admin.attribute.create') ? 'active' : '' }}">
-                            <a href="{{ route('admin.attribute.create') }}" class="menu-link">
-                                <div data-i18n="Create">Create</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('deleted attribute'))
-                        <li class="menu-item {{ request()->routeIs('admin.attribute.deleted') ? 'active' : '' }}">
-                            <a href="{{ route('admin.attribute.deleted') }}" class="menu-link">
-                                <div data-i18n="Restore">Restore</div>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-        @endif
-        @if (Auth::user()->can(abilities: 'manage product') ||
-                Auth::user()->can('index product') ||
-                Auth::user()->can('create product') ||
-                Auth::user()->can('deleted product'))
-            <li class="menu-item {{ request()->routeIs('admin.product.*') ? 'active open' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-brand-producthunt"></i>
-                    <div data-i18n="Product">Product</div>
-                </a>
-                <ul class="menu-sub">
-                    @if (Auth::user()->can('index product'))
-                        <li class="menu-item {{ request()->routeIs('admin.product.index') ? 'active' : '' }}">
-                            <a href="{{ route('admin.product.index') }}" class="menu-link">
-                                <div data-i18n="List">List</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('create product'))
-                        <li class="menu-item {{ request()->routeIs('admin.product.create') ? 'active' : '' }}">
-                            <a href="{{ route('admin.product.create') }}" class="menu-link">
-                                <div data-i18n="Create">Create</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('deleted product'))
-                        <li class="menu-item {{ request()->routeIs('admin.product.deleted') ? 'active' : '' }}">
-                            <a href="{{ route('admin.product.deleted') }}" class="menu-link">
-                                <div data-i18n="Restore">Restore</div>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-        @endif
-        @if (Auth::user()->can('manage user') ||
-                Auth::user()->can('index user') ||
-                Auth::user()->can('create user') ||
-                Auth::user()->can('deleted user'))
-            <li class="menu-item {{ request()->routeIs('admin.user.*') ? 'active open' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-users"></i>
-                    <div data-i18n="User">User</div>
-                </a>
-                <ul class="menu-sub">
-                    @if (Auth::user()->can('index user'))
-                        <li class="menu-item {{ request()->routeIs('admin.user.index') ? 'active' : '' }}">
-                            <a href="{{ route('admin.user.index') }}" class="menu-link">
-                                <div data-i18n="List">List</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('create user'))
-                        <li class="menu-item {{ request()->routeIs('admin.user.create') ? 'active' : '' }}">
-                            <a href="{{ route('admin.user.create') }}" class="menu-link">
-                                <div data-i18n="Create">Create</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->can('deleted user'))
-                        <li class="menu-item {{ request()->routeIs('admin.user.deleted') ? 'active' : '' }}">
-                            <a href="{{ route('admin.user.deleted') }}" class="menu-link">
-                                <div data-i18n="Restore">Restore</div>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-        @endif
-        @if (Auth::user()->can('manage image') || Auth::user()->can('index image'))
-            <li class="menu-item {{ request()->routeIs('admin.image.*') ? 'active open' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-photo"></i>
-                    <div data-i18n="Images">Images</div>
-                </a>
-                <ul class="menu-sub">
-                    @if (Auth::user()->can('index image'))
-                        <li class="menu-item {{ request()->routeIs('admin.image.image') ? 'active' : '' }}">
-                            <a href="{{ route('admin.image.image') }}" class="menu-link">
-                                <div data-i18n="List">List</div>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-        @endif
+        <li class="menu-item {{ request()->routeIs('admin.category-parent.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-folder"></i>
+                <div data-i18n="Category Parent">Category Parent</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.category-parent.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.category-parent.index') }}" class="menu-link">
+                        <div data-i18n="List">List</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.category-parent.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.category-parent.create') }}" class="menu-link">
+                        <div data-i18n="Create">Create</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.category-parent.deleted') ? 'active' : '' }}">
+                    <a href="{{ route('admin.category-parent.deleted') }}" class="menu-link">
+                        <div data-i18n="Restore">Restore</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.category.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-folders"></i>
+                <div data-i18n="Category">Category</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.category.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.category.index') }}" class="menu-link">
+                        <div data-i18n="List">List</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.category.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.category.create') }}" class="menu-link">
+                        <div data-i18n="Create">Create</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.category.deleted') ? 'active' : '' }}">
+                    <a href="{{ route('admin.category.deleted') }}" class="menu-link">
+                        <div data-i18n="Restore">Restore</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.post.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-news"></i>
+                <div data-i18n="Post">Post</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.post.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.post.index') }}" class="menu-link">
+                        <div data-i18n="List">List</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.post.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.post.create') }}" class="menu-link">
+                        <div data-i18n="Create">Create</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.post.deleted') ? 'active' : '' }}">
+                    <a href="{{ route('admin.post.deleted') }}" class="menu-link">
+                        <div data-i18n="Restore">Restore</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.attribute.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-tags"></i>
+                <div data-i18n="Attribute">Attribute</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.attribute.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.attribute.index') }}" class="menu-link">
+                        <div data-i18n="List">List</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.attribute.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.attribute.create') }}" class="menu-link">
+                        <div data-i18n="Create">Create</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.attribute.deleted') ? 'active' : '' }}">
+                    <a href="{{ route('admin.attribute.deleted') }}" class="menu-link">
+                        <div data-i18n="Restore">Restore</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.product.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-brand-producthunt"></i>
+                <div data-i18n="Product">Product</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.product.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.product.index') }}" class="menu-link">
+                        <div data-i18n="List">List</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.product.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.product.create') }}" class="menu-link">
+                        <div data-i18n="Create">Create</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.product.deleted') ? 'active' : '' }}">
+                    <a href="{{ route('admin.product.deleted') }}" class="menu-link">
+                        <div data-i18n="Restore">Restore</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.user.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="User">User</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.user.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.user.index') }}" class="menu-link">
+                        <div data-i18n="List">List</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.user.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.user.create') }}" class="menu-link">
+                        <div data-i18n="Create">Create</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.user.deleted') ? 'active' : '' }}">
+                    <a href="{{ route('admin.user.deleted') }}" class="menu-link">
+                        <div data-i18n="Restore">Restore</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.image.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-photo"></i>
+                <div data-i18n="Images">Images</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.image.image') ? 'active' : '' }}">
+                    <a href="{{ route('admin.image.image') }}" class="menu-link">
+                        <div data-i18n="List">List</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-settings"></i>
@@ -262,7 +190,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="app-access-permission.html" class="menu-link">
+                    <a href="{{ route('admin.role.index') }}" class="menu-link">
                         <div data-i18n="Permission">Permission</div>
                     </a>
                 </li>

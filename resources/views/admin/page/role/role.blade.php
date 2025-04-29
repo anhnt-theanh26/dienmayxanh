@@ -51,14 +51,15 @@
                         <div class="d-flex justify-content-between align-items-end mt-1">
                             <div class="role-heading">
                                 <h4 class="mb-1">{{ $role->name }}</h4>
-                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#addRoleModal"
-                                    class="role-edit-modal"><span>Edit Role</span></a>
+                                <a href="javascript:;" data-bs-toggle="modal"
+                                    data-bs-target="#editRoleModal{{ $role->id }}" class="role-edit-modal"><span>Edit
+                                        Role</span></a>
                             </div>
                             <form action="{{ route('admin.role.destroy', ['id' => $role->id]) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn text-muted"><i class="ti ti-trash"></i></button>
-                                {{-- <button class="text-muted"><i class="ti ti-trash"></i></button> --}}
+                                <button type="submit" onclick="return confirm('Xoa role nay?')" class="btn text-muted"><i
+                                        class="ti ti-trash"></i></button>
                             </form>
                         </div>
                     </div>
@@ -90,18 +91,55 @@
             <!-- Role Table -->
             <div class="card">
                 <div class="card-datatable table-responsive">
-                    <table class="datatables-users table border-top">
+                    <table class="table border-top">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>User</th>
                                 <th>Role</th>
-                                <th>Plan</th>
-                                <th>Billing</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
+
+                        <tbody>
+                            @foreach ($roles as $role)
+                                @foreach ($role->users as $user)
+                                    <tr>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $role->name }}</td>
+                                        <td>
+                                            @if ($user->remember_token)
+                                                <span class="badge bg-label-success" text-capitalized="">
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">Active</font>
+                                                    </font>
+                                                </span>
+                                            @else
+                                            <span class="badge bg-label-secondary" text-capitalized="">Inactive</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <a href="app-user-view-account.html" class="btn btn-sm btn-icon">
+                                                    <i class="ti ti-eye"></i>
+                                                </a>
+                                                <a href="javascript:;" class="text-body delete-record">
+                                                    <i class="ti ti-trash ti-sm mx-2"></i>
+                                                </a>
+                                                <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="ti ti-dots-vertical ti-sm mx-1"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end m-0">
+                                                    <a href="javascript:;"class="dropdown-item">Edit</a>
+                                                    <a href="javascript:;" class="dropdown-item">Suspend</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -111,78 +149,104 @@
     <!--/ Role cards -->
 
     <!-- Add Role Modal -->
-    {{-- model role đã có --}}
-    {{-- <div class="modal fade" id="addRoleModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
-            <div class="modal-content p-3 p-md-5">
-                <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-body">
-                    <div class="text-center mb-4">
-                        <h3 class="role-title mb-2">Add New Role</h3>
-                        <p class="text-muted">Set role permissions</p>
-                    </div>
-                    <!-- Add role form -->
-                    <form id="addRoleForm" class="row g-3" onsubmit="return false">
-                        <div class="col-12 mb-4">
-                            <label class="form-label" for="modalRoleName">Role Name</label>
-                            <input type="text" id="modalRoleName" name="modalRoleName" class="form-control"
-                                placeholder="Enter a role name" tabindex="-1" />
+    {{-- model role edit --}}
+    @foreach ($roles as $role)
+        @php
+            $result = [];
+            $roleHasPermissions = \App\Http\Controllers\Admin\RoleController::getRoleHasPermissions($role->id);
+            foreach ($roleHasPermissions as $key => $value) {
+                array_push($result, $value->permission_id);
+            }
+        @endphp
+        <div class="modal fade" id="editRoleModal{{ $role->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
+                <div class="modal-content p-3 p-md-5">
+                    <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-body">
+                        <div class="text-center mb-4">
+                            <h3 class="role-title mb-2">Edit Role</h3>
+                            <p class="text-muted">Set role permissions</p>
                         </div>
-                        <div class="col-12">
-                            <h5>Role Permissions</h5>
-                            <!-- Permission table -->
-                            <div class="table-responsive">
-                                <table class="table table-flush-spacing">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-nowrap fw-semibold">
-                                                Administrator Access
-                                                <i class="ti ti-info-circle" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Allows a full access to the system"></i>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="selectAll" />
-                                                    <label class="form-check-label" for="selectAll"> Select All </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @foreach ($groupedPermissions as $groupName => $items)
+                        <!-- Add role form -->
+                        <form action="{{ route('admin.role.update', ['id' => $role->id]) }}" method="post"
+                            id="addRoleForm" class="row g-3">
+                            @csrf
+                            @method('put')
+                            <div class="col-12 mb-4">
+                                <label class="form-label" for="modalRoleName">Role Name</label>
+                                <input type="text" id="modalRoleName" name="modalRoleName" class="form-control"
+                                    value="{{ $role->name }}" placeholder="Enter a role name" tabindex="-1" />
+                                @error('modalRoleName')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-12">
+                                <h5>Role Permissions</h5>
+                                <!-- Permission table -->
+                                <div class="table-responsive">
+                                    <table class="table table-flush-spacing">
+                                        <tbody>
                                             <tr>
-                                                <td class="text-nowrap fw-semibold">{{ $groupName }}</td>
+                                                <td class="text-nowrap fw-semibold">
+                                                    Administrator Access
+                                                    <i class="ti ti-info-circle" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top"
+                                                        title="Allows a full access to the system"></i>
+                                                </td>
                                                 <td>
-                                                    <div class="d-flex">
-                                                        @foreach ($items as $item)
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="{{ $item->name }}" />
-                                                                <label class="form-check-label" for="{{ $item->name }}">
-                                                                    {{ $item->display_name }}
-                                                                </label>
-                                                            </div>
-                                                        @endforeach
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="selectAll" />
+                                                        <label class="form-check-label" for="selectAll"> Select All
+                                                        </label>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                            @error('permissions')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                            @error('permissions.*')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                            @foreach ($groupedPermissions as $groupName => $items)
+                                                <tr>
+                                                    <td class="text-nowrap fw-semibold">{{ $groupName }}</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            @foreach ($items as $item)
+                                                                <div class="form-check me-3 me-lg-5">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        {{ in_array($item->id, $result) ? 'checked' : '' }}
+                                                                        name="permissions[]" id="{{ $item->name }}"
+                                                                        value="{{ $item->id }}" />
+                                                                    <label class="form-check-label"
+                                                                        for="{{ $item->name }}">
+                                                                        {{ $item->display_name }}
+                                                                    </label>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Permission table -->
                             </div>
-                            <!-- Permission table -->
-                        </div>
-                        <div class="col-12 text-center mt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
-                                aria-label="Close">
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-                    <!--/ Add role form -->
+                            <div class="col-12 text-center mt-4">
+                                <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                        <!--/ Add role form -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div> --}}
+    @endforeach
     {{-- model thêm mới role --}}
     <div class="modal fade" id="addRoleModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
@@ -214,7 +278,8 @@
                                             <td class="text-nowrap fw-semibold">
                                                 Administrator Access
                                                 <i class="ti ti-info-circle" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Allows a full access to the system"></i>
+                                                    data-bs-placement="top"
+                                                    title="Allows a full access to the system"></i>
                                             </td>
                                             <td>
                                                 <div class="form-check">
@@ -262,7 +327,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js')
