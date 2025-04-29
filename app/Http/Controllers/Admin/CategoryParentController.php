@@ -13,18 +13,13 @@ class CategoryParentController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->can('index category parent')) {
-            if (Auth::user()->can('index category parent')) {
-                $categoryParents = CategoryParent::orderBy('id', 'desc')->paginate(5);
-                return view("admin/page/category-parent/index", compact("categoryParents"));
-            } else {
-                Alert::error('Không có quyền truy cập');
-                return redirect()->route('admin.dashboard');
-            }
-        } else {
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
+        $categoryParents = CategoryParent::orderBy('id', 'desc')->paginate(5);
+        return view("admin/page/category-parent/index", compact("categoryParents"));
+        // if (Auth::user()->can('index category parent')) {
+        // } else {
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     /**
@@ -45,32 +40,32 @@ class CategoryParentController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->can('store category parent')){
-            try {
-                $originalSlug = Str::slug($request->name);
-                $slug = $originalSlug;
-                $count = 1;
-                while (CategoryParent::where('slug', $slug)->exists()) {
-                    $slug = $originalSlug . '-' . $count++;
-                }
-                $request->merge(['slug' => $slug]);
-                $validated = $request->validate([
-                    "name" => "required|string|max:255",
-                    "slug" => "required|string|max:255",
-                ]);
-                $data = [
-                    'name' => $validated['name'],
-                    'slug' => $validated['slug'],
-                ];
-                CategoryParent::create($data);
-                return redirect()->route('admin.category-parent.index')->with('success', 'Them moi thanh cong!');
-            } catch (\Throwable $th) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Co loi xay ra:' . $th->getMessage());
+        try {
+            $originalSlug = Str::slug($request->name);
+            $slug = $originalSlug;
+            $count = 1;
+            while (CategoryParent::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
             }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+            $request->merge(['slug' => $slug]);
+            $validated = $request->validate([
+                "name" => "required|string|max:255",
+                "slug" => "required|string|max:255",
+            ]);
+            $data = [
+                'name' => $validated['name'],
+                'slug' => $validated['slug'],
+            ];
+            CategoryParent::create($data);
+            return redirect()->route('admin.category-parent.index')->with('success', 'Them moi thanh cong!');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Co loi xay ra:' . $th->getMessage());
         }
+        // if (Auth::user()->can('store category parent')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     /**
@@ -90,13 +85,13 @@ class CategoryParentController extends Controller
      */
     public function edit(string $slug)
     {
-        if (Auth::user()->can('edit category parent')){
-            $categoryParent = CategoryParent::where('slug', $slug)->first();
-            return view('admin.page.category-parent.edit', compact('categoryParent'));
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
+        $categoryParent = CategoryParent::where('slug', $slug)->first();
+        return view('admin.page.category-parent.edit', compact('categoryParent'));
+        // if (Auth::user()->can('edit category parent')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     /**
@@ -104,40 +99,40 @@ class CategoryParentController extends Controller
      */
     public function update(Request $request, string $slug)
     {
-        if (Auth::user()->can('update category parent')){
-            $categoryParent = CategoryParent::where('slug', $slug)->first();
-            if (!$categoryParent) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
-            }
-            try {
-                $originalSlug = Str::slug($request->name);
-                $newSlug = $originalSlug;
-                $count = 1;
-                while (
-                    CategoryParent::where('slug', $newSlug)->where('slug', '!=', $categoryParent->slug)->exists()
-                ) {
-                    $newSlug = $originalSlug . '-' . $count++;
-                }
-                $request->merge([
-                    'slug' => $newSlug
-                ]);
-                $request->validate([
-                    "name" => "required|string|max:255",
-                    "slug" => "required|string|max:255",
-                ]);
-                $data = [
-                    'name' => $request['name'],
-                    'slug' => $newSlug,
-                ];
-                $categoryParent->update($data);
-                return redirect()->route('admin.category-parent.index')->with('success', 'Cập nhật thành công!');
-            } catch (\Throwable $th) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $categoryParent = CategoryParent::where('slug', $slug)->first();
+        if (!$categoryParent) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
         }
+        try {
+            $originalSlug = Str::slug($request->name);
+            $newSlug = $originalSlug;
+            $count = 1;
+            while (
+                CategoryParent::where('slug', $newSlug)->where('slug', '!=', $categoryParent->slug)->exists()
+            ) {
+                $newSlug = $originalSlug . '-' . $count++;
+            }
+            $request->merge([
+                'slug' => $newSlug
+            ]);
+            $request->validate([
+                "name" => "required|string|max:255",
+                "slug" => "required|string|max:255",
+            ]);
+            $data = [
+                'name' => $request['name'],
+                'slug' => $newSlug,
+            ];
+            $categoryParent->update($data);
+            return redirect()->route('admin.category-parent.index')->with('success', 'Cập nhật thành công!');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('update category parent')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
 
@@ -146,70 +141,70 @@ class CategoryParentController extends Controller
      */
     public function delete(string $slug)
     {
-        if (Auth::user()->can('delete category parent')){
-            $categoryParent = CategoryParent::where('slug', $slug)->first();
-            if (!$categoryParent) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
-            }
-            try {
-                $categoryParent->delete();
-                return redirect()->route('admin.category-parent.index')->with('success', 'Xoa danh muc thanh cong!');
-            } catch (\Throwable $th) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $categoryParent = CategoryParent::where('slug', $slug)->first();
+        if (!$categoryParent) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
         }
+        try {
+            $categoryParent->delete();
+            return redirect()->route('admin.category-parent.index')->with('success', 'Xoa danh muc thanh cong!');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('delete category parent')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     public function deleted()
     {
-        if (Auth::user()->can('deleted category parent')){
-            $categoryParents = CategoryParent::onlyTrashed()->orderBy('id', 'desc')->paginate(5);
-            return view("admin/page/category-parent/restore", compact("categoryParents"));
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
+        $categoryParents = CategoryParent::onlyTrashed()->orderBy('id', 'desc')->paginate(5);
+        return view("admin/page/category-parent/restore", compact("categoryParents"));
+        // if (Auth::user()->can('deleted category parent')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     public function restore(string $slug)
     {
-        if (Auth::user()->can('restore category parent')){
-            $categoryParent = CategoryParent::withTrashed()->where("slug", $slug)->first();
-            if (!$categoryParent) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
-            }
-            try {
-                $categoryParent->restore();
-                return redirect()->route('admin.category-parent.index')->with('success', 'Khoi phuc danh muc thanh cong!');
-            } catch (\Throwable $th) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $categoryParent = CategoryParent::withTrashed()->where("slug", $slug)->first();
+        if (!$categoryParent) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
         }
+        try {
+            $categoryParent->restore();
+            return redirect()->route('admin.category-parent.index')->with('success', 'Khoi phuc danh muc thanh cong!');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('restore category parent')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     public function destroy(string $slug)
     {
-        if (Auth::user()->can('destroy category parent')){
-            $categoryParent = CategoryParent::withTrashed()->where("slug", $slug)->first();
-            if (!$categoryParent) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Không tìm thấy danh mục!');
-            }
-            try {
-                $categoryParent->forceDelete();
-                return redirect()->route('admin.category-parent.index')->with('success', 'Xóa danh mục thành công!');
-            } catch (\Throwable $th) {
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $categoryParent = CategoryParent::withTrashed()->where("slug", $slug)->first();
+        if (!$categoryParent) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Không tìm thấy danh mục!');
         }
+        try {
+            $categoryParent->forceDelete();
+            return redirect()->route('admin.category-parent.index')->with('success', 'Xóa danh mục thành công!');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('destroy category parent')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     public function search(Request $request, string $keyword)

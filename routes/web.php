@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryParentController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\client\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -28,11 +29,13 @@ use Illuminate\Support\Facades\Route;
 // Route::post('welcome/store', [AdminController::class, 'welcome'])->name('welcome.store');
 // Route::get('test', [AdminController::class, 'test'])->name('test');
 
-Route::prefix('admin')->as('admin.')->group(function () {
-    Route::get('/login', [LoginController::class,'showlogin'])->name('login');
-    Route::post('/login', [LoginController::class,'login'])->name('login.process');
 
-    Route::get('/register', [LoginController::class,'showregister'])->name('register');
+// login and register
+Route::prefix('admin')->as('admin.')->group(function () {
+    Route::get('/login', [LoginController::class, 'showlogin'])->name('login');
+    Route::post('/login', [LoginController::class, 'login'])->name('login.process');
+
+    Route::get('/register', [LoginController::class, 'showregister'])->name('register');
 });
 Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
@@ -166,8 +169,14 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
     });
 
-    // login and register
-   
+    // role
+    Route::prefix('role')->as('role.')->group(function () {
+        Route::get('/', [RoleController::class, 'index'])->name('index');
+        Route::post('/', [RoleController::class, 'store'])->name('store');
+        Route::delete('{id}/', [RoleController::class, 'destroy'])->name('destroy');
+
+    });
+
 });
 // ckfinder 
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
@@ -177,5 +186,5 @@ Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderCon
     ->name('ckfinder_browser');
 
 Route::prefix('/')->as('')->group(function () {
-    Route::get('/', [HomeController::class,'index'])->name('index');
+    Route::get('/', [HomeController::class, 'index'])->name('index');
 });

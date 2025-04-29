@@ -18,110 +18,198 @@ class AdminSeeder extends Seeder
     {
         $permissions = [
             // dashboard
-            [ // 'manage dashboard',
-                'name' => 'manage dashboard',
-                'display_name' => 'Quản lý bảng điều khiển',
-            ],
             [ // 'index dashboard',
                 'name' => 'index dashboard',
-                'display_name' => 'Xem bảng điều khiển',
+                'display_name' => 'Read',
+                'group_name' => 'Dashboard',
             ],
-
 
 
             // category-parent
-            'manage parent', // category parent
-            'index category parent', // danh sách
-            'create category parent', // show tạo
-            'store category parent', // tạo mới
-            'show category parent', // chi tiết
-            'edit category parent', // show sửa
-            'update category parent', // sửa
-            'delete category parent', // xóa mềm
-            'destroy category parent', // xóa cứng
-            'restore category parent', // khôi phục
-            'deleted category parent', // danh sách xóa mềm
+            [ // danh sách, chi tiết
+                'name' => 'index category parent',
+                'display_name' => 'Read',
+                'group_name' => 'Category Parent',
+            ],
+            [ // thêm
+                'name' => 'create category parent',
+                'display_name' => 'Create',
+                'group_name' => 'Category Parent',
+            ],
+            [ // sửa
+                'name' => 'edit category parent',
+                'display_name' => 'Edit',
+                'group_name' => 'Category Parent',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete category parent',
+                'display_name' => 'Delete',
+                'group_name' => 'Category Parent',
+            ],
+
 
             // category
-            'manage category', // category
-            'index category', // danh sách
-            'create category', // show tạo
-            'store category', // tạo mới
-            'show category', // chi tiết
-            'edit category', // show sửa
-            'update category', // sửa
-            'delete category', // xóa mềm
-            'destroy category', // xóa cứng
-            'restore category', // khôi phục
-            'deleted category', // danh sách xóa mềm
+            [ // danh sách, chi tiết
+                'name' => 'index category',
+                'display_name' => 'Read',
+                'group_name' => 'Category',
+            ],
+            [ // thêm
+                'name' => 'create category',
+                'display_name' => 'Create',
+                'group_name' => 'Category',
+            ],
+            [ // sửa
+                'name' => 'edit category',
+                'display_name' => 'Edit',
+                'group_name' => 'Category',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete category',
+                'display_name' => 'Delete',
+                'group_name' => 'Category',
+            ],
+
 
             // post
-            'manage post', // post
-            'index post', // danh sách
-            'create post', // show tạo
-            'store post', // tạo mới
-            'show post', // chi tiết
-            'edit post', // show sửa
-            'update post', // sửa
-            'delete post', // xóa mềm
-            'destroy post', // xóa cứng
-            'restore post', // khôi phục
-            'deleted post', // danh sách xóa mềm
+            [ // danh sách, chi tiết
+                'name' => 'index post',
+                'display_name' => 'Read',
+                'group_name' => 'Post',
+            ],
+            [ // thêm
+                'name' => 'create post',
+                'display_name' => 'Create',
+                'group_name' => 'Post',
+            ],
+            [ // sửa
+                'name' => 'edit post',
+                'display_name' => 'Edit',
+                'group_name' => 'Post',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete post',
+                'display_name' => 'Delete',
+                'group_name' => 'Post',
+            ],
+
 
             // attribute
-            'manage attribute', // attribute
-            'index attribute', // danh sách
-            'create attribute', // show tạo
-            'store attribute', // tạo mới
-            'show attribute', // chi tiết
-            'edit attribute', // show sửa
-            'update attribute', // sửa
-            'delete attribute', // xóa mềm
-            'destroy attribute', // xóa cứng
-            'restore attribute', // khôi phục
-            'deleted attribute', // danh sách xóa mềm
+            [ // danh sách, chi tiết
+                'name' => 'index attribute',
+                'display_name' => 'Read',
+                'group_name' => 'Attribute',
+            ],
+            [ // thêm
+                'name' => 'create attribute',
+                'display_name' => 'Create',
+                'group_name' => 'Attribute',
+            ],
+            [ // sửa
+                'name' => 'edit attribute',
+                'display_name' => 'Edit',
+                'group_name' => 'Attribute',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete attribute',
+                'display_name' => 'Delete',
+                'group_name' => 'Attribute',
+            ],
+
 
             // product
-            'manage product', // product
-            'index product', // danh sách
-            'create product', // show tạo
-            'store product', // tạo mới
-            'show product', // chi tiết
-            'edit product', // show sửa
-            'update product', // sửa
-            'delete product', // xóa mềm
-            'destroy product', // xóa cứng
-            'restore product', // khôi phục
-            'deleted product', // danh sách xóa mềm
+            [ // danh sách, chi tiết
+                'name' => 'index product',
+                'display_name' => 'Read',
+                'group_name' => 'Product',
+            ],
+            [ // thêm
+                'name' => 'create product',
+                'display_name' => 'Create',
+                'group_name' => 'Product',
+            ],
+            [ // sửa
+                'name' => 'edit product',
+                'display_name' => 'Edit',
+                'group_name' => 'Product',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete product',
+                'display_name' => 'Delete',
+                'group_name' => 'Product',
+            ],
+
 
             // image
-            'manage image', // image
-            'index image', // danh sách
+            [ // danh sách, chi tiết
+                'name' => 'index image',
+                'display_name' => 'Read',
+                'group_name' => 'Image',
+            ],
+
 
             // user
-            'manage user', // user
-            'index user', // danh sách
-            'create user', // show tạo
-            'store user', // tạo mới
-            'show user', // chi tiết
-            'edit user', // show sửa
-            'update user', // sửa
-            'delete user', // xóa mềm
-            'destroy user', // xóa cứng
-            'restore user', // khôi phục
-            'deleted user', // danh sách xóa mềm
+            [ // danh sách, chi tiết
+                'name' => 'index user',
+                'display_name' => 'Read',
+                'group_name' => 'User',
+            ],
+            [ // thêm
+                'name' => 'create user',
+                'display_name' => 'Create',
+                'group_name' => 'User',
+            ],
+            [ // sửa
+                'name' => 'edit user',
+                'display_name' => 'Edit',
+                'group_name' => 'User',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete user',
+                'display_name' => 'Delete',
+                'group_name' => 'User',
+            ],
+
+            // role permission
+            // user
+            [ // danh sách, chi tiết
+                'name' => 'index role permission',
+                'display_name' => 'Read',
+                'group_name' => 'Role Permission',
+            ],
+            [ // thêm
+                'name' => 'create role permission',
+                'display_name' => 'Create',
+                'group_name' => 'Role Permission',
+            ],
+            [ // sửa
+                'name' => 'edit role permission',
+                'display_name' => 'Edit',
+                'group_name' => 'Role Permission',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete role permission',
+                'display_name' => 'Delete',
+                'group_name' => 'Role Permission',
+            ],
         ];
+        // Tạo các Permission nếu chưa tồn tại
         foreach ($permissions as $permission) {
             Permission::firstOrCreate([
-                'name' => $permission,
+                'name' => $permission['name'],
+                'display_name' => $permission['display_name'],
+                'group_name' => $permission['group_name'],
                 'guard_name' => 'web',
             ]);
         }
+        // Tạo Role "admin" 
         $adminRole = Role::firstOrCreate([
             'name' => 'admin',
             'guard_name' => 'web',
         ]);
+        // Gán Permissions
         $adminRole->syncPermissions(Permission::all());
+        // Tạo hoặc Lấy User "admin"
         $adminUser = User::firstOrCreate(
             ['email' => 'admin@gmail.com'],
             [
@@ -129,6 +217,7 @@ class AdminSeeder extends Seeder
                 'password' => Hash::make('123'),
             ]
         );
+        // Gán Role "admin" cho User "admin"
         $adminUser->assignRole($adminRole);
         echo "Seeder đã tạo user admin, role, và các quyền.\n";
     }

@@ -15,13 +15,13 @@ class PostController extends Controller
     public function index()
     {
 
-        if (Auth::user()->can('index post')){
-            $posts = Post::orderBy('id', 'desc')->get();
-            return view('admin.page.post.index', compact('posts'));
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
+        $posts = Post::orderBy('id', 'desc')->get();
+        return view('admin.page.post.index', compact('posts'));
+        // if (Auth::user()->can('index post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     /**
@@ -29,13 +29,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('create post')){
-            $categories = Category::orderBy('id', 'desc')->get();
-            return view('admin.page.post.create', compact('categories'));
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
+        $categories = Category::orderBy('id', 'desc')->get();
+        return view('admin.page.post.create', compact('categories'));
+        // if (Auth::user()->can('create post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     /**
@@ -43,53 +43,53 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->can('store post')){
-            $originalSlug = Str::slug($request->title);
-            $slug = $originalSlug;
-            $count = 1;
-            while (Post::where('slug', $slug)->exists()) {
-                $slug = $originalSlug . '-' . $count++;
-            }
-            $request->merge(['slug' => $slug]);
-            $validated = $request->validate([
-                'title' => 'required|string|max:255',
-                'excerpt' => 'required|string|max:255',
-                'content' => 'nullable|string',
-                'slug' => 'nullable|string|max:255|unique:posts,slug',
-                'image' => 'nullable|url|max:255',
-                'published_at' => 'required|date',
-                'is_hot' => 'nullable|boolean',
-                'category_id' => 'required|exists:categories,id',
-                'status' => 'required|in:draft,published',
-                'user_id' => 'nullable|exists:users,id',
-            ]);
-            $data = [
-                'title' => $request->title,
-                'excerpt' => $request->excerpt,
-                'content' => $request->content,
-                'slug' => $slug,
-                'image' => $request->image,
-                'view_count' => 0,
-                'is_hot' => $request->has('is_hot') ? true : false,
-                'status' => $request->status,
-                'published_at' => $request->published_at,
-                'category_id' => $request->category_id,
-                'user_id' => 1,
-            ];
-            try {
-                Post::create($data);
-                if (Post::create($data)) {
-                    Alert::success('Thanh cong', 'Them moi bai viet thanh cong');
-                }
-                return redirect()->route('admin.post.index')->with('success', 'Thêm mới danh mục thành công');
-            } catch (\Throwable $th) {
-                Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $originalSlug = Str::slug($request->title);
+        $slug = $originalSlug;
+        $count = 1;
+        while (Post::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
         }
+        $request->merge(['slug' => $slug]);
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'excerpt' => 'required|string|max:255',
+            'content' => 'nullable|string',
+            'slug' => 'nullable|string|max:255|unique:posts,slug',
+            'image' => 'nullable|url|max:255',
+            'published_at' => 'required|date',
+            'is_hot' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required|in:draft,published',
+            'user_id' => 'nullable|exists:users,id',
+        ]);
+        $data = [
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'content' => $request->content,
+            'slug' => $slug,
+            'image' => $request->image,
+            'view_count' => 0,
+            'is_hot' => $request->has('is_hot') ? true : false,
+            'status' => $request->status,
+            'published_at' => $request->published_at,
+            'category_id' => $request->category_id,
+            'user_id' => 1,
+        ];
+        try {
+            Post::create($data);
+            if (Post::create($data)) {
+                Alert::success('Thanh cong', 'Them moi bai viet thanh cong');
+            }
+            return redirect()->route('admin.post.index')->with('success', 'Thêm mới danh mục thành công');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('store post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
 
@@ -110,18 +110,18 @@ class PostController extends Controller
      */
     public function edit(string $slug)
     {
-        if (Auth::user()->can('edit post')){
-            $post = Post::where('slug', $slug)->first();
-            $categories = Category::orderBy('id', 'desc')->get();
-            if (!$post) {
-                Alert::error('Khong tim thay bai viet:');
-                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet');
-            }
-            return view('admin.page.post.edit', compact('categories', 'post'));
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $post = Post::where('slug', $slug)->first();
+        $categories = Category::orderBy('id', 'desc')->get();
+        if (!$post) {
+            Alert::error('Khong tim thay bai viet:');
+            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet');
         }
+        return view('admin.page.post.edit', compact('categories', 'post'));
+        // if (Auth::user()->can('edit post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     /**
@@ -129,60 +129,60 @@ class PostController extends Controller
      */
     public function update(Request $request, string $slug)
     {
-        if (Auth::user()->can('update post')){
-            $post = Post::where('slug', $slug)->first();
-            if (!$post) {
-                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
-            }
-            $originalSlug = Str::slug($request->title);
-            $newSlug = $originalSlug;
-            $count = 1;
-            while (Post::where('slug', $newSlug)->where('slug', '!=', $post->newSlug)->exists()) {
-                $newSlug = $originalSlug . '-' . $count++;
-            }
-            $request->merge([
-                'slug' => $newSlug
-            ]);
-    
-            $validated = $request->validate([
-                'title' => 'required|string|max:255',
-                'excerpt' => 'required|string|max:255',
-                'content' => 'nullable|string',
-                'slug' => 'nullable|string|max:255|unique:posts,slug,' . $post->id,
-                'image' => 'nullable|url|max:255',
-                'published_at' => 'required|date',
-                'is_hot' => 'nullable|boolean',
-                'category_id' => 'required|exists:categories,id',
-                'status' => 'required|in:draft,published',
-                'user_id' => 'nullable|exists:users,id',
-            ]);
-            $data = [
-                'title' => $request->title,
-                'excerpt' => $request->excerpt,
-                'content' => $request->content,
-                'slug' => $newSlug,
-                'image' => $request->image,
-                'view_count' => 0,
-                'is_hot' => $request->has('is_hot') ? true : false,
-                'status' => $request->status,
-                'published_at' => $request->published_at,
-                'category_id' => $request->category_id,
-                'user_id' => 1,
-            ];
-            try {
-                $post->update($data);
-                if ($post->update($data)) {
-                    Alert::success('Thanh cong', 'Cap nhap bai viet thanh cong');
-                }
-                return redirect()->route('admin.post.index')->with('success', 'Cập nhật thành công!');
-            } catch (\Throwable $th) {
-                Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $post = Post::where('slug', $slug)->first();
+        if (!$post) {
+            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
         }
+        $originalSlug = Str::slug($request->title);
+        $newSlug = $originalSlug;
+        $count = 1;
+        while (Post::where('slug', $newSlug)->where('slug', '!=', $post->newSlug)->exists()) {
+            $newSlug = $originalSlug . '-' . $count++;
+        }
+        $request->merge([
+            'slug' => $newSlug
+        ]);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'excerpt' => 'required|string|max:255',
+            'content' => 'nullable|string',
+            'slug' => 'nullable|string|max:255|unique:posts,slug,' . $post->id,
+            'image' => 'nullable|url|max:255',
+            'published_at' => 'required|date',
+            'is_hot' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required|in:draft,published',
+            'user_id' => 'nullable|exists:users,id',
+        ]);
+        $data = [
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'content' => $request->content,
+            'slug' => $newSlug,
+            'image' => $request->image,
+            'view_count' => 0,
+            'is_hot' => $request->has('is_hot') ? true : false,
+            'status' => $request->status,
+            'published_at' => $request->published_at,
+            'category_id' => $request->category_id,
+            'user_id' => 1,
+        ];
+        try {
+            $post->update($data);
+            if ($post->update($data)) {
+                Alert::success('Thanh cong', 'Cap nhap bai viet thanh cong');
+            }
+            return redirect()->route('admin.post.index')->with('success', 'Cập nhật thành công!');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('update post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     /**
@@ -190,77 +190,77 @@ class PostController extends Controller
      */
     public function destroy(string $slug)
     {
-        if (Auth::user()->can('destroy post')){
-            $post = Post::onlyTrashed()->where('slug', $slug)->first();
-            if (!$post) {
-                Alert::error('Khong thay bai viet', 'Bai viet khong ton tai');
-                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
-            }
-            try {
-                $post->forceDelete();
-                Alert::success('Thanh cong', 'Xoa vinh vien bai viet thanh cong');
-                return redirect()->route('admin.post.index')->with('success', 'Xoa bai viet thanh cong!');
-            } catch (\Throwable $th) {
-                Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $post = Post::onlyTrashed()->where('slug', $slug)->first();
+        if (!$post) {
+            Alert::error('Khong thay bai viet', 'Bai viet khong ton tai');
+            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
         }
+        try {
+            $post->forceDelete();
+            Alert::success('Thanh cong', 'Xoa vinh vien bai viet thanh cong');
+            return redirect()->route('admin.post.index')->with('success', 'Xoa bai viet thanh cong!');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('destroy post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     public function delete(string $slug)
     {
-        if (Auth::user()->can('delete post')){
-            $post = Post::where('slug', $slug)->first();
-            if (!$post) {
-                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
-            }
-            try {
-                $post->delete();
-                Alert::success('Thanh cong', 'Xoa bai viet thanh cong');
-                return redirect()->route('admin.post.index')->with('success', 'Xoa bai viet thanh cong!');
-            } catch (\Throwable $th) {
-                Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $post = Post::where('slug', $slug)->first();
+        if (!$post) {
+            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
         }
+        try {
+            $post->delete();
+            Alert::success('Thanh cong', 'Xoa bai viet thanh cong');
+            return redirect()->route('admin.post.index')->with('success', 'Xoa bai viet thanh cong!');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('delete post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     public function deleted()
     {
-        if (Auth::user()->can('deleted post')){
-            $posts = Post::onlyTrashed()->orderBy('id', 'desc')->get();
-            return view('admin.page.post.restore', compact('posts'));
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
+        $posts = Post::onlyTrashed()->orderBy('id', 'desc')->get();
+        return view('admin.page.post.restore', compact('posts'));
+        // if (Auth::user()->can('deleted post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     public function restore(string $slug)
     {
-        if (Auth::user()->can('restore post')){
-            $post = Post::withTrashed()->where("slug", $slug)->first();
-            if (!$post) {
-                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
-            }
-            try {
-                $post->restore();
-                Alert::success('Thanh cong', 'Khoi phuc bai viet thanh cong');
-                return redirect()->route('admin.post.index')->with('success', 'Khoi phuc bai viet thanh cong!');
-            } catch (\Throwable $th) {
-                Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-            }
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $post = Post::withTrashed()->where("slug", $slug)->first();
+        if (!$post) {
+            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
         }
+        try {
+            $post->restore();
+            Alert::success('Thanh cong', 'Khoi phuc bai viet thanh cong');
+            return redirect()->route('admin.post.index')->with('success', 'Khoi phuc bai viet thanh cong!');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+        // if (Auth::user()->can('restore post')){
+        // }else{
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 
     public function search(Request $request, string $keyword)
