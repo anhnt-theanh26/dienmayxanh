@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\AuthenticationlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryParentController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
@@ -180,6 +182,20 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('{id}/', [RoleController::class, 'destroy'])->name('destroy');
         Route::put('/{id}/update', [RoleController::class, 'update'])->name('update');
 
+    });
+
+    // permission
+    Route::prefix('permission')->as('permission.')->group(function () {
+        Route::get('/', [PermissionController::class, 'index'])->name('index');
+        Route::post('/', [PermissionController::class, 'store'])->name('store');
+        Route::delete('{id}/', [PermissionController::class, 'destroy'])->name('destroy');
+        Route::put('/{id}/update', [PermissionController::class, 'update'])->name('update');
+
+    });
+
+    // authenticationlog
+    Route::prefix('authenticationlog')->as('authenticationlog.')->group(function () {
+        Route::get('/', [AuthenticationlogController::class, 'index'])->name('index');
     });
 
 });

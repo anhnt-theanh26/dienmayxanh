@@ -35,7 +35,7 @@
                 <a class="btn btn-success" href="{{ route('admin.product.create') }}" class="text-muted float-end">Create</a>
             </div>
         </div>
-        <div class="card-datatable text-nowrap">
+        <div class="card-datatable">
             <table class="datatables-ajax table">
                 <thead>
                     <tr>

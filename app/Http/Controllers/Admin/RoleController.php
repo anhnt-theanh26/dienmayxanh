@@ -17,9 +17,8 @@ class RoleController extends Controller
         $roles = Role::withCount('users', 'permissions')->get();
         $permissions = Permission::all();
         $groupedPermissions = $permissions->groupBy('group_name');
-        return view("admin.page.role.role", compact("roles", "permissions", "groupedPermissions"));
+        return view("admin.page.role.index", compact("roles", "permissions", "groupedPermissions"));
     }
-
 
     public function store(Request $request)
     {

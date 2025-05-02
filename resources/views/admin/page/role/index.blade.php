@@ -108,19 +108,19 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $role->name }}</td>
                                         <td>
-                                            @if ($user->remember_token)
+                                            @if ($user->authentications->last()->logout_at == null)
                                                 <span class="badge bg-label-success" text-capitalized="">
                                                     <font style="vertical-align: inherit;">
                                                         <font style="vertical-align: inherit;">Active</font>
                                                     </font>
                                                 </span>
                                             @else
-                                            <span class="badge bg-label-secondary" text-capitalized="">Inactive</span>
+                                                <span class="badge bg-label-secondary" text-capitalized="">Inactive</span>
                                             @endif
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <a href="app-user-view-account.html" class="btn btn-sm btn-icon">
+                                                <a href="#" class="btn btn-sm btn-icon">
                                                     <i class="ti ti-eye"></i>
                                                 </a>
                                                 <a href="javascript:;" class="text-body delete-record">

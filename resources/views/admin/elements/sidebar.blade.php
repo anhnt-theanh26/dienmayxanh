@@ -190,8 +190,21 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ route('admin.role.index') }}" class="menu-link">
+                    <a href="{{ route('admin.permission.index') }}" class="menu-link">
                         <div data-i18n="Permission">Permission</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-clock"></i>
+                <div data-i18n="Authentication log">Authentication Log</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{ route('admin.authenticationlog.index') }}" class="menu-link">
+                        <div data-i18n="Index">Index</div>
                     </a>
                 </li>
             </ul>

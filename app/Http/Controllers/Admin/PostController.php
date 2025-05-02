@@ -73,7 +73,7 @@ class PostController extends Controller
             'status' => $request->status,
             'published_at' => $request->published_at,
             'category_id' => $request->category_id,
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
         ];
         try {
             Post::create($data);
