@@ -376,6 +376,7 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         if (!$product) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham');
             return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
         }
         try {
@@ -408,6 +409,7 @@ class ProductController extends Controller
     {
         $product = Product::withTrashed()->where("slug", $slug)->first();
         if (!$product) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham');
             return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
         }
         try {

@@ -13,7 +13,7 @@ class CategoryParentController extends Controller
 {
     public function index()
     {
-        $categoryParents = CategoryParent::orderBy('id', 'desc')->paginate(5);
+        $categoryParents = CategoryParent::orderBy('id', 'desc')->get();
         return view("admin/page/category-parent/index", compact("categoryParents"));
         // if (Auth::user()->can('index category parent')) {
         // } else {
@@ -73,8 +73,8 @@ class CategoryParentController extends Controller
      */
     public function show(string $id)
     {
-        if (Auth::user()->can('show category parent')){
-        }else{
+        if (Auth::user()->can('show category parent')) {
+        } else {
             Alert::error('Không có quyền truy cập');
             return redirect()->route('admin.dashboard');
         }
@@ -117,7 +117,7 @@ class CategoryParentController extends Controller
             ]);
             $request->validate([
                 "name" => "required|string|max:255",
-                "slug" => "required|string|max:255",
+                "slug" => "required|string|max:255|unique:category_parents,slug," . $categoryParent->id,
             ]);
             $data = [
                 'name' => $request['name'],
@@ -143,6 +143,7 @@ class CategoryParentController extends Controller
     {
         $categoryParent = CategoryParent::where('slug', $slug)->first();
         if (!$categoryParent) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc cha');
             return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
         }
         try {
@@ -192,6 +193,7 @@ class CategoryParentController extends Controller
     {
         $categoryParent = CategoryParent::withTrashed()->where("slug", $slug)->first();
         if (!$categoryParent) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc cha');
             return redirect()->route('admin.category-parent.index')->with('error', 'Không tìm thấy danh mục!');
         }
         try {

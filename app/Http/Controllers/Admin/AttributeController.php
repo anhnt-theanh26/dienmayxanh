@@ -76,8 +76,8 @@ class AttributeController extends Controller
      */
     public function show(string $id)
     {
-        if (Auth::user()->can('show attribute')){
-        }else{
+        if (Auth::user()->can('show attribute')) {
+        } else {
             Alert::error('Không có quyền truy cập');
             return redirect()->route('admin.dashboard');
         }
@@ -89,9 +89,9 @@ class AttributeController extends Controller
     public function edit(string $slug)
     {
         $attribute = Attribute::where('slug', $slug)->first();
-        if(!$attribute){
-            Alert::error('Khong tim thay thuoc tinh:');
-            return redirect()->route('admin.attribute.index')->with('error','Khong tim thay thuoc tinh');
+        if (!$attribute) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh:');
+            return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh');
         }
         return view('admin.page.attribute.edit', compact('attribute'));
         // if (Auth::user()->can('edit attribute')){
@@ -108,6 +108,8 @@ class AttributeController extends Controller
     {
         $attribute = Attribute::where('slug', $slug)->first();
         if (!$attribute) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
+            
             return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay bai viet!');
         }
         $originalSlug = Str::slug($request->name);
@@ -122,7 +124,7 @@ class AttributeController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:posts,slug,' . $attribute->id,
+            'slug' => 'nullable|string|max:255|unique:attributes,slug,' . $attribute->id,
         ]);
         $data = [
             'name' => $request->name,
@@ -172,6 +174,7 @@ class AttributeController extends Controller
     {
         $attribute = Attribute::where('slug', $slug)->first();
         if (!$attribute) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
             return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
         }
         try {
@@ -204,6 +207,7 @@ class AttributeController extends Controller
     {
         $attribute = Attribute::withTrashed()->where("slug", $slug)->first();
         if (!$attribute) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
             return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
         }
         try {

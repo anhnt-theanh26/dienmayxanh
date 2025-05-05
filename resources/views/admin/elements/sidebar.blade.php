@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -27,6 +27,9 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Table</span>
+        </li>
         <li class="menu-item {{ request()->routeIs('admin.category-parent.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-folder"></i>
@@ -178,33 +181,61 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Role &amp; Permission</span>
+        </li>
+        <li
+            class="menu-item {{ request()->routeIs('admin.role.*') || request()->routeIs('admin.permission.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-settings"></i>
                 <div data-i18n="Roles & Permissions">Roles & Permissions</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item {{ request()->routeIs('admin.role.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.role.index') }}" class="menu-link">
                         <div data-i18n="Roles">Roles</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ request()->routeIs('admin.permission.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.permission.index') }}" class="menu-link">
                         <div data-i18n="Permission">Permission</div>
                     </a>
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Login Session</span>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.authenticationlog.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-clock"></i>
                 <div data-i18n="Authentication log">Authentication Log</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item {{ request()->routeIs('admin.authenticationlog.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.authenticationlog.index') }}" class="menu-link">
                         <div data-i18n="Index">Index</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Location Menu</span>
+        </li>
+        <li class="menu-item {{ request()->routeIs('admin.menu.*') || request()->routeIs('admin.locationmenu.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-align-left"></i>
+                <div data-i18n="Location Menu">Location Menu</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.menu.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.menu.index') }}" class="menu-link">
+                        <div data-i18n="Menu">Menu</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.locationmenu.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.locationmenu.index') }}" class="menu-link">
+                        <div data-i18n="Location Menu">Location Menu</div>
                     </a>
                 </li>
             </ul>

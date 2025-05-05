@@ -5,7 +5,10 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AuthenticationlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryParentController;
+use App\Http\Controllers\Admin\LocationMenuController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
@@ -198,6 +201,38 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [AuthenticationlogController::class, 'index'])->name('index');
     });
 
+    // Location Menu
+    Route::prefix('locationmenu')->as('locationmenu.')->group(function () {
+        Route::get('/', [LocationMenuController::class, 'index'])->name('index');
+
+        Route::get('/create', [LocationMenuController::class, 'create'])->name('create');
+        Route::post('/', [LocationMenuController::class, 'store'])->name('store');
+
+        Route::get('/{id}/edit', [LocationMenuController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [LocationMenuController::class, 'update'])->name('update');
+
+        Route::delete('/{id}destroy', [LocationMenuController::class, 'destroy'])->name('destroy');
+    });
+
+    // Menu 
+    Route::prefix('menu')->as('menu.')->group(function () {
+        Route::get('/', [MenuController::class, 'index'])->name('index');
+
+        Route::get('/create', [MenuController::class, 'create'])->name('create');
+        Route::post('/', [MenuController::class, 'store'])->name('store');
+
+        Route::get('/{id}/edit', [MenuController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [MenuController::class, 'update'])->name('update');
+
+        Route::delete('/{id}destroy', [MenuController::class, 'destroy'])->name('destroy');
+    });
+    Route::prefix('menuitem')->as('menuitem.')->group(function () {
+        Route::get('/{id}/edit', [MenuItemController::class, 'edit'])->name('edit');
+        Route::post('/{id}/store', [MenuItemController::class, 'store'])->name('store');
+        Route::put('/{id}/update', [MenuItemController::class, 'update'])->name('update');
+
+        Route::get('/{id}destroy', [MenuItemController::class, 'destroy'])->name('destroy');
+    });
 });
 // ckfinder 
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')

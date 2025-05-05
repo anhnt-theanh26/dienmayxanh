@@ -13,7 +13,7 @@ class AuthenticationlogController extends Controller
 {
     // //
     public function index(){
-        $authenticationlogs = Authentication_log::orderByDesc('id')->get();
+        $authenticationlogs = Authentication_log::orderByDesc('id')->paginate(10);
         return view("admin.page.authenticationlog.index",compact("authenticationlogs"));
     }
 

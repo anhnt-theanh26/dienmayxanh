@@ -114,7 +114,7 @@
                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                     <i class="ti ti-chart-bar fs-4"></i>
                                 </span>
-                                <a href="index.html" class="stretched-link">Dashboard</a>
+                                <a href="{{ route('admin.dashboard') }}" class="stretched-link">Dashboard</a>
                                 <small class="text-muted mb-0">User Profile</small>
                             </div>
                             <div class="dropdown-shortcuts-item col">
@@ -388,8 +388,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                    <small class="text-muted">{{ Auth::user()->roles()->first()->name }}</small>
                                 </div>
                             </div>
                         </a>

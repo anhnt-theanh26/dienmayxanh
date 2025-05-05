@@ -36,6 +36,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>User</th>
                         <th>Type</th>
                         <th>Ip</th>
@@ -47,13 +48,12 @@
                 <tbody id="search">
                     @foreach ($authenticationlogs as $item)
                         <tr>
+                            <td>{{ $item->id }}</td>
                             <td>
                                 <ul class="menu-item m-0 p-0">
                                     <li class="menu-item m-0 p-0">Name: {{ $item->user->name }}</li>
                                     <li class="menu-item m-0 p-0">Email: {{ $item->user->email }}</li>
                                     <li class="menu-item m-0 p-0">Phone: {{ $item->user->phone }}</li>
-                                    {{-- <li class="menu-item m-0 p-0">Email: {{ Auth::find($item->authenticatable_id)->name }}</li>
-                                    <li class="menu-item m-0 p-0">Email: {{ Auth::find($item->authenticatable_id)->email }}</li> --}}
                                 </ul>
                             </td>
                             <td>{{ $item->authenticatable_type }}</td>
@@ -65,6 +65,9 @@
                             <td>{{ $item->logout_at }}</td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $authenticationlogs->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>

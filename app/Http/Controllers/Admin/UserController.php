@@ -218,6 +218,7 @@ class UserController extends Controller
     {
         $user = User::where('id', $id)->first();
         if (!$user) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay user');
             return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
         }
         try {
@@ -250,6 +251,7 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->where("id", $id)->first();
         if (!$user) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay user');
             return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
         }
         try {

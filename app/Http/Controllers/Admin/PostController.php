@@ -131,6 +131,7 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->first();
         if (!$post) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
             return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
         }
         $originalSlug = Str::slug($request->title);
@@ -214,6 +215,7 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->first();
         if (!$post) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
             return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
         }
         try {
@@ -246,6 +248,7 @@ class PostController extends Controller
     {
         $post = Post::withTrashed()->where("slug", $slug)->first();
         if (!$post) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
             return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
         }
         try {

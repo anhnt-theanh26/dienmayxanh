@@ -95,6 +95,7 @@
                         <thead>
                             <tr>
                                 <th>User</th>
+                                <th>Email</th>
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -106,14 +107,20 @@
                                 @foreach ($role->users as $user)
                                     <tr>
                                         <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
                                         <td>{{ $role->name }}</td>
                                         <td>
-                                            @if ($user->authentications->last()->logout_at == null)
-                                                <span class="badge bg-label-success" text-capitalized="">
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">Active</font>
-                                                    </font>
-                                                </span>
+                                            @if ($user->authentications->first())
+                                                @if ($user->authentications->first()->logout_at == null || $user->authentications->first()->logout_at == '')
+                                                    <span class="badge bg-label-success" text-capitalized="">
+                                                        <font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">Active</font>
+                                                        </font>
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-label-secondary"
+                                                        text-capitalized="">Inactive</span>
+                                                @endif
                                             @else
                                                 <span class="badge bg-label-secondary" text-capitalized="">Inactive</span>
                                             @endif

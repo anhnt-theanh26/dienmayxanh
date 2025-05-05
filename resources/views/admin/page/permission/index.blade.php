@@ -115,55 +115,6 @@
                                                 Set User
                                             </button>
                                         </form>
-                                        {{-- @if ($roleuser)
-                                                @if ($roleuser->id != $role->id)
-                                                    <form
-                                                        action="{{ route('admin.permission.update', ['id' => $user->id]) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('put')
-                                                        <input type="hidden" name="role_id" value="{{ $role->id }}">
-                                                        @php
-                                                            $title = "Set user $user->name from $roleuser->name to $role->name";
-                                                        @endphp
-                                                        <button onclick='return confirm("{{ $title }}")'
-                                                            class="dropdown-item">
-                                                            <i class="ti ti-pencil me-1"></i>
-                                                            Set {{ Str::ucfirst($role->name) }}
-                                                        </button>
-                                                    </form>
-                                                    @endif
-                                                    <form
-                                                        action="{{ route('admin.permission.update', ['id' => $user->id]) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('put')
-                                                        <input type="hidden" name="role_id" value="user">
-                                                        @php
-                                                            $title = "Set user $user->name to $role->name";
-                                                        @endphp
-                                                        <button onclick='return confirm("{{ $title }}")'
-                                                            class="dropdown-item">
-                                                            <i class="ti ti-pencil me-1"></i>
-                                                            Set User
-                                                        </button>
-                                                    </form>
-                                            @else
-                                                <form action="{{ route('admin.permission.update', ['id' => $user->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('put')
-                                                    <input type="hidden" name="role_id" value="{{ $role->id }}">
-                                                    @php
-                                                        $title = "Set user $user->name to $role->name";
-                                                    @endphp
-                                                    <button onclick='return confirm("{{ $title }}")'
-                                                        class="dropdown-item">
-                                                        <i class="ti ti-pencil me-1"></i>
-                                                        Set {{ Str::ucfirst($role->name) }}
-                                                    </button>
-                                                </form>
-                                            @endif --}}
                                     </div>
                                 </div>
                             </td>

@@ -112,6 +112,7 @@ class CategoryController extends Controller
     {
         $category = Category::where('slug', $slug)->first();
         if (!$category) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
             return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
         }
         try {
@@ -128,7 +129,7 @@ class CategoryController extends Controller
             ]);
             $request->validate([
                 'name' => 'required|string|max:255',
-                'slug' => 'required|string|max:255' . $category->id,
+                'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
                 'image' => 'nullable|url|max:255',
                 'is_hot' => 'nullable',
                 'category_parent_id' => 'required|exists:category_parents,id',
@@ -162,6 +163,7 @@ class CategoryController extends Controller
     {
         $category = Category::onlyTrashed()->where('slug', $slug)->first();
         if (!$category) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
             return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
         }
         try {
@@ -187,6 +189,7 @@ class CategoryController extends Controller
     {
         $category = Category::where('slug', $slug)->first();
         if (!$category) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
             return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
         }
         try {
@@ -217,6 +220,7 @@ class CategoryController extends Controller
     {
         $category = Category::withTrashed()->where("slug", $slug)->first();
         if (!$category) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
             return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
         }
         try {

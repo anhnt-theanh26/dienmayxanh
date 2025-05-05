@@ -77,9 +77,9 @@
                             </td>
                         </tr>
                     @endforeach
-                    <div class="px-4">
+                    {{-- <div class="px-4">
                         {{ $attributes->links('pagination::bootstrap-5') }}
-                    </div>
+                    </div> --}}
                 </tbody>
                 <tfoot>
                     <tr>
