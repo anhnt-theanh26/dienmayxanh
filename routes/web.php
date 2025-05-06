@@ -6,12 +6,15 @@ use App\Http\Controllers\Admin\AuthenticationlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryParentController;
 use App\Http\Controllers\Admin\LocationMenuController;
+use App\Http\Controllers\Admin\LocationProductMenuController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductMenuController;
+use App\Http\Controllers\Admin\ProductMenuItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\client\HomeController;
@@ -226,6 +229,8 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
         Route::delete('/{id}destroy', [MenuController::class, 'destroy'])->name('destroy');
     });
+
+    // Menu Item 
     Route::prefix('menuitem')->as('menuitem.')->group(function () {
         Route::get('/{id}/edit', [MenuItemController::class, 'edit'])->name('edit');
         Route::post('/{id}/store', [MenuItemController::class, 'store'])->name('store');
@@ -233,6 +238,41 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
         Route::get('/{id}destroy', [MenuItemController::class, 'destroy'])->name('destroy');
     });
+
+    // Product Location Menu
+    Route::prefix('locationproductmenu')->as('locationproductmenu.')->group(function () {
+        Route::get('/', [LocationProductMenuController::class, 'index'])->name('index');
+
+        Route::get('/create', [LocationProductMenuController::class, 'create'])->name('create');
+        Route::post('/', [LocationProductMenuController::class, 'store'])->name('store');
+
+        Route::get('/{id}/edit', [LocationProductMenuController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [LocationProductMenuController::class, 'update'])->name('update');
+
+        Route::delete('/{id}destroy', [LocationProductMenuController::class, 'destroy'])->name('destroy');
+    });
+
+    // Product Menu 
+    Route::prefix('productmenu')->as('productmenu.')->group(function () {
+        Route::get('/', [ProductMenuController::class, 'index'])->name('index');
+
+        Route::get('/create', [ProductMenuController::class, 'create'])->name('create');
+        Route::post('/', [ProductMenuController::class, 'store'])->name('store');
+
+        Route::get('/{id}/edit', [ProductMenuController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [ProductMenuController::class, 'update'])->name('update');
+
+        Route::delete('/{id}destroy', [ProductMenuController::class, 'destroy'])->name('destroy');
+    });
+
+    // Product Menu Item 
+    Route::prefix('productmenuitem')->as('productmenuitem.')->group(function () {
+        Route::get('/{id}/edit', [ProductMenuItemController::class, 'edit'])->name('edit');   
+        Route::post('/{id}/store', [ProductMenuItemController::class, 'store'])->name('store');
+        Route::put('/{id}/update', [ProductMenuItemController::class, 'update'])->name('update');
+        Route::get('/{id}destroy', [ProductMenuItemController::class, 'destroy'])->name('destroy');
+    });
+
 });
 // ckfinder 
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
@@ -244,8 +284,4 @@ Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderCon
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
 });
-// Route::get('/send-test-email', function () {
-//     Mail::to('anhntph43180@fpt.edu.vn')->send(new SendEmail());
-//     Alert::success('Thanh cong', 'Gui mail thanh cong');
-//     return 'Test email sent!';
-// });
+

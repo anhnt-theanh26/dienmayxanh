@@ -38,7 +38,7 @@
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('admin.category-parent.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.category-parent.index') }}" class="menu-link">
-                        <div data-i18n="List">List</div>
+                        <div data-i18n="Index">Index</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.category-parent.create') ? 'active' : '' }}">
@@ -61,7 +61,7 @@
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('admin.category.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.category.index') }}" class="menu-link">
-                        <div data-i18n="List">List</div>
+                        <div data-i18n="Index">Index</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.category.create') ? 'active' : '' }}">
@@ -84,7 +84,7 @@
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('admin.post.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.post.index') }}" class="menu-link">
-                        <div data-i18n="List">List</div>
+                        <div data-i18n="Index">Index</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.post.create') ? 'active' : '' }}">
@@ -107,7 +107,7 @@
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('admin.attribute.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.attribute.index') }}" class="menu-link">
-                        <div data-i18n="List">List</div>
+                        <div data-i18n="Index">Index</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.attribute.create') ? 'active' : '' }}">
@@ -130,7 +130,7 @@
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('admin.product.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.product.index') }}" class="menu-link">
-                        <div data-i18n="List">List</div>
+                        <div data-i18n="Index">Index</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.product.create') ? 'active' : '' }}">
@@ -153,7 +153,7 @@
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('admin.user.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.user.index') }}" class="menu-link">
-                        <div data-i18n="List">List</div>
+                        <div data-i18n="Index">Index</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.user.create') ? 'active' : '' }}">
@@ -176,7 +176,7 @@
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('admin.image.image') ? 'active' : '' }}">
                     <a href="{{ route('admin.image.image') }}" class="menu-link">
-                        <div data-i18n="List">List</div>
+                        <div data-i18n="Index">Index</div>
                     </a>
                 </li>
             </ul>
@@ -220,7 +220,7 @@
             </ul>
         </li>
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Location Menu</span>
+            <span class="menu-header-text">Location</span>
         </li>
         <li class="menu-item {{ request()->routeIs('admin.menu.*') || request()->routeIs('admin.locationmenu.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -240,6 +240,25 @@
                 </li>
             </ul>
         </li>
+        <li class="menu-item {{ request()->routeIs('admin.productmenu.*') || request()->routeIs('admin.locationproductmenu.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-align-left"></i>
+                <div data-i18n="Location Product">Location Product</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.productmenu.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.productmenu.index') }}" class="menu-link">
+                        <div data-i18n="Menu Product">Menu Product</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.locationproductmenu.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.locationproductmenu.index') }}" class="menu-link">
+                        <div data-i18n="Location Product">Location Product</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         {{-- <!-- Dashboards -->
         <li class="menu-item active open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

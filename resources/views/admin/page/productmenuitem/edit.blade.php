@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Menu Item /</span> Update</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product Menu Item /</span> Update</h4>
     <div class="card-body">
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -38,7 +38,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.menuitem.store', ['id' => $menu->id]) }}" method="post"
+                    <form action="{{ route('admin.productmenuitem.store', ['id' => $productmenu->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="card mb-4">
@@ -46,7 +46,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        value="{{ $menu->name }}" placeholder="Name" />
+                                        value="{{ $productmenu->name }}" placeholder="Name" />
                                 </div>
                                 <div class="col-md mb-4 mb-md-2">
                                     <small class="text-light fw-semibold">Thuoc tinh</small>
@@ -77,27 +77,6 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                        <div class="card accordion-item">
-                                            <h2 class="accordion-header d-flex align-items-center">
-                                                <button type="button" class="accordion-button collapsed"
-                                                    data-bs-toggle="collapse" data-bs-target="#accordioncreate"
-                                                    aria-expanded="false">
-                                                    Tự tạo đường dẫn
-                                                </button>
-                                            </h2>
-        
-                                            <div id="accordioncreate" class="accordion-collapse collapse"
-                                                style="">
-                                                <div class="accordion-body">
-                                                    <label class="form-label" for="basic-default-name">Name</label>
-                                                    <input type="text" class="form-control" name="name_menu_item"
-                                                        id="basic-default-name" placeholder="Tên hiển thị">
-                                                    <label class="form-label" for="basic-default-name">Link</label>
-                                                    <input type="text" class="form-control" id="basic-default-name"
-                                                        placeholder="Đường dẫn http" name="link_menu_item">
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -114,7 +93,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.menuitem.update', ['id' => $menu->id]) }}" method="post"
+                    <form action="{{ route('admin.productmenuitem.update', ['id' => $productmenu->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -124,19 +103,19 @@
                                     <div class="col-12 mb-md-0 mb-4">
                                         <p>Vị trí đứng menu item</p>
                                         <ul class="list-group list-group-flush" id="handle-list-2">
-                                            @foreach ($menuitems as $menuitem)
+                                            @foreach ($productmenuitems as $productmenuitem)
                                                 <li
                                                     class="list-group-item lh-1 d-flex justify-content-between align-items-center">
                                                     <span class="d-flex justify-content-between align-items-center">
                                                         <i
                                                             class="drag-handle cursor-move ti ti-menu-2 align-text-bottom me-2"></i>
                                                         <input type="hidden" name="location_stand[]"
-                                                            value="{{ $menuitem->id }}">
-                                                        <span>{{ $menuitem->name }}</span>
+                                                            value="{{ $productmenuitem->id }}">
+                                                        <span>{{ $productmenuitem->name }}</span>
                                                     </span>
                                                     <span class="d-flex justify-content-between align-items-center">
                                                         <a class="dropdown-item" onclick="return confirm('Xoa?')"
-                                                            href="{{ route('admin.menuitem.destroy', ['id' => $menuitem->id]) }}">
+                                                            href="{{ route('admin.productmenuitem.destroy', ['id' => $productmenuitem->id]) }}">
                                                             <i class="ti ti-trash me-1"></i>
                                                         </a>
                                                     </span>
@@ -149,6 +128,7 @@
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>

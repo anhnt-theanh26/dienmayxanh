@@ -63,7 +63,7 @@ class ProductController extends Controller
             'is_hot' => 'nullable|boolean',
             'category_id' => 'required|exists:categories,id',
             // images table 
-            'images' => 'nullable|url|max:255',
+            'images' => 'nullable|url',
             // attributes table
             'attribute_value' => 'nullable|array',
             'attribute_value.*' => 'array',
@@ -218,7 +218,7 @@ class ProductController extends Controller
             'is_hot' => 'nullable|boolean',
             'category_id' => 'required|exists:categories,id',
             // images table 
-            'images' => 'nullable|url|max:255',
+            'images' => 'nullable|url',
             // attributes table
             'attribute_value' => 'nullable|array',
             'attribute_value.*' => 'array',

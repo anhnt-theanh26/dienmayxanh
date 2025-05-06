@@ -14,7 +14,7 @@
     <!--hết header  -->
 
     <main>
-        @include('client.element.main')
+        @yield('content')
     </main>
 
     <footer>

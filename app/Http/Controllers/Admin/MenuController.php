@@ -73,10 +73,22 @@ class MenuController extends Controller
      */
     public function edit(string $id)
     {
-        //
-        $menu = Menu::where('id', $id)->first();
-        $locationmenus = Locationmenu::where('status', true)->get();
-        return view('admin.page.menu.edit', compact('menu', 'locationmenus'));
+        try {
+            $menu = Menu::where('id', $id)->first();
+            if (!$menu) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
+                return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
+            }
+            $locationmenus = Locationmenu::where('status', true)->get();
+            if (!$locationmenus) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay location menus');
+                return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay location menus!');
+            }
+            return view('admin.page.menu.edit', compact('menu', 'locationmenus'));
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra', $th->getMessage());
+            return redirect()->route('admin.menu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
     }
 
     /**
@@ -87,14 +99,14 @@ class MenuController extends Controller
         $menu = Menu::where('id', $id)->first();
         if (!$menu) {
             Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
-            return redirect()->route('admin.locationmenu.index')->with('error', 'Khong tim thay menu!');
+            return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
         }
         try {
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;
             while (
-                Locationmenu::where('id', $newSlug)->where('slug', '!=', $menu->slug)->exists()
+                Menu::where('id', $id)->where('slug', '!=', $menu->slug)->exists()
             ) {
                 $newSlug = $originalSlug . '-' . $count++;
             }
@@ -104,18 +116,19 @@ class MenuController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'slug' => 'required|string|max:255|unique:locationmenus,slug,' . $menu->id,
+                'locationmenu_id' => 'required|exists:locationmenus,id',
             ]);
             $data = [
                 'name' => $request->name,
                 'slug' => $newSlug,
-                'status' => $request->has('status') ? true : false,
+                'locationmenu_id' => $request->locationmenu_id,
             ];
             $menu->update($data);
             Alert::success('Thanh cong', 'Cap nhap menu thanh cong');
-            return redirect()->route('admin.locationmenu.index')->with('success', 'Cập nhật thành công!');
+            return redirect()->route('admin.menu.index')->with('success', 'Cập nhật thành công!');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra', $th->getMessage());
-            return redirect()->route('admin.locationmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            return redirect()->route('admin.menu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
 
@@ -124,6 +137,18 @@ class MenuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $menu = Menu::where('id', $id)->first();
+        if (!$menu) {
+            Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
+            return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
+        }
+        try {
+            $menu->delete();
+            Alert::success('Thanh cong', 'Xoa menu thanh cong');
+            return redirect()->route('admin.menu.index')->with('success', 'Xoa thanh cong thành công!');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra', $th->getMessage());
+            return redirect()->route('admin.menu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
     }
 }

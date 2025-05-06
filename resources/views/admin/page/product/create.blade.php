@@ -174,10 +174,10 @@
                                                     class="btnAddImage">
                                                     <div class="input-group"
                                                         style="position: relative; display: inline-block; width: 100px;">
-                                                        <img id="img" class="btn-image rounded-1"
+                                                        <img id="img" class="btn-images rounded-1"
                                                             src="{{ asset('./storage/default.jpg') }}" width="100px"
                                                             alt="Image">
-                                                        <button type="button" class="btn btn-light btn-image"
+                                                        <button type="button" class="btn btn-light btn-images"
                                                             id="choose-button"
                                                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
                                                                        background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
@@ -188,6 +188,9 @@
                                                 <div class="previewThumbnailList" style="display: flex; flex-wrap: wrap;">
                                                 </div>
                                             </div>
+                                            @error('images')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

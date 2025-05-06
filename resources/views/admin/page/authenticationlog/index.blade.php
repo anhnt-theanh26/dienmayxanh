@@ -36,7 +36,6 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>User</th>
                         <th>Type</th>
                         <th>Ip</th>
@@ -48,7 +47,6 @@
                 <tbody id="search">
                     @foreach ($authenticationlogs as $item)
                         <tr>
-                            <td>{{ $item->id }}</td>
                             <td>
                                 <ul class="menu-item m-0 p-0">
                                     <li class="menu-item m-0 p-0">Name: {{ $item->user->name }}</li>

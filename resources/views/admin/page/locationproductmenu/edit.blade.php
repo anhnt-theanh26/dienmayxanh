@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Location Menu /</span> Update</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Location Product Menu /</span> Update</h4>
     <div class="card-body">
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -38,7 +38,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.locationmenu.update', ['id' => $locationmenu->id]) }}" method="post"
+                    <form action="{{ route('admin.locationproductmenu.update', ['id' => $locationproductmenu->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -48,20 +48,20 @@
                                   <div class="mb-3">
                                       <label class="form-label" for="name">Name</label>
                                       <input type="text" class="form-control" id="name" name="name"
-                                          value="{{ $locationmenu->name }}" placeholder="Name" />
+                                          value="{{ $locationproductmenu->name }}" placeholder="Name" />
                                   </div>
                                   <div class="mb-3">
                                       <label class="switch switch-primary">
                                           <input type="checkbox" class="switch-input" name="status"
-                                              {{ $locationmenu->status ? 'checked' : '' }}>
+                                              {{ $locationproductmenu->status ? 'checked' : '' }}>
                                           <span class="switch-toggle-slider">
                                               <span class="switch-on"></span>
                                               <span class="switch-off"></span>
                                           </span>
-                                          <span class="switch-label">Status</span>
+                                          <span class="switch-label">Is Hot</span>
                                       </label>
                                   </div>
-                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                  <button type="submit" class="btn btn-warning">Submit</button>
                               </div>
                             </div>
                           </div>

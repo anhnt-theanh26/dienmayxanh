@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Locationmenu;
+use App\Models\Locationproductmenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
-
-class LocationMenuController extends Controller
+class LocationProductMenuController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $locationmenus = Locationmenu::all();
-        return view("admin.page.locationmenu.index", compact('locationmenus'));
+        $locationproductmenus = Locationproductmenu::get();
+        return view("admin.page.locationproductmenu.index", compact('locationproductmenus'));
     }
 
     /**
@@ -24,7 +23,7 @@ class LocationMenuController extends Controller
      */
     public function create()
     {
-        return view('admin.page.locationmenu.create');
+        return view('admin.page.locationproductmenu.create');
     }
 
     /**
@@ -36,7 +35,7 @@ class LocationMenuController extends Controller
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
-            while (Locationmenu::where('slug', $slug)->exists()) {
+            while (Locationproductmenu::where('slug', $slug)->exists()) {
                 $slug = $originalSlug . '-' . $count++;
             }
             $request->merge(['slug' => $slug]);
@@ -49,13 +48,12 @@ class LocationMenuController extends Controller
                 'slug' => $slug,
                 'status' => $request->has('status') ? true : false,
             ];
-
-            Locationmenu::create($data);
-            Alert::success('Thanh cong', 'Them moi vi tri menu thanh cong');
-            return redirect()->route('admin.locationmenu.index')->with('success', 'Thêm mới vị trí menu thành công');
+            Locationproductmenu::create($data);
+            Alert::success('Thanh cong', 'Them moi vi tri product menu thanh cong');
+            return redirect()->route('admin.locationproductmenu.index')->with('success', 'Thêm mới vị trí product menu thành công');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra', $th->getMessage());
-            return redirect()->route('admin.locationmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            return redirect()->route('admin.locationproductmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
 
@@ -73,15 +71,15 @@ class LocationMenuController extends Controller
     public function edit(string $id)
     {
         try {
-            $locationmenu = Locationmenu::where('id', $id)->first();
-            if (!$locationmenu) {
+            $locationproductmenu = Locationproductmenu::where('id', $id)->first();
+            if (!$locationproductmenu) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
-                return redirect()->route('admin.locationmenu.index')->with('error', 'Khong tim thay danh muc!');
+                return redirect()->route('admin.locationproductmenu.index')->with('error', 'Khong tim thay danh muc!');
             }
-            return view('admin.page.locationmenu.edit', compact('locationmenu'));
+            return view("admin.page.locationproductmenu.edit", compact('locationproductmenu'));
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra', $th->getMessage());
-            return redirect()->route('admin.locationmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            return redirect()->route('admin.locationproductmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
 
@@ -91,16 +89,16 @@ class LocationMenuController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $locationmenu = Locationmenu::where('id', $id)->first();
-            if (!$locationmenu) {
+            $locationproductmenu = Locationproductmenu::where('id', $id)->first();
+            if (!$locationproductmenu) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
-                return redirect()->route('admin.locationmenu.index')->with('error', 'Khong tim thay danh muc!');
+                return redirect()->route('admin.locationproductmenu.index')->with('error', 'Khong tim thay danh muc!');
             }
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;
             while (
-                Locationmenu::where('id', $newSlug)->where('slug', '!=', $locationmenu->slug)->exists()
+                Locationproductmenu::where('id', $newSlug)->where('slug', '!=', $locationproductmenu->slug)->exists()
             ) {
                 $newSlug = $originalSlug . '-' . $count++;
             }
@@ -109,19 +107,19 @@ class LocationMenuController extends Controller
             ]);
             $request->validate([
                 'name' => 'required|string|max:255',
-                'slug' => 'required|string|max:255|unique:locationmenus,slug,' . $locationmenu->id,
+                'slug' => 'required|string|max:255|unique:locationproductmenus,slug,' . $locationproductmenu->id,
             ]);
             $data = [
                 'name' => $request->name,
                 'slug' => $newSlug,
                 'status' => $request->has('status') ? true : false,
             ];
-            $locationmenu->update($data);
-            Alert::success('Thanh cong', 'Cap nhap vi tri menu thanh cong');
-            return redirect()->route('admin.locationmenu.index')->with('success', 'Cập nhật thành công!');
+            $locationproductmenu->update($data);
+            Alert::success('Thanh cong', 'Cap nhap vi tri product menu thanh cong');
+            return redirect()->route('admin.locationproductmenu.index')->with('success', 'Cập nhật thành công!');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra', $th->getMessage());
-            return redirect()->route('admin.locationmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            return redirect()->route('admin.locationproductmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
 
@@ -130,18 +128,18 @@ class LocationMenuController extends Controller
      */
     public function destroy(string $id)
     {
-        $locationmenu = Locationmenu::where('id', $id)->first();
-        if (!$locationmenu) {
+        $locationproductmenu = Locationproductmenu::where('id', $id)->first();
+        if (!$locationproductmenu) {
             Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
-            return redirect()->route('admin.locationmenu.index')->with('error', 'Khong tim thay danh muc!');
+            return redirect()->route('admin.locationproductmenu.index')->with('error', 'Khong tim thay danh muc!');
         }
         try {
-            $locationmenu->delete();
+            $locationproductmenu->delete();
             Alert::success('Thanh cong', 'Xoa vi tri menu thanh cong');
-            return redirect()->route('admin.locationmenu.index')->with('success', 'Xoa thanh cong thành công!');
+            return redirect()->route('admin.locationproductmenu.index')->with('success', 'Xoa thanh cong thành công!');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra', $th->getMessage());
-            return redirect()->route('admin.locationmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            return redirect()->route('admin.locationproductmenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
 }

@@ -52,602 +52,72 @@
                         alt="">
                 </a>
                 <li class="drop-down">
-                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-justify" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-                        </svg> Danh mục</a>
+                        </svg> Danh mục
+                    </a>
 
                     <div class="mega-menu fadeIn animated rounded-1">
                         <div class="mm-3column">
                             <span class="categories-list">
                                 <ul>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Chương trình hot</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Điện tử, điện máy</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Điện gia dụng</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Điện tử viễn thông</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Đồ gia dụng</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Phụ kiện</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Máy cũ trưng bày</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Sản phẩm khác</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Thông tin</li>
-                                    <li class="menu-item border py-2"
-                                        style="margin: 0 -10px; padding-left: 10px;">
-                                        Dịch vụ tiện ích</li>
+                                    @foreach ($categoryparents as $categoryparent)
+                                        <li class="menu-item border py-2" style="margin: 0 -10px; padding-left: 10px;">
+                                            {{ $categoryparent->name }}
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </span>
                         </div>
 
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Chương trình hot
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
+                        @foreach ($categoryparents as $categoryparent)
+                            <div class="mm-6column submenu" style="margin-left: -20px;">
+                                <div class="row mx-2">
+                                    <p style="margin-left: 10px;" class="fw-bold">
+                                        {{ $categoryparent->name }}
+                                    </p>
+                                    @foreach ($categoryparent->categories as $category)
+                                        <div class="col-2">
+                                            <div class="submenu-content text-center">
+                                                <a href="#">
+                                                    <img src="{{ asset($category->image) }}" width="48"
+                                                        height="48" alt="">
+                                                </a>
+                                                <h6 style="font-weight: normal; font-size: 12px;">
+                                                    {{ $category->name }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Điện tử, điện máy
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Điện gia dụng
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Điện tử viễn thông
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Đồ gia dụng
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Phụ kiện
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Máy cũ trưng bày
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Sản phẩm khác
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Thông tin
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mm-6column submenu" style="margin-left: -20px;">
-                            <div class="row mx-2">
-                                <p style="margin-left: 10px;" class="fw-bold">
-                                    Dịch vụ tiện ích
-                                </p>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="submenu-content text-center">
-                                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Common/70/6d/706d8c2e4e66339775b17916d4348cb0.png"
-                                            width="48" height="48" alt="">
-                                        <h6 style="font-weight: normal; font-size: 12px;">Hàng cao cấp giảm đến
-                                            50%
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <script>
                         const menuItems = document.querySelectorAll('.menu-item');
                         const submenus = document.querySelectorAll('.submenu');
                         menuItems.forEach((item, index) => {
-                            item.addEventListener('mouseenter', function () {
+                            item.addEventListener('mouseenter', function() {
                                 submenus.forEach(submenu => submenu.style.display = 'none');
                                 if (submenus[index]) {
                                     submenus[index].style.display = 'block';
                                 }
                             });
 
-                            item.addEventListener('mouseleave', function () {
+                            item.addEventListener('mouseleave', function() {
                                 if (submenus[index]) {
                                     submenus[index].style.display = 'none';
                                 }
                             });
                         });
                         submenus.forEach(submenu => {
-                            submenu.addEventListener('mouseenter', function () {
+                            submenu.addEventListener('mouseenter', function() {
                                 submenu.style.display = 'block';
                             });
-                            submenu.addEventListener('mouseleave', function () {
+                            submenu.addEventListener('mouseleave', function() {
                                 submenu.style.display = 'none';
                             });
                         });
@@ -713,10 +183,12 @@
                                         <div class="m-0 p-0">Hoặc chọn</div>
                                     </div>
                                     <div class="css_select_div">
-                                        <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành">
+                                        <select class="css_select" id="tinh" name="tinh"
+                                            title="Chọn Tỉnh Thành">
                                             <option value="0">Tỉnh Thành</option>
                                         </select>
-                                        <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
+                                        <select class="css_select" id="quan" name="quan"
+                                            title="Chọn Quận Huyện">
                                             <option value="0">Quận Huyện</option>
                                         </select>
                                         <select class="css_select" id="phuong" name="phuong"
@@ -734,39 +206,15 @@
         </nav>
     </div>
 </div>
+
 <section>
     <div class="d-flex justify-content-center" style="background-color: #eaecf0;">
         <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link text-primary" aria-current="page" href="#">máy lạnh</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">tủ lạnh</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">tủ lạnh</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">quạt điều hòa</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">quạt mát</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">máy ép trái cây</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">Vay tiền mặt</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">máy xay sinh tố</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">hàng trưng bày</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-primary" href="#">hút bụi trên giường</a>
-            </li>
+            @foreach ($menus->first()->menus->first()->menuitems->take(10) as $menuitem)
+                <li class="nav-item">
+                    <a class="nav-link text-primary" aria-current="page" href="#">{{ $menuitem->name }}</a>
+                </li>
+            @endforeach
         </ul>
     </div>
 </section>
