@@ -19,7 +19,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.attribute.update', ['slug' => $attribute->slug]) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.attribute.update', ['id' => $attribute->id]) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="col-12">

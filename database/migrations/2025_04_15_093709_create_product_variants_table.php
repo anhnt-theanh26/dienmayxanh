@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('price',20,2);
+            $table->decimal('price',20,0);
+            $table->decimal('price_old', 20, 0);
             $table->integer('stock_quantity')->unsigned()->nullable();
             $table->enum('status', ['draft', 'published'])->default('draft');
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');

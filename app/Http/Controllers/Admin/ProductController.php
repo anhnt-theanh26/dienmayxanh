@@ -47,45 +47,46 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $originalSlug = Str::slug($request->sku);
-        $slug = $originalSlug;
-        $count = 1;
-        while (Product::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $count++;
-        }
-        $request->merge(['slug' => $slug]);
-        $validated = $request->validate([
-            'sku' => 'required|string|max:255|unique:products,sku',
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'slug' => 'nullable|string|max:255|unique:products,slug',
-            'image' => 'nullable|url|max:255',
-            'is_hot' => 'nullable|boolean',
-            'category_id' => 'required|exists:categories,id',
-            // images table 
-            'images' => 'nullable|url',
-            // attributes table
-            'attribute_value' => 'nullable|array',
-            'attribute_value.*' => 'array',
-            'attribute_value.*.*' => 'required|string|max:255',
-            // variants table
-            'variants' => 'required|array|min:1',
-            'variants.*.name' => 'required|string|max:255',
-            'variants.*.price' => 'required|numeric|min:0',
-            'variants.*.stock_quantity' => 'required|integer|min:0',
-            'variants.*.status' => 'required|in:draft,published',
-        ]);
-        $dataProduct = [
-            'sku' => $request->sku,
-            'name' => $request->name,
-            'description' => $request->description,
-            'slug' => $slug,
-            'image' => $request->image,
-            'view_count' => 0,
-            'is_hot' => $request->has('is_hot') ? true : false,
-            'category_id' => $request->category_id,
-        ];
         try {
+            $originalSlug = Str::slug($request->sku);
+            $slug = $originalSlug;
+            $count = 1;
+            while (Product::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
+            }
+            $request->merge(['slug' => $slug]);
+            $validated = $request->validate([
+                'sku' => 'required|string|max:255|unique:products,sku',
+                'name' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'slug' => 'nullable|string|max:255|unique:products,slug',
+                'image' => 'nullable|url|max:255',
+                'is_hot' => 'nullable|boolean',
+                'category_id' => 'required|exists:categories,id',
+                // images table 
+                'images' => 'nullable|url',
+                // attributes table
+                'attribute_value' => 'nullable|array',
+                'attribute_value.*' => 'array',
+                'attribute_value.*.*' => 'required|string|max:255',
+                // variants table
+                'variants' => 'required|array|min:1',
+                'variants.*.name' => 'required|string|max:255',
+                'variants.*.price' => 'required|numeric|min:0',
+                'variants.*.price_old' => 'required|numeric|min:0',
+                'variants.*.stock_quantity' => 'required|integer|min:0',
+                'variants.*.status' => 'required|in:draft,published',
+            ]);
+            $dataProduct = [
+                'sku' => $request->sku,
+                'name' => $request->name,
+                'description' => $request->description,
+                'slug' => $slug,
+                'image' => $request->image,
+                'view_count' => 0,
+                'is_hot' => $request->has('is_hot') ? true : false,
+                'category_id' => $request->category_id,
+            ];
             $product = Product::create($dataProduct);
             if (!empty($request->images)) {
                 $imagesInput = $request->images;
@@ -101,6 +102,7 @@ class ProductController extends Controller
                     $dataVariants[] = [
                         'name' => $variant['name'],
                         'price' => $variant['price'],
+                        'price_old' => $variant['price_old'],
                         'stock_quantity' => $variant['stock_quantity'],
                         'status' => $variant['status'],
                         'product_id' => $product->id,
@@ -145,14 +147,19 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $slug)
+    public function show(string $id)
     {
-        $product = Product::where('slug', $slug)->first();
-        if (!$product) {
-            Alert::error('Khong tim thay san pham:');
-            return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham');
+        try {
+            $product = Product::where('id', $id)->first();
+            if (!$product) {
+                Alert::error('Khong tim thay san pham:');
+                return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham');
+            }
+            return view('admin.page.product.show', compact('product'));
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        return view('admin.page.product.show', compact('product'));
         // if (Auth::user()->can('show product')){
         // }else{
         //     Alert::error('Không có quyền truy cập');
@@ -163,16 +170,21 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $slug)
+    public function edit(string $id)
     {
-        $product = Product::where('slug', $slug)->first();
-        $attributes = Attribute::orderBy('id', 'desc')->get();
-        $categories = Category::orderBy('id', 'desc')->get();
-        if (!$product) {
-            Alert::error('Khong tim thay san pham:');
-            return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham');
+        try {
+            $product = Product::where('id', $id)->first();
+            $attributes = Attribute::orderBy('id', 'desc')->get();
+            $categories = Category::orderBy('id', 'desc')->get();
+            if (!$product) {
+                Alert::error('Khong tim thay san pham:');
+                return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham');
+            }
+            return view('admin.page.product.edit', compact('categories', 'product', 'attributes'));
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        return view('admin.page.product.edit', compact('categories', 'product', 'attributes'));
         // if (Auth::user()->can('edit product')){
         // }else{
         //     Alert::error('Không có quyền truy cập');
@@ -192,67 +204,70 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, string $id)
     {
-        $product = Product::where('slug', $slug)->first();
-        if (!$product) {
-            Alert::error('Khong tim thay san pham:');
-            return redirect()->route('admin.product.index')->with('error', 'Không tìm thấy sản phẩm');
-        }
-
-        $originalSlug = Str::slug($request->sku);
-        $newSlug = $originalSlug;
-        $count = 1;
-        while (Product::where('slug', $newSlug)->where('slug', '!=', $product->newSlug)->exists()) {
-            $newSlug = $originalSlug . '-' . $count++;
-        }
-        $request->merge([
-            'slug' => $newSlug
-        ]);
-        $validated = $request->validate([ // validate
-            'sku' => 'required|string|max:255|unique:products,sku,' . $product->id,
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'slug' => 'nullable|string|max:255|unique:products,slug,' . $product->id,
-            'image' => 'nullable|url|max:255',
-            'is_hot' => 'nullable|boolean',
-            'category_id' => 'required|exists:categories,id',
-            // images table 
-            'images' => 'nullable|url',
-            // attributes table
-            'attribute_value' => 'nullable|array',
-            'attribute_value.*' => 'array',
-            'attribute_value.*.*' => 'required|string|max:255',
-            'old_attribute_value' => 'nullable|array',
-            'old_attribute_value.*' => 'array',
-            'old_attribute_value.*.*' => 'required|string|max:255',
-            // variants table
-            'variants' => 'required|array|min:1',
-            'variants.*.name' => 'required|string|max:255',
-            'variants.*.price' => 'required|numeric|min:0',
-            'variants.*.stock_quantity' => 'required|integer|min:0',
-            'variants.*.status' => 'required|in:draft,published',
-        ]);
-        $dataProduct = [ // dataproduct
-            'sku' => $request->sku,
-            'name' => $request->name,
-            'description' => $request->description,
-            'slug' => $newSlug,
-            'image' => $request->image,
-            'view_count' => 0,
-            'is_hot' => $request->has('is_hot') ? true : false,
-            'category_id' => $request->category_id,
-        ];
         try {
+            $product = Product::where('id', $id)->first();
+            if (!$product) {
+                Alert::error('Khong tim thay san pham:');
+                return redirect()->route('admin.product.index')->with('error', 'Không tìm thấy sản phẩm');
+            }
+
+            $originalSlug = Str::slug($request->sku);
+            $newSlug = $originalSlug;
+            $count = 1;
+            while (Product::where('slug', $newSlug)->where('id', '!=', $product->id)->exists()) {
+                $newSlug = $originalSlug . '-' . $count++;
+            }
+            $request->merge([
+                'slug' => $newSlug
+            ]);
+            $validated = $request->validate([ // validate
+                'sku' => 'required|string|max:255|unique:products,sku,' . $product->id,
+                'name' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'slug' => 'nullable|string|max:255|unique:products,slug,' . $product->id,
+                'image' => 'nullable|url|max:255',
+                'is_hot' => 'nullable|boolean',
+                'category_id' => 'required|exists:categories,id',
+                // images table 
+                'images' => 'nullable|url',
+                // attributes table
+                'attribute_value' => 'nullable|array',
+                'attribute_value.*' => 'array',
+                'attribute_value.*.*' => 'required|string|max:255',
+                'old_attribute_value' => 'nullable|array',
+                'old_attribute_value.*' => 'array',
+                'old_attribute_value.*.*' => 'required|string|max:255',
+                // variants table
+                'variants' => 'required|array|min:1',
+                'variants.*.name' => 'required|string|max:255',
+                'variants.*.price' => 'required|numeric|min:0',
+                'variants.*.price_old' => 'required|numeric|min:0',
+                'variants.*.stock_quantity' => 'required|integer|min:0',
+                'variants.*.status' => 'required|in:draft,published',
+            ]);
+            $dataProduct = [ // dataproduct
+                'sku' => $request->sku,
+                'name' => $request->name,
+                'description' => $request->description,
+                'slug' => $newSlug,
+                'image' => $request->image,
+                'view_count' => 0,
+                'is_hot' => $request->has('is_hot') ? true : false,
+                'category_id' => $request->category_id,
+            ];
             $product->update($dataProduct); // update product
+
             if (!empty($request->imageUrlOld)) { // images
-                $imagesOld = json_decode(ProductImage::where('product_id', $product->id)->first()->image, true);
+                $productImages = ProductImage::where('product_id', $product->id)->first();
+                $imagesOld = $productImages ? json_decode($productImages->image, true) : null;
                 $imageArrDel = explode(',end,', $request->imageUrlOld);
                 $imageArrNew = $this->remove_items_once($imagesOld, $imageArrDel);
                 if (!empty($request->images)) {
                     $imagesInput = $request->images;
                     $imagesArray = explode(',end,', $imagesInput);
-                    $imageArrayNew = array_merge($imageArrNew, $imagesArray);
+                    $imageArrayNew = array_merge($imageArrNew ? $imageArrNew : [], $imagesArray ? $imagesArray : []);
                     $dataImages = [
                         'image' => json_encode($imageArrayNew),
                         'product_id' => $product->id,
@@ -265,16 +280,24 @@ class ProductController extends Controller
                 }
                 $product->images()->update($dataImages); // update images
             } else { // images
-                $imagesOld = json_decode(ProductImage::where('product_id', $product->id)->first()->image, true);
+                $productImages = ProductImage::where('product_id', $product->id)->first();
+                $imagesOld = $productImages ? json_decode($productImages->image, true) : null;
                 if (!empty($request->images)) {
                     $imagesInput = $request->images;
                     $imagesArray = explode(',end,', $imagesInput);
-                    $imageArrayNew = array_merge($imagesOld, $imagesArray);
-                    $dataImages = [
-                        'image' => json_encode($imageArrayNew),
-                        'product_id' => $product->id,
-                    ];
-                    $product->images()->update($dataImages); // update images
+                    $imageArrayNew = array_merge($imagesOld ? $imagesOld : [], $imagesArray ? $imagesArray : []);
+                    if ($imagesOld == null) {
+                        ProductImage::create([
+                            'image' => json_encode($imageArrayNew),
+                            'product_id' => $product->id,
+                        ]);
+                    } else {
+                        $dataImages = [
+                            'image' => json_encode($imageArrayNew),
+                            'product_id' => $product->id,
+                        ];
+                        $product->images()->update($dataImages); // update images
+                    }
                 }
             }
             if (!empty($request->variants) && is_array($request->variants)) { //old variants
@@ -283,6 +306,7 @@ class ProductController extends Controller
                         'id' => $variant['id'],
                         'name' => $variant['name'],
                         'price' => $variant['price'],
+                        'price_old' => $variant['price_old'],
                         'stock_quantity' => $variant['stock_quantity'],
                         'status' => $variant['status'],
                         'product_id' => $product->id,
@@ -309,6 +333,7 @@ class ProductController extends Controller
                     $dataVariantsNew[] = [
                         'name' => $variant['name'],
                         'price' => $variant['price'],
+                        'price_old' => $variant['price_old'],
                         'stock_quantity' => $variant['stock_quantity'],
                         'status' => $variant['status'],
                         'product_id' => $product->id,
@@ -335,7 +360,8 @@ class ProductController extends Controller
             if ($product->update($dataProduct)) {
                 Alert::success('Thanh cong', 'Cap nhap san pham thanh cong');
             }
-            return redirect()->route('admin.product.index')->with('success', 'Cập nhật thành công!');
+            return redirect()->back()->with('success', 'Cập nhật thành công!');
+            // return redirect()->route('admin.product.index')->with('success', 'Cập nhật thành công!');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -350,14 +376,14 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
-        $product = Product::onlyTrashed()->where('slug', $slug)->first();
-        if (!$product) {
-            Alert::error('Khong thay san pham', 'san pham khong ton tai');
-            return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
-        }
         try {
+            $product = Product::onlyTrashed()->where('id', $id)->first();
+            if (!$product) {
+                Alert::error('Khong thay san pham', 'san pham khong ton tai');
+                return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
+            }
             $product->forceDelete();
             Alert::success('Thanh cong', 'Xoa vinh vien san pham thanh cong');
             return redirect()->route('admin.product.index')->with('success', 'Xoa san pham thanh cong!');
@@ -372,14 +398,14 @@ class ProductController extends Controller
         // }
     }
 
-    public function delete(string $slug)
+    public function delete(string $id)
     {
-        $product = Product::where('slug', $slug)->first();
-        if (!$product) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham');
-            return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
-        }
         try {
+            $product = Product::where('id', $id)->first();
+            if (!$product) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham');
+                return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
+            }
             $product->delete();
             Alert::success('Thanh cong', 'Xoa san pham thanh cong');
             return redirect()->route('admin.product.index')->with('success', 'Xoa san pham thanh cong!');
@@ -396,8 +422,13 @@ class ProductController extends Controller
 
     public function deleted()
     {
-        $products = Product::onlyTrashed()->orderBy('id', 'desc')->get();
-        return view('admin.page.product.restore', compact('products'));
+        try {
+            $products = Product::onlyTrashed()->orderBy('id', 'desc')->get();
+            return view('admin.page.product.restore', compact('products'));
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
         // if (Auth::user()->can('deleted product')){
         // }else{
         //     Alert::error('Không có quyền truy cập');
@@ -405,14 +436,14 @@ class ProductController extends Controller
         // }
     }
 
-    public function restore(string $slug)
+    public function restore(string $id)
     {
-        $product = Product::withTrashed()->where("slug", $slug)->first();
-        if (!$product) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham');
-            return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
-        }
         try {
+            $product = Product::withTrashed()->where("id", $id)->first();
+            if (!$product) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham');
+                return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
+            }
             $product->restore();
             Alert::success('Thanh cong', 'Khoi phuc san pham thanh cong');
             return redirect()->route('admin.product.index')->with('success', 'Khoi phuc san pham thanh cong!');

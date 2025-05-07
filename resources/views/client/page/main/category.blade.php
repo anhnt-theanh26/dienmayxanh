@@ -1,4 +1,25 @@
 <!-- danh mục  -->
+@php
+    $menusecond = null;
+    $menusecondhot = null;
+    $menusecondnormal = null;
+    if ($menus !== null) {
+        $secondMenu = $menus->skip(1)->first();
+        if ($secondMenu?->menus) {
+            $menusecond = $secondMenu?->menus?->first()->menuitems?->sortBy('location');
+            $menusecondhot = $secondMenu?->menus?->first()->menuitems?->sortBy('location')->where('is_hot', true);
+            $menusecondnormal = $secondMenu?->menus?->first()->menuitems?->sortBy('location')->where('is_hot', false);
+        }
+    }
+@endphp
+<pre>
+
+    {{$menusecond}}
+    <br>
+    <br>
+    <br>
+    {{$menusecond}}
+</pre>
 <section>
     <div class="py-4">
         <div class="container bg-white rounded-3">
@@ -156,8 +177,8 @@
                         </div>
                         <div class="col-2 p-3">
                             <div class="text-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                    class="bi bi-justify" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                    fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
                                         d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
                                 </svg>

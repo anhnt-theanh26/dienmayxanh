@@ -40,22 +40,22 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        $originalSlug = Str::slug($request->name);
-        $slug = $originalSlug;
-        $count = 1;
-        while (Attribute::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $count++;
-        }
-        $request->merge(['slug' => $slug]);
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:attributes,slug',
-        ]);
-        $data = [
-            'name' => $request->name,
-            'slug' => $slug,
-        ];
         try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'slug' => 'nullable|string|max:255',
+            ]);
+            $originalSlug = Str::slug($request->name);
+            $slug = $originalSlug;
+            $count = 1;
+            while (Attribute::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
+            }
+            $request->merge(['slug' => $slug]);
+            $data = [
+                'name' => $request->name,
+                'slug' => $slug,
+            ];
             Attribute::create($data);
             Alert::success('Thanh cong', 'Them moi thuoc tinh thanh cong');
             return redirect()->route('admin.attribute.index')->with('success', 'Thêm mới thuộc tính thành công');
@@ -86,14 +86,19 @@ class AttributeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $slug)
+    public function edit(string $id)
     {
-        $attribute = Attribute::where('slug', $slug)->first();
-        if (!$attribute) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh:');
-            return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh');
+        try {
+            $attribute = Attribute::where('id', $id)->first();
+            if (!$attribute) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh:');
+                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh');
+            }
+            return view('admin.page.attribute.edit', compact('attribute'));
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        return view('admin.page.attribute.edit', compact('attribute'));
         // if (Auth::user()->can('edit attribute')){
         // }else{
         //     Alert::error('Không có quyền truy cập');
@@ -104,33 +109,32 @@ class AttributeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, string $id)
     {
-        $attribute = Attribute::where('slug', $slug)->first();
-        if (!$attribute) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-            
-            return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay bai viet!');
-        }
-        $originalSlug = Str::slug($request->name);
-        $newSlug = $originalSlug;
-        $count = 1;
-        while (Attribute::where('slug', $newSlug)->where('slug', '!=', $attribute->newSlug)->exists()) {
-            $newSlug = $originalSlug . '-' . $count++;
-        }
-        $request->merge([
-            'slug' => $newSlug
-        ]);
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:attributes,slug,' . $attribute->id,
-        ]);
-        $data = [
-            'name' => $request->name,
-            'slug' => $newSlug,
-        ];
         try {
+            $attribute = Attribute::where('id', $id)->first();
+            if (!$attribute) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
+
+                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay bai viet!');
+            }
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'slug' => 'nullable|string|max:255',
+            ]);
+            $originalSlug = Str::slug($request->name);
+            $newSlug = $originalSlug;
+            $count = 1;
+            while (Attribute::where('slug', $newSlug)->where('id', '!=', $attribute->id)->exists()) {
+                $newSlug = $originalSlug . '-' . $count++;
+            }
+            $request->merge([
+                'slug' => $newSlug
+            ]);
+            $data = [
+                'name' => $request->name,
+                'slug' => $newSlug,
+            ];
             $attribute->update($data);
             Alert::success('Thanh cong', 'Cap nhap thuoc tinh thanh cong');
             return redirect()->route('admin.attribute.index')->with('success', 'Cập nhật thành công!');
@@ -148,14 +152,14 @@ class AttributeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
-        $attribute = Attribute::onlyTrashed()->where('slug', $slug)->first();
-        if (!$attribute) {
-            Alert::error('Khong thay thuoc tinh', 'thuoc tinh khong ton tai');
-            return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
-        }
         try {
+            $attribute = Attribute::onlyTrashed()->where('id', $id)->first();
+            if (!$attribute) {
+                Alert::error('Khong thay thuoc tinh', 'thuoc tinh khong ton tai');
+                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+            }
             $attribute->forceDelete();
             Alert::success('Thanh cong', 'Xoa vinh vien thuoc tinh thanh cong');
             return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
@@ -170,14 +174,14 @@ class AttributeController extends Controller
         // }
     }
 
-    public function delete(string $slug)
+    public function delete(string $id)
     {
-        $attribute = Attribute::where('slug', $slug)->first();
-        if (!$attribute) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-            return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
-        }
         try {
+            $attribute = Attribute::where('id', $id)->first();
+            if (!$attribute) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
+                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+            }
             $attribute->delete();
             Alert::success('Thanh cong', 'Xoa thuoc tinh thanh cong');
             return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
@@ -203,14 +207,14 @@ class AttributeController extends Controller
         // }
     }
 
-    public function restore(string $slug)
+    public function restore(string $id)
     {
-        $attribute = Attribute::withTrashed()->where("slug", $slug)->first();
-        if (!$attribute) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-            return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
-        }
         try {
+            $attribute = Attribute::withTrashed()->where("id", $id)->first();
+            if (!$attribute) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
+                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+            }
             $attribute->restore();
             Alert::success('Thanh cong', 'Khoi phuc thuoc tinh thanh cong');
             return redirect()->route('admin.attribute.index')->with('success', 'Khoi phuc thuoc tinh thanh cong!');

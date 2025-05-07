@@ -207,14 +207,25 @@
     </div>
 </div>
 
-<section>
-    <div class="d-flex justify-content-center" style="background-color: #eaecf0;">
-        <ul class="nav">
-            @foreach ($menus->first()->menus->first()->menuitems->take(10) as $menuitem)
-                <li class="nav-item">
-                    <a class="nav-link text-primary" aria-current="page" href="#">{{ $menuitem->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-    </div>
-</section>
+@php
+    $menufirst = null;
+    if ($menus !== null) {
+        $firstMenu = $menus->first();
+        if ($firstMenu?->menus) {
+            $menufirst = $firstMenu?->menus?->first()->menuitems?->sortBy('location');
+        }
+    }
+@endphp
+@if ($menufirst)
+    <section>
+        <div class="d-flex justify-content-center" style="background-color: #eaecf0;">
+            <ul class="nav">
+                @foreach ($menufirst->take(10) as $menuitem)
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" aria-current="page" href="#">{{ $menuitem->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </section>
+@endif

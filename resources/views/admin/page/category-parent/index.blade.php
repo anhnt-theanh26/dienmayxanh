@@ -69,10 +69,10 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item"
-                                            href="{{ route('admin.category-parent.edit', ['slug' => $item->slug]) }}">
+                                            href="{{ route('admin.category-parent.edit', ['id' => $item->id]) }}">
                                             <i class="ti ti-pencil me-1"></i> Edit
                                         </a>
-                                        <form action="{{ route('admin.category-parent.delete', ['slug' => $item->slug]) }}"
+                                        <form action="{{ route('admin.category-parent.delete', ['id' => $item->id]) }}"
                                             method="post">
                                             @csrf
                                             @method('delete')

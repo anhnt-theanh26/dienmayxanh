@@ -68,14 +68,14 @@
                                         <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <form action="{{ route('admin.product.restore', ['slug' => $item->slug]) }}"
+                                        <form action="{{ route('admin.product.restore', ['id' => $item->id]) }}"
                                             method="post">
                                             @csrf
                                             <button class="dropdown-item">
                                                 <i class="ti ti-repeat me-1"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.product.destroy', ['slug' => $item->slug]) }}"
+                                        <form action="{{ route('admin.product.destroy', ['id' => $item->id]) }}"
                                             method="post">
                                             @csrf
                                             @method('delete')

@@ -43,43 +43,41 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $originalSlug = Str::slug($request->title);
-        $slug = $originalSlug;
-        $count = 1;
-        while (Post::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $count++;
-        }
-        $request->merge(['slug' => $slug]);
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'required|string|max:255',
-            'content' => 'nullable|string',
-            'slug' => 'nullable|string|max:255|unique:posts,slug',
-            'image' => 'nullable|url|max:255',
-            'published_at' => 'required|date',
-            'is_hot' => 'nullable|boolean',
-            'category_id' => 'required|exists:categories,id',
-            'status' => 'required|in:draft,published',
-            'user_id' => 'nullable|exists:users,id',
-        ]);
-        $data = [
-            'title' => $request->title,
-            'excerpt' => $request->excerpt,
-            'content' => $request->content,
-            'slug' => $slug,
-            'image' => $request->image,
-            'view_count' => 0,
-            'is_hot' => $request->has('is_hot') ? true : false,
-            'status' => $request->status,
-            'published_at' => $request->published_at,
-            'category_id' => $request->category_id,
-            'user_id' => Auth::user()->id,
-        ];
         try {
-            Post::create($data);
-            if (Post::create($data)) {
-                Alert::success('Thanh cong', 'Them moi bai viet thanh cong');
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'excerpt' => 'required|string|max:255',
+                'content' => 'nullable|string',
+                'slug' => 'nullable|string|max:255',
+                'image' => 'nullable|url|max:255',
+                'published_at' => 'required|date',
+                'is_hot' => 'nullable|boolean',
+                'category_id' => 'required|exists:categories,id',
+                'status' => 'required|in:draft,published',
+                'user_id' => 'nullable|exists:users,id',
+            ]);
+            $originalSlug = Str::slug($request->title);
+            $slug = $originalSlug;
+            $count = 1;
+            while (Post::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
             }
+            $request->merge(['slug' => $slug]);
+            $data = [
+                'title' => $request->title,
+                'excerpt' => $request->excerpt,
+                'content' => $request->content,
+                'slug' => $slug,
+                'image' => $request->image,
+                'view_count' => 0,
+                'is_hot' => $request->has('is_hot') ? true : false,
+                'status' => $request->status,
+                'published_at' => $request->published_at,
+                'category_id' => $request->category_id,
+                'user_id' => Auth::user()->id,
+            ];
+            Post::create($data);
+            Alert::success('Thanh cong', 'Them moi bai viet thanh cong');
             return redirect()->route('admin.post.index')->with('success', 'Thêm mới danh mục thành công');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
@@ -98,8 +96,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        if (Auth::user()->can('show post')){
-        }else{
+        if (Auth::user()->can('show post')) {
+        } else {
             Alert::error('Không có quyền truy cập');
             return redirect()->route('admin.dashboard');
         }
@@ -108,15 +106,20 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $slug)
+    public function edit(string $id)
     {
-        $post = Post::where('slug', $slug)->first();
-        $categories = Category::orderBy('id', 'desc')->get();
-        if (!$post) {
-            Alert::error('Khong tim thay bai viet:');
-            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet');
+        try {
+            $post = Post::where('id', $id)->first();
+            $categories = Category::orderBy('id', 'desc')->get();
+            if (!$post) {
+                Alert::error('Khong tim thay bai viet:');
+                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet');
+            }
+            return view('admin.page.post.edit', compact('categories', 'post'));
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        return view('admin.page.post.edit', compact('categories', 'post'));
         // if (Auth::user()->can('edit post')){
         // }else{
         //     Alert::error('Không có quyền truy cập');
@@ -127,49 +130,49 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, string $id)
     {
-        $post = Post::where('slug', $slug)->first();
-        if (!$post) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
-            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
-        }
-        $originalSlug = Str::slug($request->title);
-        $newSlug = $originalSlug;
-        $count = 1;
-        while (Post::where('slug', $newSlug)->where('slug', '!=', $post->newSlug)->exists()) {
-            $newSlug = $originalSlug . '-' . $count++;
-        }
-        $request->merge([
-            'slug' => $newSlug
-        ]);
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'required|string|max:255',
-            'content' => 'nullable|string',
-            'slug' => 'nullable|string|max:255|unique:posts,slug,' . $post->id,
-            'image' => 'nullable|url|max:255',
-            'published_at' => 'required|date',
-            'is_hot' => 'nullable|boolean',
-            'category_id' => 'required|exists:categories,id',
-            'status' => 'required|in:draft,published',
-            'user_id' => 'nullable|exists:users,id',
-        ]);
-        $data = [
-            'title' => $request->title,
-            'excerpt' => $request->excerpt,
-            'content' => $request->content,
-            'slug' => $newSlug,
-            'image' => $request->image,
-            'view_count' => 0,
-            'is_hot' => $request->has('is_hot') ? true : false,
-            'status' => $request->status,
-            'published_at' => $request->published_at,
-            'category_id' => $request->category_id,
-            'user_id' => 1,
-        ];
         try {
+            $post = Post::where('id', $id)->first();
+            if (!$post) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
+                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
+            }
+            $originalSlug = Str::slug($request->title);
+            $newSlug = $originalSlug;
+            $count = 1;
+            while (Post::where('slug', $newSlug)->where('id', '!=', $post->id)->exists()) {
+                $newSlug = $originalSlug . '-' . $count++;
+            }
+            $request->merge([
+                'slug' => $newSlug
+            ]);
+    
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'excerpt' => 'required|string|max:255',
+                'content' => 'nullable|string',
+                'slug' => 'nullable|string|max:255|unique:posts,slug,' . $post->id,
+                'image' => 'nullable|url|max:255',
+                'published_at' => 'required|date',
+                'is_hot' => 'nullable|boolean',
+                'category_id' => 'required|exists:categories,id',
+                'status' => 'required|in:draft,published',
+                'user_id' => 'nullable|exists:users,id',
+            ]);
+            $data = [
+                'title' => $request->title,
+                'excerpt' => $request->excerpt,
+                'content' => $request->content,
+                'slug' => $newSlug,
+                'image' => $request->image,
+                'view_count' => 0,
+                'is_hot' => $request->has('is_hot') ? true : false,
+                'status' => $request->status,
+                'published_at' => $request->published_at,
+                'category_id' => $request->category_id,
+                'user_id' => 1,
+            ];
             $post->update($data);
             if ($post->update($data)) {
                 Alert::success('Thanh cong', 'Cap nhap bai viet thanh cong');
@@ -189,14 +192,14 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
-        $post = Post::onlyTrashed()->where('slug', $slug)->first();
-        if (!$post) {
-            Alert::error('Khong thay bai viet', 'Bai viet khong ton tai');
-            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
-        }
         try {
+            $post = Post::onlyTrashed()->where('id', $id)->first();
+            if (!$post) {
+                Alert::error('Khong thay bai viet', 'Bai viet khong ton tai');
+                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
+            }
             $post->forceDelete();
             Alert::success('Thanh cong', 'Xoa vinh vien bai viet thanh cong');
             return redirect()->route('admin.post.index')->with('success', 'Xoa bai viet thanh cong!');
@@ -211,14 +214,14 @@ class PostController extends Controller
         // }
     }
 
-    public function delete(string $slug)
+    public function delete(string $id)
     {
-        $post = Post::where('slug', $slug)->first();
-        if (!$post) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
-            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
-        }
         try {
+            $post = Post::where('id', $id)->first();
+            if (!$post) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
+                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
+            }
             $post->delete();
             Alert::success('Thanh cong', 'Xoa bai viet thanh cong');
             return redirect()->route('admin.post.index')->with('success', 'Xoa bai viet thanh cong!');
@@ -244,14 +247,14 @@ class PostController extends Controller
         // }
     }
 
-    public function restore(string $slug)
+    public function restore(string $id)
     {
-        $post = Post::withTrashed()->where("slug", $slug)->first();
-        if (!$post) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
-            return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
-        }
         try {
+            $post = Post::withTrashed()->where("id", $id)->first();
+            if (!$post) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
+                return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
+            }
             $post->restore();
             Alert::success('Thanh cong', 'Khoi phuc bai viet thanh cong');
             return redirect()->route('admin.post.index')->with('success', 'Khoi phuc bai viet thanh cong!');

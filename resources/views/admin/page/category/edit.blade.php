@@ -38,7 +38,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.category.update', ['slug' => $category->slug]) }}" method="post"
+                    <form action="{{ route('admin.category.update', ['id' => $category->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')

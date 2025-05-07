@@ -68,14 +68,19 @@ class RoleController extends Controller
 
     public function destroy(string $id)
     {
-        $role = Role::findOrFail($id);
-        if ($role) {
-            $role->delete();
-            Alert::success('Thanh cong', 'Xoa role thanh cong');
+        try {
+            $role = Role::findOrFail($id);
+            if ($role) {
+                $role->delete();
+                Alert::success('Thanh cong', 'Xoa role thanh cong');
+                return redirect()->route('admin.role.index');
+            }
+            Alert::error('That bai', 'Khong tim thay role');
             return redirect()->route('admin.role.index');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.role.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        Alert::error('That bai', 'Khong tim thay role');
-        return redirect()->route('admin.role.index');
     }
 
     public static function getRoleHasPermissions(string $id)

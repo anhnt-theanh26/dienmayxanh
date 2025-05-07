@@ -59,14 +59,14 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/create', [CategoryParentController::class, 'create'])->name('create');
         Route::post('/', [CategoryParentController::class, 'store'])->name('store');
 
-        Route::get('/{slug}/edit', [CategoryParentController::class, 'edit'])->name('edit');
-        Route::put('/{slug}/update', [CategoryParentController::class, 'update'])->name('update');
+        Route::get('/{id}/edit', [CategoryParentController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [CategoryParentController::class, 'update'])->name('update');
 
         Route::get('/deleted', [CategoryParentController::class, 'deleted'])->name('deleted');
-        Route::post('/{slug}/restore', [CategoryParentController::class, 'restore'])->name('restore');
+        Route::post('/{id}/restore', [CategoryParentController::class, 'restore'])->name('restore');
 
-        Route::delete('/{slug}/delete', [CategoryParentController::class, 'delete'])->name('delete');
-        Route::delete('/{slug}destroy', [CategoryParentController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/delete', [CategoryParentController::class, 'delete'])->name('delete');
+        Route::delete('/{id}destroy', [CategoryParentController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [CategoryParentController::class, 'search'])->name('search');
     });
@@ -78,14 +78,14 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/create', [CategoryController::class, 'create'])->name('create');
         Route::post('/', [CategoryController::class, 'store'])->name('store');
 
-        Route::get('/{slug}/edit', [CategoryController::class, 'edit'])->name('edit');
-        Route::put('/{slug}/update', [CategoryController::class, 'update'])->name('update');
+        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [CategoryController::class, 'update'])->name('update');
 
         Route::get('/deleted', [CategoryController::class, 'deleted'])->name('deleted');
-        Route::post('/{slug}/restore', [CategoryController::class, 'restore'])->name('restore');
+        Route::post('/{id}/restore', [CategoryController::class, 'restore'])->name('restore');
 
-        Route::delete('/{slug}/delete', [CategoryController::class, 'delete'])->name('delete');
-        Route::delete('/{slug}destroy', [CategoryController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/delete', [CategoryController::class, 'delete'])->name('delete');
+        Route::delete('/{id}destroy', [CategoryController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [CategoryController::class, 'search'])->name('search');
 
@@ -98,14 +98,14 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/create', [PostController::class, 'create'])->name('create');
         Route::post('/', [PostController::class, 'store'])->name('store');
 
-        Route::get('/{slug}/edit', [PostController::class, 'edit'])->name('edit');
-        Route::put('/{slug}/update', [PostController::class, 'update'])->name('update');
+        Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [PostController::class, 'update'])->name('update');
 
         Route::get('/deleted', [PostController::class, 'deleted'])->name('deleted');
-        Route::post('/{slug}/restore', [PostController::class, 'restore'])->name('restore');
+        Route::post('/{id}/restore', [PostController::class, 'restore'])->name('restore');
 
-        Route::delete('/{slug}/delete', [PostController::class, 'delete'])->name('delete');
-        Route::delete('/{slug}destroy', [PostController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/delete', [PostController::class, 'delete'])->name('delete');
+        Route::delete('/{id}destroy', [PostController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [PostController::class, 'search'])->name('search');
 
@@ -118,14 +118,14 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/create', [AttributeController::class, 'create'])->name('create');
         Route::post('/', [AttributeController::class, 'store'])->name('store');
 
-        Route::get('/{slug}/edit', [AttributeController::class, 'edit'])->name('edit');
-        Route::put('/{slug}/update', [AttributeController::class, 'update'])->name('update');
+        Route::get('/{id}/edit', [AttributeController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [AttributeController::class, 'update'])->name('update');
 
         Route::get('/deleted', [AttributeController::class, 'deleted'])->name('deleted');
-        Route::post('/{slug}/restore', [AttributeController::class, 'restore'])->name('restore');
+        Route::post('/{id}/restore', [AttributeController::class, 'restore'])->name('restore');
 
-        Route::delete('/{slug}/delete', [AttributeController::class, 'delete'])->name('delete');
-        Route::delete('/{slug}destroy', [AttributeController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/delete', [AttributeController::class, 'delete'])->name('delete');
+        Route::delete('/{id}destroy', [AttributeController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [AttributeController::class, 'search'])->name('search');
 
@@ -138,15 +138,15 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/create', [ProductController::class, 'create'])->name('create');
         Route::post('/', [ProductController::class, 'store'])->name('store');
 
-        Route::get('/{slug}/show', [ProductController::class, 'show'])->name('show');
-        Route::get('/{slug}/edit', [ProductController::class, 'edit'])->name('edit');
-        Route::put('/{slug}/update', [ProductController::class, 'update'])->name('update');
+        Route::get('/{id}/show', [ProductController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [ProductController::class, 'update'])->name('update');
 
         Route::get('/deleted', [ProductController::class, 'deleted'])->name('deleted');
-        Route::post('/{slug}/restore', [ProductController::class, 'restore'])->name('restore');
+        Route::post('/{id}/restore', [ProductController::class, 'restore'])->name('restore');
 
-        Route::delete('/{slug}/delete', [ProductController::class, 'delete'])->name('delete');
-        Route::delete('/{slug}destroy', [ProductController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/delete', [ProductController::class, 'delete'])->name('delete');
+        Route::delete('/{id}destroy', [ProductController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [ProductController::class, 'search'])->name('search');
 

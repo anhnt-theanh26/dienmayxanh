@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
-            $table->decimal('amount', 15, 2);
+            $table->decimal('amount', 15, 0);
             $table->string('transaction_id')->nullable();
             $table->enum('status', ['pending', 'successful', 'failed', 'refunded'])->default('pending');
             $table->enum('method', ['cod', 'paypal', 'credit_card', 'bank_transfer'])->default('cod');

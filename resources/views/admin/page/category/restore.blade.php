@@ -69,14 +69,14 @@
                                         <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <form action="{{ route('admin.category.restore', ['slug' => $item->slug]) }}"
+                                        <form action="{{ route('admin.category.restore', ['id' => $item->id]) }}"
                                             method="post">
                                             @csrf
                                             <button class="dropdown-item">
                                                 <i class="ti ti-repeat me-1"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.category.destroy', ['slug' => $item->slug]) }}" method="post">
+                                        <form action="{{ route('admin.category.destroy', ['id' => $item->id]) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button onclick="return confirm('Hanh dong nay se xoa vinh vien bai viet?')" class="dropdown-item"><i

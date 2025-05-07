@@ -130,12 +130,12 @@ class LocationMenuController extends Controller
      */
     public function destroy(string $id)
     {
-        $locationmenu = Locationmenu::where('id', $id)->first();
-        if (!$locationmenu) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
-            return redirect()->route('admin.locationmenu.index')->with('error', 'Khong tim thay danh muc!');
-        }
         try {
+            $locationmenu = Locationmenu::where('id', $id)->first();
+            if (!$locationmenu) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
+                return redirect()->route('admin.locationmenu.index')->with('error', 'Khong tim thay danh muc!');
+            }
             $locationmenu->delete();
             Alert::success('Thanh cong', 'Xoa vi tri menu thanh cong');
             return redirect()->route('admin.locationmenu.index')->with('success', 'Xoa thanh cong thành công!');

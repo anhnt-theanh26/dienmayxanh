@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('total_amount', 15, 2);
+            $table->decimal('total_amount', 15, places: 0);
             $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
             $table->enum('payment_method', ['cod', 'paypal', 'credit_card'])->default('cod');

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->integer('location')->nullable();
             $table->foreignId('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

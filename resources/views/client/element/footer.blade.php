@@ -13,70 +13,78 @@
                 </div>
                 <div class="col-5">
                     <div class="row">
-                        <div class="col-5">
-                            <p class="fw-bold">{{ $menus->skip(1)->first()->menus->first()->name }}</p>
-                            @php
-                                $menuitemsskip1 = $menus
-                                    ->skip(1)
-                                    ->first()
-                                    ->menus->first()
-                                    ->menuitems->sortBy('location');
-                            @endphp
-                            @foreach ($menuitemsskip1->take(5) as $menuitem)
-                                <p class="p-0 m-0 py-1"><a href="#" class="text-decoration-none text-black"
-                                        style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
-                            @endforeach
-                            @if ( $menuitemsskip1->count() > 5)
-                                <div class="collapse" id="seemore-one">
-                                    @foreach ($menuitemsskip1->skip(5) as $menuitem)
-                                        <p class="p-0 m-0 py-1"><a href="#"
-                                                class="text-decoration-none text-black"
-                                                style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
-                                    @endforeach
-                                </div>
-                                <p data-bs-toggle="collapse" href="#seemore-one" role="button" aria-expanded="false"
-                                    aria-controls="seemore-one">
-                                    Xem thêm
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                                    </svg>
-                                </p>
-                            @endif
-                        </div>
-                        <div class="col-7">
-                            @php
-                                $menuitemsskip2 = $menus
-                                    ->skip(2)
-                                    ->first()
-                                    ->menus->first()
-                                    ->menuitems->sortBy('location');
-                            @endphp
-                            <p class="fw-bold">{{ $menus->skip(2)->first()->menus->first()->name }}</p>
-                            @foreach ($menuitemsskip2->take(5) as $menuitem)
-                                <p class="p-0 m-0 py-1"><a href="#" class="text-decoration-none text-black"
-                                        style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
-                            @endforeach
-                            @if ($menuitemsskip2->count() > 5)
-                                <div class="collapse" id="seemore-two">
-                                    @foreach ($menuitemsskip2->skip(5) as $menuitem)
-                                        <p class="p-0 m-0 py-1"><a href="#"
-                                                class="text-decoration-none text-black"
-                                                style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
-                                    @endforeach
-                                </div>
-                                <p data-bs-toggle="collapse" href="#seemore-two" role="button" aria-expanded="false"
-                                    aria-controls="seemore-two">
-                                    Xem thêm
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                                    </svg>
-                                </p>
-                            @endif
-                        </div>
+                        @php
+                            $menuthird = null;
+                            if ($menus !== null) {
+                                $thirdMenu = $menus->skip(2)->first();
+                                if ($thirdMenu?->menus) {
+                                    $menuthird = $thirdMenu?->menus?->first()->menuitems?->sortBy('location');
+                                }
+                            }
+                        @endphp
+                        @if ($menuthird)
+                            <div class="col-5">
+                                <p class="fw-bold">{{ $thirdMenu?->menus?->first()->name }}</p>
+                                @foreach ($menuthird->take(5) as $menuitem)
+                                    <p class="p-0 m-0 py-1"><a href="#" class="text-decoration-none text-black"
+                                            style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
+                                @endforeach
+                                @if ($menuthird->count() > 5)
+                                    <div class="collapse" id="seemore-one">
+                                        @foreach ($menuthird->skip(5) as $menuitem)
+                                            <p class="p-0 m-0 py-1"><a href="#"
+                                                    class="text-decoration-none text-black"
+                                                    style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
+                                        @endforeach
+                                    </div>
+                                    <p data-bs-toggle="collapse" href="#seemore-one" role="button"
+                                        aria-expanded="false" aria-controls="seemore-one">
+                                        Xem thêm
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                        </svg>
+                                    </p>
+                                @endif
+                            </div>
+                        @endif
+                        @php
+                            $menufourth = null;
+                            if ($menus !== null) {
+                                $fourthMenu = $menus->skip(3)->first();
+                                if ($fourthMenu?->menus) {
+                                    $menufourth = $fourthMenu?->menus?->first()->menuitems?->sortBy('location');
+                                }
+                            }
+                        @endphp
+                        @if ($menufourth)
+                            <div class="col-7">
+                                <p class="fw-bold">{{ $fourthMenu?->menus?->first()->name }}</p>
+                                @foreach ($menufourth->take(5) as $menuitem)
+                                    <p class="p-0 m-0 py-1"><a href="#" class="text-decoration-none text-black"
+                                            style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
+                                @endforeach
+                                @if ($menufourth->count() > 5)
+                                    <div class="collapse" id="seemore-two">
+                                        @foreach ($menufourth->skip(5) as $menuitem)
+                                            <p class="p-0 m-0 py-1"><a href="#"
+                                                    class="text-decoration-none text-black"
+                                                    style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
+                                        @endforeach
+                                    </div>
+                                    <p data-bs-toggle="collapse" href="#seemore-two" role="button"
+                                        aria-expanded="false" aria-controls="seemore-two">
+                                        Xem thêm
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                        </svg>
+                                    </p>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-4">

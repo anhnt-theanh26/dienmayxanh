@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'Image')
+@section('title', 'Them moi')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/flatpickr/flatpickr.css') }}" />
@@ -32,86 +32,90 @@
                         @csrf
                         <div class="col-12">
                             <div class="card mb-4">
-                              <div class="card-body">
-                                  <div class="mb-3">
-                                      <label class="form-label" for="title">Title</label>
-                                      <input type="text" class="form-control" id="title" name="title"
-                                          value="{{ old('title') }}" placeholder="Title" />
-                                      @error('title')
-                                          <p class="text-danger">{{ $message }}</p>
-                                      @enderror
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="form-label" for="excerpt">Excerpt</label>
-                                      <input type="text" class="form-control" id="excerpt" name="excerpt"
-                                          value="{{ old('excerpt') }}" placeholder="Excerpt" />
-                                      @error('excerpt')
-                                          <p class="text-danger">{{ $message }}</p>
-                                      @enderror
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="switch switch-primary">
-                                          <input type="checkbox" class="switch-input" name="is_hot" value="1"
-                                              @checked(old('is_hot') == '1')>
-                                          <span class="switch-toggle-slider">
-                                              <span class="switch-on"></span>
-                                              <span class="switch-off"></span>
-                                          </span>
-                                          <span class="switch-label">Is Hot</span>
-                                      </label>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="form-label" for="status">Status</label>
-                                      <select name="status" id="status" class="form-control">
-                                          <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
-                                          <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published
-                                          </option>
-                                      </select>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label for="flatpickr-datetime" class="form-label">Publish at</label>
-                                      <input type="text" class="form-control flatpickr-input" name="published_at"
-                                          placeholder="YYYY-MM-DD HH:MM" id="flatpickr-datetime" readonly="readonly"
-                                          value="{{ old('published_at') }}">
-                                      @error('published_at')
-                                          <p class="text-danger">{{ $message }}</p>
-                                      @enderror
-                                  </div>
-                                  <div class="mb-3">
-                                      <label for="category_id" class="form-label">Category</label>
-                                      <select id="category_id" name="category_id" class="form-select">
-                                          @foreach ($categories as $item)
-                                              <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                          @endforeach
-                                      </select>
-                                      @error('category_id')
-                                          <p class="text-danger">{{ $message }}</p>
-                                      @enderror
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="form-label" for="image">Image</label><br>
-                                      <input type="hidden" id="image" class="form-control" name="image">
-                                      <div class="input-group" style="position: relative; display: inline-block; width: 100px;">
-                                          <img id="img" class="btn-image rounded-1" src="{{ asset('./storage/default.jpg') }}"
-                                              width="100px" alt="Image">
-                                          <button type="button" class="btn btn-light btn-image" id="choose-button"
-                                              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title"
+                                            value="{{ old('title') }}" placeholder="Title" />
+                                        @error('title')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="excerpt">Excerpt</label>
+                                        <input type="text" class="form-control" id="excerpt" name="excerpt"
+                                            value="{{ old('excerpt') }}" placeholder="Excerpt" />
+                                        @error('excerpt')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="switch switch-primary">
+                                            <input type="checkbox" class="switch-input" name="is_hot" value="1"
+                                                @checked(old('is_hot') == '1')>
+                                            <span class="switch-toggle-slider">
+                                                <span class="switch-on"></span>
+                                                <span class="switch-off"></span>
+                                            </span>
+                                            <span class="switch-label">Is Hot</span>
+                                        </label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="status">Status</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft
+                                            </option>
+                                            <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>
+                                                Published
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="flatpickr-datetime" class="form-label">Publish at</label>
+                                        <input type="text" class="form-control flatpickr-input" name="published_at"
+                                            placeholder="YYYY-MM-DD HH:MM" id="flatpickr-datetime" readonly="readonly"
+                                            value="{{ old('published_at') }}">
+                                        @error('published_at')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="category_id" class="form-label">Category</label>
+                                        <select id="category_id" name="category_id" class="form-select">
+                                            @foreach ($categories as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name }} ({{ $item->parent->name }})</option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="image">Image</label><br>
+                                        <input type="hidden" id="image" class="form-control" name="image">
+                                        <div class="input-group"
+                                            style="position: relative; display: inline-block; width: 100px;">
+                                            <img id="img" class="btn-image rounded-1"
+                                                src="{{ asset('./storage/default.jpg') }}" width="100px" alt="Image">
+                                            <button type="button" class="btn btn-light btn-image" id="choose-button"
+                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
                                                          background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
-                                              Choose
-                                          </button>
-                                      </div>
-                                      @error('image')
-                                          <p class="text-danger">{{ $message }}</p>
-                                      @enderror
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="form-label" for="content">Content</label>
-                                      <textarea id="my-editor" name="content" class="form-control"></textarea>
-                                  </div>
-                                  <button type="submit" class="btn btn-primary">Submit</button>
-                              </div>
+                                                Choose
+                                            </button>
+                                        </div>
+                                        @error('image')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="content">Content</label>
+                                        <textarea id="my-editor" name="content" class="form-control"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>

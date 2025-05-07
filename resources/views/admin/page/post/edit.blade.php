@@ -28,7 +28,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.post.update', ['slug' => $post->slug]) }}" method="post"
+                    <form action="{{ route('admin.post.update', ['id' => $post->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')

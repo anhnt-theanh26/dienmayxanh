@@ -97,12 +97,12 @@ class ProductMenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $productmenu = Productmenu::where('id', $id)->first();
-        if (!$productmenu) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
-            return redirect()->route('admin.productmenu.index')->with('error', 'Khong tim thay menu!');
-        }
         try {
+            $productmenu = Productmenu::where('id', $id)->first();
+            if (!$productmenu) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
+                return redirect()->route('admin.productmenu.index')->with('error', 'Khong tim thay menu!');
+            }
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;
@@ -121,7 +121,7 @@ class ProductMenuController extends Controller
             $data = [
                 'name' => $request->name,
                 'slug' => $newSlug,
-                'status' => $request->has('status') ? true : false,
+                'locationproductmenu_id' => $request->locationproductmenu_id,
             ];
             $productmenu->update($data);
             Alert::success('Thanh cong', 'Cap nhap product menu thanh cong');

@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="defaultSelect" class="form-label">Vi tri</label>
-                                        <select id="defaultSelect" class="form-select" name="locationmenu_id">
+                                        <select id="defaultSelect" class="form-select" name="locationproductmenu_id">
                                             @foreach ($locationproductmenus as $item)
                                                 <option value="{{ $item->id }}"
                                                     {{ $productmenu->locationproductmenu->id == $item->id ? 'selected' : '' }}>

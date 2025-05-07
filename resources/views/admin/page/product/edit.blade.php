@@ -23,7 +23,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.product.update', ['slug' => $product->slug]) }}" method="post"
+                    <form action="{{ route('admin.product.update', ['id' => $product->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -164,17 +164,24 @@
                                                             class="form-control" placeholder="Name"
                                                             value="{{ $item->name }}" />
                                                     </div>
-                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                    <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                         <label class="form-label">Price</label>
                                                         <input type="number" name="variants[{{ $item->id }}][price]"
                                                             class="form-control" placeholder="Price"
                                                             value="{{ $item->price }}" />
                                                     </div>
                                                     <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
-                                                        <label class="form-label">Stock Quantity</label>
+                                                        <label class="form-label">Price Old</label>
+                                                        <input type="number"
+                                                            name="variants[{{ $item->id }}][price_old]"
+                                                            class="form-control" placeholder="Price Old"
+                                                            value="{{ $item->price_old }}" />
+                                                    </div>
+                                                    <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                        <label class="form-label">Quantity</label>
                                                         <input type="text"
                                                             name="variants[{{ $item->id }}][stock_quantity]"
-                                                            class="form-control" placeholder="Stock quantity"
+                                                            class="form-control" placeholder="Quantity"
                                                             value="{{ $item->stock_quantity }}" />
                                                     </div>
                                                     <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
@@ -190,50 +197,16 @@
                                                         </select>
                                                     </div>
                                                     <div
-                                                        class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                        class="mb-3 col-lg-12 col-xl-1 col-12 d-flex align-items-center mb-0">
                                                         <button type="button"
                                                             class="btn btn-label-danger mt-4 btn-delete-variant">
                                                             <i class="ti ti-x ti-xs me-1"></i>
-                                                            <span class="align-middle">Delete</span>
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <hr />
                                             @endforeach
                                         </div>
-                                        {{-- <div id="variant-container">
-                                            <div class="row variant-row">
-                                                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                    <label class="form-label">Name</label>
-                                                    <input type="text" name="newvariants[0][name]" class="form-control"
-                                                        placeholder="Name" />
-                                                </div>
-                                                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
-                                                    <label class="form-label">Price</label>
-                                                    <input type="number" name="newvariants[0][price]" class="form-control"
-                                                        placeholder="Price" />
-                                                </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
-                                                    <label class="form-label">Stock Quantity</label>
-                                                    <input type="text" name="newvariants[0][stock_quantity]"
-                                                        class="form-control" placeholder="Stock quantity" />
-                                                </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
-                                                    <label class="form-label">Status</label>
-                                                    <select name="newvariants[0][status]" class="form-control">
-                                                        <option value="draft">Draft</option>
-                                                        <option value="published">Published</option>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
-                                                    <button type="button"
-                                                        class="btn btn-label-danger mt-4 btn-delete-variant">
-                                                        <i class="ti ti-x ti-xs me-1"></i>
-                                                        <span class="align-middle">Delete</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                         <div id="variant-container"></div>
 
                                         {{-- Template ẩn dùng để clone --}}
@@ -244,15 +217,20 @@
                                                     <input type="text" name="newvariants[__index__][name]"
                                                         class="form-control" placeholder="Name" />
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Price</label>
                                                     <input type="number" name="newvariants[__index__][price]"
                                                         class="form-control" placeholder="Price" />
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
-                                                    <label class="form-label">Stock Quantity</label>
+                                                    <label class="form-label">Price Old</label>
+                                                    <input type="number" name="newvariants[__index__][price_old]"
+                                                        class="form-control" placeholder="Price old" />
+                                                </div>
+                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                    <label class="form-label">Quantity</label>
                                                     <input type="text" name="newvariants[__index__][stock_quantity]"
-                                                        class="form-control" placeholder="Stock quantity" />
+                                                        class="form-control" placeholder="Quantity" />
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Status</label>
@@ -261,11 +239,10 @@
                                                         <option value="published">Published</option>
                                                     </select>
                                                 </div>
-                                                <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                <div class="mb-3 col-lg-12 col-xl-1 col-12 d-flex align-items-center mb-0">
                                                     <button type="button"
                                                         class="btn btn-label-danger mt-4 btn-delete-variant">
                                                         <i class="ti ti-x ti-xs me-1"></i>
-                                                        <span class="align-middle">Delete</span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -307,21 +284,32 @@
                                             </div>
                                             <div class="">
                                                 @php
-                                                    $imageUrl = $product->images->first()->image;
-                                                    $imageArr = json_decode($imageUrl, true);
+                                                    $imageUrl = null;
+                                                    $imageArr = null;
+                                                    if ($product->images->isNotEmpty()) {
+                                                        $imageUrl = $product->images->first()->image;
+                                                        if ($imageUrl) {
+                                                            $imageArr = json_decode($imageUrl, true);
+                                                            if (json_last_error() !== JSON_ERROR_NONE) {
+                                                                $imageArr = null;
+                                                            }
+                                                        }
+                                                    }
                                                 @endphp
                                                 <div class="previewThumbnailList" style="display: flex; flex-wrap: wrap;">
                                                     <input type="hidden" class="imageUrlOld" name="imageUrlOld">
-                                                    @foreach ($imageArr as $item)
-                                                        <div class="position-relative" style="margin-right: 10px;">
-                                                            <img src="{{ $item }}"
-                                                                style="width: 100px; height: auto; margin: 5px; border: 1px solid #ccc; border-radius: 8px;">
-                                                            <div class="position-absolute top-0 end-0 text-danger cursor-pointer"
-                                                                onclick="removeImageOld('{{ $item }}')">
-                                                                <i class="ti ti-x"></i>
+                                                    @if ($imageArr)
+                                                        @foreach ($imageArr as $item)
+                                                            <div class="position-relative" style="margin-right: 10px;">
+                                                                <img src="{{ $item }}"
+                                                                    style="width: 100px; height: auto; margin: 5px; border: 1px solid #ccc; border-radius: 8px;">
+                                                                <div class="position-absolute top-0 end-0 text-danger cursor-pointer"
+                                                                    onclick="removeImageOld('{{ $item }}')">
+                                                                    <i class="ti ti-x"></i>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    @endforeach
+                                                        @endforeach
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div id="image-preview" class="d-flex flex-wrap gap-2 mt-2"></div>
@@ -421,7 +409,7 @@
         attachDeleteEvents();
     </script>
     {{-- Validate before submit --}}
-    {{-- <script>
+    <script>
         document.querySelector('form').addEventListener('submit', function(e) {
             let isValid = true;
             let flag = '';
@@ -472,7 +460,7 @@
                 Swal.fire('Missing fields', 'Please fill out all fields.', 'error');
             }
         });
-    </script> --}}
+    </script>
     {{-- end Validate before submit --}}
     {{-- hết biến thể --}}
     {{-- attribute --}}

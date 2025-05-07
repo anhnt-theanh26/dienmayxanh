@@ -103,7 +103,6 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -112,6 +111,9 @@
 
                                             </div>
                                         </div>
+                                        @error('attribute_value')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                         <button class="btn btn-primary btn-add-value-attribute">Add value to
                                             Attribute</button>
                                     </div>
@@ -127,16 +129,33 @@
                                                     <label class="form-label">Name</label>
                                                     <input type="text" name="variants[0][name]" class="form-control"
                                                         placeholder="Name" />
+                                                        @error('variants.*.name')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Price</label>
                                                     <input type="number" name="variants[0][price]" class="form-control"
                                                         placeholder="Price" />
+                                                        @error('variants.*.price')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
-                                                    <label class="form-label">Stock Quantity</label>
+                                                    <label class="form-label">Price Old</label>
+                                                    <input type="number" name="variants[0][price_old]" class="form-control"
+                                                        placeholder="Price" />
+                                                        @error('variants.*.price_old')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+                                                </div>
+                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                    <label class="form-label">Quantity</label>
                                                     <input type="text" name="variants[0][stock_quantity]"
-                                                        class="form-control" placeholder="Stock quantity" />
+                                                        class="form-control" placeholder="Quantity" />
+                                                        @error('variants.*.stock_quantity')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Status</label>
@@ -144,12 +163,14 @@
                                                         <option value="draft">Draft</option>
                                                         <option value="published">Published</option>
                                                     </select>
+                                                    @error('variants.*.status')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                 </div>
-                                                <div class="mb-3 col-lg-12 col-xl-2 col-12 d-flex align-items-center mb-0">
+                                                <div class="mb-3 col-lg-12 col-xl-1 col-12 d-flex align-items-center mb-0">
                                                     <button type="button"
                                                         class="btn btn-label-danger mt-4 btn-delete-variant">
                                                         <i class="ti ti-x ti-xs me-1"></i>
-                                                        <span class="align-middle">Delete</span>
                                                     </button>
                                                 </div>
                                             </div>

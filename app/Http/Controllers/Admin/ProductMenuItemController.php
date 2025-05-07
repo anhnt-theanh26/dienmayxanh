@@ -135,15 +135,15 @@ class ProductMenuItemController extends Controller
      */
     public function destroy(string $id)
     {
-        $productmenuitem = Productmenuitem::where("id", $id)->first();
-        if (!$productmenuitem) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay menu item');
-            return redirect()->back()->with('error', 'Không tìm thấy item!');
-        }
         try {
+            $productmenuitem = Productmenuitem::where("id", $id)->first();
+            if (!$productmenuitem) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay menu item');
+                return redirect()->back()->with('error', 'Không tìm thấy item!');
+            }
             $productmenuitem->delete();
             Alert::success('Thanh cong', 'Xoa menu thanh cong');
-            return redirect()->route('admin.productmenuitem.edit', ['id' => $id])->with('success', 'Xóa menu item thanh cong');
+            return redirect()->back()->with('success', 'Xóa menu item thanh cong');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra', $th->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());

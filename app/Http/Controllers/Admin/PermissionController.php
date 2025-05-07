@@ -27,32 +27,37 @@ class PermissionController extends Controller
 
     public function update(string $id, Request $request)
     {
-        $user = User::where("id", $id)->first();
-        if (!$user) {
-            Alert::error('Có lỗi xảy ra:', 'Khong tìm thay user co id:' . $id);
-            return redirect()->route('admin.permission.index');
-        }
-        $roleuser = DB::table('model_has_roles')
-            ->where('model_id', '=', $id)
-            ->first();
-        if ($request->role_id == 'user') {
-            DB::table('model_has_roles')
-                ->where('model_id', '=', $id)
-                ->delete();
-        } else {
-            if (!$roleuser) {
-                DB::table('model_has_roles')->insert([
-                    'role_id' => $request->role_id,
-                    'model_type' => 'App\Models\User',
-                    'model_id' => $id,
-                ]);
+        try {
+            $user = User::where("id", $id)->first();
+            if (!$user) {
+                Alert::error('Có lỗi xảy ra:', 'Khong tìm thay user co id:' . $id);
+                return redirect()->route('admin.permission.index');
             }
-            DB::table('model_has_roles')
+            $roleuser = DB::table('model_has_roles')
                 ->where('model_id', '=', $id)
-                ->update(['role_id' => $request->role_id]);
+                ->first();
+            if ($request->role_id == 'user') {
+                DB::table('model_has_roles')
+                    ->where('model_id', '=', $id)
+                    ->delete();
+            } else {
+                if (!$roleuser) {
+                    DB::table('model_has_roles')->insert([
+                        'role_id' => $request->role_id,
+                        'model_type' => 'App\Models\User',
+                        'model_id' => $id,
+                    ]);
+                }
+                DB::table('model_has_roles')
+                    ->where('model_id', '=', $id)
+                    ->update(['role_id' => $request->role_id]);
+            }
+            Alert::success('Thanh cong', "Cập nhập quyền cho user $user->name thành công");
+            return redirect()->route('admin.permission.index');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.permission.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        Alert::success('Thanh cong', "Cập nhập quyền cho user $user->name thành công");
-        return redirect()->route('admin.permission.index');
     }
 
     public function destroy(string $id)
@@ -61,13 +66,18 @@ class PermissionController extends Controller
 
     public static function getRole(string $id)
     {
-        $role = DB::table('roles')
-            ->select('roles.id', 'roles.name')
-            ->join('model_has_roles', 'model_has_roles.role_id', '=', 'roles.id')
-            ->where('model_has_roles.model_id', '=', "$id")->first();
-        if (!$role) {
-            return null;
+        try {
+            $role = DB::table('roles')
+                ->select('roles.id', 'roles.name')
+                ->join('model_has_roles', 'model_has_roles.role_id', '=', 'roles.id')
+                ->where('model_has_roles.model_id', '=', "$id")->first();
+            if (!$role) {
+                return null;
+            }
+            return $role;
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('admin.permission.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        return $role;
     }
 }

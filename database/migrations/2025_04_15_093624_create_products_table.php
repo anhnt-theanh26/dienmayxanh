@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('image')->nullable();
+            $table->unsignedInteger('sold')->default(0);
             $table->boolean('is_hot')->default(false);
             $table->longText('description')->nullable();
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');

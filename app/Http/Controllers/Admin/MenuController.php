@@ -96,12 +96,12 @@ class MenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $menu = Menu::where('id', $id)->first();
-        if (!$menu) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
-            return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
-        }
         try {
+            $menu = Menu::where('id', $id)->first();
+            if (!$menu) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
+                return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
+            }
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;
@@ -137,12 +137,12 @@ class MenuController extends Controller
      */
     public function destroy(string $id)
     {
-        $menu = Menu::where('id', $id)->first();
-        if (!$menu) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
-            return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
-        }
         try {
+            $menu = Menu::where('id', $id)->first();
+            if (!$menu) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
+                return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
+            }
             $menu->delete();
             Alert::success('Thanh cong', 'Xoa menu thanh cong');
             return redirect()->route('admin.menu.index')->with('success', 'Xoa thanh cong thành công!');

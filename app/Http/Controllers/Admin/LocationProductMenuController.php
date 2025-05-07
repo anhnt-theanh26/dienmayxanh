@@ -128,12 +128,12 @@ class LocationProductMenuController extends Controller
      */
     public function destroy(string $id)
     {
-        $locationproductmenu = Locationproductmenu::where('id', $id)->first();
-        if (!$locationproductmenu) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
-            return redirect()->route('admin.locationproductmenu.index')->with('error', 'Khong tim thay danh muc!');
-        }
         try {
+            $locationproductmenu = Locationproductmenu::where('id', $id)->first();
+            if (!$locationproductmenu) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
+                return redirect()->route('admin.locationproductmenu.index')->with('error', 'Khong tim thay danh muc!');
+            }
             $locationproductmenu->delete();
             Alert::success('Thanh cong', 'Xoa vi tri menu thanh cong');
             return redirect()->route('admin.locationproductmenu.index')->with('success', 'Xoa thanh cong thành công!');

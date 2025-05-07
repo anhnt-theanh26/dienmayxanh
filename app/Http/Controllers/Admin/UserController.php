@@ -40,25 +40,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:3',
-            'phone' => 'nullable|numeric|min:10||unique:users,phone',
-            'address' => 'nullable|string',
-            'birthday' => 'nullable|date',
-            'image' => 'nullable|url|'
-        ]);
-        $data = [
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'phone' => $validated['phone'],
-            'address' => $validated['address'],
-            'birthday' => $validated['birthday'],
-            'image' => $validated['image'],
-        ];
         try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string|min:3',
+                'phone' => 'nullable|numeric|min:10||unique:users,phone',
+                'address' => 'nullable|string',
+                'birthday' => 'nullable|date',
+                'image' => 'nullable|url|'
+            ]);
+            $data = [
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'phone' => $validated['phone'],
+                'address' => $validated['address'],
+                'birthday' => $validated['birthday'],
+                'image' => $validated['image'],
+            ];
             $user = User::create($data);
             if ($user) {
                 Alert::success('Thanh cong', 'Them moi user thanh cong');
@@ -111,28 +111,28 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::where('id', $id)->first();
-        if (!$user) {
-            Alert::error('Khong tim thay user:');
-            return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
-        }
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'nullable|numeric|min:10||unique:users,phone,' . $user->id,
-            'address' => 'nullable|string|max:255',
-            'birthday' => 'nullable|date',
-            'image' => 'nullable|url|max:255'
-        ]);
-        $data = [
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'phone' => $validated['phone'],
-            'address' => $validated['address'],
-            'birthday' => $validated['birthday'],
-            'image' => $validated['image'],
-        ];
         try {
+            $user = User::where('id', $id)->first();
+            if (!$user) {
+                Alert::error('Khong tim thay user:');
+                return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
+            }
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+                'phone' => 'nullable|numeric|min:10||unique:users,phone,' . $user->id,
+                'address' => 'nullable|string|max:255',
+                'birthday' => 'nullable|date',
+                'image' => 'nullable|url|max:255'
+            ]);
+            $data = [
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'address' => $validated['address'],
+                'birthday' => $validated['birthday'],
+                'image' => $validated['image'],
+            ];
             $user->update($data);
             if ($user->update($data)) {
                 Alert::success('Thanh cong', 'Chinh sua user thanh cong');
@@ -151,25 +151,25 @@ class UserController extends Controller
 
     public function password(Request $request, string $id)
     {
-        $user = User::where('id', $id)->first();
-        if (!$user) {
-            Alert::error('Khong tim thay user:');
-            return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
-        }
-        $validated = $request->validate([
-            'old_password' => 'required|string|max:255',
-            'new_password' => 'required|string|min:3|max:255',
-            'confirm_password' => 'required|same:new_password',
-        ]);
-        if (!Hash::check($request->old_password, $user->password)) {
-            Alert::error('Mật khẩu cũ không đúng!!!!');
-            return redirect()->route('admin.user.edit', $user->id)->with('password_is_incorrect', 'Mat khau cu khong dung!!');
-        }
-        if (Hash::check($request->new_password, $user->password)) {
-            Alert::error('Mật khẩu mới không được giống mật khẩu cũ!!!!');
-            return redirect()->route('admin.user.edit', $user->id)->with('oldpassword_like_newpassword', 'Mat khau mới không được giống mật khẩu cũ!!');
-        }
         try {
+            $user = User::where('id', $id)->first();
+            if (!$user) {
+                Alert::error('Khong tim thay user:');
+                return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
+            }
+            $validated = $request->validate([
+                'old_password' => 'required|string|max:255',
+                'new_password' => 'required|string|min:3|max:255',
+                'confirm_password' => 'required|same:new_password',
+            ]);
+            if (!Hash::check($request->old_password, $user->password)) {
+                Alert::error('Mật khẩu cũ không đúng!!!!');
+                return redirect()->route('admin.user.edit', $user->id)->with('password_is_incorrect', 'Mat khau cu khong dung!!');
+            }
+            if (Hash::check($request->new_password, $user->password)) {
+                Alert::error('Mật khẩu mới không được giống mật khẩu cũ!!!!');
+                return redirect()->route('admin.user.edit', $user->id)->with('oldpassword_like_newpassword', 'Mat khau mới không được giống mật khẩu cũ!!');
+            }
             $data = [
                 'password' => Hash::make($validated['new_password']),
             ];
@@ -194,12 +194,12 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::onlyTrashed()->where('id', $id)->first();
-        if (!$user) {
-            Alert::error('Khong thay user', 'user khong ton tai');
-            return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
-        }
         try {
+            $user = User::onlyTrashed()->where('id', $id)->first();
+            if (!$user) {
+                Alert::error('Khong thay user', 'user khong ton tai');
+                return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
+            }
             $user->forceDelete();
             Alert::success('Thanh cong', 'Xoa vinh vien user thanh cong');
             return redirect()->route('admin.user.index')->with('success', 'Xoa user thanh cong!');
@@ -216,12 +216,12 @@ class UserController extends Controller
 
     public function delete(string $id)
     {
-        $user = User::where('id', $id)->first();
-        if (!$user) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay user');
-            return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
-        }
         try {
+            $user = User::where('id', $id)->first();
+            if (!$user) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay user');
+                return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
+            }
             $user->delete();
             Alert::success('Thanh cong', 'Xoa user thanh cong');
             return redirect()->route('admin.user.index')->with('success', 'Xoa user thanh cong!');
@@ -249,12 +249,12 @@ class UserController extends Controller
 
     public function restore(string $id)
     {
-        $user = User::withTrashed()->where("id", $id)->first();
-        if (!$user) {
-            Alert::error('Có lỗi xảy ra', 'Khong tim thay user');
-            return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
-        }
         try {
+            $user = User::withTrashed()->where("id", $id)->first();
+            if (!$user) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay user');
+                return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
+            }
             $user->restore();
             Alert::success('Thanh cong', 'Khoi phuc user thanh cong');
             return redirect()->route('admin.user.index')->with('success', 'Khoi phuc user thanh cong!');
