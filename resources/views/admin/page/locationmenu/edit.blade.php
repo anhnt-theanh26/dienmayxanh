@@ -44,27 +44,29 @@
                         @method('put')
                         <div class="col-12">
                             <div class="card mb-4">
-                              <div class="card-body">
-                                  <div class="mb-3">
-                                      <label class="form-label" for="name">Name</label>
-                                      <input type="text" class="form-control" id="name" name="name"
-                                          value="{{ $locationmenu->name }}" placeholder="Name" />
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="switch switch-primary">
-                                          <input type="checkbox" class="switch-input" name="status"
-                                              {{ $locationmenu->status ? 'checked' : '' }}>
-                                          <span class="switch-toggle-slider">
-                                              <span class="switch-on"></span>
-                                              <span class="switch-off"></span>
-                                          </span>
-                                          <span class="switch-label">Status</span>
-                                      </label>
-                                  </div>
-                                  <button type="submit" class="btn btn-primary">Submit</button>
-                              </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            value="{{ $locationmenu->name }}" placeholder="Name" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="switch switch-primary">
+                                            <input type="checkbox" class="switch-input" name="status"
+                                                {{ $locationmenu->status ? 'checked' : '' }}>
+                                            <span class="switch-toggle-slider">
+                                                <span class="switch-on"></span>
+                                                <span class="switch-off"></span>
+                                            </span>
+                                            <span class="switch-label">Status</span>
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning">Submit</button>
+                                    <a class="btn btn-secondary" href="{{ route('admin.locationmenu.index') }}"
+                                        class="text-muted float-end">Back</a>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -14,27 +14,27 @@
                 <div class="col-5">
                     <div class="row">
                         @php
-                            $menuthird = null;
+                            $menufooterfirst = null;
                             if ($menus !== null) {
-                                $thirdMenu = $menus->skip(2)->first();
-                                if ($thirdMenu?->menus) {
-                                    $menuthird = $thirdMenu?->menus?->first()->menuitems?->sortBy('location');
+                                $footerFirstMenu = $menus?->skip(2)?->first();
+                                if ($footerFirstMenu?->menus) {
+                                    $menufooterfirst = $footerFirstMenu?->menus?->first()?->menuitems?->sortBy('location');
                                 }
                             }
                         @endphp
-                        @if ($menuthird)
+                        @if ($menufooterfirst)
                             <div class="col-5">
-                                <p class="fw-bold">{{ $thirdMenu?->menus?->first()->name }}</p>
-                                @foreach ($menuthird->take(5) as $menuitem)
+                                <p class="fw-bold">{{ $footerFirstMenu?->menus?->first()->name }}</p>
+                                @foreach ($menufooterfirst->take(5) as $menuitem)
                                     <p class="p-0 m-0 py-1"><a href="#" class="text-decoration-none text-black"
                                             style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
                                 @endforeach
-                                @if ($menuthird->count() > 5)
+                                @if ($menufooterfirst?->count() > 5)
                                     <div class="collapse" id="seemore-one">
-                                        @foreach ($menuthird->skip(5) as $menuitem)
+                                        @foreach ($menufooterfirst?->skip(5) as $menuitem)
                                             <p class="p-0 m-0 py-1"><a href="#"
                                                     class="text-decoration-none text-black"
-                                                    style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
+                                                    style="text-transform:capitalize;">{{ $menuitem?->name }}</a></p>
                                         @endforeach
                                     </div>
                                     <p data-bs-toggle="collapse" href="#seemore-one" role="button"
@@ -50,27 +50,27 @@
                             </div>
                         @endif
                         @php
-                            $menufourth = null;
+                            $menufootersecond = null;
                             if ($menus !== null) {
-                                $fourthMenu = $menus->skip(3)->first();
-                                if ($fourthMenu?->menus) {
-                                    $menufourth = $fourthMenu?->menus?->first()->menuitems?->sortBy('location');
+                                $footerSecondMenu = $menus?->skip(3)?->first();
+                                if ($footerSecondMenu?->menus) {
+                                    $menufootersecond = $footerSecondMenu?->menus?->first()?->menuitems?->sortBy('location');
                                 }
                             }
                         @endphp
-                        @if ($menufourth)
+                        @if ($menufootersecond)
                             <div class="col-7">
-                                <p class="fw-bold">{{ $fourthMenu?->menus?->first()->name }}</p>
-                                @foreach ($menufourth->take(5) as $menuitem)
+                                <p class="fw-bold">{{ $footerSecondMenu?->menus?->first()->name }}</p>
+                                @foreach ($menufootersecond->take(5) as $menuitem)
                                     <p class="p-0 m-0 py-1"><a href="#" class="text-decoration-none text-black"
-                                            style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
+                                            style="text-transform:capitalize;">{{ $menuitem?->name }}</a></p>
                                 @endforeach
-                                @if ($menufourth->count() > 5)
+                                @if ($menufootersecond->count() > 5)
                                     <div class="collapse" id="seemore-two">
-                                        @foreach ($menufourth->skip(5) as $menuitem)
+                                        @foreach ($menufootersecond->skip(5) as $menuitem)
                                             <p class="p-0 m-0 py-1"><a href="#"
                                                     class="text-decoration-none text-black"
-                                                    style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
+                                                    style="text-transform:capitalize;">{{ $menuitem?->name }}</a></p>
                                         @endforeach
                                     </div>
                                     <p data-bs-toggle="collapse" href="#seemore-two" role="button"

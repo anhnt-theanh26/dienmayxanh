@@ -1,4 +1,3 @@
-<!-- Gian hàng ưu đãi  -->
 <section>
     <div class="container">
         <h4 class="fw-bold py-4">Gian hàng ưu đãi</h4>
@@ -40,4 +39,3 @@
         </script>
     </div>
 </section>
-<!-- hết Gian hàng ưu đãi  -->

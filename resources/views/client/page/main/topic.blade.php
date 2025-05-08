@@ -1,4 +1,22 @@
-<!-- chủ đề  -->
+@php
+    $productmenuitemthird = null;
+    $productmenuitemthirddata = [];
+    if ($productmenus !== null) {
+        $thirdProductMenu = $productmenus?->skip(2)?->first();
+        if ($thirdProductMenu?->productmenus) {
+            $productmenuitemthird = $thirdProductMenu?->productmenus?->first()?->productmenuitems?->sortBy('location');
+        }
+        if ($productmenuitemthird) {
+            foreach ($productmenuitemthird as $categories) {
+                foreach ($categories?->category?->products as $product) {
+                    $productmenuitemthirddata[] = $product;
+                }
+            }
+        }
+    }
+@endphp
+
+
 <section>
     <div class="container mt-5">
         <div class="bg-white rounded-4 p-3">
@@ -13,15 +31,14 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link p-2" id="topic-social-tab" data-bs-toggle="tab"
-                        data-bs-target="#topic-social" type="button" role="tab"
-                        aria-controls="topic-social" aria-selected="false">
+                        data-bs-target="#topic-social" type="button" role="tab" aria-controls="topic-social"
+                        aria-selected="false">
                         Mạng xã hội Điện máy XANH
                     </button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="topic-sale" role="tabpanel"
-                    aria-labelledby="topic-sale-tab">
+                <div class="tab-pane fade show active" id="topic-sale" role="tabpanel" aria-labelledby="topic-sale-tab">
                     <div class="owl-carousel pt-2">
                         <div class="item">
                             <div class="image">
@@ -88,8 +105,8 @@
                                 <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0"
                                     href=""> Xem thêm khuyến mãi</a>
                             </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
                             </svg>
@@ -179,4 +196,3 @@
         </div>
     </div>
 </section>
-<!-- hết chủ đề  -->

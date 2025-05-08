@@ -1,4 +1,3 @@
-<!-- slide 2 -->
 <section>
     <div class="large-12 columns container my-3 position-relative advertisement-02-hiding">
         <div class="owl-carousel advertisement-02">
@@ -53,4 +52,3 @@
         });
     </script>
 </section>
-<!-- hết slide 2 -->

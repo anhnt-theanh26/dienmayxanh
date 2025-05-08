@@ -124,8 +124,9 @@
                     </script>
                 </li>
                 <li>
-                    <form class="d-flex" role="search">
-                        <input style="width: 300px;" class="form-control me-2 rounded-pill" type="search"
+                    <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
+                        @csrf
+                        <input style="width: 300px;" name="search" class="form-control me-2 rounded-pill" type="search"
                             placeholder="Bạn tìm gì..." aria-label="Search">
                     </form>
                 </li>
@@ -210,9 +211,9 @@
 @php
     $menufirst = null;
     if ($menus !== null) {
-        $firstMenu = $menus->first();
+        $firstMenu = $menus?->first();
         if ($firstMenu?->menus) {
-            $menufirst = $firstMenu?->menus?->first()->menuitems?->sortBy('location');
+            $menufirst = $firstMenu?->menus?->first()?->menuitems?->sortBy('location');
         }
     }
 @endphp
@@ -220,9 +221,9 @@
     <section>
         <div class="d-flex justify-content-center" style="background-color: #eaecf0;">
             <ul class="nav">
-                @foreach ($menufirst->take(10) as $menuitem)
+                @foreach ($menufirst?->take(10) as $menuitem)
                     <li class="nav-item">
-                        <a class="nav-link text-primary" aria-current="page" href="#">{{ $menuitem->name }}</a>
+                        <a class="nav-link text-primary" style="text-transform:lowercase;" aria-current="page" href="#">{{ $menuitem?->name }}</a>
                     </li>
                 @endforeach
             </ul>

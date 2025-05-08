@@ -78,7 +78,8 @@
                                             <label for="category_id" class="form-label">Category</label>
                                             <select id="category_id" name="category_id" class="form-select">
                                                 @foreach ($categories as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    <option value="{{ $item->id }}">{{ $item->name }}
+                                                        ({{ $item->parent->name }})</option>
                                                 @endforeach
                                             </select>
                                             @error('category_id')
@@ -129,33 +130,33 @@
                                                     <label class="form-label">Name</label>
                                                     <input type="text" name="variants[0][name]" class="form-control"
                                                         placeholder="Name" />
-                                                        @error('variants.*.name')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
+                                                    @error('variants.*.name')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Price</label>
                                                     <input type="number" name="variants[0][price]" class="form-control"
                                                         placeholder="Price" />
-                                                        @error('variants.*.price')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
+                                                    @error('variants.*.price')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Price Old</label>
-                                                    <input type="number" name="variants[0][price_old]" class="form-control"
-                                                        placeholder="Price" />
-                                                        @error('variants.*.price_old')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
+                                                    <input type="number" name="variants[0][price_old]"
+                                                        class="form-control" placeholder="Price" />
+                                                    @error('variants.*.price_old')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Quantity</label>
                                                     <input type="text" name="variants[0][stock_quantity]"
                                                         class="form-control" placeholder="Quantity" />
-                                                        @error('variants.*.stock_quantity')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
+                                                    @error('variants.*.stock_quantity')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Status</label>
@@ -164,8 +165,8 @@
                                                         <option value="published">Published</option>
                                                     </select>
                                                     @error('variants.*.status')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
                                                 <div class="mb-3 col-lg-12 col-xl-1 col-12 d-flex align-items-center mb-0">
                                                     <button type="button"
@@ -228,6 +229,8 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mt-3">Submit</button>
+                        <a class="btn btn-secondary mt-3" href="{{ route('admin.product.index') }}"
+                            class="text-muted float-end">Back</a>
                     </form>
                 </div>
             </div>

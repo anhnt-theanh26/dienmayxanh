@@ -11,6 +11,7 @@ use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,11 +21,6 @@ class ProductController extends Controller
     {
         $products = Product::orderBy('id', 'desc')->get();
         return view('admin.page.product.index', compact('products'));
-        // if (Auth::user()->can('index product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -35,11 +31,6 @@ class ProductController extends Controller
         $attributes = Attribute::orderBy('id', 'desc')->get();
         $categories = Category::orderBy('id', 'desc')->get();
         return view('admin.page.product.create', compact('categories', 'attributes'));
-        // if (Auth::user()->can('create product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -48,18 +39,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            $originalSlug = Str::slug($request->sku);
-            $slug = $originalSlug;
-            $count = 1;
-            while (Product::where('slug', $slug)->exists()) {
-                $slug = $originalSlug . '-' . $count++;
-            }
-            $request->merge(['slug' => $slug]);
-            $validated = $request->validate([
+            $request->validate([
                 'sku' => 'required|string|max:255|unique:products,sku',
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
-                'slug' => 'nullable|string|max:255|unique:products,slug',
                 'image' => 'nullable|url|max:255',
                 'is_hot' => 'nullable|boolean',
                 'category_id' => 'required|exists:categories,id',
@@ -77,6 +60,12 @@ class ProductController extends Controller
                 'variants.*.stock_quantity' => 'required|integer|min:0',
                 'variants.*.status' => 'required|in:draft,published',
             ]);
+            $originalSlug = Str::slug($request->sku);
+            $slug = $originalSlug;
+            $count = 1;
+            while (Product::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
+            }
             $dataProduct = [
                 'sku' => $request->sku,
                 'name' => $request->name,
@@ -128,19 +117,14 @@ class ProductController extends Controller
                     ProductAttributeValue::create($attr);
                 }
             }
-            if ($product) {
-                Alert::success('Thanh cong', 'Them moi san pham thanh cong');
-            }
+            DB::commit();
+            Alert::success('Thanh cong', 'Them moi san pham thanh cong');
             return redirect()->route('admin.product.index')->with('success', 'Thêm mới sản phẩm thành công');
         } catch (\Throwable $th) {
+            DB::rollBack();
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('store product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
 
@@ -160,11 +144,6 @@ class ProductController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('show product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -185,11 +164,6 @@ class ProductController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('edit product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
     function remove_items_once($fromArray, $removeArray)
     {
@@ -212,21 +186,10 @@ class ProductController extends Controller
                 Alert::error('Khong tim thay san pham:');
                 return redirect()->route('admin.product.index')->with('error', 'Không tìm thấy sản phẩm');
             }
-
-            $originalSlug = Str::slug($request->sku);
-            $newSlug = $originalSlug;
-            $count = 1;
-            while (Product::where('slug', $newSlug)->where('id', '!=', $product->id)->exists()) {
-                $newSlug = $originalSlug . '-' . $count++;
-            }
-            $request->merge([
-                'slug' => $newSlug
-            ]);
-            $validated = $request->validate([ // validate
+            $request->validate([ // validate
                 'sku' => 'required|string|max:255|unique:products,sku,' . $product->id,
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
-                'slug' => 'nullable|string|max:255|unique:products,slug,' . $product->id,
                 'image' => 'nullable|url|max:255',
                 'is_hot' => 'nullable|boolean',
                 'category_id' => 'required|exists:categories,id',
@@ -247,6 +210,12 @@ class ProductController extends Controller
                 'variants.*.stock_quantity' => 'required|integer|min:0',
                 'variants.*.status' => 'required|in:draft,published',
             ]);
+            $originalSlug = Str::slug($request->sku);
+            $newSlug = $originalSlug;
+            $count = 1;
+            while (Product::where('slug', $newSlug)->where('id', '!=', $product->id)->exists()) {
+                $newSlug = $originalSlug . '-' . $count++;
+            }
             $dataProduct = [ // dataproduct
                 'sku' => $request->sku,
                 'name' => $request->name,
@@ -360,17 +329,14 @@ class ProductController extends Controller
             if ($product->update($dataProduct)) {
                 Alert::success('Thanh cong', 'Cap nhap san pham thanh cong');
             }
+            DB::commit();
             return redirect()->back()->with('success', 'Cập nhật thành công!');
             // return redirect()->route('admin.product.index')->with('success', 'Cập nhật thành công!');
         } catch (\Throwable $th) {
+            DB::rollBack();
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('update product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -391,11 +357,6 @@ class ProductController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('destroy product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function delete(string $id)
@@ -413,11 +374,6 @@ class ProductController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('delete product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function deleted()
@@ -429,11 +385,6 @@ class ProductController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('deleted product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function restore(string $id)
@@ -451,11 +402,6 @@ class ProductController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('restore product')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function search(Request $request, string $keyword)

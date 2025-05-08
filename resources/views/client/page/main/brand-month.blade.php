@@ -1,4 +1,3 @@
-<!-- tháng thương hiệu  -->
 <section>
     <div class="container">
         <h4 class="fw-bold py-4">Tháng Thương Hiệu Samsung</h4>
@@ -28,4 +27,3 @@
         </script>
     </div>
 </section>
-<!-- hết tháng thương hiệu  -->

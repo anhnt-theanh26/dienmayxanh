@@ -15,11 +15,6 @@ class AttributeController extends Controller
     {
         $attributes = Attribute::orderBy('id', 'desc')->get();
         return view('admin.page.attribute.index', compact('attributes'));
-        // if (Auth::user()->can('index attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -28,11 +23,6 @@ class AttributeController extends Controller
     public function create()
     {
         return view('admin.page.attribute.create');
-        // if (Auth::user()->can('create attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -41,9 +31,8 @@ class AttributeController extends Controller
     public function store(Request $request)
     {
         try {
-            $validated = $request->validate([
+            $request->validate([
                 'name' => 'required|string|max:255',
-                'slug' => 'nullable|string|max:255',
             ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
@@ -51,7 +40,6 @@ class AttributeController extends Controller
             while (Attribute::where('slug', $slug)->exists()) {
                 $slug = $originalSlug . '-' . $count++;
             }
-            $request->merge(['slug' => $slug]);
             $data = [
                 'name' => $request->name,
                 'slug' => $slug,
@@ -63,11 +51,6 @@ class AttributeController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('store attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
 
@@ -76,11 +59,6 @@ class AttributeController extends Controller
      */
     public function show(string $id)
     {
-        if (Auth::user()->can('show attribute')) {
-        } else {
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
     }
 
     /**
@@ -99,11 +77,6 @@ class AttributeController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('edit attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -115,12 +88,10 @@ class AttributeController extends Controller
             $attribute = Attribute::where('id', $id)->first();
             if (!$attribute) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-
                 return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay bai viet!');
             }
-            $validated = $request->validate([
+            $request->validate([
                 'name' => 'required|string|max:255',
-                'slug' => 'nullable|string|max:255',
             ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
@@ -128,9 +99,6 @@ class AttributeController extends Controller
             while (Attribute::where('slug', $newSlug)->where('id', '!=', $attribute->id)->exists()) {
                 $newSlug = $originalSlug . '-' . $count++;
             }
-            $request->merge([
-                'slug' => $newSlug
-            ]);
             $data = [
                 'name' => $request->name,
                 'slug' => $newSlug,
@@ -142,11 +110,6 @@ class AttributeController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('update attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -167,11 +130,6 @@ class AttributeController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('destroy attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function delete(string $id)
@@ -189,22 +147,12 @@ class AttributeController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('deleted attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function deleted()
     {
         $attributes = Attribute::onlyTrashed()->orderBy('id', 'desc')->get();
         return view('admin.page.attribute.restore', compact('attributes'));
-        // if (Auth::user()->can('deleted attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function restore(string $id)
@@ -222,11 +170,6 @@ class AttributeController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('restore attribute')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function search(Request $request, string $keyword)

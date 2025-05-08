@@ -68,11 +68,6 @@ class UserController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('store user')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
 
@@ -81,11 +76,6 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        if (Auth::user()->can('show user')){
-        }else{
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
     }
 
     /**
@@ -99,11 +89,6 @@ class UserController extends Controller
             return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
         }
         return view('admin.page.user.edit', compact('user'));
-        // if (Auth::user()->can('edit user')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -142,11 +127,6 @@ class UserController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('update user')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function password(Request $request, string $id)
@@ -182,11 +162,6 @@ class UserController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('update user')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -207,11 +182,6 @@ class UserController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('destroy user')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function delete(string $id)
@@ -229,22 +199,12 @@ class UserController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('delete user')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function deleted()
     {
         $users = User::onlyTrashed()->orderBy('id', 'desc')->get();
         return view('admin.page.user.restore', compact('users'));
-        // if (Auth::user()->can('deleted user')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function restore(string $id)
@@ -262,11 +222,6 @@ class UserController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('restore user')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function search(Request $request, string $keyword)

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ProductMenuItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\client\HomeController;
+use App\Http\Controllers\client\SearchController;
 // use App\Http\Controllers\SendEmailController;
 // use App\Mail\SendEmail;
 // use Illuminate\Support\Facades\Mail;
@@ -283,5 +284,6 @@ Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderCon
 
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::post('/search', [SearchController::class, 'store'])->name('search');
 });
 

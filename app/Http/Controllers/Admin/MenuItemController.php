@@ -51,10 +51,11 @@ class MenuItemController extends Controller
                 foreach ($request->category as $value) {
                     $cate = Category::where('id', $value)->first();
                     $data[] = [
-                        'name' => strtolower($cate->name),
+                        'name' => $cate->name,
                         'link' => '/category/' . $cate->slug,
                         'location' => $index++,
                         'menu_id' => $id,
+                        'category_id' => $cate->id,
                     ];
                 }
             }

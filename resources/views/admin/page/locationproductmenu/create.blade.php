@@ -28,7 +28,8 @@
                     <small class="text-muted float-end">Create</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.locationproductmenu.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.locationproductmenu.store') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="col-12">
                             <div class="card mb-4">
@@ -49,6 +50,8 @@
                                         </label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a class="btn btn-secondary" href="{{ route('admin.locationproductmenu.index') }}"
+                                        class="text-muted float-end">Back</a>
                                 </div>
                             </div>
                         </div>

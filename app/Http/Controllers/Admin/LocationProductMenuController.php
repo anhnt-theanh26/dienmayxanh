@@ -32,17 +32,15 @@ class LocationProductMenuController extends Controller
     public function store(Request $request)
     {
         try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
             while (Locationproductmenu::where('slug', $slug)->exists()) {
                 $slug = $originalSlug . '-' . $count++;
             }
-            $request->merge(['slug' => $slug]);
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'slug' => 'required|string|max:255',
-            ]);
             $data = [
                 'name' => $request->name,
                 'slug' => $slug,
@@ -94,6 +92,9 @@ class LocationProductMenuController extends Controller
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
                 return redirect()->route('admin.locationproductmenu.index')->with('error', 'Khong tim thay danh muc!');
             }
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;
@@ -102,13 +103,6 @@ class LocationProductMenuController extends Controller
             ) {
                 $newSlug = $originalSlug . '-' . $count++;
             }
-            $request->merge([
-                'slug' => $newSlug
-            ]);
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'slug' => 'required|string|max:255|unique:locationproductmenus,slug,' . $locationproductmenu->id,
-            ]);
             $data = [
                 'name' => $request->name,
                 'slug' => $newSlug,

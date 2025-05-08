@@ -55,22 +55,23 @@
                                             <div class="card accordion-item">
                                                 <h2 class="accordion-header d-flex align-items-center">
                                                     <button type="button" class="accordion-button collapsed"
-                                                        data-bs-toggle="collapse" data-bs-target="#accordion{{ $parent->id }}"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#accordion{{ $parent->id }}"
                                                         aria-expanded="false">
                                                         {{ $parent->name }}
                                                     </button>
                                                 </h2>
-            
+
                                                 <div id="accordion{{ $parent->id }}" class="accordion-collapse collapse"
                                                     style="">
                                                     <div class="accordion-body">
                                                         @foreach ($parent->categories as $category)
                                                             <div class="form-check">
                                                                 <input type="checkbox" class="form-check-input"
-                                                                    id="{{ $category->name }}" name="category[]"
+                                                                    id="{{ $category->id }}" name="category[]"
                                                                     value="{{ $category->id }}">
                                                                 <label class="form-check-label"
-                                                                    for="{{ $category->name }}">{{ $category->name }}</label>
+                                                                    for="{{ $category->id }}">{{ $category->name }}</label>
                                                             </div>
                                                         @endforeach
                                                     </div>
@@ -80,6 +81,8 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                <a class="btn btn-secondary" href="{{ route('admin.productmenu.index') }}"
+                                    class="text-muted float-end">Back</a>
                             </div>
                         </div>
                     </form>
@@ -125,10 +128,12 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                <a class="btn btn-secondary" href="{{ route('admin.productmenu.index') }}"
+                                    class="text-muted float-end">Back</a>
                             </div>
                         </div>
                     </form>
-                    
+
                 </div>
             </div>
         </div>

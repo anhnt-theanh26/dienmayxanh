@@ -33,17 +33,15 @@ class LocationMenuController extends Controller
     public function store(Request $request)
     {
         try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
             while (Locationmenu::where('slug', $slug)->exists()) {
                 $slug = $originalSlug . '-' . $count++;
             }
-            $request->merge(['slug' => $slug]);
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'slug' => 'required|string|max:255',
-            ]);
             $data = [
                 'name' => $request->name,
                 'slug' => $slug,
@@ -96,21 +94,17 @@ class LocationMenuController extends Controller
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
                 return redirect()->route('admin.locationmenu.index')->with('error', 'Khong tim thay danh muc!');
             }
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;
             while (
-                Locationmenu::where('id', $newSlug)->where('slug', '!=', $locationmenu->slug)->exists()
+                Locationmenu::where('slug', $newSlug)->where('id', '!=', $locationmenu->id)->exists()
             ) {
                 $newSlug = $originalSlug . '-' . $count++;
             }
-            $request->merge([
-                'slug' => $newSlug
-            ]);
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'slug' => 'required|string|max:255|unique:locationmenus,slug,' . $locationmenu->id,
-            ]);
             $data = [
                 'name' => $request->name,
                 'slug' => $newSlug,

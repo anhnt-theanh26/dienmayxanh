@@ -38,33 +38,35 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.locationproductmenu.update', ['id' => $locationproductmenu->id]) }}" method="post"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('admin.locationproductmenu.update', ['id' => $locationproductmenu->id]) }}"
+                        method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="col-12">
                             <div class="card mb-4">
-                              <div class="card-body">
-                                  <div class="mb-3">
-                                      <label class="form-label" for="name">Name</label>
-                                      <input type="text" class="form-control" id="name" name="name"
-                                          value="{{ $locationproductmenu->name }}" placeholder="Name" />
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="switch switch-primary">
-                                          <input type="checkbox" class="switch-input" name="status"
-                                              {{ $locationproductmenu->status ? 'checked' : '' }}>
-                                          <span class="switch-toggle-slider">
-                                              <span class="switch-on"></span>
-                                              <span class="switch-off"></span>
-                                          </span>
-                                          <span class="switch-label">Is Hot</span>
-                                      </label>
-                                  </div>
-                                  <button type="submit" class="btn btn-warning">Submit</button>
-                              </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            value="{{ $locationproductmenu->name }}" placeholder="Name" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="switch switch-primary">
+                                            <input type="checkbox" class="switch-input" name="status"
+                                                {{ $locationproductmenu->status ? 'checked' : '' }}>
+                                            <span class="switch-toggle-slider">
+                                                <span class="switch-on"></span>
+                                                <span class="switch-off"></span>
+                                            </span>
+                                            <span class="switch-label">Is Hot</span>
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning">Submit</button>
+                                    <a class="btn btn-secondary" href="{{ route('admin.locationproductmenu.index') }}"
+                                        class="text-muted float-end">Back</a>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>

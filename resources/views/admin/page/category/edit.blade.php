@@ -80,7 +80,9 @@
                                           @endforeach
                                       </select>
                                   </div>
-                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                  <button type="submit" class="btn btn-warning">Submit</button>
+                                  <a class="btn btn-secondary" href="{{ route('admin.category.index') }}"
+                                        class="text-muted float-end">Back</a>
                               </div>
                             </div>
                           </div>

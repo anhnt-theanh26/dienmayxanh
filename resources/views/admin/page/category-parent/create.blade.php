@@ -30,16 +30,18 @@
                         @csrf
                         <div class="col-12">
                             <div class="card mb-4">
-                              <div class="card-body">
-                                  <div class="mb-3">
-                                      <label class="form-label" for="name">Name</label>
-                                      <input type="text" class="form-control" id="name" name="name"
-                                          value="{{ old('name') }}" placeholder="Name" />
-                                  </div>
-                                  <button type="submit" class="btn btn-primary">Submit</button>
-                              </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            value="{{ old('name') }}" placeholder="Name" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a class="btn btn-secondary" href="{{ route('admin.category-parent.index') }}"
+                                        class="text-muted float-end">Back</a>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>

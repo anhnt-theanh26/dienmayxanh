@@ -223,10 +223,10 @@
                                                                 <div class="form-check me-3 me-lg-5">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         {{ in_array($item->id, $result) ? 'checked' : '' }}
-                                                                        name="permissions[]" id="{{ $item->name }}"
+                                                                        name="permissions[]" id="{{ $item->id }}"
                                                                         value="{{ $item->id }}" />
                                                                     <label class="form-check-label"
-                                                                        for="{{ $item->name }}">
+                                                                        for="{{ $item->id }}">
                                                                         {{ $item->display_name }}
                                                                     </label>
                                                                 </div>
@@ -304,10 +304,10 @@
                                                         @foreach ($items as $item)
                                                             <div class="form-check me-3 me-lg-5">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    id="{{ $item->name }}" name="permission_id[]"
+                                                                    id="{{ $item->name }}-{{ $item->id }}" name="permission_id[]"
                                                                     value="{{ $item->id }}" />
                                                                 <label class="form-check-label"
-                                                                    for="{{ $item->name }}">
+                                                                    for="{{ $item->name }}-{{ $item->id }}">
                                                                     {{ $item->display_name }}
                                                                 </label>
                                                             </div>

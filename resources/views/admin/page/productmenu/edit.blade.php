@@ -59,8 +59,10 @@
                                                     {{ $item->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div> 
+                                    </div>
                                     <button type="submit" class="btn btn-warning">Submit</button>
+                                    <a class="btn btn-secondary" href="{{ route('admin.productmenu.index') }}"
+                                        class="text-muted float-end">Back</a>
                                 </div>
                             </div>
                         </div>

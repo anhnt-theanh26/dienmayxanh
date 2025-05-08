@@ -44,11 +44,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
         try {
-            $validated = $request->validate([
+            $request->validate([
                 'title' => 'required|string|max:255',
                 'excerpt' => 'required|string|max:255',
                 'content' => 'nullable|string',
-                'slug' => 'nullable|string|max:255',
                 'image' => 'nullable|url|max:255',
                 'published_at' => 'required|date',
                 'is_hot' => 'nullable|boolean',
@@ -62,7 +61,6 @@ class PostController extends Controller
             while (Post::where('slug', $slug)->exists()) {
                 $slug = $originalSlug . '-' . $count++;
             }
-            $request->merge(['slug' => $slug]);
             $data = [
                 'title' => $request->title,
                 'excerpt' => $request->excerpt,
@@ -83,11 +81,6 @@ class PostController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('store post')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
 
@@ -96,11 +89,6 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        if (Auth::user()->can('show post')) {
-        } else {
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
     }
 
     /**
@@ -120,11 +108,6 @@ class PostController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('edit post')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -138,6 +121,17 @@ class PostController extends Controller
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
                 return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
             }
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'excerpt' => 'required|string|max:255',
+                'content' => 'nullable|string',
+                'image' => 'nullable|url|max:255',
+                'published_at' => 'required|date',
+                'is_hot' => 'nullable|boolean',
+                'category_id' => 'required|exists:categories,id',
+                'status' => 'required|in:draft,published',
+                'user_id' => 'nullable|exists:users,id',
+            ]);
             $originalSlug = Str::slug($request->title);
             $newSlug = $originalSlug;
             $count = 1;
@@ -146,19 +140,6 @@ class PostController extends Controller
             }
             $request->merge([
                 'slug' => $newSlug
-            ]);
-    
-            $validated = $request->validate([
-                'title' => 'required|string|max:255',
-                'excerpt' => 'required|string|max:255',
-                'content' => 'nullable|string',
-                'slug' => 'nullable|string|max:255|unique:posts,slug,' . $post->id,
-                'image' => 'nullable|url|max:255',
-                'published_at' => 'required|date',
-                'is_hot' => 'nullable|boolean',
-                'category_id' => 'required|exists:categories,id',
-                'status' => 'required|in:draft,published',
-                'user_id' => 'nullable|exists:users,id',
             ]);
             $data = [
                 'title' => $request->title,
@@ -182,11 +163,6 @@ class PostController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('update post')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     /**
@@ -207,11 +183,6 @@ class PostController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('destroy post')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function delete(string $id)
@@ -229,22 +200,12 @@ class PostController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('delete post')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function deleted()
     {
         $posts = Post::onlyTrashed()->orderBy('id', 'desc')->get();
         return view('admin.page.post.restore', compact('posts'));
-        // if (Auth::user()->can('deleted post')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function restore(string $id)
@@ -262,11 +223,6 @@ class PostController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
-        // if (Auth::user()->can('restore post')){
-        // }else{
-        //     Alert::error('Không có quyền truy cập');
-        //     return redirect()->route('admin.dashboard');
-        // }
     }
 
     public function search(Request $request, string $keyword)

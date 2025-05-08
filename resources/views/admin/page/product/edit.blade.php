@@ -83,7 +83,7 @@
                                                 @foreach ($categories as $item)
                                                     <option value="{{ $item->id }}"
                                                         {{ $product->category_id == $item->id ? 'selected' : '' }}>
-                                                        {{ $item->name }}</option>
+                                                        {{ $item->name }} ({{ $item->parent->name }})</option>
                                                 @endforeach
                                             </select>
                                             @error('category_id')
@@ -332,6 +332,8 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-warning mt-3">Submit</button>
+                        <a class="btn btn-secondary mt-3" href="{{ route('admin.product.index') }}"
+                            class="text-muted float-end">Back</a>
                     </form>
                 </div>
             </div>
