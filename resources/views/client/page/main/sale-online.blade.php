@@ -18,14 +18,15 @@
             <div class="bg-white rounded-4 p-3">
                 <ul class="nav d-flex nav-tabs  d-flex align-items-center justify-content-between" id="myTab"
                     role="tablist">
-                    @foreach ($productmenuitemfirst as $index => $item)
+                    @foreach ($productmenuitemfirst as $index => $productmenucategoryitem)
                         <li class="nav-item" role="presentation">
                             <button class="nav-link p-2 {{ $loop->first ? 'active' : '' }}" id="tab-{{ $index }}"
                                 data-bs-toggle="tab" data-bs-target="#tab-content-{{ $index }}" type="button"
                                 role="tab" aria-controls="tab-content-{{ $index }}"
                                 aria-selected="{{ $loop->first ? 'true' : 'false' }}">
                                 <img class="object-fit-contain" style="width: 100px; height: 40px;"
-                                    src="{{ $item->category->image }}" alt="{{ $item->category->name }}">
+                                    src="{{ $productmenucategoryitem->category->image ? asset($productmenucategoryitem->category->image) : asset('storage/default.jpg') }}"
+                                    alt="{{ $productmenucategoryitem->category->name }}">
                             </button>
                         </li>
                     @endforeach
@@ -39,7 +40,10 @@
                             id="tab-content-{{ $index }}" role="tabpanel"
                             aria-labelledby="tab-{{ $index }}">
                             <div class="row">
-                                @foreach ($categories?->category?->products as $product)
+                                @php
+                                    $productmenuitemfirstdatatake12 = $categories?->category?->products?->take(12);
+                                @endphp
+                                @foreach ($productmenuitemfirstdatatake12 as $product)
                                     <div class="col-2 my-2">
                                         <a href="#" class="text-decoration-none text-black">
                                             <div class="p-3 border rounded-2"
@@ -52,11 +56,15 @@
                                                             style="font-size: 12px; width: fit-content;">Hot</p>
                                                     @endif
                                                 </div>
-                                                <img src="{{ $product->image }}" style=""
-                                                    class="card-img-top rounded-2 object-fit-contain"
-                                                    alt="{{ $product->name }}">
+                                                <div class="d-flex justify-content-center align-items-center"
+                                                    style="height: 160px;">
+                                                    <img src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
+                                                        style="" class="card-img-top rounded-2 object-fit-contain"
+                                                        alt="{{ $product->name ?? 'Khong co anh' }}">
+                                                </div>
                                                 <div>
-                                                    <p class="card-text m-0 p-0 py-2">{{ \Illuminate\Support\Str::limit($product?->name, 40) }}</p>
+                                                    <p class="card-text m-0 p-0 py-2">
+                                                        {{ \Illuminate\Support\Str::limit($product?->name, 40) }}</p>
                                                     <p class="card-title m-0 p-0 py-1 fw-bold text-danger"
                                                         style="font-size: 18px;">
                                                         {{ number_format($product?->variants?->first()?->price, 0, '.', '.') }}₫
@@ -91,22 +99,21 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="text-center">
-                                        <a href="#" class="text-decoration-none">
-                                            <h6 class="text-primary pt-3">
-                                                <button class="btn fw-bold text-primary" type="button">
-                                                    Xem thêm sản phẩm
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" fill="currentColor" class="bi bi-chevron-right"
-                                                        viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd"
-                                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-                                                    </svg>
-                                                </button>
-                                            </h6>
-                                        </a>
-                                    </div>
                                 @endforeach
+                                <div class="text-center">
+                                    <a href="#" class="text-decoration-none">
+                                        <h6 class="text-primary pt-3">
+                                            <button class="btn fw-bold text-primary" type="button">
+                                                Xem thêm sản phẩm
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                                                </svg>
+                                            </button>
+                                        </h6>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     @endforeach

@@ -104,7 +104,7 @@
                             <div class="card-body">
                                 <div class="col-md mb-4 mb-md-2">
                                     <div class="col-12 mb-md-0 mb-4">
-                                        <p>Vị trí đứng menu item</p>
+                                        <p>Vị trí đứng product menu item</p>
                                         <ul class="list-group list-group-flush" id="handle-list-2">
                                             @foreach ($productmenuitems as $productmenuitem)
                                                 <li

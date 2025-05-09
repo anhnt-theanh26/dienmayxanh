@@ -3,8 +3,11 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AuthenticationlogController;
+use App\Http\Controllers\Admin\BannerMenuController;
+use App\Http\Controllers\Admin\BannerMenuItemController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryParentController;
+use App\Http\Controllers\Admin\LocationBannerMenuController;
 use App\Http\Controllers\Admin\LocationMenuController;
 use App\Http\Controllers\Admin\LocationProductMenuController;
 use App\Http\Controllers\Admin\LoginController;
@@ -272,6 +275,40 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/store', [ProductMenuItemController::class, 'store'])->name('store');
         Route::put('/{id}/update', [ProductMenuItemController::class, 'update'])->name('update');
         Route::get('/{id}destroy', [ProductMenuItemController::class, 'destroy'])->name('destroy');
+    });
+
+     // Banner Location Menu
+     Route::prefix('locationbannermenu')->as('locationbannermenu.')->group(function () {
+        Route::get('/', [LocationBannerMenuController::class, 'index'])->name('index');
+
+        Route::get('/create', [LocationBannerMenuController::class, 'create'])->name('create');
+        Route::post('/', [LocationBannerMenuController::class, 'store'])->name('store');
+
+        Route::get('/{id}/edit', [LocationBannerMenuController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [LocationBannerMenuController::class, 'update'])->name('update');
+
+        Route::delete('/{id}destroy', [LocationBannerMenuController::class, 'destroy'])->name('destroy');
+    });
+
+    // Banner Menu 
+    Route::prefix('bannermenu')->as('bannermenu.')->group(function () {
+        Route::get('/', [BannerMenuController::class, 'index'])->name('index');
+
+        Route::get('/create', [BannerMenuController::class, 'create'])->name('create');
+        Route::post('/', [BannerMenuController::class, 'store'])->name('store');
+
+        Route::get('/{id}/edit', [BannerMenuController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [BannerMenuController::class, 'update'])->name('update');
+
+        Route::delete('/{id}destroy', [BannerMenuController::class, 'destroy'])->name('destroy');
+    });
+
+    // Banner Menu Item 
+    Route::prefix('bannermenuitem')->as('bannermenuitem.')->group(function () {
+        Route::get('/{id}/create', [BannerMenuItemController::class, 'create'])->name('create');   
+        Route::post('/{id}/store', [BannerMenuItemController::class, 'store'])->name('store');
+        Route::put('/{id}/update', [BannerMenuItemController::class, 'update'])->name('update');
+        Route::get('/{id}destroy', [BannerMenuItemController::class, 'destroy'])->name('destroy');
     });
 
 });

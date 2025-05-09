@@ -46,9 +46,9 @@
                                                 </div>
                                                 <div class="d-flex justify-content-center align-items-center"
                                                     style="height: 160px;">
-                                                    <img src="{{ $product->image }}" style=""
-                                                        class="card-img-top rounded-2 object-fit-contain"
-                                                        alt="{{ $product->name }}">
+                                                    <img src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
+                                                        style="" class="card-img-top rounded-2 object-fit-contain"
+                                                        alt="{{ $product->name ?? 'Khong co anh' }}">
                                                 </div>
                                                 <div>
                                                     <p class="card-text m-0 p-0 py-2">{{ \Illuminate\Support\Str::limit($product->name, 40) }}</p>

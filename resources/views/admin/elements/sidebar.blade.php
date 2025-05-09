@@ -222,7 +222,8 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Location</span>
         </li>
-        <li class="menu-item {{ request()->routeIs('admin.menu.*') || request()->routeIs('admin.locationmenu.*') ? 'active open' : '' }}">
+        <li
+            class="menu-item {{ request()->routeIs('admin.menu.*') || request()->routeIs('admin.locationmenu.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-align-left"></i>
                 <div data-i18n="Location Menu">Location Menu</div>
@@ -240,9 +241,10 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item {{ request()->routeIs('admin.productmenu.*') || request()->routeIs('admin.locationproductmenu.*') ? 'active open' : '' }}">
+        <li
+            class="menu-item {{ request()->routeIs('admin.productmenu.*') || request()->routeIs('admin.locationproductmenu.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-align-left"></i>
+                <i class="menu-icon tf-icons ti ti-brand-producthunt"></i>
                 <div data-i18n="Location Product">Location Product</div>
             </a>
             <ul class="menu-sub">
@@ -258,7 +260,25 @@
                 </li>
             </ul>
         </li>
-
+        <li
+            class="menu-item {{ request()->routeIs('admin.bannermenu.*') || request()->routeIs('admin.locationbannermenu.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-panorama-horizontal"></i>
+                <div data-i18n="Location Banner">Location Banner</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.bannermenu.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bannermenu.index') }}" class="menu-link">
+                        <div data-i18n="Menu Banner">Menu Banner</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.locationbannermenu.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.locationbannermenu.index') }}" class="menu-link">
+                        <div data-i18n="Location Banner">Location Banner</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
         {{-- <!-- Dashboards -->
         <li class="menu-item active open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

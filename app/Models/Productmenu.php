@@ -12,8 +12,6 @@ class Productmenu extends Model
     protected $fillable = [
         'name',
         'slug',
-        'link',
-        'location',
         'locationproductmenu_id',
     ];
     public function locationproductmenu()

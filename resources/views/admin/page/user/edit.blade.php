@@ -185,10 +185,10 @@
         });
     </script>
     <script>
-        var btnimagecategory = document.querySelectorAll('.btn-image');
+        var btnimage = document.querySelectorAll('.btn-image');
 
-        for (var i = 0; i < btnimagecategory.length; i++) {
-            btnimagecategory[i].onclick = function() {
+        for (var i = 0; i < btnimage.length; i++) {
+            btnimage[i].onclick = function() {
                 imageChoseClick('image');
             };
         }

@@ -86,7 +86,7 @@
                         <th>id</th>
                         <th>Name</th>
                         <th>Slug</th>
-                        <th>Status</th>
+                        <th>Location Prodcut Menu</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

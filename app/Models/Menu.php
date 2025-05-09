@@ -11,8 +11,6 @@ class Menu extends Model
     protected $fillable = [
         'name',
         'slug',
-        'link',
-        'location',
         'locationmenu_id',
     ];
     public function locationmenu()

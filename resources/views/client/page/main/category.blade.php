@@ -58,8 +58,9 @@
                                     <div class="col-2 p-3">
                                         <div class="text-center">
                                             <img class="rounded-2 object-fit-contain" style="width: 50px; height: 50px;"
-                                                src="{{ $category_normal->category->image }}"
-                                                alt="{{ $category_normal->category->name }}">
+                                                src="{{ $category_normal->category->image ? asset($category_normal->category->image) : asset('storage/default.jpg') }}"
+                                                alt="{{ $category_normal->category->name ?? 'Khong co anh' }}">
+                                                
                                             <p class="p-0 m-0 pt-1">{{ $category_normal?->category?->name }}</p>
                                         </div>
                                     </div>
