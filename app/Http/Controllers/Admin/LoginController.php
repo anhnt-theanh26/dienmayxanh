@@ -29,12 +29,12 @@ class LoginController extends Controller
             ]);
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
-                $infor = [
-                    'title' => 'Thong bao Dang nhap',
-                    'email' => $request->email,
-                    'content' => "Tai khoan co email: $request->email vua dang nhap vao he thong cua ban!",
-                    'time' => "Thoi gian: " . Carbon::now() . "!",
-                ];
+                // $infor = [
+                //     'title' => 'Thong bao Dang nhap',
+                //     'email' => $request->email,
+                //     'content' => "Tai khoan co email: $request->email vua dang nhap vao he thong cua ban!",
+                //     'time' => "Thoi gian: " . Carbon::now() . "!",
+                // ];
                 // send mail
                 // Mail::to('anhntph43180@fpt.edu.vn')->send(new SendEmail($infor));
                 Alert::success('Đăng nhập thành công:', 'Xin chào: ' . $request->email);

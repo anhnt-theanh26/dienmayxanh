@@ -6,8 +6,6 @@
 
 @endsection
 
-@include('ckfinder::setup')
-
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Category/</span> Create</h4>
     <div class="card-body">
@@ -38,14 +36,27 @@
                                         <input type="text" class="form-control" id="name" name="name"
                                             value="{{ old('name') }}" placeholder="Name" />
                                     </div>
-
                                     <div class="mb-3">
-                                        @include('layout.images', [
-                                            'title' => __('Ảnh'),
-                                            'action' => 'view_images',
-                                            'name' => 'images',
-                                            'images' => '',
-                                        ])
+                                        <label class="form-label" for="image">Image</label><br>
+                                        <input id="thumbnail" class="form-control" type="hidden" name="image">
+                                        <div class="d-flex align-items-center">
+                                            <div class="input-group"
+                                                style="position: relative; display: inline-block; width: 80px;">
+                                                <img id="img" class="btn-image rounded-1"
+                                                    src="{{ asset('./storage/default.jpg') }}" width="80px"
+                                                    alt="Image">
+                                                <button id="lfm" data-input="thumbnail" data-preview="holder"
+                                                    type="button" class="btn btn-light btn-image rounded-1"
+                                                    id="choose-button"
+                                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                                    Choose
+                                                </button>
+                                            </div>
+                                            <div id="holder" class="mx-2" style="width: 100%"></div>
+                                        </div>
+                                        @error('image')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="switch switch-primary">
@@ -79,31 +90,9 @@
 @endsection
 
 @section('js')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script>
-        // var btnimagecategory = document.getElementById('btn-image-category');
-
-        // btnimagecategory.onclick = function() {
-        //     imageChoseClick('image');
-        // };
-
-        // function imageChoseClick(elementId) {
-        //     CKFinder.popup({
-        //         chooseFiles: true,
-        //         width: 800,
-        //         height: 600,
-        //         onInit: function(finder) {
-        //             finder.on('files:choose', function(evt) {
-        //                 var file = evt.data.files.first();
-        //                 var output = document.getElementById(elementId);
-        //                 output.value = file.getUrl();
-        //             });
-
-        //             finder.on('file:choose:resizedImage', function(evt) {
-        //                 var output = document.getElementById(elementId);
-        //                 output.value = evt.data.resizedUrl;
-        //             });
-        //         }
-        //     });
-        // }
+        $('#lfm').filemanager('image');
     </script>
 @endsection

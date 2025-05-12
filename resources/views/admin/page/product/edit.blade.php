@@ -9,8 +9,6 @@
 
 @endsection
 
-@include('ckfinder::setup')
-
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product /</span> Update</h4>
     <div class="card-body">
@@ -49,18 +47,25 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="image">Image</label><br>
-                                            <input type="hidden" id="image" class="form-control" name="image"
+                                            <input id="thumbnail" class="form-control" type="hidden" name="image"
                                                 value="{{ $product->image }}">
-                                            <div class="input-group"
-                                                style="position: relative; display: inline-block; width: 100px;">
-                                                <img id="img" class="btn-image rounded-1"
-                                                    src="{{ asset($product->image ? $product->image : './storage/default.jpg') }}"
-                                                    width="100px" alt="Image">
-                                                <button type="button" class="btn btn-light btn-image" id="choose-button"
-                                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
-                                                           background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
-                                                    Choose
-                                                </button>
+                                            <div class="d-flex align-items-center">
+                                                <div class="input-group"
+                                                    style="position: relative; display: inline-block; width: 80px;">
+                                                    <img id="img" class="btn-image rounded-1"
+                                                        src="{{ asset('./storage/default.jpg') }}" width="80px"
+                                                        alt="Image">
+                                                    <button id="lfm" data-input="thumbnail" data-preview="holder"
+                                                        type="button" class="btn btn-light btn-image rounded-1"
+                                                        id="choose-button"
+                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                                        Choose
+                                                    </button>
+                                                </div>
+                                                <div id="holder" class="mx-2" style="width: 100%">
+                                                    <img class="btn-image rounded-1 object-fit-contain"
+                                                        src="{{ asset($product->image) }}"width="80px" alt="Image">
+                                                </div>
                                             </div>
                                             @error('image')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -263,22 +268,23 @@
                                     <div class="card-body">
                                         <div class="mb-3">
                                             <div class="imageUpload">
-                                                <input type="hidden" name="images" id="imagesInput">
-                                                <a href="javascript:void(0)" onclick="" id="LoadImage"
-                                                    class="btnAddImage">
+                                                <input id="thumbnails" class="form-control" type="hidden"
+                                                    name="images">
+                                                <div class="d-flex align-items-center">
                                                     <div class="input-group"
-                                                        style="position: relative; display: inline-block; width: 100px;">
-                                                        <img id="img" class="btn-images rounded-1"
-                                                            src="{{ asset('./storage/default.jpg') }}" width="100px"
+                                                        style="position: relative; display: inline-block; width: 80px;">
+                                                        <img id="img" class="btn-image rounded-1"
+                                                            src="{{ asset('./storage/default.jpg') }}" width="80px"
                                                             alt="Image">
-                                                        <button type="button" class="btn btn-light btn-images"
-                                                            id="choose-button"
-                                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
-                                                                       background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                                        <button id="lfms" data-input="thumbnails"
+                                                            data-preview="holders" type="button"
+                                                            class="btn btn-light btn-image rounded-1" id="choose-button"
+                                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
                                                             Choose
                                                         </button>
                                                     </div>
-                                                </a>
+                                                    <div id="holders" class="mx-2" style="width: 100%"></div>
+                                                </div>
                                                 <div class="previewThumbnailList" style="display: flex; flex-wrap: wrap;">
                                                 </div>
                                             </div>
@@ -300,9 +306,10 @@
                                                     <input type="hidden" class="imageUrlOld" name="imageUrlOld">
                                                     @if ($imageArr)
                                                         @foreach ($imageArr as $item)
-                                                            <div class="position-relative" style="margin-right: 10px;">
+                                                            <div class="position-relative py-2"
+                                                                style="margin-right: 10px;">
                                                                 <img src="{{ $item }}"
-                                                                    style="width: 100px; height: auto; margin: 5px; border: 1px solid #ccc; border-radius: 8px;">
+                                                                    style="width: 100px; height: auto;">
                                                                 <div class="position-absolute top-0 end-0 text-danger cursor-pointer"
                                                                     onclick="removeImageOld('{{ $item }}')">
                                                                     <i class="ti ti-x"></i>
@@ -497,112 +504,27 @@
     </script>
     {{-- hết sttribute --}}
     {{-- ckeditor --}}
+    {{-- image --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script>
+        $('#lfm').filemanager('image');
+        $('#lfms').filemanager('images');
+    </script>
+    {{-- editor --}}
     <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace('my-editor', {
-            filebrowserBrowseUrl: '/ckfinder/browser',
-            filebrowserImageBrowseUrl: '/ckfinder/browser?type=Images',
-            filebrowserUploadUrl: '/ckfinder/connector?command=QuickUpload&type=Files',
-            filebrowserImageUploadUrl: '/ckfinder/connector?command=QuickUpload&type=Images'
-        });
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
     </script>
-    {{-- ckfinder --}}
-    <script type="text/javascript" src="{{ asset('/js/ckfinder/ckfinder.js') }}"></script>
     <script>
-        CKFinder.config({
-            connectorPath: '/ckfinder/connector'
-        });
+        CKEDITOR.replace('my-editor', options);
     </script>
-    {{-- one image --}}
-    <script>
-        // one image 
-        var btnimage = document.querySelectorAll('.btn-image');
-
-        for (var i = 0; i < btnimage.length; i++) {
-            btnimage[i].onclick = function() {
-                imageChoose('image');
-            };
-        }
-
-        function imageChoose(elementId) {
-            CKFinder.popup({
-                chooseFiles: true,
-                width: 800,
-                height: 600,
-                onInit: function(finder) {
-                    var img = document.querySelector('#img');
-                    finder.on('files:choose', function(evt) {
-                        var file = evt.data.files.first();
-                        var output = document.getElementById(elementId);
-                        output.value = file.getUrl();
-                        img.src = output.value;
-                    });
-
-                    finder.on('file:choose:resizedImage', function(evt) {
-                        var output = document.getElementById(elementId);
-                        output.value = evt.data.resizedUrl;
-                        img.src = output.value;
-                    });
-                }
-            });
-        }
-    </script>
-    {{-- end one image --}}
-    {{-- many image --}}
-    <script>
-        $('#LoadImage').click(function() {
-            selectMultipleFilesWithCKFinder();
-        });
-
-        function selectMultipleFilesWithCKFinder() {
-            CKFinder.popup({
-                chooseFiles: true,
-                width: 800,
-                height: 600,
-                onInit: function(finder) {
-                    finder.on('files:choose', function(evt) {
-                        var files = evt.data.files.models;
-                        var images = [];
-                        var previewContainer = document.querySelector('.previewThumbnailList');
-                        previewContainer.innerHTML = '';
-                        files.forEach(function(file) {
-                            var imageUrl = file.getUrl();
-                            images.push(imageUrl);
-                            var wrapper = document.createElement('div');
-                            wrapper.className = 'position-relative';
-                            wrapper.style.marginRight = '10px';
-
-
-                            var img = document.createElement('img');
-                            img.src = imageUrl;
-                            img.style.width = '100px';
-                            img.style.height = 'auto';
-                            img.style.margin = '5px';
-                            img.style.border = '1px solid #ccc';
-                            img.style.borderRadius = '8px';
-                            img.className = 'imageinput[]';
-                            var closeBtn = document.createElement('div');
-                            closeBtn.className =
-                                'position-absolute top-0 end-0 text-danger cursor-pointer';
-                            closeBtn.innerHTML = '<i class="ti ti-x"></i>';
-                            closeBtn.onclick = function() {
-                                wrapper.remove();
-                                images = images.filter(url => url !== imageUrl);
-                                document.getElementById('imagesInput').value = images.join(
-                                    ',end,');
-                            }
-
-                            wrapper.appendChild(img);
-                            wrapper.appendChild(closeBtn);
-                            previewContainer.appendChild(wrapper);
-                        });
-                        document.getElementById('imagesInput').value = images.join(',end,');
-                    });
-                }
-            });
-        }
-    </script>
-    {{-- end many image --}}
+    {{--  --}}
     <script src="{{ asset('/administrator/assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.js') }}"></script>
     <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>

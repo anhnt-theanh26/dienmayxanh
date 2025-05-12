@@ -14,8 +14,6 @@
     <script src="{{ asset('/administrator/assets/js/config.js') }}"></script>
 @endsection
 
-@include('ckfinder::setup')
-
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User/</span> Update</h4>
     <div class="card-body">
@@ -78,18 +76,24 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="image">Image</label><br>
-                                        <input type="hidden" id="image" class="form-control" name="image"
-                                            value="{{ $user->image }}">
-                                        <div class="input-group"
-                                            style="position: relative; display: inline-block; width: 100px;">
-                                            <img id="img" class="btn-image rounded-1"
-                                                src="{{ $user->image ? asset($user->image) : asset('storage/default.jpg') }}"
-                                                width="100px" alt="Image">
-                                            <button type="button" class="btn btn-light btn-image" id="choose-button"
-                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
-                                                         background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
-                                                Choose
-                                            </button>
+                                        <input id="thumbnail" class="form-control" type="hidden" name="image" value="{{ $user->image }}">
+                                        <div class="d-flex align-items-center">
+                                            <div class="input-group"
+                                                style="position: relative; display: inline-block; width: 80px;">
+                                                <img id="img" class="btn-image rounded-1"
+                                                    src="{{ asset('./storage/default.jpg') }}" width="80px"
+                                                    alt="Image">
+                                                <button id="lfm" data-input="thumbnail" data-preview="holder"
+                                                    type="button" class="btn btn-light btn-image rounded-1"
+                                                    id="choose-button"
+                                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                                    Choose
+                                                </button>
+                                            </div>
+                                            <div id="holder" class="mx-2" style="width: 100%">
+                                                <img class="btn-image rounded-1 object-fit-contain" src="{{ asset($user->image) }}"
+                                                    height="80px" alt="Image">
+                                            </div>
                                         </div>
                                         @error('image')
                                             <p class="text-danger">{{ $message }}</p>
@@ -146,8 +150,7 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                                 @if (session('oldpassword_like_newpassword'))
-                                <p class="text-danger">{{ session('oldpassword_like_newpassword') }}</p>
-                                    
+                                    <p class="text-danger">{{ session('oldpassword_like_newpassword') }}</p>
                                 @endif
                             </div>
                         </div>
@@ -176,45 +179,10 @@
 @endsection
 
 @section('js')
-
-    {{-- ckfinder --}}
-    <script type="text/javascript" src="{{ asset('/js/ckfinder/ckfinder.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script>
-        CKFinder.config({
-            connectorPath: '/ckfinder/connector'
-        });
-    </script>
-    <script>
-        var btnimage = document.querySelectorAll('.btn-image');
-
-        for (var i = 0; i < btnimage.length; i++) {
-            btnimage[i].onclick = function() {
-                imageChoseClick('image');
-            };
-        }
-
-        function imageChoseClick(elementId) {
-            CKFinder.popup({
-                chooseFiles: true,
-                width: 800,
-                height: 600,
-                onInit: function(finder) {
-                    var img = document.querySelector('#img');
-                    finder.on('files:choose', function(evt) {
-                        var file = evt.data.files.first();
-                        var output = document.getElementById(elementId);
-                        output.value = file.getUrl();
-                        img.src = output.value;
-                    });
-
-                    finder.on('file:choose:resizedImage', function(evt) {
-                        var output = document.getElementById(elementId);
-                        output.value = evt.data.resizedUrl;
-                        img.src = output.value;
-                    });
-                }
-            });
-        }
+        $('#lfm').filemanager('image');
     </script>
     <!-- publish at -->
     <script src="{{ asset('/administrator/assets/vendor/libs/moment/moment.js') }}"></script>

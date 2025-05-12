@@ -43,7 +43,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 // Route::post('welcome/store', [AdminController::class, 'welcome'])->name('welcome.store');
-// Route::get('test', [AdminController::class, 'test'])->name('test');
+Route::get('test', [AdminController::class, 'test'])->name('test');
 
 
 // login and register
@@ -160,7 +160,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     Route::prefix('image')->as('image.')->group(function () {
         Route::get('/', [AdminController::class, 'image'])->name('image');
     });
-
+    
     // User
     Route::prefix('user')->as('user.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
@@ -271,14 +271,14 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
     // Product Menu Item 
     Route::prefix('productmenuitem')->as('productmenuitem.')->group(function () {
-        Route::get('/{id}/edit', [ProductMenuItemController::class, 'edit'])->name('edit');   
+        Route::get('/{id}/edit', [ProductMenuItemController::class, 'edit'])->name('edit');
         Route::post('/{id}/store', [ProductMenuItemController::class, 'store'])->name('store');
         Route::put('/{id}/update', [ProductMenuItemController::class, 'update'])->name('update');
         Route::get('/{id}/destroy', [ProductMenuItemController::class, 'destroy'])->name('destroy');
     });
 
-     // Banner Location Menu
-     Route::prefix('locationbannermenu')->as('locationbannermenu.')->group(function () {
+    // Banner Location Menu
+    Route::prefix('locationbannermenu')->as('locationbannermenu.')->group(function () {
         Route::get('/', [LocationBannerMenuController::class, 'index'])->name('index');
 
         Route::get('/create', [LocationBannerMenuController::class, 'create'])->name('create');
@@ -305,20 +305,16 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
     // Banner Menu Item 
     Route::prefix('bannermenuitem')->as('bannermenuitem.')->group(function () {
-        Route::get('/{id}/create', [BannerMenuItemController::class, 'create'])->name('create');   
+        Route::get('/{id}/edit', [BannerMenuItemController::class, 'edit'])->name('edit');
         Route::post('/{id}/store', [BannerMenuItemController::class, 'store'])->name('store');
         Route::put('/{id}/update', [BannerMenuItemController::class, 'update'])->name('update');
         Route::get('/{id}/destroy', [BannerMenuItemController::class, 'destroy'])->name('destroy');
     });
 
 });
-// ckfinder 
-Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
-    ->name('ckfinder_connector');
-
-Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
-    ->name('ckfinder_browser');
-
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::post('/search', [SearchController::class, 'store'])->name('search');

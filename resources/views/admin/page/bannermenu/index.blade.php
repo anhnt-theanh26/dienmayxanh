@@ -60,7 +60,7 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item"
-                                            href="{{ route('admin.bannermenuitem.create', ['id' => $item->id]) }}">
+                                            href="{{ route('admin.bannermenuitem.edit', ['id' => $item->id]) }}">
                                             <i class="ti ti-settings me-1"></i> Config
                                         </a>
                                         <a class="dropdown-item"

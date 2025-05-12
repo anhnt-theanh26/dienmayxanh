@@ -44,63 +44,76 @@
                         @method('put')
                         <div class="col-12">
                             <div class="card mb-4">
-                              <div class="card-body">
-                                  <div class="mb-3">
-                                      <label class="form-label" for="name">Name</label>
-                                      <input type="text" class="form-control" id="name" name="name"
-                                          value="{{ $category->name }}" placeholder="Name" />
-                                  </div>
-                                  <div class="mb-3">
-                                      @include('layout.images', [
-                                          'title' => __(key: 'Ảnh'),
-                                          'action' => 'view_images',
-                                          'name' => 'images',
-                                          'images' => $category->image,
-                                      ])
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="switch switch-primary">
-                                          <input type="checkbox" class="switch-input" name="is_hot"
-                                              {{ $category->is_hot ? 'checked' : '' }}>
-                                          <span class="switch-toggle-slider">
-                                              <span class="switch-on"></span>
-                                              <span class="switch-off"></span>
-                                          </span>
-                                          <span class="switch-label">Is Hot</span>
-                                      </label>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label for="category_parent_id" class="form-label">Category Parent</label>
-                                      <select id="category_parent_id" name="category_parent_id" class="form-select">
-                                          @foreach ($categoryParents as $item)
-                                              <option value="{{ $item->id }}"
-                                                  {{ $category->category_parent_id == $item->id ? 'selected' : '' }}>
-                                                  {{ $item->name }}
-                                              </option>
-                                          @endforeach
-                                      </select>
-                                  </div>
-                                  <button type="submit" class="btn btn-warning">Submit</button>
-                                  <a class="btn btn-secondary" href="{{ route('admin.category.index') }}"
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            value="{{ $category->name }}" placeholder="Name" />
+                                    </div>
+                                   <div class="mb-3">
+                                        <label class="form-label" for="image">Image</label><br>
+                                        <input id="thumbnail" class="form-control" type="hidden" name="image" value="{{ $category->image }}">
+                                        <div class="d-flex align-items-center">
+                                            <div class="input-group"
+                                                style="position: relative; display: inline-block; width: 80px;">
+                                                <img id="img" class="btn-image rounded-1"
+                                                    src="{{ asset('./storage/default.jpg') }}" width="80px"
+                                                    alt="Image">
+                                                <button id="lfm" data-input="thumbnail" data-preview="holder"
+                                                    type="button" class="btn btn-light btn-image rounded-1"
+                                                    id="choose-button"
+                                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                                    Choose
+                                                </button>
+                                            </div>
+                                            <div id="holder" class="mx-2" style="width: 100%">
+                                                <img class="btn-image rounded-1 object-fit-contain" src="{{ asset($category->image) }}"
+                                                    height="80px" alt="Image">
+                                            </div>
+                                        </div>
+                                        @error('image')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="switch switch-primary">
+                                            <input type="checkbox" class="switch-input" name="is_hot"
+                                                {{ $category->is_hot ? 'checked' : '' }}>
+                                            <span class="switch-toggle-slider">
+                                                <span class="switch-on"></span>
+                                                <span class="switch-off"></span>
+                                            </span>
+                                            <span class="switch-label">Is Hot</span>
+                                        </label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="category_parent_id" class="form-label">Category Parent</label>
+                                        <select id="category_parent_id" name="category_parent_id" class="form-select">
+                                            @foreach ($categoryParents as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ $category->category_parent_id == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning">Submit</button>
+                                    <a class="btn btn-secondary" href="{{ route('admin.category.index') }}"
                                         class="text-muted float-end">Back</a>
-                              </div>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        var image = document.querySelector('#image');
-        var img = document.querySelector('#img');
-        image.addEventListener('change', function(e) {
-            e.preventDefault();
-            img.src = URL.createObjectURL(this.files[0]);
-        })
-    </script>
 @endsection
 
 @section('js')
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script>
+        $('#lfm').filemanager('image');
+    </script>
 @endsection

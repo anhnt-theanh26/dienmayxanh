@@ -31,17 +31,16 @@ class AdminController extends Controller
     }
     public function test()
     {
-        $attributes = Attribute::orderBy('id', 'desc')->get();
-        return view('test', compact('attributes'));
+        return view('test');
     }
 
     function image()
     {
-        if (Auth::user()->can('index image')) {
-            return view('admin.page.image.index');
-        } else {
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
-        }
+        return view('admin.page.image.index');
+        // if (Auth::user()->can('index image')) {
+        // } else {
+        //     Alert::error('Không có quyền truy cập');
+        //     return redirect()->route('admin.dashboard');
+        // }
     }
 }

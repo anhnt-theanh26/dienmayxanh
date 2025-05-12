@@ -3,7 +3,6 @@
 @section('title', 'Chinh sua')
 
 @section('css')
-    @include('ckfinder::setup')
 @endsection
 
 @section('content')
@@ -54,22 +53,25 @@
                                         <div data-repeater-item="">
                                             <div class="row d-flex align-items-center">
                                                 <div class="mb-3 col-lg-2 col-xl-2 col-12 mb-0">
-                                                    <label class="form-label" for="form-repeater-1-1">Image</label><br>
-                                                    <input type="hidden" id="form-repeater-1-1" class="form-control"
-                                                        name="image">
-                                                    <div class="input-group"
-                                                        style="position: relative; display: inline-block; width: 70px;">
-                                                        <img class="btn-image rounded-1" onclick="imageChoseClick(this)"
-                                                            src="{{ asset('./storage/default.jpg') }}" width="70px"
-                                                            alt="Image">
-                                                        <button type="button" class="btn btn-light btn-image"
-                                                            id="choose-button" onclick="imageChoseClick(this)"
-                                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
-                                                                background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
-                                                            Choose
-                                                        </button>
+                                                    <label class="form-label">Image</label><br>
+                                                    <input class="form-control image-input" type="hidden" name="image">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="input-group"
+                                                            style="position: relative; display: inline-block; width: 80px;">
+                                                            <img class="btn-image rounded-1 image-preview"
+                                                                src="{{ asset('./storage/default.jpg') }}" width="80px"
+                                                                alt="Image">
+                                                            <button type="button"
+                                                                class="btn btn-light btn-image rounded-1 choose-image-btn"
+                                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
+                                                                    background: rgba(0, 0, 0, 0.4); color: white; font-weight: bold; text-align: center;">
+                                                                Choose
+                                                            </button>
+                                                        </div>
+                                                        <div class="mx-2" style="width: 100%"></div>
                                                     </div>
                                                 </div>
+
                                                 <div class="mb-3 col-lg-9 col-xl-9 col-12 mb-0">
                                                     <label class="form-label" for="form-repeater-1-2">Link</label>
                                                     <input type="text" id="form-repeater-1-2" class="form-control"
@@ -126,19 +128,22 @@
                                                             class="drag-handle cursor-move ti ti-menu-2 align-text-bottom me-2"></i>
                                                         <input type="hidden" name="location_stand[]"
                                                             value="{{ $bannermenuitem->id }}">
+                                                        <input class="form-control image-input" type="hidden"
+                                                            name="image[]" value="{{ $bannermenuitem->image }}"
+                                                            id="imageInput_{{ $bannermenuitem->id }}">
                                                         <div class="input-group"
-                                                            style="position: relative; display: inline-block; width: 70px;">
-                                                            <input type="hidden" id="form-repeater-1-1"
-                                                                class="form-control" name="image[]"
-                                                                value="{{ $bannermenuitem->image }}" required>
-                                                            <img class="btn-image rounded-1"
-                                                                onclick="imageChoseClickUpdate(this)"
+                                                            style="position: relative; display: inline-block; width: 80px;">
+                                                            <img class="btn-image rounded-1 image-preview"
                                                                 src="{{ $bannermenuitem->image ? asset($bannermenuitem->image) : asset('./storage/default.jpg') }}"
-                                                                width="70px" alt="Image">
-                                                            <button type="button" class="btn btn-light btn-image"
-                                                                id="choose-button" onclick="imageChoseClickUpdate(this)"
+                                                                width="80px" alt="Image"
+                                                                id="preview_{{ $bannermenuitem->id }}">
+                                                            <button type="button"
+                                                                class="btn btn-light btn-image rounded-1 choose-image-btn"
+                                                                id="lfm_{{ $bannermenuitem->id }}"
+                                                                data-input="imageInput_{{ $bannermenuitem->id }}"
+                                                                data-preview="preview_{{ $bannermenuitem->id }}"
                                                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
-                                                                background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                                                background: rgba(0, 0, 0, 0.4); color: white; font-weight: bold; text-align: center;">
                                                                 Choose
                                                             </button>
                                                         </div>
@@ -173,13 +178,63 @@
 @endsection
 
 @section('js')
-    <script type="text/javascript" src="{{ asset('/js/ckfinder/ckfinder.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script>
+        function initializeFileManagers() {
+            $('.choose-image-btn').off('click').on('click', function(e) {
+                e.preventDefault();
+                const button = $(this);
+                const input = button.closest('.mb-3').find('.image-input');
+                const previewImg = button.closest('.input-group').find('.image-preview');
+
+                window.open('/laravel-filemanager?type=image', 'FileManager', 'width=900,height=600');
+                window.SetUrl = function(items) {
+                    const filePath = items[0].url;
+                    input.val(filePath);
+                    previewImg.attr('src', filePath);
+                };
+            });
+        }
+        $(document).ready(function() {
+            initializeFileManagers();
+            $('[data-repeater-create]').click(function() {
+                setTimeout(function() {
+                    initializeFileManagers();
+                }, 100);
+            });
+        });
+
+        $(document).ready(function() {
+            // Khởi tạo file manager cho từng nút
+            $('[id^=lfm_]').each(function() {
+                let buttonId = $(this).attr('id');
+                let inputId = $(this).data('input');
+                let previewId = $(this).data('preview');
+
+                $('#' + buttonId).filemanager('image', {
+                    prefix: '/laravel-filemanager', // Đường dẫn này phụ thuộc cấu hình của bạn
+                    input_id: inputId
+                });
+
+                // Gắn sự kiện để cập nhật ảnh xem trước sau khi chọn
+                $('#' + inputId).on('change', function() {
+                    let imageUrl = $(this).val();
+                    $('#' + previewId).attr('src', imageUrl);
+                });
+            });
+        });
+    </script>
+
+
+
+    {{-- <script type="text/javascript" src="{{ asset('/js/ckfinder/ckfinder.js') }}"></script>
     <script>
         CKFinder.config({
             connectorPath: '/ckfinder/connector'
         });
     </script>
-    {{-- create --}}
     <script>
         function imageChoseClick(clickedElement) {
             const repeaterItem = clickedElement.closest('[data-repeater-item]');
@@ -210,7 +265,6 @@
             });
         }
     </script>
-    {{-- update --}}
     <script>
         function imageChoseClickUpdate(clickedElement) {
             const repeaterItem = clickedElement.closest('[data-repeater-item]');
@@ -242,7 +296,7 @@
                 }
             });
         }
-    </script>
+    </script> --}}
     <script src="{{ asset('/administrator/assets/vendor/libs/sortablejs/sortable.js') }}"></script>
     <script src="{{ asset('/administrator/assets/js/extended-ui-drag-and-drop.js') }}"></script>
 

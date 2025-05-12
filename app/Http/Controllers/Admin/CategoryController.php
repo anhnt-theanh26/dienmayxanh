@@ -33,7 +33,7 @@ class CategoryController extends Controller
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
-                'image' => 'nullable|url|max:255',
+                'image' => 'nullable|max:255',
                 'is_hot' => 'nullable',
                 'category_parent_id' => 'required|exists:category_parents,id',
             ]);
@@ -48,7 +48,7 @@ class CategoryController extends Controller
                 'slug' => $slug,
                 'is_hot' => $request->has('is_hot') ? true : false,
                 'category_parent_id' => $request->category_parent_id,
-                'image' => $request->images,
+                'image' => $request->image,
             ];
 
             Category::create($data);
@@ -113,10 +113,8 @@ class CategoryController extends Controller
                 'slug' => $newSlug,
                 'is_hot' => $request->has('is_hot') ? true : false,
                 'category_parent_id' => $request->category_parent_id,
+                'image' => $request->image,
             ];
-            if ($request->images) {
-                $data['image'] = $request->images;
-            }
             $category->update($data);
             return redirect()->route('admin.category.index')->with('success', 'Cập nhật thành công!');
         } catch (\Throwable $th) {

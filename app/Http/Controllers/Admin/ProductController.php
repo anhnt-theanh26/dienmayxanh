@@ -79,7 +79,7 @@ class ProductController extends Controller
             $product = Product::create($dataProduct);
             if (!empty($request->images)) {
                 $imagesInput = $request->images;
-                $imagesArray = explode(',end,', $imagesInput);
+                $imagesArray = explode(',', $imagesInput);
 
                 ProductImage::create([
                     'image' => json_encode($imagesArray), // lưu dạng JSON string
@@ -231,11 +231,11 @@ class ProductController extends Controller
             if (!empty($request->imageUrlOld)) { // images
                 $productImages = ProductImage::where('product_id', $product->id)->first();
                 $imagesOld = $productImages ? json_decode($productImages->image, true) : null;
-                $imageArrDel = explode(',end,', $request->imageUrlOld);
+                $imageArrDel = explode(',', $request->imageUrlOld);
                 $imageArrNew = $this->remove_items_once($imagesOld, $imageArrDel);
                 if (!empty($request->images)) {
                     $imagesInput = $request->images;
-                    $imagesArray = explode(',end,', $imagesInput);
+                    $imagesArray = explode(',', $imagesInput);
                     $imageArrayNew = array_merge($imageArrNew ? $imageArrNew : [], $imagesArray ? $imagesArray : []);
                     $dataImages = [
                         'image' => json_encode($imageArrayNew),
@@ -253,7 +253,7 @@ class ProductController extends Controller
                 $imagesOld = $productImages ? json_decode($productImages->image, true) : null;
                 if (!empty($request->images)) {
                     $imagesInput = $request->images;
-                    $imagesArray = explode(',end,', $imagesInput);
+                    $imagesArray = explode(',', $imagesInput);
                     $imageArrayNew = array_merge($imagesOld ? $imagesOld : [], $imagesArray ? $imagesArray : []);
                     if ($imagesOld == null) {
                         ProductImage::create([

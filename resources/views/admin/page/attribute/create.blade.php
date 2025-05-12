@@ -7,8 +7,6 @@
     <script src="{{ asset('/administrator/assets/js/config.js') }}"></script>
 @endsection
 
-@include('ckfinder::setup')
-
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Attribute /</span> Create</h4>
     <div class="card-body">

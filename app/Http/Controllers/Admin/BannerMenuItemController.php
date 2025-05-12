@@ -22,29 +22,9 @@ class BannerMenuItemController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(string $id)
+    public function create()
     {
-        try {
-            $bannermenu = Bannermenu::where('id', $id)->first();
-            if (!$bannermenu) {
-                Alert::error('Có lỗi xảy ra', 'Khong tim thay product menu');
-                return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay product menu!');
-            }
-            $bannermenuitems = Bannermenuitem::where('bannermenu_id', $id)->orderBy('location', 'asc')->get();
-            if (!$bannermenuitems) {
-                Alert::error('Có lỗi xảy ra', 'Khong tim thay product menu items');
-                return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay product menu items!');
-            }
-            $categoryParents = CategoryParent::orderBy('id', 'desc')->get();
-            if (!$categoryParents) {
-                Alert::error('Có lỗi xảy ra', 'Khong tim thay category parents');
-                return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay category parents!');
-            }
-            return view('admin.page.bannermenuitem.create', compact('bannermenu', 'bannermenuitems', 'categoryParents'));
-        } catch (\Throwable $th) {
-            Alert::error('Có lỗi xảy ra', text: $th->getMessage());
-            return redirect()->route('admin.bannermenumenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
-        }
+        // 
     }
 
     /**
@@ -85,7 +65,7 @@ class BannerMenuItemController extends Controller
                 }
             }
             Alert::success('Thanh cong', 'Cap nhap menu item thanh cong');
-            return redirect()->route('admin.bannermenuitem.create', ['id' => $id])->with('success', 'Cap nhap menu item thanh cong');
+            return redirect()->route('admin.bannermenuitem.edit', ['id' => $id])->with('success', 'Cap nhap menu item thanh cong');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra', text: $th->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -105,7 +85,27 @@ class BannerMenuItemController extends Controller
      */
     public function edit(string $id)
     {
-
+        try {
+            $bannermenu = Bannermenu::where('id', $id)->first();
+            if (!$bannermenu) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay product menu');
+                return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay product menu!');
+            }
+            $bannermenuitems = Bannermenuitem::where('bannermenu_id', $id)->orderBy('location', 'asc')->get();
+            if (!$bannermenuitems) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay product menu items');
+                return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay product menu items!');
+            }
+            $categoryParents = CategoryParent::orderBy('id', 'desc')->get();
+            if (!$categoryParents) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay category parents');
+                return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay category parents!');
+            }
+            return view('admin.page.bannermenuitem.edit', compact('bannermenu', 'bannermenuitems', 'categoryParents'));
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra', text: $th->getMessage());
+            return redirect()->route('admin.bannermenumenu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
     }
 
     /**
@@ -124,7 +124,7 @@ class BannerMenuItemController extends Controller
                 $bannermenuitem->location = $index++;
                 $bannermenuitem->save();
             }
-            
+
             Alert::success('Thanh cong', 'Cap nhap menu thanh cong');
             return redirect()->back()->with('success', 'Cap nhap menu thanh cong');
         } catch (\Throwable $th) {
