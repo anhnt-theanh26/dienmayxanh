@@ -23,9 +23,22 @@
             <h4 class="fw-bold py-4">{{ $thirdProductMenu->productmenus->first()->name }}</h4>
             <div class="bg-white rounded-4 p-3">
                 <div class="row">
+                    @php
+                        $bannermain4 = null;
+                        if ($bannermenus !== null) {
+                            $bannerMenu = $bannermenus->skip(4)->first();
+                            if ($bannerMenu?->bannermenus) {
+                                $bannermain4 = $bannerMenu?->bannermenus
+                                    ?->first()
+                                    ?->bannermenuitems?->sortBy('location');
+                            }
+                        }
+                    @endphp
                     <div class="col-4">
-                        <img src="https://cdnv2.tgdd.vn/mwg-static/dmx/Banner/8a/62/8a620917c501c24c17de50daa95bbffb.png" style="width: 380px; height: 500px;"
-                            class="object-fit-contain" alt="">
+                        @if ($bannermain4 && $bannermain4->isNotEmpty())
+                            <img src="{{ asset($bannermain4->first()->image) }}" style="width: 380px; height: 500px;"
+                                class="object-fit-contain" alt="">
+                        @endif
                     </div>
                     <div class="col-8">
                         <div class="owl-carousel">
@@ -51,7 +64,8 @@
                                                         alt="{{ $product->name ?? 'Khong co anh' }}">
                                                 </div>
                                                 <div>
-                                                    <p class="card-text m-0 p-0 py-2">{{ \Illuminate\Support\Str::limit($product->name, 40) }}</p>
+                                                    <p class="card-text m-0 p-0 py-2">
+                                                        {{ \Illuminate\Support\Str::limit($product->name, 40) }}</p>
                                                     <p class="card-title m-0 p-0 py-1 fw-bold text-danger"
                                                         style="font-size: 18px;">
                                                         {{ number_format($product?->variants?->first()?->price, 0, '.', '.') }}₫

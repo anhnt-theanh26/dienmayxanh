@@ -37,7 +37,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}"
+                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required
                         placeholder="Enter your email or username" autofocus />
                     @error('email')
                         <p class="text-danger">{{ $message }}</p>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="input-group input-group-merge">
                         <input type="password" id="password" class="form-control" name="password"
-                            value="{{ old('password') }}"
+                            value="{{ old('password') }}" required
                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                             aria-describedby="password" />
                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>

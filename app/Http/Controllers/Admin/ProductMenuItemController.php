@@ -123,6 +123,7 @@ class ProductMenuItemController extends Controller
                 $productmenuitem->location = $index++;
                 $productmenuitem->save();
             }
+            Alert::success('Thanh cong', 'Cap nhap menu thanh cong');
             return redirect()->route('admin.productmenuitem.edit', ['id' => $id])->with('success', 'Cap nhap menu item thanh cong');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra', text: $th->getMessage());

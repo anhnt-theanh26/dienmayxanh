@@ -50,9 +50,46 @@ class BannerMenuItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $id)
     {
-        return $request;
+        try {
+            $bannermenu = Bannermenu::where('id', $id)->first();
+            if (!$bannermenu) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay banner menu');
+                return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay menu!');
+            }
+            $request->validate([
+                'group-a.*.image' => 'required',
+                'group-a.*.link_banner_item' => 'required|url'
+            ]);
+            $bannermenu->name = $request->name;
+            $bannermenu->save();
+            $index = 1;
+            if ($request['group-a']) {
+                $menuitemlast = Bannermenuitem::where('bannermenu_id', $id)->orderBy('location', 'desc')->first();
+                if ($menuitemlast) {
+                    $index = ++$menuitemlast->location;
+                }
+                foreach ($request['group-a'] as $value) {
+                    $datagroup[] = [
+                        'image' => $value['image'],
+                        'link' => $value['link_banner_item'],
+                        'bannermenu_id' => $id,
+                        'location' => $index++,
+                    ];
+                }
+            }
+            if (!empty($datagroup)) {
+                foreach ($datagroup as $data) {
+                    Bannermenuitem::create($data);
+                }
+            }
+            Alert::success('Thanh cong', 'Cap nhap menu item thanh cong');
+            return redirect()->route('admin.bannermenuitem.create', ['id' => $id])->with('success', 'Cap nhap menu item thanh cong');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra', text: $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
     }
 
     /**
@@ -76,7 +113,24 @@ class BannerMenuItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $index = 1;
+            $image = $request['image'];
+            $link_banner_stay = $request['link_banner_stay'];
+            foreach ($request->location_stand as $key => $value) {
+                $bannermenuitem = Bannermenuitem::where('id', $value)->first();
+                $bannermenuitem->image = $image[$key];
+                $bannermenuitem->link = $link_banner_stay[$key];
+                $bannermenuitem->location = $index++;
+                $bannermenuitem->save();
+            }
+            
+            Alert::success('Thanh cong', 'Cap nhap menu thanh cong');
+            return redirect()->back()->with('success', 'Cap nhap menu thanh cong');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra', text: $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
     }
 
     /**
@@ -84,6 +138,18 @@ class BannerMenuItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $bannermenuitem = Bannermenuitem::where("id", $id)->first();
+            if (!$bannermenuitem) {
+                Alert::error('Có lỗi xảy ra', 'Khong tim thay menu item');
+                return redirect()->back()->with('error', 'Không tìm thấy item!');
+            }
+            $bannermenuitem->delete();
+            Alert::success('Thanh cong', 'Xoa menu thanh cong');
+            return redirect()->back()->with('success', 'Xóa menu item thanh cong');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra', $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
     }
 }

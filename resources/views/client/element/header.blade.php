@@ -1,17 +1,49 @@
-<section>
-    <div style="background-color: rgb(57, 140, 239);">
-        <div class="container">
-            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="//cdnv2.tgdd.vn/mwg-static/dmx/Banner/e1/12/e1123f3241680e57094af88bd1c6675b.png"
-                            class="d-block w-100" alt="...">
+@php
+    $bannerheadertop = null;
+    if ($bannermenus !== null) {
+        $bannerMenu = $bannermenus->first();
+        if ($bannerMenu?->bannermenus) {
+            $bannerheadertop = $bannerMenu?->bannermenus?->first()?->bannermenuitems?->sortBy('location');
+        }
+    }
+@endphp
+@if ($bannerheadertop && $bannerheadertop->isNotEmpty())
+    <section>
+        <div style="background-color: rgb(57, 140, 239);">
+            <div class="container">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="owl-carousel advertisement-00">
+                        <div class="item">
+                            <img class="rounded-2 object-fit-contain" src="{{ asset($bannerheadertop->first()->image) }}"
+                                alt="">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <script>
+        var owl = $('.advertisement-00');
+        owl.owlCarousel({
+            autoplay: true,
+            margin: 10,
+            loop: true,
+            slideBy: 2,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        })
+    </script>
+@endif
 
 <div class="" style="background-color: #2a83e9;">
     <div class="container">
@@ -126,8 +158,8 @@
                 <li>
                     <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
                         @csrf
-                        <input style="width: 300px;" name="search" class="form-control me-2 rounded-pill" type="search"
-                            placeholder="Bạn tìm gì..." aria-label="Search">
+                        <input style="width: 300px;" name="search" class="form-control me-2 rounded-pill"
+                            type="search" placeholder="Bạn tìm gì..." aria-label="Search">
                     </form>
                 </li>
                 <li>
@@ -223,7 +255,8 @@
             <ul class="nav">
                 @foreach ($menufirst?->take(10) as $menuitem)
                     <li class="nav-item">
-                        <a class="nav-link text-primary" style="text-transform:lowercase;" aria-current="page" href="#">{{ $menuitem?->name }}</a>
+                        <a class="nav-link text-primary" style="text-transform:lowercase;" aria-current="page"
+                            href="#">{{ $menuitem?->name }}</a>
                     </li>
                 @endforeach
             </ul>

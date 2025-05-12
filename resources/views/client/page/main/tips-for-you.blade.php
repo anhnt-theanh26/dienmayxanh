@@ -159,8 +159,8 @@
                 </div>
                 <script>
                     $('.click-hiding-btn-01').click(function() {
-                        var advertisement02Hiding = document.querySelector('.hiding-btn-01');
-                        advertisement02Hiding.style.display = 'none';
+                        var advertisement01Hiding = document.querySelector('.hiding-btn-01');
+                        advertisement01Hiding.style.display = 'none';
                     });
                 </script>
             </div>

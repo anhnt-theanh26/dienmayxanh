@@ -31,7 +31,7 @@
         @endif
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Update</h5>
@@ -47,7 +47,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        value="{{ $bannermenu->name }}" placeholder="Name" />
+                                        value="{{ $bannermenu->name }}" placeholder="Name" required />
                                 </div>
                                 <div class="mb-3">
                                     <div data-repeater-list="group-a">
@@ -60,7 +60,8 @@
                                                     <div class="input-group"
                                                         style="position: relative; display: inline-block; width: 70px;">
                                                         <img class="btn-image rounded-1" onclick="imageChoseClick(this)"
-                                                            src="{{ asset('./storage/default.jpg') }}" width="70px" alt="Image">
+                                                            src="{{ asset('./storage/default.jpg') }}" width="70px"
+                                                            alt="Image">
                                                         <button type="button" class="btn btn-light btn-image"
                                                             id="choose-button" onclick="imageChoseClick(this)"
                                                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
@@ -100,7 +101,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Update</h5>
@@ -115,18 +116,39 @@
                             <div class="card-body">
                                 <div class="col-md mb-4 mb-md-2">
                                     <div class="col-12 mb-md-0 mb-4">
-                                        <p>Vị trí đứng banner menu item</p>
+                                        <p>Vị trí đứng banner banner item</p>
                                         <ul class="list-group list-group-flush" id="handle-list-2">
                                             @foreach ($bannermenuitems as $bannermenuitem)
-                                                <li
-                                                    class="list-group-item lh-1 d-flex justify-content-between align-items-center">
-                                                    <span class="d-flex justify-content-between align-items-center">
+                                                <li class="list-group-item lh-1 d-flex justify-content-between align-items-center"
+                                                    data-repeater-item>
+                                                    <span class="d-flex align-items-center">
                                                         <i
                                                             class="drag-handle cursor-move ti ti-menu-2 align-text-bottom me-2"></i>
                                                         <input type="hidden" name="location_stand[]"
                                                             value="{{ $bannermenuitem->id }}">
-                                                        <span>{{ $bannermenuitem->name }}</span>
+                                                        <div class="input-group"
+                                                            style="position: relative; display: inline-block; width: 70px;">
+                                                            <input type="hidden" id="form-repeater-1-1"
+                                                                class="form-control" name="image[]"
+                                                                value="{{ $bannermenuitem->image }}" required>
+                                                            <img class="btn-image rounded-1"
+                                                                onclick="imageChoseClickUpdate(this)"
+                                                                src="{{ $bannermenuitem->image ? asset($bannermenuitem->image) : asset('./storage/default.jpg') }}"
+                                                                width="70px" alt="Image">
+                                                            <button type="button" class="btn btn-light btn-image"
+                                                                id="choose-button" onclick="imageChoseClickUpdate(this)"
+                                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
+                                                                background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                                                Choose
+                                                            </button>
+                                                        </div>
                                                     </span>
+                                                    <div class="mb-3 col-lg-9 col-xl-9 col-12 mb-0">
+                                                        <label class="form-label" for="form-repeater-1-2">Link</label>
+                                                        <input type="text" id="form-repeater-1-2" class="form-control"
+                                                            name="link_banner_stay[]" placeholder="Đường dẫn http...."
+                                                            value="{{ $bannermenuitem->link }}" required>
+                                                    </div>
                                                     <span class="d-flex justify-content-between align-items-center">
                                                         <a class="dropdown-item" onclick="return confirm('Xoa?')"
                                                             href="{{ route('admin.bannermenuitem.destroy', ['id' => $bannermenuitem->id]) }}">
@@ -157,6 +179,7 @@
             connectorPath: '/ckfinder/connector'
         });
     </script>
+    {{-- create --}}
     <script>
         function imageChoseClick(clickedElement) {
             const repeaterItem = clickedElement.closest('[data-repeater-item]');
@@ -168,6 +191,39 @@
             console.log(imgElement);
             if (!hiddenInput || !imgElement) return;
 
+            CKFinder.popup({
+                chooseFiles: true,
+                width: 800,
+                height: 600,
+                onInit: function(finder) {
+                    finder.on('files:choose', function(evt) {
+                        const file = evt.data.files.first();
+                        hiddenInput.value = file.getUrl();
+                        imgElement.src = file.getUrl();
+                    });
+
+                    finder.on('file:choose:resizedImage', function(evt) {
+                        hiddenInput.value = evt.data.resizedUrl;
+                        imgElement.src = evt.data.resizedUrl;
+                    });
+                }
+            });
+        }
+    </script>
+    {{-- update --}}
+    <script>
+        function imageChoseClickUpdate(clickedElement) {
+            const repeaterItem = clickedElement.closest('[data-repeater-item]');
+            if (!repeaterItem) {
+                console.warn("Không tìm thấy phần tử data-repeater-item");
+                return;
+            }
+            const hiddenInput = repeaterItem.querySelector('input[name="image[]"]');
+            const imgElement = repeaterItem.querySelector('img');
+            if (!hiddenInput || !imgElement) {
+                console.warn("Không tìm thấy input hidden hoặc hình ảnh");
+                return;
+            }
             CKFinder.popup({
                 chooseFiles: true,
                 width: 800,

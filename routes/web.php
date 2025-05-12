@@ -70,7 +70,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/restore', [CategoryParentController::class, 'restore'])->name('restore');
 
         Route::delete('/{id}/delete', [CategoryParentController::class, 'delete'])->name('delete');
-        Route::delete('/{id}destroy', [CategoryParentController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [CategoryParentController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [CategoryParentController::class, 'search'])->name('search');
     });
@@ -89,7 +89,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/restore', [CategoryController::class, 'restore'])->name('restore');
 
         Route::delete('/{id}/delete', [CategoryController::class, 'delete'])->name('delete');
-        Route::delete('/{id}destroy', [CategoryController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [CategoryController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [CategoryController::class, 'search'])->name('search');
 
@@ -109,7 +109,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/restore', [PostController::class, 'restore'])->name('restore');
 
         Route::delete('/{id}/delete', [PostController::class, 'delete'])->name('delete');
-        Route::delete('/{id}destroy', [PostController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [PostController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [PostController::class, 'search'])->name('search');
 
@@ -129,7 +129,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/restore', [AttributeController::class, 'restore'])->name('restore');
 
         Route::delete('/{id}/delete', [AttributeController::class, 'delete'])->name('delete');
-        Route::delete('/{id}destroy', [AttributeController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [AttributeController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [AttributeController::class, 'search'])->name('search');
 
@@ -150,7 +150,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/restore', [ProductController::class, 'restore'])->name('restore');
 
         Route::delete('/{id}/delete', [ProductController::class, 'delete'])->name('delete');
-        Route::delete('/{id}destroy', [ProductController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [ProductController::class, 'search'])->name('search');
 
@@ -176,7 +176,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/restore', [UserController::class, 'restore'])->name('restore');
 
         Route::delete('/{id}/delete', [UserController::class, 'delete'])->name('delete');
-        Route::delete('/{id}destroy', [UserController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [UserController::class, 'search'])->name('search');
 
@@ -218,7 +218,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{id}/edit', [LocationMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [LocationMenuController::class, 'update'])->name('update');
 
-        Route::delete('/{id}destroy', [LocationMenuController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [LocationMenuController::class, 'destroy'])->name('destroy');
     });
 
     // Menu 
@@ -231,7 +231,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{id}/edit', [MenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [MenuController::class, 'update'])->name('update');
 
-        Route::delete('/{id}destroy', [MenuController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [MenuController::class, 'destroy'])->name('destroy');
     });
 
     // Menu Item 
@@ -240,7 +240,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/store', [MenuItemController::class, 'store'])->name('store');
         Route::put('/{id}/update', [MenuItemController::class, 'update'])->name('update');
 
-        Route::get('/{id}destroy', [MenuItemController::class, 'destroy'])->name('destroy');
+        Route::get('/{id}/destroy', [MenuItemController::class, 'destroy'])->name('destroy');
     });
 
     // Product Location Menu
@@ -253,7 +253,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{id}/edit', [LocationProductMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [LocationProductMenuController::class, 'update'])->name('update');
 
-        Route::delete('/{id}destroy', [LocationProductMenuController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [LocationProductMenuController::class, 'destroy'])->name('destroy');
     });
 
     // Product Menu 
@@ -266,7 +266,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{id}/edit', [ProductMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [ProductMenuController::class, 'update'])->name('update');
 
-        Route::delete('/{id}destroy', [ProductMenuController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [ProductMenuController::class, 'destroy'])->name('destroy');
     });
 
     // Product Menu Item 
@@ -274,7 +274,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{id}/edit', [ProductMenuItemController::class, 'edit'])->name('edit');   
         Route::post('/{id}/store', [ProductMenuItemController::class, 'store'])->name('store');
         Route::put('/{id}/update', [ProductMenuItemController::class, 'update'])->name('update');
-        Route::get('/{id}destroy', [ProductMenuItemController::class, 'destroy'])->name('destroy');
+        Route::get('/{id}/destroy', [ProductMenuItemController::class, 'destroy'])->name('destroy');
     });
 
      // Banner Location Menu
@@ -287,7 +287,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{id}/edit', [LocationBannerMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [LocationBannerMenuController::class, 'update'])->name('update');
 
-        Route::delete('/{id}destroy', [LocationBannerMenuController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [LocationBannerMenuController::class, 'destroy'])->name('destroy');
     });
 
     // Banner Menu 
@@ -300,7 +300,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{id}/edit', [BannerMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [BannerMenuController::class, 'update'])->name('update');
 
-        Route::delete('/{id}destroy', [BannerMenuController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}/destroy', [BannerMenuController::class, 'destroy'])->name('destroy');
     });
 
     // Banner Menu Item 
@@ -308,7 +308,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{id}/create', [BannerMenuItemController::class, 'create'])->name('create');   
         Route::post('/{id}/store', [BannerMenuItemController::class, 'store'])->name('store');
         Route::put('/{id}/update', [BannerMenuItemController::class, 'update'])->name('update');
-        Route::get('/{id}destroy', [BannerMenuItemController::class, 'destroy'])->name('destroy');
+        Route::get('/{id}/destroy', [BannerMenuItemController::class, 'destroy'])->name('destroy');
     });
 
 });

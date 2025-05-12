@@ -31,9 +31,19 @@
                         </li>
                     @endforeach
                 </ul>
-                <img class="img-fluid p-4"
-                    src="https://cdnv2.tgdd.vn/mwg-static/common/Campaign/a9/7f/a97f59eed78c14dbb0943f03607b49d5.png"
-                    alt="">
+                @php
+                    $bannermain2 = null;
+                    if ($bannermenus !== null) {
+                        $bannerMenu = $bannermenus->skip(2)->first();
+                        if ($bannerMenu?->bannermenus) {
+                            $bannermain2 = $bannerMenu?->bannermenus?->first()?->bannermenuitems?->sortBy('location');
+                        }
+                    }
+                @endphp
+                @if ($bannermain2 && $bannermain2->isNotEmpty())
+                    <img class="img-fluid p-4 object-fit-contain" width="100%"
+                        src="{{ asset($bannermain2->first()->image) }}" alt="">
+                @endif
                 <div class="tab-content" id="myTabContent">
                     @foreach ($productmenuitemfirst as $index => $categories)
                         <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
