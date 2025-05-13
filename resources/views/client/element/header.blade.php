@@ -1,6 +1,6 @@
 @php
     $bannerheadertop = null;
-    if ($bannermenus !== null) {
+    if (!empty($bannermenus) && $bannermenus !== null) {
         $bannerMenu = $bannermenus->first();
         if ($bannerMenu?->bannermenus) {
             $bannerheadertop = $bannerMenu?->bannermenus?->first()?->bannermenuitems?->sortBy('location');
@@ -44,41 +44,11 @@
         })
     </script>
 @endif
-
 <div class="" style="background-color: #2a83e9;">
     <div class="container">
-        <div class="xs-menu-cont">
-            <a id="menutoggle"><i class="fa fa-align-justify"></i> </a>
-            <nav class="xs-menu displaynone">
-                <ul>
-                    <li class="active">
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Team</a>
-                    </li>
-                    <li>
-                        <a href="#">Portfolio</a>
-                    </li>
-                    <li>
-                        <a href="#">Blog</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-
-                </ul>
-            </nav>
-        </div>
         <nav class="menu py-1 pt-2">
             <ul style="margin: 0; padding: 0;">
-                <a href="/OwlCarousel/dienmayxanh/">
+                <a href="{{ route('index') }}">
                     <img width="229" height="40" class="object-fit-cover"
                         src="https://quocluat.vn/photos/portforlio/thuong-mai/dien-may-xanh/dien-may-xanh.jpg"
                         alt="">
@@ -91,69 +61,71 @@
                                 d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
                         </svg> Danh mục
                     </a>
-
-                    <div class="mega-menu fadeIn animated rounded-1">
-                        <div class="mm-3column">
-                            <span class="categories-list">
-                                <ul>
-                                    @foreach ($categoryparents as $categoryparent)
-                                        <li class="menu-item border py-2" style="margin: 0 -10px; padding-left: 10px;">
-                                            {{ $categoryparent->name }}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </span>
-                        </div>
-
-                        @foreach ($categoryparents as $categoryparent)
-                            <div class="mm-6column submenu" style="margin-left: -20px;">
-                                <div class="row mx-2">
-                                    <p style="margin-left: 10px;" class="fw-bold">
-                                        {{ $categoryparent->name }}
-                                    </p>
-                                    @foreach ($categoryparent->categories as $category)
-                                        <div class="col-2">
-                                            <div class="submenu-content text-center">
-                                                <a href="#">
-                                                    <img src="{{ asset($category->image) }}" width="48"
-                                                        height="48" alt="">
-                                                </a>
-                                                <h6 style="font-weight: normal; font-size: 12px;">
-                                                    {{ $category->name }}
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
+                    @if (!empty($categoryparents) && $categoryparents !== null)
+                        <div class="mega-menu fadeIn animated rounded-1">
+                            <div class="mm-3column">
+                                <span class="categories-list">
+                                    <ul>
+                                        @foreach ($categoryparents as $categoryparent)
+                                            <li class="menu-item border py-2"
+                                                style="margin: 0 -10px; padding-left: 10px;">
+                                                {{ $categoryparent->name }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </span>
                             </div>
-                        @endforeach
-                    </div>
-                    <script>
-                        const menuItems = document.querySelectorAll('.menu-item');
-                        const submenus = document.querySelectorAll('.submenu');
-                        menuItems.forEach((item, index) => {
-                            item.addEventListener('mouseenter', function() {
-                                submenus.forEach(submenu => submenu.style.display = 'none');
-                                if (submenus[index]) {
-                                    submenus[index].style.display = 'block';
-                                }
-                            });
 
-                            item.addEventListener('mouseleave', function() {
-                                if (submenus[index]) {
-                                    submenus[index].style.display = 'none';
-                                }
+                            @foreach ($categoryparents as $categoryparent)
+                                <div class="mm-6column submenu" style="margin-left: -20px;">
+                                    <div class="row mx-2">
+                                        <p style="margin-left: 10px;" class="fw-bold">
+                                            {{ $categoryparent->name }}
+                                        </p>
+                                        @foreach ($categoryparent->categories as $category)
+                                            <div class="col-2">
+                                                <div class="submenu-content text-center">
+                                                    <a href="#">
+                                                        <img src="{{ $category->image ? asset($category->image) : asset('storage/default.jpg') }}"
+                                                            width="48" height="48" alt="">
+                                                    </a>
+                                                    <h6 style="font-weight: normal; font-size: 12px;">
+                                                        {{ $category->name }}
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <script>
+                            const menuItems = document.querySelectorAll('.menu-item');
+                            const submenus = document.querySelectorAll('.submenu');
+                            menuItems.forEach((item, index) => {
+                                item.addEventListener('mouseenter', function() {
+                                    submenus.forEach(submenu => submenu.style.display = 'none');
+                                    if (submenus[index]) {
+                                        submenus[index].style.display = 'block';
+                                    }
+                                });
+
+                                item.addEventListener('mouseleave', function() {
+                                    if (submenus[index]) {
+                                        submenus[index].style.display = 'none';
+                                    }
+                                });
                             });
-                        });
-                        submenus.forEach(submenu => {
-                            submenu.addEventListener('mouseenter', function() {
-                                submenu.style.display = 'block';
+                            submenus.forEach(submenu => {
+                                submenu.addEventListener('mouseenter', function() {
+                                    submenu.style.display = 'block';
+                                });
+                                submenu.addEventListener('mouseleave', function() {
+                                    submenu.style.display = 'none';
+                                });
                             });
-                            submenu.addEventListener('mouseleave', function() {
-                                submenu.style.display = 'none';
-                            });
-                        });
-                    </script>
+                        </script>
+                    @endif
                 </li>
                 <li>
                     <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
@@ -163,7 +135,7 @@
                     </form>
                 </li>
                 <li>
-                    <a href="/OwlCarousel/dienmayxanh/dang-nhap.html">
+                    <a href="{{ route('login.form') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-person" viewBox="0 0 16 16">
                             <path
@@ -242,14 +214,14 @@
 
 @php
     $menufirst = null;
-    if ($menus !== null) {
+    if (!empty($menus) && $menus !== null) {
         $firstMenu = $menus?->first();
         if ($firstMenu?->menus) {
             $menufirst = $firstMenu?->menus?->first()?->menuitems?->sortBy('location');
         }
     }
 @endphp
-@if ($menufirst)
+@if ($menufirst && $menufirst->isNotEmpty())
     <section>
         <div class="d-flex justify-content-center" style="background-color: #eaecf0;">
             <ul class="nav">

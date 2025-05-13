@@ -28,7 +28,8 @@ class LoginController extends Controller
                 'password' => 'required|string',
             ]);
             $credentials = $request->only('email', 'password');
-            if (Auth::attempt($credentials)) {
+            $remember = $request->has('remember') ? true : false;
+            if (Auth::attempt($credentials, $remember)) {
                 // $infor = [
                 //     'title' => 'Thong bao Dang nhap',
                 //     'email' => $request->email,

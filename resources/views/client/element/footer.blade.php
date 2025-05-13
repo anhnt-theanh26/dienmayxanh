@@ -15,14 +15,14 @@
                     <div class="row">
                         @php
                             $menufooterfirst = null;
-                            if ($menus !== null) {
+                            if (!empty($menus) && $menus !== null) {
                                 $footerFirstMenu = $menus?->skip(2)?->first();
                                 if ($footerFirstMenu?->menus) {
                                     $menufooterfirst = $footerFirstMenu?->menus?->first()?->menuitems?->sortBy('location');
                                 }
                             }
                         @endphp
-                        @if ($menufooterfirst)
+                        @if ($menufooterfirst && $menufooterfirst->isNotEmpty())
                             <div class="col-5">
                                 <p class="fw-bold">{{ $footerFirstMenu?->menus?->first()->name }}</p>
                                 @foreach ($menufooterfirst->take(5) as $menuitem)
@@ -51,14 +51,14 @@
                         @endif
                         @php
                             $menufootersecond = null;
-                            if ($menus !== null) {
+                            if (!empty($menus) && $menus !== null) {
                                 $footerSecondMenu = $menus?->skip(3)?->first();
                                 if ($footerSecondMenu?->menus) {
                                     $menufootersecond = $footerSecondMenu?->menus?->first()?->menuitems?->sortBy('location');
                                 }
                             }
                         @endphp
-                        @if ($menufootersecond)
+                        @if ($menufootersecond && $menufootersecond->isNotEmpty())
                             <div class="col-7">
                                 <p class="fw-bold">{{ $footerSecondMenu?->menus?->first()->name }}</p>
                                 @foreach ($menufootersecond->take(5) as $menuitem)

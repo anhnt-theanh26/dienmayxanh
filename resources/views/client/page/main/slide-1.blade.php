@@ -1,6 +1,6 @@
 @php
     $bannermain1 = null;
-    if ($bannermenus !== null) {
+    if (!empty($bannermenus) && $bannermenus !== null) {
         $bannerMenu = $bannermenus->skip(1)->first();
         if ($bannerMenu?->bannermenus) {
             $bannermain1 = $bannerMenu?->bannermenus?->first()?->bannermenuitems?->sortBy('location');
@@ -13,7 +13,8 @@
         <div class="large-12 columns container my-3 position-relative advertisement-01-hiding">
             <div class="owl-carousel advertisement-01">
                 <div class="item">
-                    <img class="rounded-2 object-fit-contain" src="{{ asset($bannermain1->first()->image) }}"
+                    <img class="rounded-2 object-fit-contain"
+                        src="{{ $bannermain1->first()->image ? asset($bannermain1->first()->image) : asset('storage/default.jpg') }}"
                         alt="">
                 </div>
             </div>

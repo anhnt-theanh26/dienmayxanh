@@ -63,6 +63,11 @@
                             <td>{{ $item->category->name }}</td>
                             <td>
                                 <div class="dropdown">
+                                    <a href="{{ route('admin.product.show', ['id' => $item->id]) }}"
+                                        data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" aria-label="Show"
+                                        data-bs-original-title="Show">
+                                        <i class="ti ti-eye mx-2 ti-sm"></i>
+                                    </a>
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                         data-bs-toggle="dropdown">
                                         <i class="ti ti-dots-vertical"></i>

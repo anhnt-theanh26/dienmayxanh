@@ -1,7 +1,7 @@
 @php
     $productmenuitemsecond = null;
     $productmenuitemseconddata = [];
-    if ($productmenus !== null) {
+    if (!empty($productmenus) && $productmenus !== null) {
         $secondProductMenu = $productmenus?->skip(1)?->first();
         if ($secondProductMenu?->productmenus) {
             $productmenuitemsecond = $secondProductMenu?->productmenus
@@ -31,7 +31,8 @@
                     @if ($productmenuitemseconddatatake12 && $productmenuitemseconddatatake12->isNotEmpty())
                         @foreach ($productmenuitemseconddatatake12 as $product)
                             <div class="col-2 my-2">
-                                <a href="#" class="text-decoration-none text-black">
+                                <a href="{{ route('product-detail', ['slug' => $product->slug]) }}"
+                                    class="text-decoration-none text-black">
                                     <div class="p-3 border rounded-2" style="min-height: 450px; max-height: 450px;">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="bg-secondary-subtle rounded-1 px-1"
@@ -44,11 +45,13 @@
                                         <div class="d-flex justify-content-center align-items-center"
                                             style="height: 160px;">
                                             <img src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
-                                                        style="" class="card-img-top rounded-2 object-fit-contain"
-                                                        alt="{{ $product->name ?? 'Khong co anh' }}">
+                                                style="" class="card-img-top rounded-2 object-fit-contain"
+                                                alt="{{ $product->name ? $product->name : 'Khong co anh' }}">
                                         </div>
                                         <div>
-                                            <p class="card-text m-0 p-0 py-2">{{ \Illuminate\Support\Str::limit($product->name, 40) }}</p>
+                                            <p class="card-text m-0 p-0 py-2"
+                                                style="-webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; font-size: 14px; font-weight: 600; height: 65px; overflow: hidden; position: relative; z-index: 9;">
+                                                {{ \Illuminate\Support\Str::limit($product->name, 40) }}</p>
                                             <p class="card-title m-0 p-0 py-1 fw-bold text-danger"
                                                 style="font-size: 18px;">
                                                 {{ number_format($product?->variants?->first()?->price, 0, '.', '.') }}₫
@@ -56,13 +59,21 @@
                                             <p class="m-0 p-0 py-1">
                                                 <span class="card-title m-0 p-0 text-decoration-line-through"
                                                     style="font-size: 14px;">{{ number_format($product?->variants?->first()?->price_old, 0, '.', '.') }}₫</span>
-                                                <span class="text-danger">-31%</span>
+                                                @if (round(
+                                                        (($product?->variants?->first()?->price_old - $product?->variants?->first()?->price) /
+                                                            $product?->variants?->first()?->price_old) *
+                                                            100) > 0)
+                                                    <span class="text-danger">
+                                                        -{{ round((($product?->variants?->first()?->price_old - $product?->variants?->first()?->price) / $product?->variants?->first()?->price_old) * 100) }}%
+                                                    </span>
+                                                @endif
                                             </p>
                                             @if ($product->attributeValues->first())
                                                 <p class="bg-secondary-subtle m-0 p-0 rounded-1 px-2 py-1"
                                                     style="font-size: 12px; width: fit-content;">
-                                                    {{ $product->attributeValues->first()->attribute->name ?? '' }}:
-                                                    {{ $product->attributeValues->first()->value ?? '' }}</p>
+                                                    {{ $product->attributeValues->first()->attribute->name ? $product->attributeValues->first()->attribute->name : '' }}:
+                                                    {{ $product->attributeValues->first()->value ? $product->attributeValues->first()->value : '' }}
+                                                </p>
                                             @endif
                                             <p class="text-warning px-1 m-0 p-0 py-1"
                                                 style="font-size: 12px; width: fit-content;">Online giá rẻ quá
@@ -104,7 +115,8 @@
                             @if ($productmenuitemseconddataskip12 && $productmenuitemseconddataskip12->isNotEmpty())
                                 @foreach ($productmenuitemseconddataskip12 as $product)
                                     <div class="col-2 my-2">
-                                        <a href="#" class="text-decoration-none text-black">
+                                        <a href="{{ route('product-detail', ['slug' => $product->slug]) }}"
+                                            class="text-decoration-none text-black">
                                             <div class="p-3 border rounded-2"
                                                 style="min-height: 450px; max-height: 450px;">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -116,10 +128,11 @@
                                                     @endif
                                                 </div>
                                                 <img src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
-                                                        style="" class="card-img-top rounded-2 object-fit-contain"
-                                                        alt="{{ $product->name ?? 'Khong co anh' }}">
+                                                    style="" class="card-img-top rounded-2 object-fit-contain"
+                                                    alt="{{ $product->name ? $product->name : 'Khong co anh' }}">
                                                 <div>
-                                                    <p class="card-text m-0 p-0 py-2">{{ \Illuminate\Support\Str::limit($product->name, 40) }}</p>
+                                                    <p class="card-text m-0 p-0 py-2">
+                                                        {{ \Illuminate\Support\Str::limit($product->name, 40) }}</p>
                                                     <p class="card-title m-0 p-0 py-1 fw-bold text-danger"
                                                         style="font-size: 18px;">
                                                         {{ number_format($product?->variants?->first()?->price, 0, '.', '.') }}₫
@@ -127,13 +140,21 @@
                                                     <p class="m-0 p-0 py-1">
                                                         <span class="card-title m-0 p-0 text-decoration-line-through"
                                                             style="font-size: 14px;">{{ number_format($product?->variants?->first()?->price_old, 0, '.', '.') }}₫</span>
-                                                        <span class="text-danger">-31%</span>
+                                                        @if (round(
+                                                                (($product?->variants?->first()?->price_old - $product?->variants?->first()?->price) /
+                                                                    $product?->variants?->first()?->price_old) *
+                                                                    100) > 0)
+                                                            <span class="text-danger">
+                                                                -{{ round((($product?->variants?->first()?->price_old - $product?->variants?->first()?->price) / $product?->variants?->first()?->price_old) * 100) }}%
+                                                            </span>
+                                                        @endif
                                                     </p>
                                                     @if ($product->attributeValues->first())
                                                         <p class="bg-secondary-subtle m-0 p-0 rounded-1 px-2 py-1"
                                                             style="font-size: 12px; width: fit-content;">
-                                                            {{ $product->attributeValues->first()->attribute->name ?? '' }}:
-                                                            {{ $product->attributeValues->first()->value ?? '' }}</p>
+                                                            {{ $product->attributeValues->first()->attribute->name ? $product->attributeValues->first()->attribute->name : '' }}:
+                                                            {{ $product->attributeValues->first()->value ? $product->attributeValues->first()->value : '' }}
+                                                        </p>
                                                     @endif
                                                     <p class="text-warning px-1 m-0 p-0 py-1"
                                                         style="font-size: 12px; width: fit-content;">Online giá rẻ quá

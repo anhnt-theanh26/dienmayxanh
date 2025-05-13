@@ -1,6 +1,6 @@
 @extends('layout.client')
 
-@section('title', 'Trang chu')
+@section('title', 'Trang chủ')
 
 @section('content')
     <!-- slide 1 -->

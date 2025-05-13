@@ -1,6 +1,6 @@
 @php
     $bannermain3 = null;
-    if ($bannermenus !== null) {
+    if (!empty($bannermenus) && $bannermenus !== null) {
         $bannerMenu = $bannermenus->skip(3)->first();
         if ($bannerMenu?->bannermenus) {
             $bannermain3 = $bannerMenu?->bannermenus?->first()?->bannermenuitems?->sortBy('location');
@@ -13,7 +13,7 @@
             <div class="owl-carousel advertisement-02">
                 @foreach ($bannermain3 as $item)
                     <div class="item">
-                        <img class="rounded-2 object-fit-contain" style="max-height: 200px"
+                        <img class="rounded-2 object-fit-fill" height="200px"
                             src="{{ $item->image ? asset($item->image) : asset('storage/default.jpg') }}" alt="">
                     </div>
                 @endforeach

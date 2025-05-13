@@ -134,7 +134,7 @@ class ProductController extends Controller
     public function show(string $id)
     {
         try {
-            $product = Product::where('id', $id)->first();
+            $product = Product::withTrashed()->where('id', $id)->first();
             if (!$product) {
                 Alert::error('Khong tim thay san pham:');
                 return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham');

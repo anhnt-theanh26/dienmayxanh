@@ -110,13 +110,15 @@
                     <div class="row">
                         <div class="col-12">
                             @php
-                                $imageUrl = $product->images->first()->image;
+                                $imageUrl = $product?->images?->first()?->image;
                                 $imageArr = json_decode($imageUrl, true);
                             @endphp
-                            @foreach ($imageArr as $item)
-                                <img src="{{ $item }}"
-                                    style="width: 100px; height: auto; margin: 5px; border: 1px solid #ccc; border-radius: 8px;">
-                            @endforeach
+                            @if (!empty($imageArr) && $imageArr !== null)
+                                @foreach ($imageArr as $item)
+                                    <img src="{{ $item }}"
+                                        style="width: 100px; height: auto; margin: 5px; border: 1px solid #ccc; border-radius: 8px;">
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>

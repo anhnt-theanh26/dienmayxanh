@@ -1,7 +1,7 @@
 @php
     $productmenuitemthird = null;
     $productmenuitemthirddata = [];
-    if ($productmenus !== null) {
+    if (!empty($productmenus) && $productmenus !== null) {
         $thirdProductMenu = $productmenus?->skip(2)?->first();
         if ($thirdProductMenu?->productmenus) {
             $productmenuitemthird = $thirdProductMenu?->productmenus?->first()?->productmenuitems?->sortBy('location');
@@ -36,8 +36,8 @@
                     @endphp
                     <div class="col-4">
                         @if ($bannermain4 && $bannermain4->isNotEmpty())
-                            <img src="{{ asset($bannermain4->first()->image) }}" style="width: 380px; height: 500px;"
-                                class="object-fit-contain" alt="">
+                            <img src="{{ $bannermain4->first()->image ? asset($bannermain4->first()->image) : asset('storage/default.jpg') }}"
+                                style="width: 380px; height: 500px;" class="object-fit-contain" alt="">
                         @endif
                     </div>
                     <div class="col-8">
@@ -45,7 +45,8 @@
                             @foreach ($productmenuitemthirddata as $product)
                                 <div class="item row">
                                     <div class="col-12 my-2">
-                                        <a href="#" class="text-decoration-none text-black">
+                                        <a href="{{ route('product-detail', ['slug' => $product->slug]) }}"
+                                            class="text-decoration-none text-black">
                                             <div class="p-3 m-2 border rounded-2"
                                                 style="min-height: 450px; max-height: 450px;">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -61,10 +62,11 @@
                                                     style="height: 160px;">
                                                     <img src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
                                                         style="" class="card-img-top rounded-2 object-fit-contain"
-                                                        alt="{{ $product->name ?? 'Khong co anh' }}">
+                                                        alt="{{ $product->name ? $product->name : 'Khong co anh' }}">
                                                 </div>
                                                 <div>
-                                                    <p class="card-text m-0 p-0 py-2">
+                                                    <p class="card-text m-0 p-0 py-2"
+                                                        style="-webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; font-size: 14px; font-weight: 600; height: 65px; overflow: hidden; position: relative; z-index: 9;">
                                                         {{ \Illuminate\Support\Str::limit($product->name, 40) }}</p>
                                                     <p class="card-title m-0 p-0 py-1 fw-bold text-danger"
                                                         style="font-size: 18px;">
@@ -73,13 +75,21 @@
                                                     <p class="m-0 p-0 py-1">
                                                         <span class="card-title m-0 p-0 text-decoration-line-through"
                                                             style="font-size: 14px;">{{ number_format($product?->variants?->first()?->price_old, 0, '.', '.') }}₫</span>
-                                                        <span class="text-danger">-31%</span>
+                                                        @if (round(
+                                                                (($product?->variants?->first()?->price_old - $product?->variants?->first()?->price) /
+                                                                    $product?->variants?->first()?->price_old) *
+                                                                    100) > 0)
+                                                            <span class="text-danger">
+                                                                -{{ round((($product?->variants?->first()?->price_old - $product?->variants?->first()?->price) / $product?->variants?->first()?->price_old) * 100) }}%
+                                                            </span>
+                                                        @endif
                                                     </p>
                                                     @if ($product->attributeValues->first())
                                                         <p class="bg-secondary-subtle m-0 p-0 rounded-1 px-2 py-1"
                                                             style="font-size: 12px; width: fit-content;">
-                                                            {{ $product->attributeValues->first()->attribute->name ?? '' }}:
-                                                            {{ $product->attributeValues->first()->value ?? '' }}</p>
+                                                            {{ $product->attributeValues->first()->attribute->name ? $product->attributeValues->first()->attribute->name : '' }}:
+                                                            {{ $product->attributeValues->first()->value ? $product->attributeValues->first()->value : '' }}
+                                                        </p>
                                                     @endif
                                                     <p class="text-warning px-1 m-0 p-0 py-1"
                                                         style="font-size: 12px; width: fit-content;">Online giá rẻ quá

@@ -3,7 +3,7 @@
     $menucategorymain = null;
     $randomMenuCategoryHotItems = null;
     $randomMenuCategoryNormalItems = null;
-    if ($menus !== null) {
+    if (!empty($menus) && $menus !== null) {
         $categoryMenu = $menus->skip(1)->first();
         if ($categoryMenu?->menus) {
             $menucategorymain = $categoryMenu?->menus?->first()?->menuitems?->sortBy('location');
@@ -13,14 +13,17 @@
         $menuCategoryHotItems = $menucategorymain?->filter(function ($item) {
             return $item?->category?->is_hot == true;
         });
-        $randomMenuCategoryHotItems = $menuCategoryHotItems?->count() >= 4 ? $menuCategoryHotItems?->random(4) : $menucategorymain?->take(4);
+        $randomMenuCategoryHotItems =
+            $menuCategoryHotItems?->count() >= 4 ? $menuCategoryHotItems?->random(4) : $menucategorymain?->take(4);
 
         $menuCategoryNormalItems = $menucategorymain?->diff($randomMenuCategoryHotItems);
         $randomMenuCategoryNormalItems =
-            $menuCategoryNormalItems?->count() >= 11 ? $menuCategoryNormalItems?->random(11) : $menucategorymain?->skip(4)?->take(11);
+            $menuCategoryNormalItems?->count() >= 11
+                ? $menuCategoryNormalItems?->random(11)
+                : $menucategorymain?->skip(4)?->take(11);
     }
 @endphp
-@if ($menucategorymain)
+@if ($menucategorymain && $menucategorymain->isNotEmpty())
     <section>
         <div class="py-4">
             <div class="container bg-white rounded-3">
@@ -35,7 +38,7 @@
                                                 <div class="position-relative">
                                                     <img class="rounded-2 object-fit-contain"
                                                         style="width: 50px; height: 50px;"
-                                                        src="{{ $category_hot->category->image }}"
+                                                        src="{{ $category_hot->category->image ? asset($category_hot->category->image) : asset('storage/default.jpg') }}"
                                                         alt="{{ $category_hot->category->name }}">
                                                     <span style="top: 10px; right: 0;"
                                                         class="position-absolute translate-middle badge rounded-pill bg-danger-subtle text-danger">
@@ -59,8 +62,8 @@
                                         <div class="text-center">
                                             <img class="rounded-2 object-fit-contain" style="width: 50px; height: 50px;"
                                                 src="{{ $category_normal->category->image ? asset($category_normal->category->image) : asset('storage/default.jpg') }}"
-                                                alt="{{ $category_normal->category->name ?? 'Khong co anh' }}">
-                                                
+                                                alt="{{ $category_normal->category->name ? $category_normal->category->name : 'Khong co anh' }}">
+
                                             <p class="p-0 m-0 pt-1">{{ $category_normal?->category?->name }}</p>
                                         </div>
                                     </div>

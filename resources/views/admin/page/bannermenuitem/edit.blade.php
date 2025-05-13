@@ -180,7 +180,7 @@
 @section('js')
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script>
         function initializeFileManagers() {
             $('.choose-image-btn').off('click').on('click', function(e) {

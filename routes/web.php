@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\ProductMenuItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\client\HomeController;
+use App\Http\Controllers\Client\LoginController as ClientLoginController;
+use App\Http\Controllers\client\ProductDetailController;
 use App\Http\Controllers\client\SearchController;
 // use App\Http\Controllers\SendEmailController;
 // use App\Mail\SendEmail;
@@ -160,7 +162,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     Route::prefix('image')->as('image.')->group(function () {
         Route::get('/', [AdminController::class, 'image'])->name('image');
     });
-    
+
     // User
     Route::prefix('user')->as('user.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
@@ -313,10 +315,20 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
 });
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
-    });
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::post('/search', [SearchController::class, 'store'])->name('search');
+    Route::get('{slug}/defail-product', [ProductDetailController::class, 'show'])->name('product-detail');
+
+    Route::prefix('login')->as('login.')->group(function () {
+        Route::get('/', [ClientLoginController::class, 'index'])->name('form');
+        Route::post('/submit', [ClientLoginController::class, 'login'])->name('submit');
+    });
+    Route::prefix('register')->as('register.')->group(function () {
+        Route::get('/', [ClientLoginController::class, 'create'])->name('form');
+        Route::post('/submit', [ClientLoginController::class, 'register'])->name('submit');
+    });
 });
 

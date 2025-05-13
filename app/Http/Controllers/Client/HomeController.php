@@ -8,7 +8,6 @@ use App\Models\Locationbannermenu;
 use App\Models\Locationmenu;
 use App\Models\Locationproductmenu;
 use App\Models\Search;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
