@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Mail\SendEmail;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -36,6 +38,11 @@ class LoginController extends Controller
                     'password' => $credentials['password']
                 ], $remember);
             if ($loginSuccess) {
+                if (Auth::user()->email_verified_at === null) {
+                    Auth::logout();
+                    Alert::error('Chưa xác minh email', 'Vui lòng xác minh email trước khi đăng nhập.');
+                    return redirect()->back()->withInput()->with("error", "Tài khoản chưa xác minh email.");
+                }
                 // $infor = [
                 //     'title' => 'Thong bao Dang nhap',
                 //     'email' => $request->name,
@@ -63,6 +70,35 @@ class LoginController extends Controller
 
     public function register(Request $request)
     {
-        return $request;
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'phone' => 'required|regex:/^[0-9]{10}$/',
+                'password' => 'required|min:3',
+                'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'birthday' => 'required|date|before:today',
+                'address' => 'nullable|string|max:255',
+            ]);
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+                'birthday' => $request->birthday,
+                'address' => $request->address,
+            ];
+            if ($request->hasFile('image')) {
+                $path_image = $request->file('image')->store('avatar', 'public');
+                $data['image'] = 'storage/' . $path_image;
+            }
+            $user = User::create($data);
+            $user->sendEmailVerificationNotification();
+            Alert::success('Tạo tài khoản thành công', 'Vui lòng xác minh email');
+            return redirect()->route('verification.notice');
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->route('register.form');
+        }
     }
 }

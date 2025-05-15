@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -210,11 +211,12 @@ class AdminSeeder extends Seeder
         // Gán Permissions
         $adminRole->syncPermissions(Permission::all());
         // Tạo hoặc Lấy User "admin"
-        $adminUser = User::firstOrCreate(
+        $adminUser = User::updateOrCreate(
             ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Super Admin',
                 'password' => Hash::make('123'),
+                'email_verified_at' => Carbon::now(),
             ]
         );
         // Gán Role "admin" cho User "admin"

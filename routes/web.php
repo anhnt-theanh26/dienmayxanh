@@ -29,6 +29,11 @@ use App\Http\Controllers\client\SearchController;
 // use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 // use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -314,9 +319,11 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     });
 
 });
+
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::post('/search', [SearchController::class, 'store'])->name('search');
@@ -332,3 +339,19 @@ Route::prefix('/')->as('')->group(function () {
     });
 });
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    Log::info('Email verification called', ['user_id' => $request->user()->id]);
+
+    return redirect('/login');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

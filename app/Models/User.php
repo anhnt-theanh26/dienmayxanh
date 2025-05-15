@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Yadahan\AuthenticationLog\AuthenticationLogable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, SoftDeletes, HasRoles, Notifiable, AuthenticationLogable;
 
@@ -28,6 +28,7 @@ class User extends Authenticatable
         'image',
         'phone',
         'birthday',
+        'email_verified_at'
     ];
     public function posts()
     {

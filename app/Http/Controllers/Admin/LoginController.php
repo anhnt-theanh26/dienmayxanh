@@ -30,6 +30,11 @@ class LoginController extends Controller
             $credentials = $request->only('email', 'password');
             $remember = $request->has('remember') ? true : false;
             if (Auth::attempt($credentials, $remember)) {
+                if (Auth::user()->email_verified_at === null) {
+                    Auth::logout();
+                    Alert::error('Chưa xác minh email', 'Vui lòng xác minh email trước khi đăng nhập.');
+                    return redirect()->back()->withInput()->with("error", "Tài khoản chưa xác minh email.");
+                }
                 // $infor = [
                 //     'title' => 'Thong bao Dang nhap',
                 //     'email' => $request->email,
