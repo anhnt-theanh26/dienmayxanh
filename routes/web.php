@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ProductMenuController;
 use App\Http\Controllers\Admin\ProductMenuItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use App\Http\Controllers\client\ProductDetailController;
@@ -330,16 +331,24 @@ Route::prefix('/')->as('')->group(function () {
     Route::post('/search', [SearchController::class, 'store'])->name('search');
     Route::get('{slug}/defail-product', [ProductDetailController::class, 'show'])->name('product-detail');
 
+    // login
     Route::prefix('login')->as('login.')->group(function () {
         Route::get('/', [ClientLoginController::class, 'index'])->name('form');
         Route::post('/submit', [ClientLoginController::class, 'login'])->name('submit');
     });
+    // register 
     Route::prefix('register')->as('register.')->group(function () {
         Route::get('/', [ClientLoginController::class, 'create'])->name('form');
         Route::post('/submit', [ClientLoginController::class, 'register'])->name('submit');
     });
+    // logout 
     Route::get('/logout', [ClientLoginController::class, 'logout'])->name('logout');
-    Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->name('save-address');
+    // save addredd
+    Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->middleware(['auth'])->name('save-address');
+    // cart
+    Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('/cart-list', [CartController::class, 'giohang'])->name('gio-hang');
+    Route::get('/delete-cart', [CartController::class, 'delete'])->name('delete-cart');
 });
 
 Route::get('/email/verify', function () {

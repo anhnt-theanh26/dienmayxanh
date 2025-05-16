@@ -9,6 +9,7 @@
         "alexusmai/laravel-file-manager": "^3.3",
         "ckfinder/ckfinder-laravel-package": "^5.0",
         "guzzlehttp/guzzle": "^7.2",
+        "hardevine/shoppingcart": "^3.4",
         "intervention/image-laravel": "^1.5",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",

@@ -142,7 +142,8 @@
                             </span>
                         </div>
                         <div class="d-grid gap-2 d-flex">
-                            <button class="btn btn-outline-primary w-50" type="button">
+                            <button class="btn btn-outline-primary w-50" type="button"
+                                onclick="addtocart({{ $variant->id }})">
                                 <div class="py-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
@@ -287,3 +288,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    function addtocart(id) {
+        $.ajax({
+                url: "/add-to-cart/" + id,
+                type: "GET",
+            })
+            .done((response) => {
+                alertify.success('Đã thêm vào giỏ hàng!');
+                $("#change-item-cart").empty();
+                $("#change-item-cart").text(response['total']);
+                // if(response['status'] == true){
+
+                // }
+                // if (response == true) {
+                // } else {
+                //     alertify.error('Thêm vào giỏ hàng thất bại!');
+                // }
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                alertify.error('Thêm vào giỏ hàng thất bại!');
+                console.error("Error adding to cart:", textStatus, errorThrown);
+            });
+    }
+</script>
