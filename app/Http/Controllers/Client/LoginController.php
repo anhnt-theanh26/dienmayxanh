@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Mail\SendEmail;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Illuminate\Auth\Events\Registered;
 class LoginController extends Controller
 {
     public function index()
@@ -93,12 +94,22 @@ class LoginController extends Controller
                 $data['image'] = 'storage/' . $path_image;
             }
             $user = User::create($data);
-            $user->sendEmailVerificationNotification();
+            event(new Registered($user));
+            Auth::login($user);
             Alert::success('Tạo tài khoản thành công', 'Vui lòng xác minh email');
-            return redirect()->route('verification.notice');
+            return redirect('/email/verify');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('register.form');
+            return redirect()->back()->with("error", 'Có lỗi xảy ra:' . $th->getMessage());
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        Alert::success('Đăng xuất thành công:');
+        return redirect()->route('index');
     }
 }

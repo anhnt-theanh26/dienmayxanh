@@ -181,7 +181,7 @@ nav.menu {
 }
 
 .menu>ul li a:hover {
-  background: #ffffff;
+  /* background: #ffffff; */
   color: #000000;
   transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;

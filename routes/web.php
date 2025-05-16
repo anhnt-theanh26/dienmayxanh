@@ -24,6 +24,7 @@ use App\Http\Controllers\client\HomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use App\Http\Controllers\client\ProductDetailController;
 use App\Http\Controllers\client\SearchController;
+use App\Http\Controllers\Client\UserController as ClientUserController;
 // use App\Http\Controllers\SendEmailController;
 // use App\Mail\SendEmail;
 // use Illuminate\Support\Facades\Mail;
@@ -32,8 +33,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -326,6 +326,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/search', [SearchController::class, 'store'])->name('search');
     Route::get('{slug}/defail-product', [ProductDetailController::class, 'show'])->name('product-detail');
 
@@ -337,6 +338,8 @@ Route::prefix('/')->as('')->group(function () {
         Route::get('/', [ClientLoginController::class, 'create'])->name('form');
         Route::post('/submit', [ClientLoginController::class, 'register'])->name('submit');
     });
+    Route::get('/logout', [ClientLoginController::class, 'logout'])->name('logout');
+    Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->name('save-address');
 });
 
 Route::get('/email/verify', function () {
@@ -345,13 +348,11 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    Log::info('Email verification called', ['user_id' => $request->user()->id]);
-
-    return redirect('/login');
+    Alert::success('Xác minh Email thành công', 'Chào mừng bạn đến với Điện Máy XANH');
+    return redirect('/home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-
-    return back()->with('message', 'Verification link sent!');
+    return back()->with('message', 'Email xác minh đã được gửi lại!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');

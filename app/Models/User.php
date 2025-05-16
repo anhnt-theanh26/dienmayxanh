@@ -13,7 +13,8 @@ use Yadahan\AuthenticationLog\AuthenticationLogable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, SoftDeletes, HasRoles, Notifiable, AuthenticationLogable;
+    use Notifiable;
+    use HasApiTokens, HasFactory, SoftDeletes, HasRoles, AuthenticationLogable;
 
     /**
      * The attributes that are mass assignable.

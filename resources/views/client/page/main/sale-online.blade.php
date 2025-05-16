@@ -76,7 +76,7 @@
                                                 </div>
                                                 <div>
                                                     <p class="card-text m-0 p-0 py-2"
-                                                        style="-webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; font-size: 14px; font-weight: 600; height: 65px; overflow: hidden; position: relative; z-index: 9;">
+                                                        style="-webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; font-size: 14px; font-weight: 600; height: 70px; overflow: hidden; position: relative; z-index: 9;">
                                                         {{ \Illuminate\Support\Str::limit($product?->name, 40) }}</p>
                                                     <p class="card-title m-0 p-0 py-1 fw-bold text-danger"
                                                         style="font-size: 18px;">

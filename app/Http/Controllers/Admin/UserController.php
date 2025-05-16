@@ -224,21 +224,39 @@ class UserController extends Controller
         }
     }
 
+    // public function search(Request $request, string $keyword)
+    // {
+    //     $status = $request->status;
+    //     if ($status == 'index') {
+    //         $results = User::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+    //         if ($keyword == ' ') {
+    //             $results = User::orderBy('id', 'desc')->get();
+    //         }
+    //     }
+    //     if ($status == 'delete') {
+    //         $results = User::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+    //         if ($keyword == ' ') {
+    //             $results = User::onlyTrashed()->orderBy('id', 'desc')->get();
+    //         }
+    //     }
+    //     return view('admin.page.user.search', compact('results', 'status'));
+    // }
+
     public function search(Request $request, string $keyword)
     {
         $status = $request->status;
-        if ($status == 'index') {
-            $results = User::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
-            if ($keyword == ' ') {
-                $results = User::orderBy('id', 'desc')->get();
-            }
+        if ($status === 'delete') {
+            $query = User::onlyTrashed();
+        } else {
+            $query = User::query();
         }
-        if ($status == 'delete') {
-            $results = User::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
-            if ($keyword == ' ') {
-                $results = User::onlyTrashed()->orderBy('id', 'desc')->get();
-            }
+        if ($keyword !== '') {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('email', 'LIKE', '%' . $keyword . '%');
+            });
         }
+        $results = $query->orderBy('id', 'desc')->get();
         return view('admin.page.user.search', compact('results', 'status'));
     }
 }

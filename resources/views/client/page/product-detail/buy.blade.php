@@ -14,9 +14,9 @@
             <div id="nav-tab" role="tablist">
                 @foreach ($product->variants as $variant)
                     <button class="btn btn-outline-primary {{ $loop->first ? 'active' : '' }}"
-                        id="product-variant-{{ $variant->id }}-tab" data-bs-toggle="tab"
-                        data-bs-target="#product-variant-{{ $variant->id }}" type="button" role="tab"
-                        aria-controls="product-variant-{{ $variant->id }}" aria-selected="true">
+                        @if ($variant->status == 'draft') disabled @endif id="product-variant-{{ $variant->id }}-tab"
+                        data-bs-toggle="tab" data-bs-target="#product-variant-{{ $variant->id }}" type="button"
+                        role="tab" aria-controls="product-variant-{{ $variant->id }}" aria-selected="true">
                         {{ $variant->name }}
                     </button>
                 @endforeach
