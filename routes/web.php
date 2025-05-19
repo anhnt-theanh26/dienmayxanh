@@ -346,11 +346,16 @@ Route::prefix('/')->as('')->group(function () {
     // save addredd
     Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->middleware(['auth'])->name('save-address');
     // cart
-    Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
-    Route::get('/cart-list', [CartController::class, 'giohang'])->name('gio-hang');
-    Route::get('/delete-cart', [CartController::class, 'delete'])->name('delete-cart');
+    
+    Route::prefix('cart')->as('cart.')->group(function () {
+        Route::get('/', [CartController::class, 'index'])->name('index');
+        Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
+        Route::get('/delete-cart', [CartController::class, 'delete'])->name('delete-cart');
+        Route::get('/delete-item-cart/{id}', [CartController::class, 'delete'])->name('delete-item-cart');
+    });
 });
 
+// email
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');

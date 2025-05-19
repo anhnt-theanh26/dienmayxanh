@@ -75,3 +75,29 @@
         console.log($(this).val());
     })
 </script>
+<script>
+    $(document).on('click', '.qty-plus', function() {
+        if (Number($(this).prev().val()) + 1 <= Number($(this).prev().attr('max'))) {
+            Number($(this).prev().val(+Number(Number($(this).prev().val())) + 1));
+        }
+        if (Number($(this).prev().val()) > Number($(this).prev().attr('max'))) {
+            Number($(this).prev().val(Number($(this).prev().attr('max'))));
+        }
+    });
+    $(document).on('click', '.qty-minus', function() {
+        if (Number($(this).next().val()) > 1) {
+            Number($(this).next().val(+Number($(this).next().val()) - 1));
+        }
+        if (Number($(this).next().val()) > Number($(this).next().attr('max'))) {
+            Number($(this).next().val(Number($(this).next().attr('max'))));
+        }
+    });
+    $(document).on('input', '.qty', function() {
+        if (Number($(this).val()) > Number($(this).attr('max'))) {
+            Number($(this).val(Number($(this).attr('max'))))
+        }
+        if (Number($(this).val()) < Number($(this).attr('min'))) {
+            Number($(this).val(Number($(this).attr('min'))))
+        }
+    });
+</script>

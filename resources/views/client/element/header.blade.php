@@ -169,7 +169,8 @@
                         </button>
                     </a>
                 @endif
-                <a href="#" class="btn btn-outline-light position-relative" style="border: none;">
+                <a href="{{ route('cart.index') }}" class="btn btn-outline-light position-relative"
+                    style="border: none;">
                     <div style="position: relative; display: inline-block;">
                         <!-- SVG icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -177,14 +178,14 @@
                             <path
                                 d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                         </svg>
-                        @if (Cart::count())
-                            <span class="badge rounded-pill bg-danger"
-                                style="position: absolute; top: 0; right: 0; font-size: 0.6rem; transform: translate(30%, -30%);">
-                                <span id="change-item-cart">
+                        <span class="badge rounded-pill bg-danger"
+                            style="position: absolute; top: 0; right: 0; font-size: 0.6rem; transform: translate(30%, -30%);">
+                            <span id="change-item-cart">
+                                @if (Cart::count())
                                     {{ Cart::count() }}
-                                </span>
+                                @endif
                             </span>
-                        @endif
+                        </span>
                     </div>
                     Giỏ hàng
                 </a>
@@ -209,9 +210,11 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p class="m-0 p-0">Địa chỉ đang chọn: <span class="fw-bold"
-                                            id="selectedAddress"></span></p>
-
+                                    <p class="m-0 p-0">Địa chỉ đang chọn:
+                                        <span class="fw-bold" id="selectedAddress">
+                                            {{ Auth::user() ? Auth::user()->address : '' }}
+                                        </span>
+                                    </p>
                                     <div class="input-group mb-3 m-0 p-0">
                                         <input type="text" class="form-control" id="detailAddress"
                                             placeholder="Chi tiết chỗ ở..." aria-label="Username"
