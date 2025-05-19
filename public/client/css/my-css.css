@@ -101,6 +101,17 @@ video {
   vertical-align: baseline;
 }
 
+/* fit cứng giao diện */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  /* Cho phép cuộn ngang khi cần */
+  min-width: 1200px;
+  /* Chiều rộng cố định của giao diện */
+}
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -330,7 +341,7 @@ nav.menu {
 }
 
 /*MediaQuerys*/
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .menu {
     display: none;
   }
@@ -343,7 +354,7 @@ nav.menu {
   .xs-menu-cont {
     display: block;
   }
-}
+} */
 
 
 /*Animation--*/

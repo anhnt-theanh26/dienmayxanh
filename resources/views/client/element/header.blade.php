@@ -47,7 +47,7 @@
 <div class="" style="background-color: #2a83e9;">
     <div class="container">
         <nav class="menu py-1 pt-2">
-            <ul style="margin: 0; padding: 0;">
+            <ul style="margin: 0; padding: 0;" class="d-flex justify-content-center align-items-center">
                 <a href="{{ route('index') }}">
                     <img width="229" height="40" class="object-fit-cover"
                         src="https://quocluat.vn/photos/portforlio/thuong-mai/dien-may-xanh/dien-may-xanh.jpg"
@@ -130,8 +130,8 @@
                 <li>
                     <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
                         @csrf
-                        <input style="width: 300px;" name="search" class="form-control me-2 rounded-pill"
-                            type="search" placeholder="Bạn tìm gì..." aria-label="Search">
+                        <input name="search" class="form-control me-2 rounded-pill" type="search"
+                            placeholder="Bạn tìm gì..." aria-label="Search">
                     </form>
                 </li>
                 @if (Auth::check())
@@ -178,20 +178,24 @@
                             <path
                                 d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                         </svg>
-                        <span class="badge rounded-pill bg-danger"
+                        {{-- <span class="badge rounded-pill bg-danger"
                             style="position: absolute; top: 0; right: 0; font-size: 0.6rem; transform: translate(30%, -30%);">
                             <span id="change-item-cart">
                                 @if (Cart::count())
                                     {{ Cart::count() }}
                                 @endif
                             </span>
+                        </span> --}}
+                        <span class="badge rounded-pill bg-danger" id="change-item-cart"
+                            style="position: absolute; top: 0; right: 0; font-size: 0.6rem; transform: translate(30%, -30%);">
+                            {{ Cart::count() }}
                         </span>
                     </div>
                     Giỏ hàng
                 </a>
                 <li>
-                    <button style="width: 250px;" class="btn border text-white rounded-pill"
-                        data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                    <button class="btn border text-white rounded-pill" data-bs-target="#exampleModalToggle"
+                        data-bs-toggle="modal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-geo-alt" viewBox="0 0 16 16">
                             <path
