@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ProductMenuController;
 use App\Http\Controllers\Admin\ProductMenuItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
@@ -100,7 +101,6 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [CategoryController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [CategoryController::class, 'search'])->name('search');
-
     });
 
     // post
@@ -120,7 +120,6 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [PostController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [PostController::class, 'search'])->name('search');
-
     });
 
     // Attribute
@@ -140,7 +139,6 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [AttributeController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [AttributeController::class, 'search'])->name('search');
-
     });
 
     // Product
@@ -161,12 +159,30 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [ProductController::class, 'search'])->name('search');
-
     });
 
     // Image 
     Route::prefix('image')->as('image.')->group(function () {
         Route::get('/', [AdminController::class, 'image'])->name('image');
+    });
+
+    // Voucher
+    Route::prefix('voucher')->as('voucher.')->group(function () {
+        Route::get('/', [VoucherController::class, 'index'])->name('index');
+
+        Route::get('/create', [VoucherController::class, 'create'])->name('create');
+        Route::post('/', [VoucherController::class, 'store'])->name('store');
+
+        Route::get('/{id}/edit', [VoucherController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [VoucherController::class, 'update'])->name('update');
+
+        Route::get('/deleted', [VoucherController::class, 'deleted'])->name('deleted');
+        Route::post('/{id}/restore', [VoucherController::class, 'restore'])->name('restore');
+
+        Route::delete('/{id}/delete', [VoucherController::class, 'delete'])->name('delete');
+        Route::delete('/{id}/destroy', [VoucherController::class, 'destroy'])->name('destroy');
+
+        Route::get('/{keyword}/search', [VoucherController::class, 'search'])->name('search');
     });
 
     // User
@@ -189,8 +205,6 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{keyword}/search', [UserController::class, 'search'])->name('search');
 
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
     });
 
     // role
@@ -199,7 +213,6 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/', [RoleController::class, 'store'])->name('store');
         Route::delete('{id}/', [RoleController::class, 'destroy'])->name('destroy');
         Route::put('/{id}/update', [RoleController::class, 'update'])->name('update');
-
     });
 
     // permission
@@ -208,7 +221,6 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/', [PermissionController::class, 'store'])->name('store');
         Route::delete('{id}/', [PermissionController::class, 'destroy'])->name('destroy');
         Route::put('/{id}/update', [PermissionController::class, 'update'])->name('update');
-
     });
 
     // authenticationlog
@@ -318,7 +330,6 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::put('/{id}/update', [BannerMenuItemController::class, 'update'])->name('update');
         Route::get('/{id}/destroy', [BannerMenuItemController::class, 'destroy'])->name('destroy');
     });
-
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -346,7 +357,7 @@ Route::prefix('/')->as('')->group(function () {
     // save addredd
     Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->middleware(['auth'])->name('save-address');
     // cart
-    
+
     Route::prefix('cart')->as('cart.')->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('index');
         Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
