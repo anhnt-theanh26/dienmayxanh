@@ -22,7 +22,7 @@
                                             </div>
                                             <div class="d-flex justify-content-center align-items-center"
                                                 style="height: 160px;">
-                                                <img src="{{ $productsamecategory->image ? asset($productsamecategory->image) : asset('storage/default.jpg') }}"
+                                                <img height="100%" src="{{ $productsamecategory->image ? asset($productsamecategory->image) : asset('storage/default.jpg') }}"
                                                     style="" class="card-img-top rounded-2 object-fit-contain"
                                                     alt="{{ $productsamecategory->name ? $productsamecategory->name : 'Khong co anh' }}">
                                             </div>

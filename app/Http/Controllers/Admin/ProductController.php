@@ -60,7 +60,7 @@ class ProductController extends Controller
                 'variants.*.stock_quantity' => 'required|integer|min:0',
                 'variants.*.status' => 'required|in:draft,published',
             ]);
-            $originalSlug = Str::slug($request->sku);
+            $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
             while (Product::where('slug', $slug)->exists()) {
@@ -210,7 +210,7 @@ class ProductController extends Controller
                 'variants.*.stock_quantity' => 'required|integer|min:0',
                 'variants.*.status' => 'required|in:draft,published',
             ]);
-            $originalSlug = Str::slug($request->sku);
+            $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;
             while (Product::where('slug', $newSlug)->where('id', '!=', $product->id)->exists()) {

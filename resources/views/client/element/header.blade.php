@@ -47,7 +47,7 @@
 <div class="" style="background-color: #2a83e9;">
     <div class="container">
         <nav class="menu py-1 pt-2">
-            <ul style="margin: 0; padding: 0;" class="d-flex justify-content-center align-items-center">
+            <ul style="margin: 0; padding: 0;" class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('index') }}">
                     <img width="229" height="40" class="object-fit-cover"
                         src="https://quocluat.vn/photos/portforlio/thuong-mai/dien-may-xanh/dien-may-xanh.jpg"
@@ -219,11 +219,13 @@
                                             {{ Auth::user() ? Auth::user()->address : '' }}
                                         </span>
                                     </p>
+
                                     <div class="input-group mb-3 m-0 p-0">
                                         <input type="text" class="form-control" id="detailAddress"
                                             placeholder="Chi tiết chỗ ở..." aria-label="Username"
-                                            aria-describedby="basic-addon1"
-                                            value="{{ Auth::user() ? Auth::user()->address : '' }}">
+                                            aria-describedby="basic-addon1">
+                                        <input type="hidden" name="allDressHiding" id="allDressHiding"
+                                            value=" {{ Auth::user() ? Auth::user()->address : '' }}">
                                     </div>
                                     <div class="text-center m-0 p-0">
                                         <div class="m-0 p-0">Hoặc chọn</div>
@@ -241,15 +243,8 @@
                                             title="Chọn Phường Xã">
                                             <option value="0">Phường Xã</option>
                                         </select>
-                                        @if (Auth::check())
-                                            <form action="{{ route('save-address') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="allDressHiding" id="allDressHiding"
-                                                    value="{{ Auth::user()->address }}">
-                                                <button class="btn btn-primary" type="submit">Lưu</button>
-                                            </form>
-                                        @endif
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -269,6 +264,7 @@
         }
     }
 @endphp
+
 @if ($menufirst && $menufirst->isNotEmpty())
     <section>
         <div class="d-flex justify-content-center" style="background-color: #eaecf0;">

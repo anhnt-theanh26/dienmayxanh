@@ -430,3 +430,60 @@ nav.menu {
   border: solid 1px #686868;
   border-radius: 5px;
 }
+
+/* input plus mi */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 5px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.quantity-control input {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px;
+  text-align: center;
+  width: 40px;
+  font-size: 16px;
+  outline: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.quantity-control .qty {
+  width: 70px;
+}
+
+.quantity-control input:focus {
+  border-color: #007bff;
+}
+
+.qty-minus,
+.qty-plus {
+  background-color: #f8f8f8;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.qty-minus:hover,
+.qty-plus:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.qty {
+  width: 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.quantity-control input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+  color: #ccc;
+}

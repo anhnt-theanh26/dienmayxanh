@@ -350,9 +350,10 @@ Route::prefix('/')->as('')->group(function () {
     Route::prefix('cart')->as('cart.')->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('index');
         Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
-        Route::get('/delete-cart', [CartController::class, 'delete'])->name('delete-cart');
+        Route::get('/update-item-cart/{id}', [CartController::class, 'update'])->name('update-item-cart');
         Route::get('/delete-item-cart/{id}', [CartController::class, 'delete'])->name('delete-item-cart');
     });
+    Route::get('/delete-cart', [CartController::class, 'delete'])->name('delete-cart');
 });
 
 // email

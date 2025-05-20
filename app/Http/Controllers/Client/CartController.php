@@ -56,6 +56,8 @@ class CartController extends Controller
                             'code' => $variant->product->sku,
                             'image' => $variant->product->image,
                             'size' => 0,
+                            'variant' => $variant->name,
+                            'quantity' => $variant->stock_quantity,
                             'product' => $variant->product,
                         ]
                     ]);
@@ -78,6 +80,8 @@ class CartController extends Controller
                         'code' => $variant->product->sku,
                         'image' => $variant->product->image,
                         'size' => 0,
+                        'variant' => $variant->name,
+                        'quantity' => $variant->stock_quantity,
                         'product' => $variant->product,
                     ]
                 ]);
@@ -96,24 +100,113 @@ class CartController extends Controller
         }
     }
 
-    function cartList()
+    public function delete(string $id)
     {
+        try {
+            $cart = Cart::get($id);
+            if (!$cart) {
+                $result = [
+                    'status' => false,
+                    'title' => 'Not Found',
+                    'total' => Cart::count(),
+                ];
+                return response()->json([
+                    'html' => view('client.page.cart.update')->render(),
+                    'result' => $result,
+                ]);
+            }
+            Cart::remove($id);
+            if (Cart::count() <= 0) {
+                Cart::destroy();
+                $result = [
+                    'status' => true,
+                    'title' => 'Đã xóa khỏi giỏ hàng!',
+                    'total' => Cart::count(),
+                ];
+                return response()->json([
+                    'html' => view('client.page.cart.empty')->render(),
+                    'result' => $result,
+                ]);
+            } else {
+                $result = [
+                    'status' => true,
+                    'title' => 'Đã xóa khỏi giỏ hàng!',
+                    'total' => Cart::count(),
+                ];
+                return response()->json([
+                    'html' => view('client.page.cart.update')->render(),
+                    'result' => $result,
+                ]);
+            }
 
-        // foreach (Cart::content() as $item) {
-        //     if ($item->id == 3) {
-        //         return 'đây';
-        //     }
-        // }
-        // $cartItem = Cart::get('id', 3);
-        // $existingQty = $cartItem ? $cartItem->qty : 0;
-        // return $existingQty;
-        return Cart::content();
+        } catch (\Throwable $th) {
+            $result = [
+                'status' => false,
+                'title' => 'Có lỗi xảy ra ' . $th->getMessage(),
+                'total' => Cart::count(),
+            ];
+            return response()->json([
+                'html' => view('client.page.cart.update')->render(),
+                'result' => $result,
+            ]);
+        }
     }
 
-    function delete()
+    public function update(Request $request, string $id)
     {
-        Cart::destroy();
+        try {
+            $quantity = intval($request->query('quantity'));
 
+            $cartItem = Cart::get($id);
+            if (!$cartItem) {
+                $result = [
+                    'status' => false,
+                    'title' => 'Sản phẩm không có trong giỏ hàng!',
+                    'total' => Cart::count(),
+                    'price' => Cart::total(),
+                    'html' => view('client.page.cart.delivery-information')->render(),
+                ];
+                return $result;
+            }
+            $variant = ProductVariant::where('id', $cartItem->id)->first();
+            if (!$variant) {
+                $result = [
+                    'status' => false,
+                    'title' => 'Không tìm thấy sản phẩm!',
+                    'total' => Cart::count(),
+                    'price' => Cart::total(),
+                    'html' => view('client.page.cart.delivery-information')->render(),
+                ];
+                return $result;
+            }
+            if ($variant->stock_quantity < $quantity) {
+                $result = [
+                    'status' => false,
+                    'title' => 'Vượt quá số lượng còn lại!',
+                    'total' => Cart::count(),
+                    'price' => Cart::total(),
+                    'html' => view('client.page.cart.delivery-information')->render(),
+                ];
+                return $result;
+            }
+            Cart::update($id, $quantity);
+            $result = [
+                'status' => true,
+                'title' => 'Cập nhập số lượng thành công',
+                'total' => Cart::count(),
+                'price' => Cart::total(),
+                'html' => view('client.page.cart.delivery-information')->render(),
+            ];
+            return $result;
+        } catch (\Throwable $th) {
+            $result = [
+                'status' => false,
+                'title' => 'Có lỗi xảy ra ' . $th->getMessage(),
+                'total' => Cart::count(),
+                'price' => Cart::total(),
+                'html' => view('client.page.cart.delivery-information')->render(),
+            ];
+            return $result;
+        }
     }
-
 }

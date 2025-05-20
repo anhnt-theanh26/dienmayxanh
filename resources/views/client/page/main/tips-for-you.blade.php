@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="d-flex justify-content-center align-items-center"
                                             style="height: 160px;">
-                                            <img src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
+                                            <img height="100%" src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
                                                 style="" class="card-img-top rounded-2 object-fit-contain"
                                                 alt="{{ $product->name ? $product->name : 'Khong co anh' }}">
                                         </div>
@@ -127,7 +127,7 @@
                                                             style="font-size: 12px; width: fit-content;">Hot</p>
                                                     @endif
                                                 </div>
-                                                <img src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
+                                                <img height="100%" src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
                                                     style="" class="card-img-top rounded-2 object-fit-contain"
                                                     alt="{{ $product->name ? $product->name : 'Khong co anh' }}">
                                                 <div>
