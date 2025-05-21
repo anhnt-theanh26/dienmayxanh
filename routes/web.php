@@ -175,11 +175,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
         Route::get('/{id}/edit', [VoucherController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [VoucherController::class, 'update'])->name('update');
-
-        Route::get('/deleted', [VoucherController::class, 'deleted'])->name('deleted');
-        Route::post('/{id}/restore', [VoucherController::class, 'restore'])->name('restore');
-
-        Route::delete('/{id}/delete', [VoucherController::class, 'delete'])->name('delete');
+        
         Route::delete('/{id}/destroy', [VoucherController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [VoucherController::class, 'search'])->name('search');
@@ -367,7 +363,7 @@ Route::prefix('/')->as('')->group(function () {
     Route::get('/delete-cart', [CartController::class, 'delete'])->name('delete-cart');
 });
 
-// email
+// email verify
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');

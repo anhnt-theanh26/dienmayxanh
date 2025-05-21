@@ -35,11 +35,11 @@ class ProductMenuController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'locationproductmenu_id' => 'required|exists:locationproductmenus,id',
+        ]);
         try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'locationproductmenu_id' => 'required|exists:locationproductmenus,id',
-            ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
@@ -96,15 +96,15 @@ class ProductMenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
         try {
             $productmenu = Productmenu::where('id', $id)->first();
             if (!$productmenu) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
                 return redirect()->route('admin.productmenu.index')->with('error', 'Khong tim thay menu!');
             }
-            $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;

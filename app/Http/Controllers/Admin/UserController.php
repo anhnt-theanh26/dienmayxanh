@@ -40,16 +40,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:3',
+            'phone' => 'nullable|numeric|min:10||unique:users,phone',
+            'address' => 'nullable|string',
+            'birthday' => 'nullable|date',
+            'image' => 'nullable|url|'
+        ]);
         try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:3',
-                'phone' => 'nullable|numeric|min:10||unique:users,phone',
-                'address' => 'nullable|string',
-                'birthday' => 'nullable|date',
-                'image' => 'nullable|url|'
-            ]);
             $data = [
                 'name' => $validated['name'],
                 'email' => $validated['email'],
@@ -96,20 +96,20 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $user = User::where('id', $id)->first();
+        if (!$user) {
+            Alert::error('Khong tim thay user:');
+            return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
+        }
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'nullable|numeric|min:10||unique:users,phone,' . $user->id,
+            'address' => 'nullable|string|max:255',
+            'birthday' => 'nullable|date',
+            'image' => 'nullable|url|max:255'
+        ]);
         try {
-            $user = User::where('id', $id)->first();
-            if (!$user) {
-                Alert::error('Khong tim thay user:');
-                return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
-            }
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email,' . $user->id,
-                'phone' => 'nullable|numeric|min:10||unique:users,phone,' . $user->id,
-                'address' => 'nullable|string|max:255',
-                'birthday' => 'nullable|date',
-                'image' => 'nullable|url|max:255'
-            ]);
             $data = [
                 'name' => $validated['name'],
                 'email' => $validated['email'],

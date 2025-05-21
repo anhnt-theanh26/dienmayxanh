@@ -10,8 +10,6 @@
         href="{{ asset('/administrator/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css') }}" />
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/jquery-timepicker/jquery-timepicker.css') }}" />
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/pickr/pickr-themes.css') }}" />
-
-    <script src="{{ asset('/administrator/assets/js/config.js') }}"></script>
 @endsection
 
 @section('content')
@@ -127,7 +125,7 @@
 
 @section('js')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script>
         $('#lfm').filemanager('image');
     </script>

@@ -30,10 +30,10 @@ class CategoryParentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "name" => "required|string|max:255",
+        ]);
         try {
-            $request->validate([
-                "name" => "required|string|max:255",
-            ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
@@ -78,14 +78,14 @@ class CategoryParentController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            "name" => "required|string|max:255",
+        ]);
         try {
             $categoryParent = CategoryParent::where('id', $id)->first();
             if (!$categoryParent) {
                 return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
             }
-            $request->validate([
-                "name" => "required|string|max:255",
-            ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;

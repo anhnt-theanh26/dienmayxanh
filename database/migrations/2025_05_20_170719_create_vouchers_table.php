@@ -16,12 +16,13 @@ return new class extends Migration {
             $table->unsignedInteger('discount_percentage');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
+            $table->string('time')->nullable();
             $table->boolean('status')->default(true);
             $table->decimal('max_discount', 20, 2)->nullable();
             $table->unsignedInteger('max_use')->default(1);
             $table->decimal('discount_condition', 20, 2)->default(0);
-            $table->longText('users');
-            $table->longText('products');
+            $table->longText('users')->nullable();
+            $table->longText('products')->nullable();
             $table->timestamps();
         });
     }

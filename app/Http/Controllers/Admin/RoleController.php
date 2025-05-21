@@ -22,12 +22,12 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+        $dataRole = $request->validate([
+            'roleName' => 'required|string|max:255|unique:roles,name',
+            'permission_id' => 'required|array',
+            'permission_id.*' => 'exists:permissions,id',
+        ]);
         try {
-            $dataRole = $request->validate([
-                'roleName' => 'required|string|max:255|unique:roles,name',
-                'permission_id' => 'required|array',
-                'permission_id.*' => 'exists:permissions,id',
-            ]);
             $role = Role::create([
                 'name' => $dataRole['roleName'],
                 'guard_name' => 'web',
@@ -45,17 +45,17 @@ class RoleController extends Controller
 
     public function update(string $id, Request $request)
     {
+        $role = Role::findOrFail($id);
+        if (!$role) {
+            Alert::error('That bai', 'Khong tim thay role');
+            return redirect()->route('admin.role.index');
+        }
+        $dataRole = $request->validate([
+            'modalRoleName' => 'required|string|max:255|unique:roles,name,' . $id,
+            'permissions' => 'required|array',
+            'permissions.*' => 'exists:permissions,id',
+        ]);
         try {
-            $role = Role::findOrFail($id);
-            if (!$role) {
-                Alert::error('That bai', 'Khong tim thay role');
-                return redirect()->route('admin.role.index');
-            }
-            $dataRole = $request->validate([
-                'modalRoleName' => 'required|string|max:255|unique:roles,name,' . $id,
-                'permissions' => 'required|array',
-                'permissions.*' => 'exists:permissions,id',
-            ]);
             $roleHasPermissionInt = array_map('intval', $dataRole['permissions']);
             $role->syncPermissions($roleHasPermissionInt);
             Alert::success('Thanh cong', 'Cap nhap role thanh cong');

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th5 16, 2025 lúc 08:36 AM
+-- Thời gian đã tạo: Th5 21, 2025 lúc 10:01 AM
 -- Phiên bản máy phục vụ: 8.0.30
--- Phiên bản PHP: 8.2.28
+-- Phiên bản PHP: 8.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `dienmayxanh`
 --
-CREATE DATABASE IF NOT EXISTS `dienmayxanh` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `dienmayxanh`;
 
 -- --------------------------------------------------------
 
@@ -165,7 +163,14 @@ INSERT INTO `authentication_log` (`id`, `authenticatable_type`, `authenticatable
 (83, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-16 03:00:51', '2025-05-16 03:01:00'),
 (84, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-16 03:13:09', '2025-05-16 03:26:13'),
 (85, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-16 03:29:03', NULL),
-(86, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-16 06:55:30', NULL);
+(86, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-16 06:55:30', NULL),
+(87, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-19 01:21:46', NULL),
+(88, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-19 07:02:42', NULL),
+(89, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-20 01:08:47', '2025-05-20 01:52:46'),
+(90, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-20 01:54:17', '2025-05-20 02:31:38'),
+(91, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-20 03:33:48', NULL),
+(92, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-21 00:57:46', NULL),
+(93, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-21 06:31:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -290,9 +295,9 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `is_hot`, `category_par
 (32, 'Vệ sinh máy lạnh', 've-sinh-may-lanh', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 10, NULL, '2025-05-08 02:13:51', '2025-05-08 02:13:51'),
 (33, 'Thay lõi lọc nước', 'thay-loi-loc-nuoc', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 10, NULL, '2025-05-08 02:14:00', '2025-05-08 03:15:21'),
 (34, 'Bảo hiểm Ô tô - Xe máy', 'bao-hiem-o-to-xe-may', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 10, NULL, '2025-05-08 02:14:09', '2025-05-08 03:14:56'),
-(35, '1234 update', '1234-update', 'http://127.0.0.1:8000/storage/photos/1/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 1, NULL, '2025-05-12 06:59:00', '2025-05-12 07:02:01'),
-(36, '123', '123', 'http://127.0.0.1:8000/storage/photos/1/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 7, NULL, '2025-05-12 07:32:14', '2025-05-12 07:32:14'),
-(37, '123', '123-1', 'http://127.0.0.1:8000/storage/photos/shares/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 10, NULL, '2025-05-12 08:37:54', '2025-05-12 08:37:54');
+(35, '1234 update', '1234-update', 'http://127.0.0.1:8000/storage/photos/2/gratisography-augmented-reality-800x525.jpg', 1, 1, NULL, '2025-05-12 06:59:00', '2025-05-16 09:12:28'),
+(36, '123', '123', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 7, NULL, '2025-05-12 07:32:14', '2025-05-16 09:12:49'),
+(37, '123', '123-1', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 10, NULL, '2025-05-12 08:37:54', '2025-05-16 09:13:13');
 
 -- --------------------------------------------------------
 
@@ -556,7 +561,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (83, '2025_05_09_101937_create_locationbannermenus_table', 3),
 (84, '2025_05_09_102144_create_bannermenus_table', 3),
 (85, '2025_05_09_102201_create_bannermenuitems_table', 3),
-(86, '2025_05_15_102632_add_secret_code_to_users', 4);
+(86, '2025_05_15_102632_add_secret_code_to_users', 4),
+(87, '2025_05_20_170719_create_vouchers_table', 5),
+(88, '2025_05_21_144630_add_time_to_vouchers_table', 6);
 
 -- --------------------------------------------------------
 
@@ -912,7 +919,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `sku`, `name`, `slug`, `image`, `sold`, `is_hot`, `description`, `category_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 'NIS-C09R2T28', 'Máy lạnh Nagakawa Inverter 1 HP NIS-C09R2T28', 'nis-c09r2t28', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>Đ&aacute;nh gi&aacute; chi tiết m&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28<br />\r\nM&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28&nbsp;c&oacute; khả năng l&agrave;m lạnh nhanh nhưng vẫn đảm bảo được hiệu quả tiết kiệm điện. Hơn nữa, mẫu m&aacute;y lạnh n&agrave;y c&ograve;n c&oacute; thể h&uacute;t ẩm độc lập, gi&uacute;p căn ph&ograve;ng trở n&ecirc;n kh&ocirc; tho&aacute;ng cho những ng&agrave;y trời ẩm ướt.</p>\r\n\r\n<p>Thiết kế<br />\r\nD&agrave;n lạnh:</p>\r\n\r\n<p>Được thiết kế&nbsp;h&igrave;nh chữ nhật nằm ngang&nbsp;quen thuộc với chất liệu vỏ nhựa cao cấp v&agrave; sở hữu gam&nbsp;m&agrave;u trắng tinh tế.</p>\r\n\r\n<p>D&agrave;n n&oacute;ng:</p>\r\n\r\n<p>- Được thiết kế&nbsp;h&igrave;nh hộp chữ nhật&nbsp;với chất liệu vỏ nhựa bền bỉ.</p>\r\n\r\n<p>-&nbsp;L&aacute; tản nhiệt bằng nh&ocirc;m được phủ lớp Golden Fin&nbsp;c&oacute; khả năng chống ăn m&ograve;n tốt, gi&uacute;p tăng độ bền cho m&aacute;y trong suốt thời gian hoạt động.</p>\r\n\r\n<p>- Cả d&agrave;n lạnh v&agrave; d&agrave;n n&oacute;ng của&nbsp;m&aacute;y lạnh Nagakawa&nbsp;đều&nbsp;sử dụng ống dẫn gas được l&agrave;m bằng đồng, cho khả năng l&agrave;m lạnh nhanh v&agrave; s&acirc;u.</p>\r\n\r\n<p>- M&aacute;y lạnh&nbsp;sử dụng gas R32&nbsp;th&acirc;n thiện với m&ocirc;i trường v&agrave; mang lại hiệu quả l&agrave;m m&aacute;t tối ưu.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>C&ocirc;ng nghệ l&agrave;m lạnh<br />\r\n-&nbsp;M&aacute;y lạnh&nbsp;sở hữu&nbsp;c&ocirc;ng suất 1 HP, đ&aacute;p ứng khả năng l&agrave;m lạnh cho những căn ph&ograve;ng c&oacute; diện t&iacute;ch&nbsp;dưới 15m&sup2;.</p>\r\n\r\n<p>-&nbsp;Chế độ l&agrave;m lạnh nhanh Turbo: Động cơ m&aacute;y n&eacute;n sẽ hoạt động với c&ocirc;ng suất tối đa, gi&uacute;p nhiệt độ trong căn ph&ograve;ng được hạ nhanh ch&oacute;ng đến mức nhiệt độ m&agrave; người d&ugrave;ng c&agrave;i đặt, nhờ đ&oacute; người d&ugrave;ng&nbsp;cảm thấy m&aacute;t lạnh gần như ngay lập tức&nbsp;sau khi k&iacute;ch hoạt chế độ n&agrave;y.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Cơ chế thổi gi&oacute;<br />\r\nCảm biến nhiệt độ I Feel: Cho ph&eacute;p người d&ugrave;ng c&oacute; thể tự động điều chỉnh chế độ hoạt động của m&aacute;y lạnh tại vị tr&iacute; remote nhờ bộ phận cảm biến được t&iacute;ch hợp, từ đ&oacute; gi&uacute;p người d&ugrave;ng&nbsp;cảm thấy m&aacute;t mẻ v&agrave; thoải m&aacute;i d&ugrave; ngồi bất k&igrave; vị tr&iacute; n&agrave;o gần remote m&aacute;y lạnh&nbsp;trong căn ph&ograve;ng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>C&aacute;c c&ocirc;ng nghệ tiết kiệm điện<br />\r\n-&nbsp;C&ocirc;ng nghệ Inverter: C&oacute; khả năng điều chỉnh linh hoạt v&ograve;ng quay m&aacute;y n&eacute;n, gi&uacute;p m&aacute;y lạnh&nbsp;duy tr&igrave; nhiệt độ ổn định&nbsp;b&ecirc;n trong căn ph&ograve;ng m&agrave; vẫn&nbsp;ti&ecirc;u thụ điện năng &iacute;t nhất&nbsp;c&oacute; thể.</p>\r\n\r\n<p>-&nbsp;Chức năng tiết kiệm năng lượng (Economy): Hỗ trợ m&aacute;y lạnh c&oacute; khả năng&nbsp;tiết kiệm điện đến mức tối ưu, g&oacute;p phần l&agrave;m giảm chi ph&iacute; tiền điện mỗi th&aacute;ng cho người sử dụng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Khả năng lọc kh&ocirc;ng kh&iacute; - sức khoẻ<br />\r\nM&agrave;ng lọc 6 trong 1: Được cấu tạo từ 6 tấm lọc gồm c&oacute; Photocatalyst, Ion Silver, Active Carbon, Catechin, Vitamin C v&agrave; Catalyst, nhờ đ&oacute; mang lại khả năng&nbsp;lọc sạch bụi bẩn v&agrave; c&aacute;c chất g&acirc;y dị ứng tối ưu, đồng thời&nbsp;khử m&ugrave;i h&ocirc;i hiệu quả, trả lại&nbsp;bầu kh&ocirc;ng kh&iacute; tươi m&aacute;t&nbsp;cho căn ph&ograve;ng, thậm ch&iacute; c&ograve;n&nbsp;hỗ trợ l&agrave;m đẹp da&nbsp;cho người sử dụng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Tiện &iacute;ch<br />\r\n-&nbsp;Hẹn giờ bật tắt m&aacute;y: C&oacute; khả năng hẹn giờ bật hoặc tắt m&aacute;y l&ecirc;n đến 24 tiếng, gi&uacute;p người d&ugrave;ng&nbsp;kiểm so&aacute;t thời gian sử dụng m&aacute;y lạnh, tiện lợi cho việc sử dụng v&agrave;o ban đ&ecirc;m.</p>\r\n\r\n<p>-&nbsp;Tự khởi động lại khi c&oacute; điện: C&oacute; khả năng tự khởi động lại khi xảy ra t&igrave;nh trạng c&uacute;p điện đột ngột, m&agrave; người d&ugrave;ng kh&ocirc;ng cần phải c&agrave;i đặt lại chế độ l&agrave;m lạnh như ban đầu.</p>\r\n\r\n<p>-&nbsp;Chế độ c&agrave;i đặt y&ecirc;u th&iacute;ch I-set:&nbsp;M&aacute;y lạnh Nagakawa Inverter&nbsp;n&agrave;y c&oacute; khả năng ghi nhớ c&agrave;i đặt y&ecirc;u th&iacute;ch của người sử dụng, từ đ&oacute;&nbsp;giảm bớt thao t&aacute;c v&agrave; thời gian c&agrave;i đặt&nbsp;m&aacute;y lạnh mỗi khi d&ugrave;ng.</p>\r\n\r\n<p>-&nbsp;Chế độ vận h&agrave;nh khi ngủ:&nbsp;M&aacute;y lạnh Nagakawa 1 HP&nbsp;n&agrave;y c&oacute; thể tự động tăng nhiệt độ v&agrave;o ban đ&ecirc;m,&nbsp;tr&aacute;nh g&acirc;y cảm gi&aacute;c lạnh buốt&nbsp;v&agrave; gi&uacute;p cho người d&ugrave;ng c&oacute; được giấc ngủ ngon hơn.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>T&oacute;m lại, m&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28 ph&ugrave; hợp cho mọi gia đ&igrave;nh hiện nay khi c&oacute; nhu cầu l&agrave;m m&aacute;t trong căn ph&ograve;ng nhỏ diện t&iacute;ch dưới 15m&sup2;. Hơn nữa, chiếc m&aacute;y lạnh n&agrave;y rất th&iacute;ch hợp cho những ai c&oacute; sức khỏe nhạy cảm khi nằm trong ph&ograve;ng m&aacute;y lạnh nhờ trang bị chế độ hoạt động khi ngủ v&agrave; bộ lọc 6 trong 1.&nbsp;</p>', 26, NULL, '2025-05-08 02:27:41', '2025-05-16 04:05:01'),
-(2, 'GC-12IS35', 'Máy lạnh Casper Inverter 1.5 HP GC-12IS35', 'gc-12is35', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p><em>19.990.00019.990.000</em></p>', 25, NULL, '2025-05-08 03:54:05', '2025-05-08 03:56:33'),
+(2, 'GC-12IS35', 'Máy lạnh Casper Inverter 1.5 HP GC-12IS35', 'may-lanh-casper-inverter-15-hp-gc-12is35', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p><em>19.990.00019.990.000</em></p>', 25, NULL, '2025-05-08 03:54:05', '2025-05-20 01:11:57'),
 (3, '1', '1', '1', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p>1</p>', 25, NULL, '2025-05-08 03:55:45', '2025-05-08 04:05:42'),
 (4, '2', '2', '2', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>2</p>', 25, NULL, '2025-05-08 03:56:14', '2025-05-08 04:05:11'),
 (5, '3', '3', '3', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>3</p>', 25, NULL, '2025-05-08 03:57:59', '2025-05-08 03:57:59'),
@@ -950,7 +957,7 @@ CREATE TABLE `product_attribute_values` (
 
 INSERT INTO `product_attribute_values` (`id`, `product_id`, `attribute_id`, `value`, `created_at`, `updated_at`) VALUES
 (1, 3, 14, '12', '2025-05-08 03:55:45', '2025-05-08 04:05:42'),
-(2, 2, 15, 'do', '2025-05-08 03:56:33', '2025-05-08 03:56:33'),
+(2, 2, 15, 'do', '2025-05-08 03:56:33', '2025-05-20 01:11:57'),
 (3, 1, 13, '12', '2025-05-08 03:57:07', '2025-05-16 04:05:01'),
 (4, 5, 12, '3', '2025-05-08 03:57:59', '2025-05-08 03:57:59'),
 (5, 7, 13, '5', '2025-05-08 03:59:33', '2025-05-08 03:59:33'),
@@ -1019,8 +1026,8 @@ CREATE TABLE `product_variants` (
 INSERT INTO `product_variants` (`id`, `name`, `price`, `price_old`, `stock_quantity`, `status`, `product_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, '1 hp', 4990000, 8990000, 10, 'published', 1, NULL, '2025-05-08 02:27:41', '2025-05-16 04:05:01'),
 (2, '2 hp', 6990000, 10990000, 11, 'published', 1, NULL, '2025-05-08 02:27:41', '2025-05-16 04:05:01'),
-(3, '1 hp', 6590000, 9290000, 11, 'published', 2, NULL, '2025-05-08 03:54:05', '2025-05-08 03:56:33'),
-(4, '2.5 hp', 15390000, 19990000, 12, 'published', 2, NULL, '2025-05-08 03:54:05', '2025-05-08 03:56:33'),
+(3, '1 hp', 6590000, 9290000, 8, 'draft', 2, NULL, '2025-05-08 03:54:05', '2025-05-20 01:11:57'),
+(4, '2.5 hp', 15390000, 19990000, 3, 'published', 2, NULL, '2025-05-08 03:54:05', '2025-05-20 01:11:57'),
 (5, '1', 1, 1, 1, 'draft', 3, NULL, '2025-05-08 03:55:45', '2025-05-08 04:05:42'),
 (6, '2', 2, 2, 2, 'draft', 4, NULL, '2025-05-08 03:56:14', '2025-05-08 04:05:11'),
 (7, '3', 3, 3, 3, 'draft', 5, NULL, '2025-05-08 03:57:59', '2025-05-08 03:57:59'),
@@ -1180,9 +1187,43 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `address`, `image`, `phone`, `birthday`, `remember_token`, `secret_code`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'admin@gmail.com', '2025-05-16 01:09:59', '$2y$10$qhx7ZlobqFJ11Nh9AFrTH.xWtAYHR5NwQBy1P5IaAhWb6teZ.1S2W', NULL, 'http://127.0.0.1:8000/storage/photos/shares/gratisography-augmented-reality-800x525.jpg', NULL, NULL, NULL, NULL, NULL, '2025-05-08 01:04:25', '2025-05-15 02:40:24'),
-(2, 'anhnt', 'anhnt@gmail.com', '2025-05-15 09:30:14', '$2y$10$Bg6e62TlfTlCvDHX2HAIZe7rQcOLYVSSyQ/PveJYMAOsBfteNKI3u', 'Tiên Phương, Chương Mỹ, Hà Nội', 'http://127.0.0.1:8000/storage/photos/1/pngtree-flower-jpg-vector-png-image_6886192.png', '0348022004', '2025-05-12', 'Xek1bSFVWjkPF7XBQdeJvGgR4fQzRaaoD1MA1G3D9oFnrdeN8a5pnyBcL2dP', NULL, NULL, '2025-05-12 08:21:24', '2025-05-12 08:21:24'),
-(44, 'Nguyễn Thế Anh', 'nguyentheanh260204@gmail.com', '2025-05-16 02:33:50', '$2y$10$Qhuf6mkqHibrfV5qXOeWcO8RYsfXiUDQaFsVe2y6hcMIetHCfoRPm', 'Tiên Phương, Chương Mỹ, Hà Nội', 'storage/avatar/TCPtCmKloQHFGrRAKvxHhIxT3HH5HR0fM27tvXT2.png', '0348022004', '2025-05-01', NULL, NULL, '2025-05-16 03:32:15', '2025-05-16 02:33:34', '2025-05-16 03:32:15');
+(1, 'Super Admin', 'admin@gmail.com', '2025-05-16 01:09:59', '$2y$10$qhx7ZlobqFJ11Nh9AFrTH.xWtAYHR5NwQBy1P5IaAhWb6teZ.1S2W', 'Tiên Phương, Chương Mỹ, Hà Nội', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', '0348022005', NULL, NULL, NULL, NULL, '2025-05-08 01:04:25', '2025-05-21 02:41:10'),
+(2, 'anhnt', 'anhnt@gmail.com', '2025-05-15 09:30:14', '$2y$10$Bg6e62TlfTlCvDHX2HAIZe7rQcOLYVSSyQ/PveJYMAOsBfteNKI3u', 'Tiên Phương, Chương Mỹ, Hà Nội', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', '0348022004', '2025-05-12', 'rOekLRB9x20mgkeBBLM7DtERYwIMWz18DdSoT8vXM7a2Q4ZB8lHiuOAnfPrF', NULL, NULL, '2025-05-12 08:21:24', '2025-05-21 02:34:02'),
+(44, 'Nguyễn Thế Anh', 'nguyentheanh260204@gmail.com', '2025-05-16 02:33:50', '$2y$10$U.9R0hA7XWmYaWkTRywkteaGq/3mIHsDAcMgyIGCg74LB6j.BfKPS', 'Tiên Phương, Chương Mỹ, Hà Nội', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', '0981621246', '2025-05-01', NULL, NULL, NULL, '2025-05-16 02:33:34', '2025-05-21 02:43:34');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `vouchers`
+--
+
+CREATE TABLE `vouchers` (
+  `id` bigint UNSIGNED NOT NULL,
+  `promo_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount_percentage` int UNSIGNED NOT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `time` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `max_discount` decimal(20,2) DEFAULT NULL,
+  `max_use` int UNSIGNED NOT NULL DEFAULT '1',
+  `discount_condition` decimal(20,2) NOT NULL DEFAULT '0.00',
+  `users` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `products` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `vouchers`
+--
+
+INSERT INTO `vouchers` (`id`, `promo_code`, `discount_percentage`, `start_date`, `end_date`, `time`, `status`, `max_discount`, `max_use`, `discount_condition`, `users`, `products`, `created_at`, `updated_at`) VALUES
+(1, '123', 12, '2025-05-21 00:00:00', '2025-05-21 23:59:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 123.00, 32, 12.00, '[\"2\"]', '[\"17\"]', '2025-05-21 07:32:31', '2025-05-21 07:32:31'),
+(2, '2', 1, '2025-05-12 00:00:00', '2025-07-29 23:00:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 123.00, 1, 123.00, '[\"2\"]', '[\"17\"]', '2025-05-21 07:52:12', '2025-05-21 07:52:12'),
+(3, '1234', 12, '2025-05-21 00:00:00', '2025-05-21 23:59:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 123.00, 1, 123.00, '[\"44\",\"2\",\"1\"]', '[\"17\",\"16\",\"15\",\"10\",\"9\",\"8\"]', '2025-05-21 08:08:34', '2025-05-21 08:08:34'),
+(4, '12', 21, '2025-05-21 00:00:00', '2025-05-21 23:59:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 21.00, 1, 2.00, NULL, NULL, '2025-05-21 08:20:56', '2025-05-21 08:20:56'),
+(5, 'ád', 1, '2025-05-21 00:00:00', '2025-05-21 23:59:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 1.00, 1, 0.00, NULL, NULL, '2025-05-21 08:23:42', '2025-05-21 08:23:42');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -1426,6 +1467,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Chỉ mục cho bảng `vouchers`
+--
+ALTER TABLE `vouchers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
 
@@ -1439,7 +1486,7 @@ ALTER TABLE `attributes`
 -- AUTO_INCREMENT cho bảng `authentication_log`
 --
 ALTER TABLE `authentication_log`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT cho bảng `bannermenuitems`
@@ -1505,7 +1552,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
@@ -1602,6 +1649,12 @@ ALTER TABLE `searchs`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT cho bảng `vouchers`
+--
+ALTER TABLE `vouchers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Ràng buộc đối với các bảng kết xuất
@@ -1733,11 +1786,6 @@ ALTER TABLE `role_has_permissions`
 --
 ALTER TABLE `searchs`
   ADD CONSTRAINT `searchs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
---
--- Cơ sở dữ liệu: `thegioididong`
---
-CREATE DATABASE IF NOT EXISTS `thegioididong` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `thegioididong`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

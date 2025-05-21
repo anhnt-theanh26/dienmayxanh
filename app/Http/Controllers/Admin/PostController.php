@@ -43,18 +43,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'excerpt' => 'required|string|max:255',
+            'content' => 'nullable|string',
+            'image' => 'nullable|url|max:255',
+            'published_at' => 'required|date',
+            'is_hot' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required|in:draft,published',
+            'user_id' => 'nullable|exists:users,id',
+        ]);
         try {
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'excerpt' => 'required|string|max:255',
-                'content' => 'nullable|string',
-                'image' => 'nullable|url|max:255',
-                'published_at' => 'required|date',
-                'is_hot' => 'nullable|boolean',
-                'category_id' => 'required|exists:categories,id',
-                'status' => 'required|in:draft,published',
-                'user_id' => 'nullable|exists:users,id',
-            ]);
             $originalSlug = Str::slug($request->title);
             $slug = $originalSlug;
             $count = 1;
@@ -115,23 +115,23 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'excerpt' => 'required|string|max:255',
+            'content' => 'nullable|string',
+            'image' => 'nullable|url|max:255',
+            'published_at' => 'required|date',
+            'is_hot' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required|in:draft,published',
+            'user_id' => 'nullable|exists:users,id',
+        ]);
         try {
             $post = Post::where('id', $id)->first();
             if (!$post) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
                 return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
             }
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'excerpt' => 'required|string|max:255',
-                'content' => 'nullable|string',
-                'image' => 'nullable|url|max:255',
-                'published_at' => 'required|date',
-                'is_hot' => 'nullable|boolean',
-                'category_id' => 'required|exists:categories,id',
-                'status' => 'required|in:draft,published',
-                'user_id' => 'nullable|exists:users,id',
-            ]);
             $originalSlug = Str::slug($request->title);
             $newSlug = $originalSlug;
             $count = 1;

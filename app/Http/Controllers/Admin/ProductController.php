@@ -38,28 +38,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'sku' => 'required|string|max:255|unique:products,sku',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|url|max:255',
+            'is_hot' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
+            // images table 
+            'images' => 'nullable|url',
+            // attributes table
+            'attribute_value' => 'nullable|array',
+            'attribute_value.*' => 'array',
+            'attribute_value.*.*' => 'required|string|max:255',
+            // variants table
+            'variants' => 'required|array|min:1',
+            'variants.*.name' => 'required|string|max:255',
+            'variants.*.price' => 'required|numeric|min:0',
+            'variants.*.price_old' => 'required|numeric|min:0',
+            'variants.*.stock_quantity' => 'required|integer|min:0',
+            'variants.*.status' => 'required|in:draft,published',
+        ]);
         try {
-            $request->validate([
-                'sku' => 'required|string|max:255|unique:products,sku',
-                'name' => 'required|string|max:255',
-                'description' => 'nullable|string',
-                'image' => 'nullable|url|max:255',
-                'is_hot' => 'nullable|boolean',
-                'category_id' => 'required|exists:categories,id',
-                // images table 
-                'images' => 'nullable|url',
-                // attributes table
-                'attribute_value' => 'nullable|array',
-                'attribute_value.*' => 'array',
-                'attribute_value.*.*' => 'required|string|max:255',
-                // variants table
-                'variants' => 'required|array|min:1',
-                'variants.*.name' => 'required|string|max:255',
-                'variants.*.price' => 'required|numeric|min:0',
-                'variants.*.price_old' => 'required|numeric|min:0',
-                'variants.*.stock_quantity' => 'required|integer|min:0',
-                'variants.*.status' => 'required|in:draft,published',
-            ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
@@ -180,36 +180,36 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $product = Product::where('id', $id)->first();
+        if (!$product) {
+            Alert::error('Khong tim thay san pham:');
+            return redirect()->route('admin.product.index')->with('error', 'Không tìm thấy sản phẩm');
+        }
+        $request->validate([ // validate
+            'sku' => 'required|string|max:255|unique:products,sku,' . $product->id,
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|url|max:255',
+            'is_hot' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
+            // images table 
+            'images' => 'nullable|url',
+            // attributes table
+            'attribute_value' => 'nullable|array',
+            'attribute_value.*' => 'array',
+            'attribute_value.*.*' => 'required|string|max:255',
+            'old_attribute_value' => 'nullable|array',
+            'old_attribute_value.*' => 'array',
+            'old_attribute_value.*.*' => 'required|string|max:255',
+            // variants table
+            'variants' => 'required|array|min:1',
+            'variants.*.name' => 'required|string|max:255',
+            'variants.*.price' => 'required|numeric|min:0',
+            'variants.*.price_old' => 'required|numeric|min:0',
+            'variants.*.stock_quantity' => 'required|integer|min:0',
+            'variants.*.status' => 'required|in:draft,published',
+        ]);
         try {
-            $product = Product::where('id', $id)->first();
-            if (!$product) {
-                Alert::error('Khong tim thay san pham:');
-                return redirect()->route('admin.product.index')->with('error', 'Không tìm thấy sản phẩm');
-            }
-            $request->validate([ // validate
-                'sku' => 'required|string|max:255|unique:products,sku,' . $product->id,
-                'name' => 'required|string|max:255',
-                'description' => 'nullable|string',
-                'image' => 'nullable|url|max:255',
-                'is_hot' => 'nullable|boolean',
-                'category_id' => 'required|exists:categories,id',
-                // images table 
-                'images' => 'nullable|url',
-                // attributes table
-                'attribute_value' => 'nullable|array',
-                'attribute_value.*' => 'array',
-                'attribute_value.*.*' => 'required|string|max:255',
-                'old_attribute_value' => 'nullable|array',
-                'old_attribute_value.*' => 'array',
-                'old_attribute_value.*.*' => 'required|string|max:255',
-                // variants table
-                'variants' => 'required|array|min:1',
-                'variants.*.name' => 'required|string|max:255',
-                'variants.*.price' => 'required|numeric|min:0',
-                'variants.*.price_old' => 'required|numeric|min:0',
-                'variants.*.stock_quantity' => 'required|integer|min:0',
-                'variants.*.status' => 'required|in:draft,published',
-            ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;

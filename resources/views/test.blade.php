@@ -28,7 +28,7 @@
     <input id="thumbnail" class="form-control" type="text" name="filepath">
     <div id="holder" style="margin-top:15px;max-height:100px;"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script>
         $('#lfm').filemanager('image');
     </script> --}}

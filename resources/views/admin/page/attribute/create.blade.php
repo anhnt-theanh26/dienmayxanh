@@ -4,7 +4,6 @@
 
 @section('css')
 
-    <script src="{{ asset('/administrator/assets/js/config.js') }}"></script>
 @endsection
 
 @section('content')

@@ -34,11 +34,11 @@ class BannerMenuController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'locationbannermenu_id' => 'required|exists:locationbannermenus,id',
+        ]);
         try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'locationbannermenu_id' => 'required|exists:locationbannermenus,id',
-            ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
@@ -95,15 +95,15 @@ class BannerMenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
         try {
             $bannermenu = Bannermenu::where('id', $id)->first();
             if (!$bannermenu) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
                 return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay menu!');
             }
-            $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;

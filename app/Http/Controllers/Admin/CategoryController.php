@@ -30,13 +30,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|max:255',
+            'is_hot' => 'nullable',
+            'category_parent_id' => 'required|exists:category_parents,id',
+        ]);
         try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'image' => 'nullable|max:255',
-                'is_hot' => 'nullable',
-                'category_parent_id' => 'required|exists:category_parents,id',
-            ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
@@ -88,18 +88,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|url|max:255',
+            'is_hot' => 'nullable',
+            'category_parent_id' => 'required|exists:category_parents,id',
+        ]);
         try {
             $category = Category::where('id', $id)->first();
             if (!$category) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
                 return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
             }
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'image' => 'nullable|url|max:255',
-                'is_hot' => 'nullable',
-                'category_parent_id' => 'required|exists:category_parents,id',
-            ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;

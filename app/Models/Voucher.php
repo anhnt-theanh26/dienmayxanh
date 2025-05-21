@@ -14,6 +14,7 @@ class Voucher extends Model
         'discount_percentage',
         'start_date',
         'end_date',
+        'time',
         'status',
         'max_discount',
         'max_use',
@@ -21,5 +22,4 @@ class Voucher extends Model
         'users',
         'products',
     ];
-    
 }

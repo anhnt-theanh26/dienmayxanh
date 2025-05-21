@@ -32,10 +32,10 @@ class LocationMenuController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
         try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
             $originalSlug = Str::slug($request->name);
             $slug = $originalSlug;
             $count = 1;
@@ -88,15 +88,15 @@ class LocationMenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
         try {
             $locationmenu = Locationmenu::where('id', $id)->first();
             if (!$locationmenu) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay vi tri menu');
                 return redirect()->route('admin.locationmenu.index')->with('error', 'Khong tim thay danh muc!');
             }
-            $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
             $originalSlug = Str::slug($request->name);
             $newSlug = $originalSlug;
             $count = 1;

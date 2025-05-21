@@ -183,7 +183,7 @@
         </li>
         <li class="menu-item {{ request()->routeIs('admin.voucher.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-tags"></i>
+                <i class="menu-icon tf-icons ti ti-gift"></i>
                 <div data-i18n="Voucher">Voucher</div>
             </a>
             <ul class="menu-sub">
@@ -195,11 +195,6 @@
                 <li class="menu-item {{ request()->routeIs('admin.voucher.create') ? 'active' : '' }}">
                     <a href="{{ route('admin.voucher.create') }}" class="menu-link">
                         <div data-i18n="Create">Create</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('admin.voucher.deleted') ? 'active' : '' }}">
-                    <a href="{{ route('admin.voucher.deleted') }}" class="menu-link">
-                        <div data-i18n="Restore">Restore</div>
                     </a>
                 </li>
             </ul>

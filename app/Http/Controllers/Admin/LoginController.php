@@ -22,11 +22,11 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
         try {
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required|string',
-            ]);
             $credentials = $request->only('email', 'password');
             $remember = $request->has('remember') ? true : false;
             if (Auth::attempt($credentials, $remember)) {

@@ -506,7 +506,7 @@
     {{-- ckeditor --}}
     {{-- image --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script>
         $('#lfm').filemanager('image');
         $('#lfms').filemanager('images');

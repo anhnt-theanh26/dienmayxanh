@@ -55,24 +55,26 @@
 </div>
 <script>
     $(document).on('click', '.qty-plus', function() {
+        let is = $(this).prev();
         if (Number($(this).prev().val()) + 1 <= Number($(this).prev().attr('max'))) {
             Number($(this).prev().val(+Number(Number($(this).prev().val())) + 1));
+            update(is);
         }
         if (Number($(this).prev().val()) > Number($(this).prev().attr('max'))) {
             Number($(this).prev().val(Number($(this).prev().attr('max'))));
+            update(is);
         }
-        let is = $(this).prev();
-        update(is);
     });
     $(document).on('click', '.qty-minus', function() {
+        let is = $(this).next();
         if (Number($(this).next().val()) > 1) {
             Number($(this).next().val(+Number($(this).next().val()) - 1));
+            update(is);
         }
         if (Number($(this).next().val()) > Number($(this).next().attr('max'))) {
             Number($(this).next().val(Number($(this).next().attr('max'))));
+            update(is);
         }
-        let is = $(this).next();
-        update(is);
     });
     $(document).on('input', '.qty', function() {
         if (Number($(this).val()) > Number($(this).attr('max'))) {

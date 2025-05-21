@@ -32,16 +32,16 @@ class BannerMenuItemController extends Controller
      */
     public function store(Request $request, string $id)
     {
+        $request->validate([
+            'group-a.*.image' => 'required',
+            'group-a.*.link_banner_item' => 'required|url'
+        ]);
         try {
             $bannermenu = Bannermenu::where('id', $id)->first();
             if (!$bannermenu) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay banner menu');
                 return redirect()->route('admin.bannermenu.index')->with('error', 'Khong tim thay menu!');
             }
-            $request->validate([
-                'group-a.*.image' => 'required',
-                'group-a.*.link_banner_item' => 'required|url'
-            ]);
             $bannermenu->name = $request->name;
             $bannermenu->save();
             $index = 1;
