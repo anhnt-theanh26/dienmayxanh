@@ -20,6 +20,26 @@
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Voucher /</span> Create</h4>
     <div class="card-body">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    {{ $error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endforeach
+        @endif
     </div>
     <div class="row">
         <div class="col-12">
@@ -60,7 +80,7 @@
                                     <label class="switch switch-primary">
                                         <span class="switch-label">Status</span>
                                         <input type="checkbox" class="switch-input" name="status" value="1"
-                                            @checked(old('status') == '1')>
+                                            @checked(old('status') == '1') checked>
                                         <span class="switch-toggle-slider">
                                             <span class="switch-on"></span>
                                             <span class="switch-off"></span>
@@ -86,8 +106,9 @@
                             <div class="col-md-6 mb-4">
                                 <div class="mb-3">
                                     <label class="form-label" for="max_use">Max use</label>
-                                    <input type="number" min="1" class="form-control" id="max_use" name="max_use"
-                                        value="{{ old('max_use') }}" placeholder="Tối đa lượt sử dụng" required />
+                                    <input type="number" min="1" class="form-control" id="max_use"
+                                        name="max_use" value="{{ old('max_use') }}" placeholder="Tối đa lượt sử dụng"
+                                        required />
                                     @error('max_use')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror

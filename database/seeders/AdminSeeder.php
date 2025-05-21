@@ -171,6 +171,30 @@ class AdminSeeder extends Seeder
                 'group_name' => 'User',
             ],
 
+
+            // voucher
+            [ // danh sách, chi tiết
+                'name' => 'index voucher',
+                'display_name' => 'Read',
+                'group_name' => 'Voucher',
+            ],
+            [ // thêm
+                'name' => 'create voucher',
+                'display_name' => 'Create',
+                'group_name' => 'Voucher',
+            ],
+            [ // sửa
+                'name' => 'edit voucher',
+                'display_name' => 'Edit',
+                'group_name' => 'Voucher',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete voucher',
+                'display_name' => 'Delete',
+                'group_name' => 'Voucher',
+            ],
+
+            
             // role permission
             // user
             [ // danh sách, chi tiết
