@@ -77,6 +77,9 @@
                             currency: 'VND'
                         }));
                     }
+                    if(response['type'] == 'enter'){
+                        console.log(response);
+                    }
                 }
                 if (response['status'] == false) {
                     alertify.error(response['title']);

@@ -52,8 +52,8 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="input-group mb-3">
-                            <input type="date" class="form-control rounded-pill" id="birthday" name="birthday"required
+                        <div class="mb-3">
+                            <input type="date" class="form-control rounded-pill" id="birthday" name="birthday" required
                                 value="{{ old('birthday') }}">
                             @error('birthday')
                                 <p class="text-danger">{{ $message }}</p>

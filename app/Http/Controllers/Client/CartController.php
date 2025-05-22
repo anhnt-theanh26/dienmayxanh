@@ -102,50 +102,6 @@ class CartController extends Controller
         }
     }
 
-    public function delete(string $id)
-    {
-        try {
-            $cart = Cart::get($id);
-            $vouchers = Voucher::where('status', true)->get();
-            if (!$cart) {
-                $result = [
-                    'status' => false,
-                    'title' => 'Not Found',
-                    'total' => (int) Cart::count(),
-                    'html' => view('client.page.cart.update', compact('vouchers'))->render(),
-                ];
-                return $result;
-            }
-            Cart::remove($id);
-            if ((int) Cart::count() <= 0) {
-                Cart::destroy();
-                $result = [
-                    'status' => true,
-                    'title' => 'Đã xóa khỏi giỏ hàng!',
-                    'total' => (int) Cart::count(),
-                    'html' => view('client.page.cart.empty')->render(),
-                ];
-                return $result;
-            } else {
-                $result = [
-                    'status' => true,
-                    'title' => 'Đã xóa khỏi giỏ hàng!',
-                    'total' => (int) Cart::count(),
-                    'html' => view('client.page.cart.update', compact('vouchers'))->render(),
-                ];
-                return $result;
-            }
-
-        } catch (\Throwable $th) {
-            $result = [
-                'status' => false,
-                'title' => 'Có lỗi xảy ra ' . $th->getMessage(),
-                'total' => (int) Cart::count(),
-                'html' => view('client.page.cart.update', compact('vouchers'))->render(),
-            ];
-            return $result;
-        }
-    }
 
     public function update(Request $request, string $id)
     {
@@ -206,6 +162,50 @@ class CartController extends Controller
         }
     }
 
+    public function delete(string $id)
+    {
+        try {
+            $cart = Cart::get($id);
+            $vouchers = Voucher::where('status', true)->get();
+            if (!$cart) {
+                $result = [
+                    'status' => false,
+                    'title' => 'Not Found',
+                    'total' => (int) Cart::count(),
+                    'html' => view('client.page.cart.update', compact('vouchers'))->render(),
+                ];
+                return $result;
+            }
+            Cart::remove($id);
+            if ((int) Cart::count() <= 0) {
+                Cart::destroy();
+                $result = [
+                    'status' => true,
+                    'title' => 'Đã xóa khỏi giỏ hàng!',
+                    'total' => (int) Cart::count(),
+                    'html' => view('client.page.cart.empty')->render(),
+                ];
+                return $result;
+            } else {
+                $result = [
+                    'status' => true,
+                    'title' => 'Đã xóa khỏi giỏ hàng!',
+                    'total' => (int) Cart::count(),
+                    'html' => view('client.page.cart.update', compact('vouchers'))->render(),
+                ];
+                return $result;
+            }
+        } catch (\Throwable $th) {
+            $result = [
+                'status' => false,
+                'title' => 'Có lỗi xảy ra ' . $th->getMessage(),
+                'total' => (int) Cart::count(),
+                'html' => view('client.page.cart.update', compact('vouchers'))->render(),
+            ];
+            return $result;
+        }
+    }
+
     public function discount(Request $request, string $code)
     {
         $voucher = Voucher::where('promo_code', $code)->first();
@@ -214,42 +214,34 @@ class CartController extends Controller
             'status' => false,
             'title' => 'Voucher không khả dụng!',
         ];
+        // check voucher
         if (!$voucher) {
-            return [
-                'status' => false,
-                'title' => 'Voucher không tồn tại!',
-            ];
+            return $result;
         }
-        // if ($type == 'enter') {
-        //     if ($voucher->status == false) {
-        //         return [
-        //             'status' => false,
-        //             'title' => 'Voucher chưa được bật!',
-        //         ];
-        //     }
-        //     if ($voucher->start_date > now()->toDateTimeString() || $voucher->end_date <= now()->toDateTimeString()) {
-        //         return [
-        //             'status' => false,
-        //             'title' => 'Voucher hết hạn!',
-        //         ];
-        //     }
-        // }
-
+        if ($voucher->start_date > now()->toDateTimeString() || $voucher->end_date <= now()->toDateTimeString()) {
+            return $result;
+        }
+        if ($voucher->max_use < 1) {
+            return $result;
+        }
+        // user nhập voucher
+        if ($type == 'enter') {
+            // người dùng nhập voucher
+        }
+        // voucher có sẵn
         if ($type == 'available') {
-            if ($voucher->max_use > 0) {
-                $cartPrice = Cart::total(0, '', '');
-                $discount = Cart::total(0, '', '') * $voucher->discount_percentage / 100 > $voucher->max_discount ? (int) $voucher->max_discount : Cart::total(0, '', '') * $voucher->discount_percentage / 100;
-                $total = Cart::total(0, '', '') - $discount + 20000;
-                return [
-                    'status' => true,
-                    'type' => $type,
-                    'title' => 'Giảm giá giỏ hàng!',
-                    // 'voucher' => $voucher,
-                    'cartPrice' => $cartPrice,
-                    'discount' => $discount,
-                    'total' => $total,
-                ];
+            if ($voucher->status == false) {
+                return $result;
             }
+            $discount = Cart::total(0, '', '') * $voucher->discount_percentage / 100 > $voucher->max_discount ? (int) $voucher->max_discount : Cart::total(0, '', '') * $voucher->discount_percentage / 100;
+            $total = Cart::total(0, '', '') - $discount + 20000;
+            return [
+                'status' => true,
+                'type' => $type,
+                'title' => 'Giảm giá giỏ hàng!',
+                'discount' => $discount,
+                'total' => $total,
+            ];
         }
         return [
             'status' => true,

@@ -17,6 +17,13 @@ class UserController extends Controller
             Alert::error('Khong tim thay user:');
             return redirect()->route('index')->with('error', 'Khong tim thay user');
         }
-        return $user;
+        if(empty($request->allDressHiding)){
+            Alert::error('Cập nhập thất bại', 'Cập nhập địa chỉ thất bại');
+            return redirect()->route('index');
+        }
+        $user->address = $request->input('allDressHiding');
+        $user->save();
+        Alert::success('Cập nhập thành công', 'Cập nhập địa chỉ thành công');
+        return redirect()->route('index');
     }
 }

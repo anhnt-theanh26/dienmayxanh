@@ -224,13 +224,12 @@
                                         <input type="text" class="form-control" id="detailAddress"
                                             placeholder="Chi tiết chỗ ở..." aria-label="Username"
                                             aria-describedby="basic-addon1">
-                                        <input type="hidden" name="allDressHiding" id="allDressHiding"
-                                            value=" {{ Auth::user() ? Auth::user()->address : '' }}">
+
                                     </div>
                                     <div class="text-center m-0 p-0">
                                         <div class="m-0 p-0">Hoặc chọn</div>
                                     </div>
-                                    <div class="css_select_div">
+                                    <div class="css_select_div d-flex justify-content-center align-items-center">
                                         <select class="css_select" id="tinh" name="tinh"
                                             title="Chọn Tỉnh Thành">
                                             <option value="0">Tỉnh Thành</option>
@@ -243,8 +242,15 @@
                                             title="Chọn Phường Xã">
                                             <option value="0">Phường Xã</option>
                                         </select>
+                                        @if (Auth::check())
+                                            <form action="{{ route('save-address') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="allDressHiding" id="allDressHiding"
+                                                    value="{{ Auth::user()->address }}" required>
+                                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                            </form>
+                                        @endif
                                     </div>
-
                                 </div>
                             </div>
                         </div>

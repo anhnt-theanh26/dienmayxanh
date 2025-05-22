@@ -71,16 +71,16 @@ class LoginController extends Controller
 
     public function register(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|regex:/^[0-9]{10}$/',
+            'password' => 'required|min:3',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'birthday' => 'required|date|before:today',
+            'address' => 'nullable|string|max:255',
+        ]);
         try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'phone' => 'required|regex:/^[0-9]{10}$/',
-                'password' => 'required|min:3',
-                'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-                'birthday' => 'required|date|before:today',
-                'address' => 'nullable|string|max:255',
-            ]);
             $data = [
                 'name' => $request->name,
                 'email' => $request->email,
@@ -109,7 +109,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        Alert::success('Đăng xuất thành công:');
+        Alert::success('Đã đăng xuất');
         return redirect()->route('index');
     }
 }
