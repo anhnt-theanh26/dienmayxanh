@@ -9,13 +9,14 @@
                 <div class="product-content px-2" style="width: 85%;">
                     <div class="product-content-name d-flex justify-content-between">
                         <div class="product-content-name-left" style="max-width: 75%;">
-                            <a class="text-decoration-none text-black" href="">
+                            <a class="text-decoration-none text-black"
+                                href="{{ route('product-detail', ['slug' => $item->options->product->slug]) }}">
                                 {{ $item->name }}
                             </a>
                         </div>
                         <div class="product-content-name-left" style="max-width: 25%;">
                             <p class="text-danger">{{ number_format($item->price, 0, '.', '.') }}
-                                đ</p>
+                                VND</p>
                         </div>
                     </div>
                     <div class="product-content-variant py-1 pt-2">
@@ -24,7 +25,7 @@
                     </div>
                     <div class="d-flex justify-content-end align-items-center">
                         <div class="px-3">
-                            <a href="#" class="text-decoration-none text-secondary"
+                            <a class="text-decoration-none text-secondary" style="cursor: pointer;"
                                 onclick="deleteItemCart('{{ $item->rowId }}')">Xóa</a>
                         </div>
                         <div class="quantity-control">
@@ -47,71 +48,8 @@
         </p>
         <p>
             <span id="estimated-total-product-price">
-                {{ Cart::total() }}
+                {{ number_format(Cart::total(0, '', ''), 0, '.', '.') }} VND
             </span>
-            <span>đ</span>
         </p>
     </div>
 </div>
-<script>
-    $(document).on('click', '.qty-plus', function() {
-        let is = $(this).prev();
-        if (Number($(this).prev().val()) + 1 <= Number($(this).prev().attr('max'))) {
-            Number($(this).prev().val(+Number(Number($(this).prev().val())) + 1));
-            update(is);
-        }
-        if (Number($(this).prev().val()) > Number($(this).prev().attr('max'))) {
-            Number($(this).prev().val(Number($(this).prev().attr('max'))));
-            update(is);
-        }
-    });
-    $(document).on('click', '.qty-minus', function() {
-        let is = $(this).next();
-        if (Number($(this).next().val()) > 1) {
-            Number($(this).next().val(+Number($(this).next().val()) - 1));
-            update(is);
-        }
-        if (Number($(this).next().val()) > Number($(this).next().attr('max'))) {
-            Number($(this).next().val(Number($(this).next().attr('max'))));
-            update(is);
-        }
-    });
-    $(document).on('input', '.qty', function() {
-        if (Number($(this).val()) > Number($(this).attr('max'))) {
-            Number($(this).val(Number($(this).attr('max'))));
-        }
-        if (Number($(this).val()) < Number($(this).attr('min'))) {
-            Number($(this).val(Number($(this).attr('min'))));
-        }
-        let is = $(this);
-        update(is);
-    });
-
-    function update(is) {
-        $.ajax({
-                url: "{{ route('cart.update-item-cart', ['id' => ':id']) }}".replace(':id',
-                    is.data("id")),
-                type: "GET",
-                data: {
-                    quantity: is.val(),
-                },
-            })
-            .done((response) => {
-                $("#change-item-cart").empty().text(response['total']);
-                $("#total-price").empty().text(response['price']);
-                $("#estimated-total-product-price").empty().text(response['price']);
-                $("#estimated-total-product-quantity").empty().text(response['total']);
-                $("#delivery-information").empty().html(response['html']);
-                if (response['status'] == true) {
-                    alertify.success(response['title']);
-                }
-                if (response['status'] == false) {
-                    alertify.error(response['title']);
-                }
-            })
-            .fail((jqXHR, textStatus, errorThrown) => {
-                alertify.error('Xóa khỏi giỏ hàng thất bại!');
-                console.error("Error adding to cart:", textStatus, errorThrown);
-            });
-    }
-</script>

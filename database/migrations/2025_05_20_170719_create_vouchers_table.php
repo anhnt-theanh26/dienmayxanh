@@ -18,9 +18,9 @@ return new class extends Migration {
             $table->dateTime('end_date')->nullable();
             $table->string('time')->nullable();
             $table->boolean('status')->default(true);
-            $table->decimal('max_discount', 20, 2)->nullable();
-            $table->unsignedInteger('max_use')->default(1);
-            $table->decimal('discount_condition', 20, 2)->default(0);
+            $table->decimal('max_discount', 20, 0)->nullable();
+            $table->unsignedInteger('max_use')->default(0);
+            $table->decimal('discount_condition', 20, 0)->default(0);
             $table->longText('users')->nullable();
             $table->longText('products')->nullable();
             $table->timestamps();

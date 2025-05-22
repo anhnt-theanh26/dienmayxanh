@@ -109,7 +109,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="mb-3">
                                     <label class="form-label" for="max_use">Max use</label>
-                                    <input type="number" min="1" class="form-control" id="max_use"
+                                    <input type="number" min="0" class="form-control" id="max_use"
                                         name="max_use" value="{{ $voucher->max_use }}" placeholder="Tối đa lượt sử dụng"
                                         required />
                                     @error('max_use')

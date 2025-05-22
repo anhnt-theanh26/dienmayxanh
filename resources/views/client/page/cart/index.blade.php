@@ -3,7 +3,7 @@
 @section('title', 'Giỏ hàng')
 
 @section('content')
-    @if (Cart::total() > 0)
+    @if (Cart::count() > 0)
         <section>
             <div class="py-4">
                 <div class="container d-flex justify-content-center">
@@ -24,47 +24,6 @@
             </div>
             </div>
         </section>
-        <script>
-            document.querySelectorAll('.payment-methods').forEach(function(payment) {
-                payment.addEventListener('change', function() {
-                    if (this.value == 'online') {
-                        console.log('online');
-                    }
-                    if (this.value == 'offline') {
-                        console.log('offline');
-                    }
-                });
-            });
-
-            if (document.querySelector('#anotherAddress')) {
-                document.querySelector('#anotherAddress').addEventListener('input', function() {
-                    document.querySelector('#selectedAddressDelivery').textContent = this.value;
-                    document.querySelector('#address').value = this.value;
-                });
-            }
-
-            function deleteItemCart(id) {
-                $.ajax({
-                        url: "{{ route('cart.delete-item-cart', ['id' => ':id']) }}".replace(':id', id),
-                        type: "GET",
-                    })
-                    .done((response) => {
-                        $("#change-item-cart").empty().text(response['result']['total']);
-                        $("#cart-list").empty().html(response['html']);
-                        console.log(response['html']);
-                        if (response['result']['status'] == true) {
-                            alertify.success(response['result']['title']);
-                        }
-                        if (response['result']['status'] == false) {
-                            alertify.error(response['result']['title']);
-                        }
-                    })
-                    .fail((jqXHR, textStatus, errorThrown) => {
-                        alertify.error('Xóa khỏi giỏ hàng thất bại!');
-                        console.error("Error adding to cart:", textStatus, errorThrown);
-                    });
-            }
-        </script>
     @else
         <section>
             <div class="py-4">
@@ -95,4 +54,6 @@
             </div>
         </section>
     @endif
+
+    @include('client.page.cart.script')
 @endsection

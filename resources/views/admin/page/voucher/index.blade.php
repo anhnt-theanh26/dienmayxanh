@@ -58,8 +58,8 @@
                             <td>{{ $item->promo_code }}</td>
                             <td>{{ $item->discount_percentage }}%</td>
                             <td>
-                                {{ \Carbon\Carbon::parse($item->start_date)->format('d/m') }} -
-                                {{ \Carbon\Carbon::parse($item->end_date)->format('d/m') }}
+                                {{ \Carbon\Carbon::parse($item->start_date)->format('d/m/Y H:i') }} -
+                                {{ \Carbon\Carbon::parse($item->end_date)->format('d/m/Y H:i') }}
                             </td>
                             <td>
                                 <span class="badge {{ $item->status ? 'bg-success' : 'bg-secondary' }}">

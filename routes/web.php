@@ -21,11 +21,11 @@ use App\Http\Controllers\Admin\ProductMenuItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VoucherController;
-use App\Http\Controllers\Client\CartController;
-use App\Http\Controllers\client\HomeController;
+use App\Http\Controllers\Client\CartController as ClientCartController;
+use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
-use App\Http\Controllers\client\ProductDetailController;
-use App\Http\Controllers\client\SearchController;
+use App\Http\Controllers\Client\ProductDetailController as ClientProductDetailController;
+use App\Http\Controllers\Client\SearchController as ClientSearchController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
 // use App\Http\Controllers\SendEmailController;
 // use App\Mail\SendEmail;
@@ -161,7 +161,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/{keyword}/search', [ProductController::class, 'search'])->name('search');
     });
 
-    // Image 
+    // Image
     Route::prefix('image')->as('image.')->group(function () {
         Route::get('/', [AdminController::class, 'image'])->name('image');
     });
@@ -175,7 +175,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
         Route::get('/{id}/edit', [VoucherController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [VoucherController::class, 'update'])->name('update');
-        
+
         Route::delete('/{id}/destroy', [VoucherController::class, 'destroy'])->name('destroy');
 
         Route::get('/{keyword}/search', [VoucherController::class, 'search'])->name('search');
@@ -237,7 +237,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [LocationMenuController::class, 'destroy'])->name('destroy');
     });
 
-    // Menu 
+    // Menu
     Route::prefix('menu')->as('menu.')->group(function () {
         Route::get('/', [MenuController::class, 'index'])->name('index');
 
@@ -250,7 +250,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [MenuController::class, 'destroy'])->name('destroy');
     });
 
-    // Menu Item 
+    // Menu Item
     Route::prefix('menuitem')->as('menuitem.')->group(function () {
         Route::get('/{id}/edit', [MenuItemController::class, 'edit'])->name('edit');
         Route::post('/{id}/store', [MenuItemController::class, 'store'])->name('store');
@@ -272,7 +272,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [LocationProductMenuController::class, 'destroy'])->name('destroy');
     });
 
-    // Product Menu 
+    // Product Menu
     Route::prefix('productmenu')->as('productmenu.')->group(function () {
         Route::get('/', [ProductMenuController::class, 'index'])->name('index');
 
@@ -285,7 +285,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [ProductMenuController::class, 'destroy'])->name('destroy');
     });
 
-    // Product Menu Item 
+    // Product Menu Item
     Route::prefix('productmenuitem')->as('productmenuitem.')->group(function () {
         Route::get('/{id}/edit', [ProductMenuItemController::class, 'edit'])->name('edit');
         Route::post('/{id}/store', [ProductMenuItemController::class, 'store'])->name('store');
@@ -306,7 +306,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [LocationBannerMenuController::class, 'destroy'])->name('destroy');
     });
 
-    // Banner Menu 
+    // Banner Menu
     Route::prefix('bannermenu')->as('bannermenu.')->group(function () {
         Route::get('/', [BannerMenuController::class, 'index'])->name('index');
 
@@ -319,7 +319,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/destroy', [BannerMenuController::class, 'destroy'])->name('destroy');
     });
 
-    // Banner Menu Item 
+    // Banner Menu Item
     Route::prefix('bannermenuitem')->as('bannermenuitem.')->group(function () {
         Route::get('/{id}/edit', [BannerMenuItemController::class, 'edit'])->name('edit');
         Route::post('/{id}/store', [BannerMenuItemController::class, 'store'])->name('store');
@@ -333,34 +333,35 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 });
 
 Route::prefix('/')->as('')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('index');
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::post('/search', [SearchController::class, 'store'])->name('search');
-    Route::get('{slug}/defail-product', [ProductDetailController::class, 'show'])->name('product-detail');
+    Route::get('/', [ClientHomeController::class, 'index'])->name('index');
+    Route::get('/home', [ClientHomeController::class, 'index'])->name('home');
+    Route::post('/search', [ClientSearchController::class, 'store'])->name('search');
+    Route::get('{slug}/defail-product', [ClientProductDetailController::class, 'show'])->name('product-detail');
 
     // login
     Route::prefix('login')->as('login.')->group(function () {
         Route::get('/', [ClientLoginController::class, 'index'])->name('form');
         Route::post('/submit', [ClientLoginController::class, 'login'])->name('submit');
     });
-    // register 
+    // register
     Route::prefix('register')->as('register.')->group(function () {
         Route::get('/', [ClientLoginController::class, 'create'])->name('form');
         Route::post('/submit', [ClientLoginController::class, 'register'])->name('submit');
     });
-    // logout 
+    // logout
     Route::get('/logout', [ClientLoginController::class, 'logout'])->name('logout');
     // save addredd
     Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->middleware(['auth'])->name('save-address');
-    // cart
 
+    // cart
     Route::prefix('cart')->as('cart.')->group(function () {
-        Route::get('/', [CartController::class, 'index'])->name('index');
-        Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
-        Route::get('/update-item-cart/{id}', [CartController::class, 'update'])->name('update-item-cart');
-        Route::get('/delete-item-cart/{id}', [CartController::class, 'delete'])->name('delete-item-cart');
+        Route::get('/', [ClientCartController::class, 'index'])->name('index');
+        Route::get('/add-to-cart/{id}', [ClientCartController::class, 'create'])->name('add-to-cart');
+        Route::get('/update-item-cart/{id}', [ClientCartController::class, 'update'])->name('update-item-cart');
+        Route::get('/delete-item-cart/{id}', [ClientCartController::class, 'delete'])->name('delete-item-cart');
+        Route::get('/discount/{code}', [ClientCartController::class, 'discount'])->name('discount');
     });
-    Route::get('/delete-cart', [CartController::class, 'delete'])->name('delete-cart');
+    Route::get('/delete-cart', [ClientCartController::class, 'delete'])->name('delete-cart');
 });
 
 // email verify
@@ -370,11 +371,11 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    Alert::success('Xác minh Email thành công', 'Chào mừng bạn đến với Điện Máy XANH');
+    Alert::success('XÃ¡c minh Email thÃ nh cÃ´ng', 'ChÃ o má»«ng báº¡n Ä‘áº¿n vá»›i Äiá»‡n MÃ¡y XANH');
     return redirect('/home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Email xác minh đã được gửi lại!');
+    return back()->with('message', 'Email xÃ¡c minh Ä‘Ã£ Ä‘Æ°á»£c gá»­i láº¡i!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');

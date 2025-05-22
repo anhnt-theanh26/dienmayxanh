@@ -26,23 +26,25 @@ if (document.getElementById('layout-menu')) {
   // Initialize menu
   //-----------------
 
+  let templateName = typeof window.templateCustomizer !== 'undefined' && window.templateCustomizer.templateName
+      ? window.templateCustomizer.templateName
+      : 'defaultTemplate';
+
   let layoutMenuEl = document.querySelectorAll('#layout-menu');
   layoutMenuEl.forEach(function (element) {
     menu = new Menu(element, {
       orientation: isHorizontalLayout ? 'horizontal' : 'vertical',
       closeChildren: isHorizontalLayout ? true : false,
-      // ? This option only works with Horizontal menu
-      showDropdownOnHover: localStorage.getItem('templateCustomizer-' + templateName + '--ShowDropdownOnHover') // If value(showDropdownOnHover) is set in local storage
-        ? localStorage.getItem('templateCustomizer-' + templateName + '--ShowDropdownOnHover') === 'true' // Use the local storage value
-        : window.templateCustomizer !== undefined // If value is set in config.js
-        ? window.templateCustomizer.settings.defaultShowDropdownOnHover // Use the config.js value
-        : true // Use this if you are not using the config.js and want to set value directly from here
+      showDropdownOnHover:
+          localStorage.getItem('templateCustomizer-' + templateName + '--ShowDropdownOnHover')
+              ? localStorage.getItem('templateCustomizer-' + templateName + '--ShowDropdownOnHover') === 'true'
+              : window.templateCustomizer !== undefined
+                  ? window.templateCustomizer.settings.defaultShowDropdownOnHover
+                  : true
     });
-    // Change parameter to true if you want scroll animation
     window.Helpers.scrollToActive((animate = false));
     window.Helpers.mainMenu = menu;
   });
-
   // Initialize menu togglers and bind click on each
   let menuToggler = document.querySelectorAll('.layout-menu-toggle');
   menuToggler.forEach(item => {

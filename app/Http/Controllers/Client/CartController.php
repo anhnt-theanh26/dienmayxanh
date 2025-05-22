@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Voucher;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -15,10 +16,11 @@ class CartController extends Controller
 
     public function index()
     {
-        return view('client.page.cart.index');
+        $vouchers = Voucher::where('status', true)->get();
+        return view('client.page.cart.index', compact('vouchers'));
     }
 
-    public function addToCart(string $id)
+    public function create(string $id)
     {
         try {
             $variant = ProductVariant::where('id', $id)->first();
@@ -59,7 +61,7 @@ class CartController extends Controller
                             'variant' => $variant->name,
                             'quantity' => $variant->stock_quantity,
                             'product' => $variant->product,
-                        ]
+                        ],
                     ]);
                     return [
                         'status' => true,
@@ -83,7 +85,7 @@ class CartController extends Controller
                         'variant' => $variant->name,
                         'quantity' => $variant->stock_quantity,
                         'product' => $variant->product,
-                    ]
+                    ],
                 ]);
                 return [
                     'status' => true,
@@ -104,51 +106,44 @@ class CartController extends Controller
     {
         try {
             $cart = Cart::get($id);
+            $vouchers = Voucher::where('status', true)->get();
             if (!$cart) {
                 $result = [
                     'status' => false,
                     'title' => 'Not Found',
-                    'total' => Cart::count(),
+                    'total' => (int) Cart::count(),
+                    'html' => view('client.page.cart.update', compact('vouchers'))->render(),
                 ];
-                return response()->json([
-                    'html' => view('client.page.cart.update')->render(),
-                    'result' => $result,
-                ]);
+                return $result;
             }
             Cart::remove($id);
-            if (Cart::count() <= 0) {
+            if ((int) Cart::count() <= 0) {
                 Cart::destroy();
                 $result = [
                     'status' => true,
                     'title' => 'Đã xóa khỏi giỏ hàng!',
-                    'total' => Cart::count(),
-                ];
-                return response()->json([
+                    'total' => (int) Cart::count(),
                     'html' => view('client.page.cart.empty')->render(),
-                    'result' => $result,
-                ]);
+                ];
+                return $result;
             } else {
                 $result = [
                     'status' => true,
                     'title' => 'Đã xóa khỏi giỏ hàng!',
-                    'total' => Cart::count(),
+                    'total' => (int) Cart::count(),
+                    'html' => view('client.page.cart.update', compact('vouchers'))->render(),
                 ];
-                return response()->json([
-                    'html' => view('client.page.cart.update')->render(),
-                    'result' => $result,
-                ]);
+                return $result;
             }
 
         } catch (\Throwable $th) {
             $result = [
                 'status' => false,
                 'title' => 'Có lỗi xảy ra ' . $th->getMessage(),
-                'total' => Cart::count(),
+                'total' => (int) Cart::count(),
+                'html' => view('client.page.cart.update', compact('vouchers'))->render(),
             ];
-            return response()->json([
-                'html' => view('client.page.cart.update')->render(),
-                'result' => $result,
-            ]);
+            return $result;
         }
     }
 
@@ -162,8 +157,8 @@ class CartController extends Controller
                 $result = [
                     'status' => false,
                     'title' => 'Sản phẩm không có trong giỏ hàng!',
-                    'total' => Cart::count(),
-                    'price' => Cart::total(),
+                    'total' => (int) Cart::count(),
+                    'price' => (int) Cart::total(0, '', ''),
                     'html' => view('client.page.cart.delivery-information')->render(),
                 ];
                 return $result;
@@ -173,8 +168,8 @@ class CartController extends Controller
                 $result = [
                     'status' => false,
                     'title' => 'Không tìm thấy sản phẩm!',
-                    'total' => Cart::count(),
-                    'price' => Cart::total(),
+                    'total' => (int) Cart::count(),
+                    'price' => (int) Cart::total(0, '', ''),
                     'html' => view('client.page.cart.delivery-information')->render(),
                 ];
                 return $result;
@@ -183,8 +178,8 @@ class CartController extends Controller
                 $result = [
                     'status' => false,
                     'title' => 'Vượt quá số lượng còn lại!',
-                    'total' => Cart::count(),
-                    'price' => Cart::total(),
+                    'total' => (int) Cart::count(),
+                    'price' => (int) Cart::total(0, '', ''),
                     'html' => view('client.page.cart.delivery-information')->render(),
                 ];
                 return $result;
@@ -192,9 +187,10 @@ class CartController extends Controller
             Cart::update($id, $quantity);
             $result = [
                 'status' => true,
+                't' => $cartItem->qty,
                 'title' => 'Cập nhập số lượng thành công',
-                'total' => Cart::count(),
-                'price' => Cart::total(),
+                'total' => (int) Cart::count(),
+                'price' => (int) Cart::total(0, '', ''),
                 'html' => view('client.page.cart.delivery-information')->render(),
             ];
             return $result;
@@ -202,11 +198,62 @@ class CartController extends Controller
             $result = [
                 'status' => false,
                 'title' => 'Có lỗi xảy ra ' . $th->getMessage(),
-                'total' => Cart::count(),
-                'price' => Cart::total(),
+                'total' => (int) Cart::count(),
+                'price' => (int) Cart::total(0, '', ''),
                 'html' => view('client.page.cart.delivery-information')->render(),
             ];
             return $result;
         }
+    }
+
+    public function discount(Request $request, string $code)
+    {
+        $voucher = Voucher::where('promo_code', $code)->first();
+        $type = $request->query('type');
+        $result = [
+            'status' => false,
+            'title' => 'Voucher không khả dụng!',
+        ];
+        if (!$voucher) {
+            return [
+                'status' => false,
+                'title' => 'Voucher không tồn tại!',
+            ];
+        }
+        // if ($type == 'enter') {
+        //     if ($voucher->status == false) {
+        //         return [
+        //             'status' => false,
+        //             'title' => 'Voucher chưa được bật!',
+        //         ];
+        //     }
+        //     if ($voucher->start_date > now()->toDateTimeString() || $voucher->end_date <= now()->toDateTimeString()) {
+        //         return [
+        //             'status' => false,
+        //             'title' => 'Voucher hết hạn!',
+        //         ];
+        //     }
+        // }
+
+        if ($type == 'available') {
+            if ($voucher->max_use > 0) {
+                $cartPrice = Cart::total(0, '', '');
+                $discount = Cart::total(0, '', '') * $voucher->discount_percentage / 100 > $voucher->max_discount ? (int) $voucher->max_discount : Cart::total(0, '', '') * $voucher->discount_percentage / 100;
+                $total = Cart::total(0, '', '') - $discount + 20000;
+                return [
+                    'status' => true,
+                    'type' => $type,
+                    'title' => 'Giảm giá giỏ hàng!',
+                    // 'voucher' => $voucher,
+                    'cartPrice' => $cartPrice,
+                    'discount' => $discount,
+                    'total' => $total,
+                ];
+            }
+        }
+        return [
+            'status' => true,
+            'title' => 'Voucher khả dụng!',
+        ];
     }
 }
