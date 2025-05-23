@@ -34,7 +34,7 @@
 @endif
 <div class="modal modal-lg fade text-black" id="address-delyvery" aria-hidden="true"
     aria-labelledby="address-delyveryLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered" style="width: 600px;">
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-center">
                 <h1 class="modal-title fs-5" id="address-delyveryLabel">
@@ -57,10 +57,10 @@
                         {{ Auth::user() ? Auth::user()->address : '' }}
                     </span>
                 </p>
-                <input type="hidden" class="form-control" id="address" name="address">
+                <input type="hidden" class="form-control" id="address" name="address" value="{{ Auth::user() ? Auth::user()->address : '' }}">
                 <p class="m-0 p-0 text-secondary py-2">Thay đổi địa chỉ khác:</p>
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="anotherAddress" name="anotherAddress"
+                    <input type="text" class="form-control" id="anotherAddress"
                         placeholder="Nhap dia chi">
                 </div>
             </div>
@@ -73,3 +73,24 @@
         </div>
     </div>
 </div>
+<script>
+    if (document.querySelector('#anotherAddress')) {
+        document.querySelector('#anotherAddress').addEventListener('input', function() {
+            console.log(this.value);
+            if (this.value.trim() == '') {
+                document.querySelector('#selectedAddressDelivery').textContent =
+                    "{{ Auth::user() ? Auth::user()->address : '' }}";
+                document.querySelector('#address').value = "{{ Auth::user() ? Auth::user()->address : '' }}";
+            } else {
+                document.querySelector('#selectedAddressDelivery').textContent = this.value;
+                document.querySelector('#address').value = this.value;
+            }
+
+        });
+    }
+    document.querySelector('#phone').addEventListener('input', function() {
+        if (this.value.trim() == '') {
+            this.value = "{{ Auth::user() ? Auth::user()->phone : '' }}";
+        }
+    })
+</script>

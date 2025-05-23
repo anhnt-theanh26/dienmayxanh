@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search Suggestion Dropdown</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-container {
+            position: relative;
+            width: 320px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.4);
+        }
+
+        .suggestion-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            z-index: 1000;
+        }
+
+        .suggestion-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .suggestion-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .suggestion-item:hover,
+        .suggestion-item.active {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        /* Scrollbar styling */
+        .suggestion-dropdown::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .suggestion-dropdown::-webkit-scrollbar-thumb {
+            background-color: #4a90e2;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <li>
+        <form class="d-flex position-relative" autocomplete="off">
+            <input name="search" class="form-control me-2 rounded-pill input-search" type="search" id="search"
+                placeholder="Bạn tìm gì..." aria-label="Search">
+            <div class="preview-show-search position-absolute bg-white w-100 rounded shadow mt-1"
+                style="z-index: 1000; display: none;"></div>
+        </form>
+    </li>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const sampleData = [
+                'iPhone 15 Pro',
+                'Samsung Galaxy S23',
+                'Xiaomi Redmi Note 13',
+                'MacBook Air M2',
+                'Apple Watch Series 9',
+                'AirPods Pro',
+                'Dell XPS 13',
+                'Sony WH-1000XM5'
+            ];
+
+            $('#search').on('keyup', function () {
+                let query = $(this).val().toLowerCase();
+                let resultBox = $('.preview-show-search');
+                resultBox.empty();
+
+                if (query.length > 1) {
+                    const matches = sampleData.filter(item => item.toLowerCase().includes(query));
+                    if (matches.length > 0) {
+                        matches.forEach(item => {
+                            resultBox.append(`<div class="p-2 search-item border-bottom" style="cursor: pointer;">${item}</div>`);
+                        });
+                        resultBox.show();
+                    } else {
+                        resultBox.hide();
+                    }
+                } else {
+                    resultBox.hide();
+                }
+            });
+
+            // Click chọn gợi ý
+            $(document).on('click', '.search-item', function () {
+                $('#search').val($(this).text());
+                $('.preview-show-search').hide();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

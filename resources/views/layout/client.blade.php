@@ -23,6 +23,8 @@
 
 
     @include('client.element.script')
+    
+    @yield('js')
 </body>
 
 </html>

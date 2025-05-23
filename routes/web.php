@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
+use App\Http\Controllers\Client\OrderController as ClientOrderController;
 use App\Http\Controllers\Client\ProductDetailController as ClientProductDetailController;
 use App\Http\Controllers\Client\SearchController as ClientSearchController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
@@ -362,6 +363,11 @@ Route::prefix('/')->as('')->group(function () {
         Route::get('/discount/{code}', [ClientCartController::class, 'discount'])->name('discount');
     });
     Route::get('/delete-cart', [ClientCartController::class, 'delete'])->name('delete-cart');
+
+    // cart
+    Route::prefix('order')->as('order.')->group(function () {
+        Route::post('/', [ClientOrderController::class, 'create'])->name('create');
+    });
 });
 
 // email verify

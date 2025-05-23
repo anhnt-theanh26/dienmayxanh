@@ -33,8 +33,8 @@
                 </ul>
                 @php
                     $bannermain2 = null;
-                    if ($bannermenus !== null) {
-                        $bannerMenu = $bannermenus->skip(2)->first();
+                    if (!empty($bannermenus) && $bannermenus !== null) {
+                        $bannerMenu = $bannermenus?->skip(2)?->first();
                         if ($bannerMenu?->bannermenus) {
                             $bannermain2 = $bannerMenu?->bannermenus?->first()?->bannermenuitems?->sortBy('location');
                         }

@@ -48,6 +48,8 @@
                         <th>Status</th>
                         <th>Max discount</th>
                         <th>Use</th>
+                        <th>Users</th>
+                        <th>Products</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -68,6 +70,38 @@
                             </td>
                             <td>{{ number_format($item->max_discount, 0, '.', '.') }}đ</td>
                             <td>{{ $item->max_use }}</td>
+                            <td>
+                                @php
+                                    $users = null;
+                                    if ($item->users) {
+                                        $users = json_decode($item->users, true);
+                                        if (json_last_error() !== JSON_ERROR_NONE) {
+                                            $users = null;
+                                        }
+                                    }
+                                @endphp
+                                @if ($users !== null)
+                                    @foreach ($users as $user)
+                                        <p>{{ $user }}</p>
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                @php
+                                    $products = null;
+                                    if ($item->products) {
+                                        $products = json_decode($item->products, true);
+                                        if (json_last_error() !== JSON_ERROR_NONE) {
+                                            $products = null;
+                                        }
+                                    }
+                                @endphp
+                                @if ($products !== null)
+                                    @foreach ($products as $user)
+                                        <p>{{ $user }}</p>
+                                    @endforeach
+                                @endif
+                            </td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

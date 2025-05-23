@@ -130,9 +130,13 @@
                 <li>
                     <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
                         @csrf
-                        <input name="search" class="form-control me-2 rounded-pill" type="search"
-                            placeholder="Bạn tìm gì..." aria-label="Search">
+                        <input name="search" class="form-control me-2 rounded-pill input-search typeahead"
+                            type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search">
                     </form>
+                    {{-- <div class="preview-show-search">
+                    </div> --}}
+                    <div class="preview-show-search position-absolute bg-white rounded shadow mt-1"
+                        style="z-index: 1000; display: none;"></div>
                 </li>
                 @if (Auth::check())
                     <li>
@@ -153,7 +157,8 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item text-black" href="{{ route('logout') }}">Đăng xuất</a></li>
+                                <li><a class="dropdown-item text-black" href="{{ route('logout') }}">Đăng xuất</a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -285,3 +290,57 @@
         </div>
     </section>
 @endif
+
+
+{{-- <script>
+    document.querySelector('#search').addEventListener('input', function() {
+        console.log(this.value)
+    })
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        const sampleData = [
+            'iPhone 15 Pro',
+            'iPhone 15 Pro',
+            'iPhone 15 Pro',
+            'iPhone 15 Pro',
+            'iPhone 15 Pro',
+            'Samsung Galaxy S23',
+            'Xiaomi Redmi Note 13',
+            'MacBook Air M2',
+            'Apple Watch Series 9',
+            'AirPods Pro',
+            'Dell XPS 13',
+            'Sony WH-1000XM5'
+        ];
+
+        $('#search').on('keyup', function() {
+            let query = $(this).val().toLowerCase();
+            let resultBox = $('.preview-show-search');
+            resultBox.empty();
+
+            if (query.length > 1) {
+                const matches = sampleData.filter(item => item.toLowerCase().includes(query));
+                if (matches.length > 0) {
+                    matches.forEach(item => {
+                        resultBox.append(
+                            `<div class="p-2 search-item border-bottom" style="cursor: pointer;"><p class="text-black">${item}</p></div>`
+                        );
+                    });
+                    resultBox.show();
+                } else {
+                    resultBox.hide();
+                }
+            } else {
+                resultBox.hide();
+            }
+        });
+
+        // Click chọn gợi ý
+        $(document).on('click', '.search-item', function() {
+            $('#search').val($(this).text());
+            $('.preview-show-search').hide();
+        });
+    });
+</script>

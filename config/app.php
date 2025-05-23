@@ -197,6 +197,7 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         ZanySoft\ResponsiveFileManager\FileManagerServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class,
     ],
 
     /*

@@ -21,11 +21,7 @@ class ProductDetailController extends Controller
             Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham:');
             return redirect()->route('index');
         }
-        $categoryparents = CategoryParent::get();
-        $menus = Locationmenu::where('status', true)->get();
-        $productmenus = Locationproductmenu::where('status', true)->get();
-        $bannermenus = Locationbannermenu::where('status', true)->get();
-        return view('client.page.product-detail.main', compact('product', 'categoryparents', 'menus', 'bannermenus'));
+        return view('client.page.product-detail.main', compact('product'));
     }
 
 }

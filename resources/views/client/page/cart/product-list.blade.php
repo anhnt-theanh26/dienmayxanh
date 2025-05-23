@@ -25,7 +25,7 @@
                     </div>
                     <div class="d-flex justify-content-end align-items-center">
                         <div class="px-3">
-                            <a class="text-decoration-none text-secondary" style="cursor: pointer;"
+                            <a class="text-decoration-none text-secondary btn" style="cursor: pointer;"
                                 onclick="deleteItemCart('{{ $item->rowId }}')">Xóa</a>
                         </div>
                         <div class="quantity-control">
@@ -53,3 +53,94 @@
         </p>
     </div>
 </div>
+<script>
+    function deleteItemCart(id) {
+        $.ajax({
+                url: "{{ route('cart.delete-item-cart', ['id' => ':id']) }}".replace(':id', id),
+                type: "GET",
+            })
+            .done((response) => {
+                $("#change-item-cart").empty().text(response['total'].toLocaleString('it-IT', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+                $("#cart-list").empty().html(response['html']);
+                if (response['status'] == true) {
+                    alertify.success(response['title']);
+                }
+                if (response['status'] == false) {
+                    alertify.error(response['title']);
+                }
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                alertify.error('Xóa khỏi giỏ hàng thất bại!');
+                console.error("Error adding to cart:", textStatus, errorThrown);
+            });
+    }
+    $(document).on('click', '.qty-plus', function() {
+        let is = $(this).prev();
+        if (Number($(this).prev().val()) + 1 <= Number($(this).prev().attr('max'))) {
+            Number($(this).prev().val(+Number(Number($(this).prev().val())) + 1));
+            update(is);
+        }
+        if (Number($(this).prev().val()) > Number($(this).prev().attr('max'))) {
+            Number($(this).prev().val(Number($(this).prev().attr('max'))));
+            update(is);
+        }
+    });
+    $(document).on('click', '.qty-minus', function() {
+        let is = $(this).next();
+        if (Number($(this).next().val()) > 1) {
+            Number($(this).next().val(+Number($(this).next().val()) - 1));
+            update(is);
+        }
+        if (Number($(this).next().val()) > Number($(this).next().attr('max'))) {
+            Number($(this).next().val(Number($(this).next().attr('max'))));
+            update(is);
+        }
+    });
+    $(document).on('input', '.qty', function() {
+        if (Number($(this).val()) > Number($(this).attr('max'))) {
+            Number($(this).val(Number($(this).attr('max'))));
+        }
+        if (Number($(this).val()) < Number($(this).attr('min'))) {
+            Number($(this).val(Number($(this).attr('min'))));
+        }
+        let is = $(this);
+        update(is);
+    });
+
+    function update(is) {
+        $.ajax({
+                url: "{{ route('cart.update-item-cart', ['id' => ':id']) }}".replace(':id',
+                    is.data("id")),
+                type: "GET",
+                data: {
+                    quantity: is.val(),
+                },
+            })
+            .done((response) => {
+                $("#change-item-cart").empty().text(response['total']);
+                $('#total-price').empty().text((response['price'] + 20000).toLocaleString('it-IT', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+                $("#estimated-total-product-price").empty().text(response['price'].toLocaleString('it-IT', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+                $("#estimated-total-product-quantity").empty().text(response['total']);
+                $("#delivery-information").empty().html(response['html']);
+                if (response['status'] == true) {
+                    alertify.success(response['title']);
+                }
+                if (response['status'] == false) {
+                    alertify.error(response['title']);
+                }
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                alertify.error('Xóa khỏi giỏ hàng thất bại!');
+                console.error("Error adding to cart:", textStatus, errorThrown);
+            });
+    }
+</script>

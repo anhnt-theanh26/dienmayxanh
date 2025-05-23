@@ -8,6 +8,7 @@ use App\Models\ProductVariant;
 use App\Models\Voucher;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CartController extends Controller
@@ -224,9 +225,55 @@ class CartController extends Controller
         if ($voucher->max_use < 1) {
             return $result;
         }
+        if ($voucher->status == false) {
+            return $result;
+        }
         // user nhập voucher
         if ($type == 'enter') {
-            // người dùng nhập voucher
+            $flagusers = true;
+            if (Auth::check()) {
+                $users = null;
+                $flagusers = false;
+                $users = json_decode($voucher->users, true);
+                if ($users != null) {// kiểm tra xem user có được sử dụng mã giảm giá này không
+                    foreach ($users as $user) {
+                        if ($user == Auth::user()->id) {
+                            $flagusers = true;
+                            break;
+                        }
+                    }
+                } else {
+                    $flagusers = true;
+                }
+            }
+            $flagproducts = true;
+            $products = json_decode($voucher->products, true);
+            if ($products !== null) {
+                $itemCartArr = [];
+                if (Cart::content()) {
+                    foreach (Cart::content() as $cartItem) {
+                        $itemCartArr[] = (string) $cartItem->options->product->id;
+                    }
+                }
+                foreach ($itemCartArr as $itemCart) {
+                    if (!in_array($itemCart, $products)) {
+                        $flagproducts = false;
+                        break;
+                    }
+                }
+            }
+            if ($flagusers == false || $flagproducts == false) {
+                return $result;
+            }
+            $discount = Cart::total(0, '', '') * $voucher->discount_percentage / 100 > $voucher->max_discount ? (int) $voucher->max_discount : Cart::total(0, '', '') * $voucher->discount_percentage / 100;
+            $total = Cart::total(0, '', '') - $discount + 20000;
+            return [
+                'status' => true,
+                'type' => $type,
+                'title' => 'Giảm giá giỏ hàng!',
+                'discount' => $discount,
+                'total' => $total,
+            ];
         }
         // voucher có sẵn
         if ($type == 'available') {
