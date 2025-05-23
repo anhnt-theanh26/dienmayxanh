@@ -127,17 +127,42 @@
                         </script>
                     @endif
                 </li>
-                <li>
+                {{-- <li>
                     <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
                         @csrf
                         <input name="search" class="form-control me-2 rounded-pill input-search typeahead"
                             type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search">
                     </form>
-                    {{-- <div class="preview-show-search">
-                    </div> --}}
                     <div class="preview-show-search position-absolute bg-white rounded shadow mt-1"
                         style="z-index: 1000; display: none;"></div>
+                </li> --}}
+                {{-- <li class="position-relative">
+                    <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
+                        @csrf
+                        <input name="search" class="form-control me-2 rounded-pill input-search typeahead"
+                            type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search"
+                            autocomplete="off">
+                    </form>
+                    <div class="preview-show-search position-absolute bg-white rounded shadow mt-1 w-100"
+                        style="z-index: 1000; display: none;"></div>
+                </li> --}}
+                <style>
+                    .search-item.active {
+                        background-color: #e9ecef;
+                        font-weight: 500;
+                    }
+                </style>
+                <li>
+                    <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
+                        @csrf
+                        <input name="search" class="form-control me-2 rounded-pill input-search typeahead"
+                            type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search"
+                            autocomplete="off">
+                    </form>
+                    <div class="preview-show-search position-absolute bg-white rounded shadow mt-1"
+                        style="z-index: 1000; display: none; max-width: 400px; width: 400px; max-height: 400px; overflow: auto;"></div>
                 </li>
+
                 @if (Auth::check())
                     <li>
                         <div class="btn-group">
@@ -291,21 +316,19 @@
     </section>
 @endif
 
-
-{{-- <script>
-    document.querySelector('#search').addEventListener('input', function() {
-        console.log(this.value)
-    })
-</script> --}}
-
 <script>
     $(document).ready(function() {
         const sampleData = [
-            'iPhone 15 Pro',
-            'iPhone 15 Pro',
-            'iPhone 15 Pro',
-            'iPhone 15 Pro',
-            'iPhone 15 Pro',
+            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
+            'iPhone 1iPhoneiPhone 15  15 5 Pro',
+            'iPhone iPhone iPhone 15 15 15 Pro',
+            'iPhone 1iPiPhone 15 hone 15 5 Pro',
+            'iPhone 15iPhone 15 iPhone 15  Pro',
+            'iPhone 1iPhone 15 5 Pro',
+            'iPhoneiPhone 15  15 Pro',
+            'iPhoniPhone 15 e 15 Pro',
+            'iPhone 15 PiPhone 15 ro',
+            'iPhone 15 iPhone 15 Pro',
             'Samsung Galaxy S23',
             'Xiaomi Redmi Note 13',
             'MacBook Air M2',
@@ -315,20 +338,45 @@
             'Sony WH-1000XM5'
         ];
 
-        $('#search').on('keyup', function() {
-            let query = $(this).val().toLowerCase();
-            let resultBox = $('.preview-show-search');
+        const searchInput = $('#search');
+        const resultBox = $('.preview-show-search');
+        let currentFocus = -1;
+
+        function renderSuggestions(filteredData) {
             resultBox.empty();
+            filteredData.forEach(item => {
+                resultBox.append(`
+                    <div class="p-2 search-item border-bottom text-truncate" style="cursor: pointer;">
+                        <p class="m-0 text-black">${item}</p>
+                    </div>
+                `);
+            });
+            resultBox.show();
+        }
+
+        function removeActive() {
+            $('.search-item').removeClass('active bg-light');
+        }
+
+        function setActive(index) {
+            removeActive();
+            const items = $('.search-item');
+            if (items.length && index >= 0 && index < items.length) {
+                items.eq(index).addClass('active bg-light');
+                searchInput.val(items.eq(index).text().trim());
+            }
+        }
+
+        searchInput.on('input', function() {
+            const query = $(this).val().toLowerCase();
+            currentFocus = -1;
 
             if (query.length > 1) {
-                const matches = sampleData.filter(item => item.toLowerCase().includes(query));
+                const matches = sampleData.filter(item =>
+                    item.toLowerCase().includes(query)
+                );
                 if (matches.length > 0) {
-                    matches.forEach(item => {
-                        resultBox.append(
-                            `<div class="p-2 search-item border-bottom" style="cursor: pointer;"><p class="text-black">${item}</p></div>`
-                        );
-                    });
-                    resultBox.show();
+                    renderSuggestions(matches);
                 } else {
                     resultBox.hide();
                 }
@@ -337,10 +385,43 @@
             }
         });
 
-        // Click chọn gợi ý
+        searchInput.on('keydown', function(e) {
+            let items = $('.search-item');
+
+            if (e.keyCode === 40) {
+                // ↓
+                currentFocus++;
+                if (currentFocus >= items.length) currentFocus = 0;
+                setActive(currentFocus);
+                e.preventDefault();
+            } else if (e.keyCode === 38) {
+                // ↑
+                currentFocus--;
+                if (currentFocus < 0) currentFocus = items.length - 1;
+                setActive(currentFocus);
+                e.preventDefault();
+            } else if (e.keyCode === 13) {
+                // Enter
+                e.preventDefault();
+                if (currentFocus > -1 && items.length > 0) {
+                    searchInput.val(items.eq(currentFocus).text().trim());
+                    resultBox.hide();
+                } else {
+                    $('form').submit(); // Không có gợi ý, submit form
+                }
+            }
+        });
+
         $(document).on('click', '.search-item', function() {
-            $('#search').val($(this).text());
-            $('.preview-show-search').hide();
+            searchInput.val($(this).text().trim());
+            resultBox.hide();
+            $('form').submit()
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('.preview-show-search, #search').length) {
+                resultBox.hide();
+            }
         });
     });
 </script>

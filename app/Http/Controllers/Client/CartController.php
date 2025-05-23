@@ -290,9 +290,5 @@ class CartController extends Controller
                 'total' => $total,
             ];
         }
-        return [
-            'status' => true,
-            'title' => 'Voucher khả dụng!',
-        ];
     }
 }
