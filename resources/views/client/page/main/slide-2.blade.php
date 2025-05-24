@@ -9,7 +9,7 @@
 @endphp
 @if ($bannermain3 && $bannermain3->isNotEmpty())
     <section>
-        <div class="large-12 columns container my-3 position-relative advertisement-02-hiding">
+        <div class="large-12 columns container my-3 position-relative advertisement-02-hiding" style="flex-shrink: 0; min-width: 1200px;">
             <div class="owl-carousel advertisement-02">
                 @foreach ($bannermain3 as $item)
                     <div class="item">

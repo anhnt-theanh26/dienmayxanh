@@ -7,7 +7,7 @@
         @include('client.page.product-detail.product-name')
 
         <section>
-            <div class="container">
+            <div class="container" style="flex-shrink: 0; min-width: 1200px;">
                 <div class="row p-4">
                     @include('client.page.product-detail.introduce')
                     @include('client.page.product-detail.buy')

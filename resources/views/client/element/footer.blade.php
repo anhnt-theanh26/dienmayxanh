@@ -1,6 +1,6 @@
 <section>
     <div class="bg-white">
-        <div class="container" style="font-size: 15px;">
+        <div class="container" style="font-size: 15px; flex-shrink: 0; min-width: 1200px;">
             <div class="row p-2 pt-3">
                 <div class="col-3">
                     <p class="fw-bold">Tổng đài hỗ trợ</p>
@@ -154,7 +154,7 @@
         </div>
     </div>
     <div class="">
-        <div class="container">
+        <div class="container" style="flex-shrink: 0; min-width: 1200px;">
             <p class="py-4" style="font-size: 15px;">
                 © 2018. Công ty cổ phần Thế Giới Di Động. GPDKKD: 0303217354 do sở KH & ĐT TP.HCM cấp ngày
                 02/01/2007. GPMXH: 21/GP-BTTTT do Bộ Thông Tin và Truyền Thông cấp ngày 11/01/2021.

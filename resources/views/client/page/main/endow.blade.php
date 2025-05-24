@@ -9,7 +9,7 @@
 @endphp
 @if ($bannermain6 && $bannermain6->isNotEmpty())
     <section>
-        <div class="container">
+        <div class="container" style="flex-shrink: 0; min-width: 1200px;">
             <h4 class="fw-bold py-4">{{ $bannerMenu->bannermenus?->first()?->name }}</h4>
             <div class="owl-carousel advertisement-03">
                 @foreach ($bannermain6 as $item)

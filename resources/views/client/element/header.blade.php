@@ -45,7 +45,7 @@
     </script>
 @endif
 <div class="" style="background-color: #2a83e9;">
-    <div class="container">
+    <div class="container" style="flex-shrink: 0; min-width: 1200px;">
         <nav class="menu py-1 pt-2">
             <ul style="margin: 0; padding: 0;" class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('index') }}">
@@ -127,31 +127,6 @@
                         </script>
                     @endif
                 </li>
-                {{-- <li>
-                    <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
-                        @csrf
-                        <input name="search" class="form-control me-2 rounded-pill input-search typeahead"
-                            type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search">
-                    </form>
-                    <div class="preview-show-search position-absolute bg-white rounded shadow mt-1"
-                        style="z-index: 1000; display: none;"></div>
-                </li> --}}
-                {{-- <li class="position-relative">
-                    <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
-                        @csrf
-                        <input name="search" class="form-control me-2 rounded-pill input-search typeahead"
-                            type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search"
-                            autocomplete="off">
-                    </form>
-                    <div class="preview-show-search position-absolute bg-white rounded shadow mt-1 w-100"
-                        style="z-index: 1000; display: none;"></div>
-                </li> --}}
-                <style>
-                    .search-item.active {
-                        background-color: #e9ecef;
-                        font-weight: 500;
-                    }
-                </style>
                 <li>
                     <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
                         @csrf
@@ -160,7 +135,8 @@
                             autocomplete="off">
                     </form>
                     <div class="preview-show-search position-absolute bg-white rounded shadow mt-1"
-                        style="z-index: 1000; display: none; max-width: 400px; width: 400px; max-height: 400px; overflow: auto;"></div>
+                        style="z-index: 1000; display: none; max-width: 400px; width: 400px; max-height: 400px; overflow: auto;">
+                    </div>
                 </li>
 
                 @if (Auth::check())
@@ -303,7 +279,7 @@
 
 @if ($menufirst && $menufirst->isNotEmpty())
     <section>
-        <div class="d-flex justify-content-center" style="background-color: #eaecf0;">
+        <div class="d-flex justify-content-center" style="background-color: #eaecf0; flex-shrink: 0; min-width: 1200px;">
             <ul class="nav">
                 @foreach ($menufirst?->take(10) as $menuitem)
                     <li class="nav-item">
@@ -335,7 +311,91 @@
             'Apple Watch Series 9',
             'AirPods Pro',
             'Dell XPS 13',
-            'Sony WH-1000XM5'
+            'Sony WH-1000XM5',
+            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
+            'iPhone 1iPhoneiPhone 15  15 5 Pro',
+            'iPhone iPhone iPhone 15 15 15 Pro',
+            'iPhone 1iPiPhone 15 hone 15 5 Pro',
+            'iPhone 15iPhone 15 iPhone 15  Pro',
+            'iPhone 1iPhone 15 5 Pro',
+            'iPhoneiPhone 15  15 Pro',
+            'iPhoniPhone 15 e 15 Pro',
+            'iPhone 15 PiPhone 15 ro',
+            'iPhone 15 iPhone 15 Pro',
+            'Samsung Galaxy S23',
+            'Xiaomi Redmi Note 13',
+            'MacBook Air M2',
+            'Apple Watch Series 9',
+            'AirPods Pro',
+            'Dell XPS 13',
+            'Sony WH-1000XM5',
+            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
+            'iPhone 1iPhoneiPhone 15  15 5 Pro',
+            'iPhone iPhone iPhone 15 15 15 Pro',
+            'iPhone 1iPiPhone 15 hone 15 5 Pro',
+            'iPhone 15iPhone 15 iPhone 15  Pro',
+            'iPhone 1iPhone 15 5 Pro',
+            'iPhoneiPhone 15  15 Pro',
+            'iPhoniPhone 15 e 15 Pro',
+            'iPhone 15 PiPhone 15 ro',
+            'iPhone 15 iPhone 15 Pro',
+            'Samsung Galaxy S23',
+            'Xiaomi Redmi Note 13',
+            'MacBook Air M2',
+            'Apple Watch Series 9',
+            'AirPods Pro',
+            'Dell XPS 13',
+            'Sony WH-1000XM5', 'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
+            'iPhone 1iPhoneiPhone 15  15 5 Pro',
+            'iPhone iPhone iPhone 15 15 15 Pro',
+            'iPhone 1iPiPhone 15 hone 15 5 Pro',
+            'iPhone 15iPhone 15 iPhone 15  Pro',
+            'iPhone 1iPhone 15 5 Pro',
+            'iPhoneiPhone 15  15 Pro',
+            'iPhoniPhone 15 e 15 Pro',
+            'iPhone 15 PiPhone 15 ro',
+            'iPhone 15 iPhone 15 Pro',
+            'Samsung Galaxy S23',
+            'Xiaomi Redmi Note 13',
+            'MacBook Air M2',
+            'Apple Watch Series 9',
+            'AirPods Pro',
+            'Dell XPS 13',
+            'Sony WH-1000XM5',
+            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
+            'iPhone 1iPhoneiPhone 15  15 5 Pro',
+            'iPhone iPhone iPhone 15 15 15 Pro',
+            'iPhone 1iPiPhone 15 hone 15 5 Pro',
+            'iPhone 15iPhone 15 iPhone 15  Pro',
+            'iPhone 1iPhone 15 5 Pro',
+            'iPhoneiPhone 15  15 Pro',
+            'iPhoniPhone 15 e 15 Pro',
+            'iPhone 15 PiPhone 15 ro',
+            'iPhone 15 iPhone 15 Pro',
+            'Samsung Galaxy S23',
+            'Xiaomi Redmi Note 13',
+            'MacBook Air M2',
+            'Apple Watch Series 9',
+            'AirPods Pro',
+            'Dell XPS 13',
+            'Sony WH-1000XM5',
+            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
+            'iPhone 1iPhoneiPhone 15  15 5 Pro',
+            'iPhone iPhone iPhone 15 15 15 Pro',
+            'iPhone 1iPiPhone 15 hone 15 5 Pro',
+            'iPhone 15iPhone 15 iPhone 15  Pro',
+            'iPhone 1iPhone 15 5 Pro',
+            'iPhoneiPhone 15  15 Pro',
+            'iPhoniPhone 15 e 15 Pro',
+            'iPhone 15 PiPhone 15 ro',
+            'iPhone 15 iPhone 15 Pro',
+            'Samsung Galaxy S23',
+            'Xiaomi Redmi Note 13',
+            'MacBook Air M2',
+            'Apple Watch Series 9',
+            'AirPods Pro',
+            'Dell XPS 13',
+            'Sony WH-1000XM5',
         ];
 
         const searchInput = $('#search');
@@ -346,8 +406,8 @@
             resultBox.empty();
             filteredData.forEach(item => {
                 resultBox.append(`
-                    <div class="p-2 search-item border-bottom text-truncate" style="cursor: pointer;">
-                        <p class="m-0 text-black">${item}</p>
+                    <div class="p-1 search-item border-bottom text-truncate" style="cursor: pointer;">
+                        <a href="#" class="d-block text-decoration-none text-black">${item}</a>
                     </div>
                 `);
             });
@@ -385,6 +445,32 @@
             }
         });
 
+        // searchInput.on('keydown', function(e) {
+        //     let items = $('.search-item');
+
+        //     if (e.keyCode === 40) {
+        //         // ↓
+        //         currentFocus++;
+        //         if (currentFocus >= items.length) currentFocus = 0;
+        //         setActive(currentFocus);
+        //         e.preventDefault();
+        //     } else if (e.keyCode === 38) {
+        //         // ↑
+        //         currentFocus--;
+        //         if (currentFocus < 0) currentFocus = items.length - 1;
+        //         setActive(currentFocus);
+        //         e.preventDefault();
+        //     } else if (e.keyCode === 13) {
+        //         // Enter
+        //         e.preventDefault();
+        //         if (currentFocus > -1 && items.length > 0) {
+        //             searchInput.val(items.eq(currentFocus).text().trim());
+        //             resultBox.hide();
+        //         } else {
+        //             $('form').submit(); // Không có gợi ý, submit form
+        //         }
+        //     }
+        // });
         searchInput.on('keydown', function(e) {
             let items = $('.search-item');
 
@@ -406,8 +492,9 @@
                 if (currentFocus > -1 && items.length > 0) {
                     searchInput.val(items.eq(currentFocus).text().trim());
                     resultBox.hide();
+                    searchInput.closest('form').submit(); // ✅ Fix here
                 } else {
-                    $('form').submit(); // Không có gợi ý, submit form
+                    searchInput.closest('form').submit(); // ✅ Fix here
                 }
             }
         });

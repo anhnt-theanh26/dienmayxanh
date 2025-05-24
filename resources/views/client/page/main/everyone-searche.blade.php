@@ -1,6 +1,6 @@
 @if (!empty($searchs) && $searchs !== null)
     <section>
-        <div class="container my-3">
+        <div class="container my-3" style="flex-shrink: 0; min-width: 1200px;">
             <div class="bg-white rounded-4 p-3">
                 <h4 class="fw-bold">Mọi người cũng tìm kiếm</h4>
                 <div class="m-0 p-0">

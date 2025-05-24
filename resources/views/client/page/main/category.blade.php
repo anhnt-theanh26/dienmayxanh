@@ -26,7 +26,7 @@
 @if ($menucategorymain && $menucategorymain->isNotEmpty())
     <section>
         <div class="py-4">
-            <div class="container bg-white rounded-3">
+            <div class="container bg-white rounded-3" style="flex-shrink: 0; min-width: 1200px;">
                 <div class="row">
                     <div class="col-3">
                         <div class="row">

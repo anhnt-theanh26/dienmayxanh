@@ -13,7 +13,7 @@
 
 @if ($productmenuitemfourth && $productmenuitemfourth->isNotEmpty())
     <section>
-        <div class="container mt-5">
+        <div class="container mt-5" style="flex-shrink: 0; min-width: 1200px;">
             <div class="bg-white rounded-4 p-3">
                 <h4 class="fw-bold">#{{ $fourthProductMenu->name }}</h4>
                 <ul class="nav d-flex nav-tabs" id="myTab" role="tablist">
