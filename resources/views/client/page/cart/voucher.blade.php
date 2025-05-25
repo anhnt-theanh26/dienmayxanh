@@ -62,6 +62,7 @@
         </p>
         <p class="">
             <span id="price-discount">0 VND</span>
+            <input type="hidden" name="discount" value="0" id="discount">
         </p>
     </div>
     <div class="d-flex justify-content-between">
@@ -147,28 +148,15 @@
             .done((response) => {
                 if (response['status'] == true) {
                     alertify.success(response['title']);
-                    if (response['type'] == 'available') {
-                        $('#price-discount').empty().text(response['discount'].toLocaleString('it-IT', {
-                            style: 'currency',
-                            currency: 'VND'
-                        }));
-                        $('#total-price').empty().text(response['total'].toLocaleString('it-IT', {
-                            style: 'currency',
-                            currency: 'VND'
-                        }));
-                        $('#total-price-hidden').val(response['total']);
-                    }
-                    if (response['type'] == 'enter') {
-                        $('#price-discount').empty().text(response['discount'].toLocaleString('it-IT', {
-                            style: 'currency',
-                            currency: 'VND'
-                        }));
-                        $('#total-price').empty().text(response['total'].toLocaleString('it-IT', {
-                            style: 'currency',
-                            currency: 'VND'
-                        }));
-                        $('#total-price-hidden').val(response['total']);
-                    }
+                    $('#price-discount').empty().text(response['discount'].toLocaleString('it-IT', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+                    $('#total-price').empty().text(response['total'].toLocaleString('it-IT', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+                    $('#discount').val(response['discount']);
                 }
                 if (response['status'] == false) {
                     alertify.error(response['title']);

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bill;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -13,36 +15,25 @@ class OrderController extends Controller
 {
     public function create(Request $request)
     {
-        // do {
-        //     $code = Str::random(16); // Sinh chuỗi ngẫu nhiên 16 ký tự
-        // } while (Order::where('code', $code)->exists());
-        
-        $code = Str::random(16); // Sinh chuỗi ngẫu nhiên 16 ký tự
+        do {
+            $code = Str::random(16);
+        } while (Bill::where('code', $code)->exists());
         $dataOrder = [
-            // 'user_id' => Auth::user()->id, // người mua
-            // 'total_amount' => $request->input('total-price'), //tổng tiền
-            // // 'status' => '', // trạng thái
-            // // 'payment_status' => '', // trạng thái đơn hàng
-            // 'payment_method' => '', //trạng thái thanh toán
-            // 'shipping_address' => '', //địa chỉ vận chuyển
-            // 'shipping_phone_number' => '', // số điện thoại giao hàng
-
-            // 
-
             'user_id' => Auth::user()->id,
             'code' => $code,
-            'discount' => '',
-            'total_amount' => $request->input('total-price'),
-            'shipping_address' => '',
-            'phone' => '',
-            'recipient_name' => '',
-            'order_date' => '',
-            'node' => '',
-            'payment_method' => '',
-            'status' => '',
-            'payment_status' => '',
-            'expiry_time' => '',
+            'discount' => $request['discount'],
+            'total_amount' => $request['total-price'],
+            'shipping_address' => $request['address'],
+            'phone' => $request['phone'],
+            'recipient_name' => $request['name'],
+            'order_date' => Carbon::now(),
             'transaction_time' => '',
+            'expiry_time' => Carbon::now(),
+            'node' => $request['other-request'],
+            'payment_method' => $request['payment'],
+            'status' => 1,
+            'payment_status' => '',
+            'refund' => false,
         ];
         return $dataOrder;
     }

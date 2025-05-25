@@ -164,8 +164,8 @@
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Status</label>
                                                     <select name="variants[0][status]" class="form-control">
-                                                        <option value="draft">Draft</option>
                                                         <option value="published">Published</option>
+                                                        <option value="draft">Draft</option>
                                                     </select>
                                                     @error('variants.*.status')
                                                         <p class="text-danger">{{ $message }}</p>

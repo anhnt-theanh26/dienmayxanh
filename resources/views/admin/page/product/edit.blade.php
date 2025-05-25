@@ -193,12 +193,12 @@
                                                         <label class="form-label">Status</label>
                                                         <select name="variants[{{ $item->id }}][status]"
                                                             class="form-control">
-                                                            <option value="draft"
-                                                                {{ $item->status == 'draft' ? 'selected' : '' }}>
-                                                                Draft</option>
                                                             <option value="published"
                                                                 {{ $item->status == 'published' ? 'selected' : '' }}>
                                                                 Published</option>
+                                                            <option value="draft"
+                                                                {{ $item->status == 'draft' ? 'selected' : '' }}>
+                                                                Draft</option>
                                                         </select>
                                                     </div>
                                                     <div
@@ -240,8 +240,8 @@
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Status</label>
                                                     <select name="newvariants[__index__][status]" class="form-control">
-                                                        <option value="draft">Draft</option>
                                                         <option value="published">Published</option>
+                                                        <option value="draft">Draft</option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3 col-lg-12 col-xl-1 col-12 d-flex align-items-center mb-0">
