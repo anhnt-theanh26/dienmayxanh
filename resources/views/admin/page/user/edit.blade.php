@@ -75,7 +75,8 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="image">Image</label>
                                         <input type="file" class="form-control" id="image" name="image" />
-                                        <img src="{{ asset($user->image) }}" alt="Image">
+                                        <img src="{{ asset($user->image) }}" alt="image" width="50px" id="img"
+                                            class="py-1">
                                         @error('image')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror

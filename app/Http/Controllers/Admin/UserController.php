@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -61,6 +62,7 @@ class UserController extends Controller
                 'address' => $validated['address'],
                 'birthday' => $validated['birthday'],
                 'image' => $imagePath,
+                'email_verified_at' => Carbon::now(),
             ];
             $user = User::create($data);
             if ($user) {
@@ -77,9 +79,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -112,9 +112,6 @@ class UserController extends Controller
             'birthday' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        $imagePath = $request->hasFile('image')
-            ? 'storage/' . $request->file('image')->store('user', 'public')
-            : null;
         try {
             $data = [
                 'name' => $validated['name'],
@@ -122,13 +119,22 @@ class UserController extends Controller
                 'phone' => $validated['phone'],
                 'address' => $validated['address'],
                 'birthday' => $validated['birthday'],
-                'image' => $imagePath,
             ];
-            $user->update($data);
-            if ($user->update($data)) {
-                Alert::success('Thanh cong', 'Chinh sua user thanh cong');
-                return redirect()->route('admin.user.edit', $user->id)->with('success', 'Chinh sua user thành công');
+            if ($request->hasFile('image')) {
+                if ($user->image && file_exists(public_path($user->image))) {
+                    unlink(public_path($user->image));
+                }
+                $imagePath = 'storage/' . $request->file('image')->store('user', 'public');
+                $data['image'] = $imagePath;
+                if ($imagePath != null) {
+                    if ($user->image != null && file_exists(public_path($user->image))) {
+                        unlink(public_path($user->image));
+                    }
+                }
             }
+            $user->update($data);
+            Alert::success('Thanh cong', 'Chinh sua user thanh cong');
+            return redirect()->route('admin.user.edit', $user->id)->with('success', 'Chinh sua user thành công');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());

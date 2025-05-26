@@ -3,7 +3,7 @@
         <td>{{ $item->id }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($item->name, 30) }}</td>
                             <td>
-                                <img src="{{ $item->image }}" alt="" width="50px" id="img" class="py-1">
+                                <img src="{{ asset($item->image) }}" alt="" width="50px" id="img" class="py-1">
                             </td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->address }}</td>

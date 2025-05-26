@@ -152,9 +152,7 @@
                                 Tài khoản
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-black" href="{{ route('bill.index') }}">Đơn hàng</a></li>
-                                <li><a class="dropdown-item text-black" href="#">Another action</a></li>
-                                <li><a class="dropdown-item text-black" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item text-black" href="{{ route('bill.index') }}">Tài khoản của tôi</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -249,7 +247,7 @@
                                             <option value="0">Phường Xã</option>
                                         </select>
                                         @if (Auth::check())
-                                            <form action="{{ route('save-address') }}" method="post">
+                                            <form action="{{ route('profile.save-address') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="allDressHiding" id="allDressHiding"
                                                     value="{{ Auth::user()->address }}" required>

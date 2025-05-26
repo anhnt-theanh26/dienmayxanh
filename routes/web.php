@@ -351,8 +351,6 @@ Route::prefix('/')->as('')->group(function () {
     });
     // logout
     Route::get('/logout', [ClientLoginController::class, 'logout'])->name('logout');
-    // save addredd
-    Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->middleware(['auth'])->name('save-address');
 
     // cart
     Route::prefix('cart')->as('cart.')->group(function () {
@@ -369,10 +367,16 @@ Route::prefix('/')->as('')->group(function () {
         Route::post('/', [ClientOrderController::class, 'create'])->name('create');
     });
     // bill 
-     Route::prefix('bill')->as('bill.')->group(function () {
+    Route::prefix('bill')->as('bill.')->group(function () {
         Route::get('/', [ClientOrderController::class, 'index'])->name('index');
     });
 
+    // profile 
+    Route::prefix('profile')->as('profile.')->group(function () {
+        Route::post('update', [ClientUserController::class, 'update'])->middleware(['auth'])->name('update');
+        Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->middleware(['auth'])->name('save-address');
+        Route::post('/password', [ClientUserController::class, 'password'])->middleware(['auth'])->name('password');
+    });
 });
 
 // email verify
