@@ -18,6 +18,19 @@ class CartController extends Controller
     public function index()
     {
         $vouchers = Voucher::where('status', true)->get();
+        $seen = [];
+        $toRemove = [];
+        foreach (Cart::content() as $item) {
+            $productId = $item->id;
+            $rowId = $item->rowId;
+            if (isset($seen[$productId])) {
+                $toRemove[] = $seen[$productId];
+            }
+            $seen[$productId] = $rowId;
+        }
+        foreach ($toRemove as $rowId) {
+            Cart::remove($rowId);
+        }
         return view('client.page.cart.index', compact('vouchers'));
     }
 
@@ -60,7 +73,6 @@ class CartController extends Controller
                             'image' => $variant->product->image,
                             'size' => 0,
                             'variant' => $variant->name,
-                            'quantity' => $variant->stock_quantity,
                             'product' => $variant->product,
                         ],
                     ]);
@@ -290,5 +302,11 @@ class CartController extends Controller
                 'total' => $total,
             ];
         }
+    }
+
+    public static function getQuantity($id)
+    {
+        $variant = ProductVariant::where('id', $id)->first();
+        return $variant->stock_quantity;
     }
 }

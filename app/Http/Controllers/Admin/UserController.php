@@ -44,12 +44,15 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:3',
-            'phone' => 'nullable|numeric|min:10||unique:users,phone',
+            'phone' => 'nullable|numeric|min:10|unique:users,phone',
             'address' => 'nullable|string',
             'birthday' => 'nullable|date',
-            'image' => 'nullable|url|'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         try {
+            $imagePath = $request->hasFile('image')
+                ? 'storage/' . $request->file('image')->store('user', 'public')
+                : null;
             $data = [
                 'name' => $validated['name'],
                 'email' => $validated['email'],
@@ -57,7 +60,7 @@ class UserController extends Controller
                 'phone' => $validated['phone'],
                 'address' => $validated['address'],
                 'birthday' => $validated['birthday'],
-                'image' => $validated['image'],
+                'image' => $imagePath,
             ];
             $user = User::create($data);
             if ($user) {
@@ -104,11 +107,14 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'nullable|numeric|min:10||unique:users,phone,' . $user->id,
+            'phone' => 'nullable|numeric|min:10|unique:users,phone,' . $user->id,
             'address' => 'nullable|string|max:255',
             'birthday' => 'nullable|date',
-            'image' => 'nullable|url|max:255'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        $imagePath = $request->hasFile('image')
+            ? 'storage/' . $request->file('image')->store('user', 'public')
+            : null;
         try {
             $data = [
                 'name' => $validated['name'],
@@ -116,7 +122,7 @@ class UserController extends Controller
                 'phone' => $validated['phone'],
                 'address' => $validated['address'],
                 'birthday' => $validated['birthday'],
-                'image' => $validated['image'],
+                'image' => $imagePath,
             ];
             $user->update($data);
             if ($user->update($data)) {

@@ -54,7 +54,7 @@ return new class extends Migration {
             // Thời gian hoàn tiền
             $table->dateTime('refund_time')->nullable(); // thời gian hoàn tiền
             // Trạng thái hoàn tiền
-            $table->enum('refund_status', ['Pending', 'Success', 'Failed'])->default('Pending'); // trạng thái hoàn tiền
+            $table->enum('refund_status', ['Pending', 'Success', 'Failed'])->nullable();// trạng thái hoàn tiền
             $table->softDeletes();
             $table->timestamps();
         });

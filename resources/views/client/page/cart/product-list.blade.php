@@ -30,8 +30,11 @@
                         </div>
                         <div class="quantity-control">
                             <input type="button" value="-" class="qty-minus">
+                            @php
+                                $quantity = \App\Http\Controllers\Client\CartController::getQuantity($item->id);
+                            @endphp
                             <input type="number" value="{{ $item->qty }}" class="qty" min="1"
-                                max="{{ $item->options->quantity }}" data-id="{{ $item->rowId }}">
+                                max="{{ $quantity }}" data-id="{{ $item->rowId }}">
                             <input type="button" value="+" class="qty-plus">
                         </div>
                     </div>
@@ -78,25 +81,35 @@
             });
     }
     $(document).on('click', '.qty-plus', function() {
-        let is = $(this).prev();
+        let before = Number($(this).prev().val());
         if (Number($(this).prev().val()) + 1 <= Number($(this).prev().attr('max'))) {
             Number($(this).prev().val(+Number(Number($(this).prev().val())) + 1));
-            update(is);
         }
         if (Number($(this).prev().val()) > Number($(this).prev().attr('max'))) {
             Number($(this).prev().val(Number($(this).prev().attr('max'))));
+        }
+        let after = Number($(this).prev().val());
+        if (before != after) {
+            let is = $(this).prev();
             update(is);
+        } else {
+            alertify.error('Gioi han so luong');
         }
     });
     $(document).on('click', '.qty-minus', function() {
-        let is = $(this).next();
+        let before = Number($(this).next().val());
         if (Number($(this).next().val()) > 1) {
             Number($(this).next().val(+Number($(this).next().val()) - 1));
-            update(is);
         }
         if (Number($(this).next().val()) > Number($(this).next().attr('max'))) {
             Number($(this).next().val(Number($(this).next().attr('max'))));
+        }
+        let after = Number($(this).next().val());
+        if (before != after) {
+            let is = $(this).next();
             update(is);
+        } else {
+            alertify.error('Gioi han so luong');
         }
     });
     $(document).on('input', '.qty', function() {
@@ -131,6 +144,7 @@
                 }));
                 $("#estimated-total-product-quantity").empty().text(response['total']);
                 $("#delivery-information").empty().html(response['html']);
+                $('#total-price-hidden').empty().val(response['price'] + 20000);
                 if (response['status'] == true) {
                     alertify.success(response['title']);
                 }

@@ -23,7 +23,7 @@
     </div>
     <div class="d-grid gap-2 py-2 pt-3">
         @if (Auth::check())
-            <button class="btn btn-order-product text-white" type="submit"
+            <button class="btn btn-order-product text-white" type="submit" onclick="return confirm('Bạn đã xác nhận đặt hàng?')"
                 style="background-color: rgb(252, 118, 0)">Đặt hàng</button>
         @else
             <a href="{{ route('login.form') }}" class="btn btn-order-product bg-primary text-white">Đăng

@@ -88,23 +88,11 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label" for="image">Image</label><br>
-                                        <input id="thumbnail" class="form-control" type="hidden" name="image">
-                                        <div class="d-flex align-items-center">
-                                            <div class="input-group"
-                                                style="position: relative; display: inline-block; width: 80px;">
-                                                <img id="img" class="btn-image rounded-1"
-                                                    src="{{ asset('./storage/default.jpg') }}" width="80px"
-                                                    alt="Image">
-                                                <button id="lfm" data-input="thumbnail" data-preview="holder"
-                                                    type="button" class="btn btn-light btn-image rounded-1"
-                                                    id="choose-button"
-                                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
-                                                    Choose
-                                                </button>
-                                            </div>
-                                            <div id="holder" class="mx-2" style="width: 100%"></div>
-                                        </div>
+                                        <label class="form-label" for="image">Image</label>
+                                        <input type="file" class="form-control" id="image" name="image"
+                                            value="{{ old('image') }}" placeholder="image" />
+                                        <img src="" alt="" width="50px" id="img"
+                                            class="py-1">
                                         @error('image')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -124,11 +112,6 @@
 @endsection
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-    <script>
-        $('#lfm').filemanager('image');
-    </script>
     <!-- publish at -->
     <script src="{{ asset('/administrator/assets/vendor/libs/moment/moment.js') }}"></script>
     <script src="{{ asset('/administrator/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
@@ -138,5 +121,13 @@
     <script src="{{ asset('/administrator/assets/vendor/libs/jquery-timepicker/jquery-timepicker.js') }}"></script>
     <script src="{{ asset('/administrator/assets/vendor/libs/pickr/pickr.js') }}"></script>
     <script src="{{ asset('/administrator/assets/js/forms-pickers.js') }}"></script>
-
+    <script>
+        // 1 ảnh
+        var image = document.querySelector('#image');
+        var img = document.querySelector('#img');
+        image.addEventListener('change', function(e) {
+            e.preventDefault();
+            img.src = URL.createObjectURL(this.files[0]);
+        })
+    </script>
 @endsection

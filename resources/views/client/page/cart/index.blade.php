@@ -58,9 +58,23 @@
             </section>
         @endif
     </form>
+    @if (session('js_errors'))
+        <script>
+            const errors = @json(session('js_errors'));
+            function showErrors(index = 0) {
+                if (index >= errors.length) return;
+
+                alertify.error(errors[index]);
+                setTimeout(() => {
+                    showErrors(index + 1);
+                }, 500);
+            }
+            showErrors();
+        </script>
+    @endif
+
 
 @endsection
 
 @section('js')
-    @include('client.page.cart.script')
 @endsection

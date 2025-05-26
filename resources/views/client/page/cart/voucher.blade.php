@@ -157,6 +157,7 @@
                         currency: 'VND'
                     }));
                     $('#discount').val(response['discount']);
+                    $('#total-price-hidden').empty().val(response['total']);
                 }
                 if (response['status'] == false) {
                     alertify.error(response['title']);

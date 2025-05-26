@@ -184,7 +184,7 @@
                                                     </div>
                                                     <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                         <label class="form-label">Quantity</label>
-                                                        <input type="text"
+                                                        <input type="number"
                                                             name="variants[{{ $item->id }}][stock_quantity]"
                                                             class="form-control" placeholder="Quantity"
                                                             value="{{ $item->stock_quantity }}" />
@@ -234,7 +234,7 @@
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Quantity</label>
-                                                    <input type="text" name="newvariants[__index__][stock_quantity]"
+                                                    <input type="number" name="newvariants[__index__][stock_quantity]"
                                                         class="form-control" placeholder="Quantity" />
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">

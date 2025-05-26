@@ -155,7 +155,7 @@
                                                 </div>
                                                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                                                     <label class="form-label">Quantity</label>
-                                                    <input type="text" name="variants[0][stock_quantity]"
+                                                    <input type="number" name="variants[0][stock_quantity]"
                                                         class="form-control" placeholder="Quantity" />
                                                     @error('variants.*.stock_quantity')
                                                         <p class="text-danger">{{ $message }}</p>

@@ -368,6 +368,11 @@ Route::prefix('/')->as('')->group(function () {
     Route::prefix('order')->as('order.')->group(function () {
         Route::post('/', [ClientOrderController::class, 'create'])->name('create');
     });
+    // bill 
+     Route::prefix('bill')->as('bill.')->group(function () {
+        Route::get('/', [ClientOrderController::class, 'index'])->name('index');
+    });
+
 });
 
 // email verify

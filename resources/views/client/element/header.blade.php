@@ -152,7 +152,7 @@
                                 Tài khoản
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-black" href="#">Action</a></li>
+                                <li><a class="dropdown-item text-black" href="{{ route('bill.index') }}">Đơn hàng</a></li>
                                 <li><a class="dropdown-item text-black" href="#">Another action</a></li>
                                 <li><a class="dropdown-item text-black" href="#">Something else here</a></li>
                                 <li>
