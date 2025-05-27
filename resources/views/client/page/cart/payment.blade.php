@@ -23,8 +23,9 @@
     </div>
     <div class="d-grid gap-2 py-2 pt-3">
         @if (Auth::check())
-            <button class="btn btn-order-product text-white" type="submit" onclick="return confirm('Bạn đã xác nhận đặt hàng?')"
-                style="background-color: rgb(252, 118, 0)">Đặt hàng</button>
+            <button class="btn btn-order-product text-white" type="submit"
+                onclick="return confirm('Bạn đã xác nhận đặt hàng?')" style="background-color: rgb(252, 118, 0)">Đặt
+                hàng</button>
         @else
             <a href="{{ route('login.form') }}" class="btn btn-order-product bg-primary text-white">Đăng
                 nhập</a>
@@ -35,10 +36,16 @@
     document.querySelectorAll('.payment-methods').forEach(function(payment) {
         payment.addEventListener('change', function() {
             if (this.value == 'online') {
+                let url = "{{ route('vnpay_payment') }}";
+                $('.form-order-submit').attr('action', url);
                 console.log('online');
+                console.log(url);
             }
             if (this.value == 'offline') {
+                let url = "{{ route('order.create') }}";
+                $('.form-order-submit').attr('action', url);
                 console.log('offline');
+                console.log(url);
             }
         });
     });
@@ -77,7 +84,7 @@
                 $('#title-warning-ofther-request').empty().text('Vui lòng nhập yêu cầu khác');
             }
         }
-        if(flag === true){
+        if (flag === true) {
             formordersubmit.submit();
         }
     })

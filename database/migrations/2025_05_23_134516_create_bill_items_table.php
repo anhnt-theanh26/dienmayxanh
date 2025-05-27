@@ -13,7 +13,9 @@ return new class extends Migration {
         Schema::create('bill_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bill_id')->nullable()->references('id')->on('bills')->onDelete('set null');
+            $table->unsignedBigInteger('product_id')->nullable()->references('id')->on('products')->onDelete('set null');
             $table->string('name')->nullable();
+            $table->string('image')->nullable();
             $table->string('variant')->nullable();
             $table->integer('quantity')->default(0);
             $table->decimal('price', 20, 0);

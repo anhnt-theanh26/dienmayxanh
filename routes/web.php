@@ -25,6 +25,7 @@ use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use App\Http\Controllers\Client\OrderController as ClientOrderController;
+use App\Http\Controllers\Client\PaymentController as ClientPaymentController;
 use App\Http\Controllers\Client\ProductDetailController as ClientProductDetailController;
 use App\Http\Controllers\Client\SearchController as ClientSearchController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
@@ -366,13 +367,16 @@ Route::prefix('/')->as('')->group(function () {
     Route::prefix('order')->as('order.')->group(function () {
         Route::post('/', [ClientOrderController::class, 'create'])->name('create');
     });
+    Route::post('/vnpay_payment', [ClientPaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
     // bill 
     Route::prefix('bill')->as('bill.')->group(function () {
         Route::get('/', [ClientOrderController::class, 'index'])->name('index');
+        Route::post('{id}/cancel', [ClientOrderController::class, 'cancel'])->name('cancel');
     });
 
     // profile 
     Route::prefix('profile')->as('profile.')->group(function () {
+        Route::get('/', [ClientUserController::class, 'index'])->middleware(['auth'])->name('index');
         Route::post('update', [ClientUserController::class, 'update'])->middleware(['auth'])->name('update');
         Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->middleware(['auth'])->name('save-address');
         Route::post('/password', [ClientUserController::class, 'password'])->middleware(['auth'])->name('password');

@@ -11,15 +11,22 @@ class BillItem extends Model
 
     protected $fillable = [
         'bill_id',
+        'product_id',
         'name',
+        'image',
         'variant',
         'quantity',
         'price',
         'total_price',
     ];
 
-    public function user()
+    public function bill()
     {
         return $this->belongsTo(Bill::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

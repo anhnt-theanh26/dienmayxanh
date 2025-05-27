@@ -63,10 +63,7 @@
                 type: "GET",
             })
             .done((response) => {
-                $("#change-item-cart").empty().text(response['total'].toLocaleString('it-IT', {
-                    style: 'currency',
-                    currency: 'VND'
-                }));
+                $("#change-item-cart").empty().text(response['total']);
                 $("#cart-list").empty().html(response['html']);
                 if (response['status'] == true) {
                     alertify.success(response['title']);

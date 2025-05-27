@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:3',
@@ -51,19 +51,19 @@ class UserController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         try {
-            $imagePath = $request->hasFile('image')
-                ? 'storage/' . $request->file('image')->store('user', 'public')
-                : null;
             $data = [
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => Hash::make($validated['password']),
-                'phone' => $validated['phone'],
-                'address' => $validated['address'],
-                'birthday' => $validated['birthday'],
-                'image' => $imagePath,
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'phone' => $request['phone'],
+                'address' => $request['address'],
+                'birthday' => $request['birthday'],
                 'email_verified_at' => Carbon::now(),
             ];
+            if ($request->hasFile('image')) {
+                $imagePath = 'storage/' . $request->file('image')->store('user', 'public');
+                $data['image'] = $imagePath;
+            }
             $user = User::create($data);
             if ($user) {
                 Alert::success('Thanh cong', 'Them moi user thanh cong');
@@ -79,7 +79,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show(string $id)
+    {
+    }
 
     /**
      * Show the form for editing the specified resource.

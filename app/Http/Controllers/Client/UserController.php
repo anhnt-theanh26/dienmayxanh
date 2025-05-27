@@ -11,6 +11,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
+
+    public function index() {
+        return view('client.page.profile.right');
+    }
+
     public function saveAddress(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();
@@ -77,7 +82,7 @@ class UserController extends Controller
         try {
             $user = User::where('id', Auth::user()->id)->first();
             if (!$user) {
-                Alert::error('Thất bại','không tìm thấy tài khoản!');
+                Alert::error('Thất bại', 'không tìm thấy tài khoản!');
                 return redirect()->back();
             }
             $validated = $request->validate([
@@ -86,11 +91,11 @@ class UserController extends Controller
                 'confirm_password' => 'required|same:new_password',
             ]);
             if (!Hash::check($request->old_password, $user->password)) {
-                Alert::error('Thất bại','Mật khẩu cũ không đúng!!!!');
+                Alert::error('Thất bại', 'Mật khẩu cũ không đúng!!!!');
                 return redirect()->back();
             }
             if (Hash::check($request->new_password, $user->password)) {
-                Alert::error('Thất bại','Mật khẩu mới không được giống mật khẩu cũ!!!!');
+                Alert::error('Thất bại', 'Mật khẩu mới không được giống mật khẩu cũ!!!!');
                 return redirect()->back();
             }
             $data = [

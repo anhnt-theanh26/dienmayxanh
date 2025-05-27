@@ -23,10 +23,30 @@ class OrderController extends Controller
             Alert::error('Đăng nhập', 'Vui lòng đăng nhập tài khoản!');
             return redirect()->route('login.form');
         }
-        $bills = Bill::where('id', Auth::user()->id)->get();
-        return view('client.page.bill.index', compact('bills'));
+        $bills = Bill::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        return view('client.page.bill.right', compact('bills'));
     }
 
+    public function cancel(Request $request, string $id)
+    {
+        $bill = Bill::where('id', $id)->first();
+        if (!$bill) {
+            Alert::error('Không tìm thấy', 'Không tìm thấy hóa đơn của bạn!');
+            return redirect()->back();
+        }
+        $request->validate([
+            'reason' => 'required|max:255',
+        ]);
+        try {
+            $bill->refund_reason = $request->reason;
+            $bill->save();
+            Alert::success('Thành công', 'Đã gửi yêu cầu hủy đơn hàng!');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+    }
     public function create(Request $request)
     {
         do {
@@ -49,66 +69,66 @@ class OrderController extends Controller
         if (!empty($errors)) {
             return redirect()->back()->with('js_errors', $errors);
         }
-        $dataOrderOffline = [
-            'user_id' => Auth::user()->id,
-            'code' => $code,
-            'discount' => $request['discount'],
-            'total_amount' => $request['total-price'],
-            'shipping_address' => $request['address'],
-            'phone' => $request['phone'],
-            'recipient_name' => $request['name'],
-            'order_date' => Carbon::now(),
-            'note' => $request['other-request'],
-            'payment_method' => 'offline',
-            'status' => 1,
-            'payment_status' => 'Unpaid',
-            'refund' => false,
-            'refund_amount' => $request['total-price'],
-            'refund_reason' => null,
-            'refund_time' => null,
-            'refund_status' => null,
-        ];
-        $bill = Bill::create($dataOrderOffline);
-        $dataOrderItem = [];
-        foreach ($variants as $item) {
-            $dataOrderItem[] = [
-                'bill_id' => $bill->id,
-                'name' => $item->name,
-                'variant' => $item->options->variant,
-                'quantity' => $item->qty,
-                'price' => $item->price,
-                'total_price' => $item->qty * $item->price,
+        if ($request->payment == 'offline') {
+            $dataOrderOffline = [
+                'user_id' => Auth::user()->id,
+                'code' => $code,
+                'discount' => $request['discount'],
+                'total_amount' => $request['total-price'],
+                'shipping_address' => $request['address'],
+                'phone' => $request['phone'],
+                'recipient_name' => $request['name'],
+                'order_date' => Carbon::now(),
+                'note' => $request['other-request'],
+                'payment_method' => $request['payment'],
+                'status' => 1,
+                'payment_status' => 'Unpaid',
+                'refund' => false,
+                'refund_amount' => $request['total-price'],
             ];
+            $bill = Bill::create($dataOrderOffline);
+            $dataOrderItem = [];
+            foreach ($variants as $item) {
+                $dataOrderItem[] = [
+                    'bill_id' => $bill->id,
+                    'name' => $item->name,
+                    'variant' => $item->options->variant,
+                    'quantity' => $item->qty,
+                    'price' => $item->price,
+                    'total_price' => $item->qty * $item->price,
+                ];
+            }
+            foreach ($dataOrderItem as $value) {
+                BillItem::create($value);
+            }
+            Cart::destroy();
+            Alert::success('Đặt hàng thành công', 'Đã đặt hàng thành công');
+            return redirect()->route('index');
         }
-        foreach ($dataOrderItem as $value) {
-            BillItem::create($value);
+        if ($request->payment == 'online') {
+            $dataOrderOnline = [
+                'user_id' => Auth::user()->id,
+                'code' => $code,
+                'discount' => $request['discount'],
+                'total_amount' => $request['total-price'],
+                'shipping_address' => $request['address'],
+                'phone' => $request['phone'],
+                'recipient_name' => $request['name'],
+                'order_date' => Carbon::now(),
+                'transaction_time' => null,
+                'expiry_time' => Carbon::now(),
+                'note' => $request['other-request'],
+                'payment_method' => $request['payment'],
+                'status' => 1,
+                'payment_status' => 'Unpaid',
+                'refund' => false,
+                'refund_amount' => $request['total-price'],
+                'refund_reason' => '',
+                'refund_transaction_id' => '',
+                'refund_time' => '',
+                'refund_status' => '',
+            ];
+            return $dataOrderOnline;
         }
-        Cart::destroy();
-        Alert::success('Đặt hàng thành công', 'Đã đặt hàng thành công');
-        return redirect()->route('index');
-        // $dataOrderOnline = [
-        //     'user_id' => Auth::user()->id,
-        //     'code' => $code,
-        //     'discount' => $request['discount'],
-        //     'total_amount' => $request['total-price'],
-        //     'shipping_address' => $request['address'],
-        //     'phone' => $request['phone'],
-        //     'recipient_name' => $request['name'],
-        //     'order_date' => Carbon::now(),
-        //     'transaction_time' => null,
-        //     'expiry_time' => Carbon::now(),
-        //     'note' => $request['other-request'],
-        //     'payment_method' => $request['payment'],
-        //     'status' => 1,
-        //     'payment_status' => 'Unpaid',
-        //     'refund' => false,
-        //     'refund_amount' => '',
-        //     'refund_reason' => '',
-        //     'refund_transaction_id' => '',
-        //     'refund_time' => '',
-        //     'refund_status' => '',
-        // ];
-
-        return $dataOrderOffline;
     }
 }
