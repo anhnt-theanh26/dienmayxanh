@@ -3,7 +3,8 @@
         <div class="mt-2 border">
             <div class="p-3 pt-4 bg-white">
                 @foreach ($bill->billItems as $billItem)
-                    <a href="{{ route('product-detail', ['slug' => $billItem->product->slug]) }}"
+                {{$billItem->product}}
+                    <a href="{{ isset($billItem->product->slug) ? route('product-detail', ['slug' => $billItem->product->slug]) : '#' }}"
                         class="text-decoration-none text-black">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex">
@@ -31,7 +32,8 @@
                 @if ($bill->discount > 0)
                     <div class="d-flex align-items-center justify-content-end m-0 p-0">
                         <p class="px-2 m-0 p-0">Giảm giá: </p>
-                        <p class="text-decoration-line-through text-danger m-0 p-0" style="font-size: 20px; font-weight: 500;">
+                        <p class="text-decoration-line-through text-danger m-0 p-0"
+                            style="font-size: 20px; font-weight: 500;">
                             {{ number_format($bill->discount, 0, '.', '.') ?? '' }} VNĐ
                         </p>
                     </div>

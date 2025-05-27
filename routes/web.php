@@ -363,11 +363,13 @@ Route::prefix('/')->as('')->group(function () {
     });
     Route::get('/delete-cart', [ClientCartController::class, 'delete'])->name('delete-cart');
 
-    // cart
+    // order
     Route::prefix('order')->as('order.')->group(function () {
         Route::post('/', [ClientOrderController::class, 'create'])->name('create');
+        // Route::post('/vnpay_payment', [ClientPaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
+        Route::get('/pay/{id}', [ClientPaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
+        Route::get('/callback', [ClientPaymentController::class, 'vnpayCallback'])->name('vnpay_callback');
     });
-    Route::post('/vnpay_payment', [ClientPaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
     // bill 
     Route::prefix('bill')->as('bill.')->group(function () {
         Route::get('/', [ClientOrderController::class, 'index'])->name('index');

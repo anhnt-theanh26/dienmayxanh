@@ -33,22 +33,6 @@
     </div>
 </div>
 <script>
-    document.querySelectorAll('.payment-methods').forEach(function(payment) {
-        payment.addEventListener('change', function() {
-            if (this.value == 'online') {
-                let url = "{{ route('vnpay_payment') }}";
-                $('.form-order-submit').attr('action', url);
-                console.log('online');
-                console.log(url);
-            }
-            if (this.value == 'offline') {
-                let url = "{{ route('order.create') }}";
-                $('.form-order-submit').attr('action', url);
-                console.log('offline');
-                console.log(url);
-            }
-        });
-    });
 
     let formordersubmit = document.querySelector('.form-order-submit');
     formordersubmit.addEventListener('submit', function(e) {

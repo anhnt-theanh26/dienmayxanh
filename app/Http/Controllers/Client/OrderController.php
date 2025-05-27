@@ -69,66 +69,47 @@ class OrderController extends Controller
         if (!empty($errors)) {
             return redirect()->back()->with('js_errors', $errors);
         }
-        if ($request->payment == 'offline') {
-            $dataOrderOffline = [
-                'user_id' => Auth::user()->id,
-                'code' => $code,
-                'discount' => $request['discount'],
-                'total_amount' => $request['total-price'],
-                'shipping_address' => $request['address'],
-                'phone' => $request['phone'],
-                'recipient_name' => $request['name'],
-                'order_date' => Carbon::now(),
-                'note' => $request['other-request'],
-                'payment_method' => $request['payment'],
-                'status' => 1,
-                'payment_status' => 'Unpaid',
-                'refund' => false,
-                'refund_amount' => $request['total-price'],
+        $dataOrderOffline = [
+            'user_id' => Auth::user()->id,
+            'code' => $code,
+            'discount' => $request['discount'],
+            'total_amount' => $request['total-price'],
+            'shipping_address' => $request['address'],
+            'phone' => $request['phone'],
+            'recipient_name' => $request['name'],
+            'order_date' => Carbon::now(),
+            'note' => $request['other-request'],
+            'payment_method' => $request['payment'],
+            'status' => 1,
+            'payment_status' => 'Unpaid',
+            'refund' => false,
+            'refund_amount' => $request['total-price'],
+        ];
+        $bill = Bill::create($dataOrderOffline);
+        $dataOrderItem = [];
+        foreach ($variants as $item) {
+            $dataOrderItem[] = [
+                'bill_id' => $bill->id,
+                'product_id' => $item->options->product->id,
+                'name' => $item->name,
+                'image' => $item->options->image,
+                'variant' => $item->options->variant,
+                'quantity' => $item->qty,
+                'price' => $item->price,
+                'total_price' => $item->qty * $item->price,
             ];
-            $bill = Bill::create($dataOrderOffline);
-            $dataOrderItem = [];
-            foreach ($variants as $item) {
-                $dataOrderItem[] = [
-                    'bill_id' => $bill->id,
-                    'name' => $item->name,
-                    'variant' => $item->options->variant,
-                    'quantity' => $item->qty,
-                    'price' => $item->price,
-                    'total_price' => $item->qty * $item->price,
-                ];
-            }
-            foreach ($dataOrderItem as $value) {
-                BillItem::create($value);
-            }
-            Cart::destroy();
+        }
+        foreach ($dataOrderItem as $value) {
+            BillItem::create($value);
+        }
+        Cart::destroy();
+        if ($request->payment == 'offline') {
             Alert::success('Đặt hàng thành công', 'Đã đặt hàng thành công');
             return redirect()->route('index');
         }
         if ($request->payment == 'online') {
-            $dataOrderOnline = [
-                'user_id' => Auth::user()->id,
-                'code' => $code,
-                'discount' => $request['discount'],
-                'total_amount' => $request['total-price'],
-                'shipping_address' => $request['address'],
-                'phone' => $request['phone'],
-                'recipient_name' => $request['name'],
-                'order_date' => Carbon::now(),
-                'transaction_time' => null,
-                'expiry_time' => Carbon::now(),
-                'note' => $request['other-request'],
-                'payment_method' => $request['payment'],
-                'status' => 1,
-                'payment_status' => 'Unpaid',
-                'refund' => false,
-                'refund_amount' => $request['total-price'],
-                'refund_reason' => '',
-                'refund_transaction_id' => '',
-                'refund_time' => '',
-                'refund_status' => '',
-            ];
-            return $dataOrderOnline;
+            // thanh toán online
+            return redirect()->route('order.vnpay_payment', ['id' => $bill->id]);
         }
     }
 }
