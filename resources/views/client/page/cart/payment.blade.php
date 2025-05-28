@@ -62,7 +62,7 @@
             }
         }
         if (checkotherrequest.checked) {
-            let otherRequest = document.querySelector('input[name="other-request"]');
+            let otherRequest = document.querySelector('input[name="note"]');
             if (otherRequest.value.trim() == '') {
                 flag = false;
                 $('#title-warning-ofther-request').empty().text('Vui lòng nhập yêu cầu khác');

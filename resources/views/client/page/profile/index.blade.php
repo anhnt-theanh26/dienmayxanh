@@ -13,10 +13,12 @@
         // 1 ảnh
         var image = document.querySelector('#image');
         var img = document.querySelector('#img');
-        image.addEventListener('change', function(e) {
-            e.preventDefault();
-            img.src = URL.createObjectURL(this.files[0]);
-        })
+        if(image && img){
+            image.addEventListener('change', function(e) {
+                e.preventDefault();
+                img.src = URL.createObjectURL(this.files[0]);
+            })
+        }
     </script>
 @endsection
 

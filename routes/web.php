@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AuthenticationlogController;
 use App\Http\Controllers\Admin\BannerMenuController;
 use App\Http\Controllers\Admin\BannerMenuItemController;
+use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryParentController;
 use App\Http\Controllers\Admin\LocationBannerMenuController;
@@ -21,10 +22,10 @@ use App\Http\Controllers\Admin\ProductMenuItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Client\BillController as ClientBillController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
-use App\Http\Controllers\Client\OrderController as ClientOrderController;
 use App\Http\Controllers\Client\PaymentController as ClientPaymentController;
 use App\Http\Controllers\Client\ProductDetailController as ClientProductDetailController;
 use App\Http\Controllers\Client\SearchController as ClientSearchController;
@@ -205,6 +206,20 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     });
 
+    // Bill
+    Route::prefix('bill')->as('bill.')->group(function () {
+        Route::get('/', [BillController::class, 'index'])->name('index');
+        Route::get('/pending', [BillController::class, 'pending'])->name('pending');
+        Route::get('/waitingpayment', [BillController::class, 'waitingpayment'])->name('waitingpayment');
+        Route::get('/confirmed', [BillController::class, 'confirmed'])->name('confirmed');
+        Route::get('/preparing', [BillController::class, 'preparing'])->name('preparing');
+        Route::get('/shipping', [BillController::class, 'shipping'])->name('shipping');
+        Route::get('/refund', [BillController::class, 'refund'])->name('refund');
+        Route::get('/delivered', [BillController::class, 'delivered'])->name('delivered');
+        Route::get('/canceled', [BillController::class, 'canceled'])->name('canceled');
+    });
+
+
     // role
     Route::prefix('role')->as('role.')->group(function () {
         Route::get('/', [RoleController::class, 'index'])->name('index');
@@ -365,15 +380,14 @@ Route::prefix('/')->as('')->group(function () {
 
     // order
     Route::prefix('order')->as('order.')->group(function () {
-        Route::post('/', [ClientOrderController::class, 'create'])->name('create');
-        // Route::post('/vnpay_payment', [ClientPaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
+        Route::post('/', [ClientBillController::class, 'create'])->name('create');
         Route::get('/pay/{id}', [ClientPaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
         Route::get('/callback', [ClientPaymentController::class, 'vnpayCallback'])->name('vnpay_callback');
     });
     // bill 
     Route::prefix('bill')->as('bill.')->group(function () {
-        Route::get('/', [ClientOrderController::class, 'index'])->name('index');
-        Route::post('{id}/cancel', [ClientOrderController::class, 'cancel'])->name('cancel');
+        Route::get('/', [ClientBillController::class, 'index'])->name('index');
+        Route::post('{id}/cancel', [ClientBillController::class, 'cancel'])->name('cancel');
     });
 
     // profile 
@@ -400,3 +414,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Email xÃ¡c minh Ä‘Ã£ Ä‘Æ°á»£c gá»­i láº¡i!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+// https://github.com/craftpip/jquery-confirm

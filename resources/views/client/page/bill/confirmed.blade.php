@@ -1,16 +1,12 @@
 @php
-    $waitpayment = $bills->filter(function ($bill) {
-        if (
-            $bill->payment_status == 'Payment Failed' &&
-            $bill->expiry_time >= now() &&
-            $bill->payment_method == 'online'
-        ) {
+    $confirmed = $bills->filter(function ($bill) {
+        if ($bill->status == 'Confirmed') {
             return $bill;
         }
     });
 @endphp
-@if (count($waitpayment) > 0)
-    @foreach ($waitpayment as $index => $bill)
+@if (count($confirmed) > 0)
+    @foreach ($confirmed as $bill)
         <div class="mt-2 border">
             <div class="p-3 pt-4 bg-white">
                 @foreach ($bill->billItems as $billItem)
@@ -41,21 +37,46 @@
                     <hr>
                 @endforeach
                 <div class="d-flex align-items-center justify-content-between">
-                    <div class="">
+                    @if ($bill->refund_reason == null)
+                        <div class="canceled" id="canceled">
+                            <div class="modal fade" id="cancel" aria-hidden="true" aria-labelledby="cancelLabel"
+                                tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="cancelLabel"> Yêu cầu hủy đơn hàng </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('bill.cancel', ['id' => $bill->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <label for="reason" class="form-label">Lý do:</label>
+                                                    <input type="text" class="form-control" name="reason"
+                                                        id="reason" placeholder="Lý do hủy đơn hàng..." required>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-warning text-white" data-bs-target="#cancel" data-bs-toggle="modal">
+                                Yêu cầu hủy đơn hàng
+                            </button>
+                        </div>
+                    @else
                         <div class="m-0 p-0">
-                            <p class="m-0 p-0">Hết hạn thanh toán sau:
-                                <span class="fw-bold">
-                                    <span id="countdown_{{ $index }}"></span>
-                                    <input type="hidden" class="datetime" name="datetime"
-                                        id="datetime_{{ $index }}" value="{{ $bill->expiry_time }}">
-                                </span>
-                            </p>
                             <p class="m-0 p-0">
-                                <a class="btn btn-outline-primary" href="#" role="button">Tiếp tục thanh toán</a>
+                                Đã gửi yêu cầu hủy đơn hàng
+                            </p>
+                            <p class="m-0 p-0">Lý do:
+                                <span class="fw-bold">{{ $bill->refund_reason }}</span>
                             </p>
                         </div>
-
-                    </div>
+                    @endif
                     <div class="">
                         @if ($bill->discount > 0)
                             <div class="d-flex align-items-center justify-content-end m-0 p-0">
@@ -67,8 +88,8 @@
                             </div>
                         @endif
                         <div class="d-flex align-items-center justify-content-end m-0 p-0">
-                            <p class="px-2 m-0 p-0">Thành tiền: </p>
-                            <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
+                            <p class="px-2">Thành tiền: </p>
+                            <p class="text-danger px-1" style="font-size: 24px; font-weight: 500;">
                                 {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
                             </p>
                         </div>
@@ -89,28 +110,3 @@
         </div>
     </div>
 @endif
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        let timeElements = document.querySelectorAll('.datetime');
-
-        timeElements.forEach(element => {
-            let expiryTime = new Date(element.value);
-            let countdownElement = document.getElementById(`countdown_${element.id.split('_')[1]}`);
-
-            function updateCountdown() {
-                let currentTime = new Date();
-                let timeLeft = expiryTime - currentTime;
-                if (timeLeft <= 0) {
-                    countdownElement.innerHTML = "Đã hết thời gian!";
-                    clearInterval(interval);
-                } else {
-                    let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                    let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                    countdownElement.innerHTML = `${minutes} : ${seconds}`;
-                }
-            }
-            let interval = setInterval(updateCountdown, 1000);
-        });
-    });
-</script>

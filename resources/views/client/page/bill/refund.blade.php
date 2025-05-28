@@ -1,5 +1,11 @@
-@if (count($bills) > 0)
-
+@php
+    $refund = $bills->filter(function ($bill) {
+        if ($bill->status == 'Refund') {
+            return $bill;
+        }
+    });
+@endphp
+@if (count($refund) > 0)
 @else
     <div class="d-flex align-items-center justify-content-center" style="min-height: 600px">
         <div class="">

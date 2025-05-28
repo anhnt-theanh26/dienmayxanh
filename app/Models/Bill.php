@@ -20,11 +20,17 @@ class Bill extends Model
         'order_date',
         'transaction_time',
         'expiry_time',
-        'node',
+        'note',
         'payment_method',
         'status',
         'payment_status',
+        'transaction_id',
+        'reason_cancel',
         'refund',
+        'refund_amount',
+        'refund_transaction_id',
+        'refund_time',
+        'refund_status',
     ];
 
     public function user()

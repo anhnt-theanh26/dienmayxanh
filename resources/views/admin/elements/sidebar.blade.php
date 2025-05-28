@@ -199,6 +199,59 @@
                 </li>
             </ul>
         </li>
+        <li class="menu-item {{ request()->routeIs('admin.bill.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-receipt-2"></i>
+                <div data-i18n="Bill">Bill</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.bill.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.index') }}" class="menu-link">
+                        <div data-i18n="Index">Index</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.pending') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.pending') }}" class="menu-link">
+                        <div data-i18n="Pending">Pending</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.waitingpayment') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.waitingpayment') }}" class="menu-link">
+                        <div data-i18n="Waiting Payment">Waiting Payment</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.confirmed') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.confirmed') }}" class="menu-link">
+                        <div data-i18n="Confirmed">Confirmed</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.preparing') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.preparing') }}" class="menu-link">
+                        <div data-i18n="Preparing">Preparing</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.shipping') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.shipping') }}" class="menu-link">
+                        <div data-i18n="Shipping">Shipping</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.refund') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.refund') }}" class="menu-link">
+                        <div data-i18n="Refund">Refund</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.delivered') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.delivered') }}" class="menu-link">
+                        <div data-i18n="Delivered">Delivered</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.canceled') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.canceled') }}" class="menu-link">
+                        <div data-i18n="Canceled">Canceled</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Role &amp; Permission</span>
         </li>

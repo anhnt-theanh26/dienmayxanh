@@ -1,10 +1,12 @@
 @php
-    $waitconfirmation = $bills->filter(function ($bill) {
-        return $bill->status == 1;
+    $pending = $bills->filter(function ($bill) {
+        if ($bill->status == 'Pending' && $bill->payment_method == 'offline') {
+            return $bill;
+        }
     });
 @endphp
-@if (count($waitconfirmation) > 0)
-    @foreach ($waitconfirmation as $bill)
+@if (count($pending) > 0)
+    @foreach ($pending as $bill)
         <div class="mt-2 border">
             <div class="p-3 pt-4 bg-white">
                 @foreach ($bill->billItems as $billItem)

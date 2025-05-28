@@ -37,12 +37,14 @@ return new class extends Migration {
             // Phương thức thanh toán: online hoặc offline
             $table->enum('payment_method', ['online', 'offline'])->default('offline'); // phương thức thanh toán
             //  $table->enum('payment_method', ['cod', 'momo', 'vnpay', 'zalopay', 'stripe'])->default('cod'); // thanh toán qua nhiều cổng(chưa sử dụng)
-            // Trạng thái đơn hàng (1 = mới tạo, 0 = huỷ, 2 = hoàn tất,...)
-            $table->integer('status')->default(1); // trạng thái đơn hàng
+            // Trạng thái đơn hàng                  ['Đang chờ', 'Đã xác nhận', 'Đang chuẩn bị', 'Đang vận chuyển', 'Đã giao'  , 'Đã hủy'   , 'Đã trả lại', 'Đã hoàn tiền', 'Không thành công']
+            $table->enum('status', ['Pending' , 'Confirmed'  , 'Preparing'    , 'Shipping'       , 'Delivered', 'Cancelled', 'Returned'  , 'Refunded'    , 'Failed'])->default('Pending'); // trạng thái đơn hàng
             // Trạng thái thanh toán: đã thanh toán, lỗi, chưa thanh toán
             $table->enum('payment_status', ['Paid', 'Payment Failed', 'Unpaid'])->default('Unpaid'); // trạng thái thanh toán
             // Mã giao dịch trả về từ cổng thanh toán (để xác nhận thanh toán thành công)
             $table->string('transaction_id')->nullable()->unique(); // Lưu mã giao dịch từ cổng, kiểm tra đơn hàng được thanh toán thành công hay chưa 
+            // Lý do hủy
+            $table->text('reason_cancel')->nullable(); // lý do hủy
             // Đánh dấu đơn hàng đã hoàn tiền hay chưa
             $table->boolean('refund')->default(false); // hoàn tiền
             // Số tiền hoàn trả (nếu có)

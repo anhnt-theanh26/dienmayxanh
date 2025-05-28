@@ -40,10 +40,10 @@
     checkotherrequest.addEventListener('click', function() {
         if (this.checked) {
             $('.other-request').empty().html(`
-                <input type="text" class="form-control mt-3" name="other-request" placeholder="Yêu cầu khác">
+                <input type="text" class="form-control mt-3" name="note" placeholder="Yêu cầu khác">
                  <div id="title-warning-ofther-request" class="form-text text-danger"></div>
                 `);
-            let otherRequest = document.querySelector('input[name="other-request"]');
+            let otherRequest = document.querySelector('input[name="note"]');
             if (otherRequest) {
                 otherRequest.addEventListener('blur', function() {
                     if (this.value.trim() == '') {

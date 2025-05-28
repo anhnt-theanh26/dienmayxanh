@@ -1,12 +1,12 @@
 @php
-    $canceled = $bills->filter(function ($bill) {
-        if ($bill->status == 'Cancelled') {
+    $delivered = $bills->filter(function ($bill) {
+        if ($bill->status == 'Delivered') {
             return $bill;
         }
     });
 @endphp
-@if (count($canceled) > 0)
-    @foreach ($canceled as $index => $bill)
+@if (count($delivered) > 0)
+    @foreach ($delivered as $bill)
         <div class="mt-2 border">
             <div class="p-3 pt-4 bg-white">
                 @foreach ($bill->billItems as $billItem)
@@ -36,36 +36,20 @@
                     </a>
                     <hr>
                 @endforeach
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="">
-                        <div class="m-0 p-0">
-                            <p class="m-0 p-0">
-                            </p>
-                            <p class="m-0 p-0">Lý do hủy:
-                                <span class="fw-bold">
-                                    {{ $bill->reason_cancel }}
-                                </span>
-                            </p>
-                        </div>
-
+                @if ($bill->discount > 0)
+                    <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                        <p class="px-2 m-0 p-0">Giảm giá: </p>
+                        <p class="text-decoration-line-through text-danger m-0 p-0"
+                            style="font-size: 20px; font-weight: 500;">
+                            {{ number_format($bill->discount, 0, '.', '.') ?? '' }} VNĐ
+                        </p>
                     </div>
-                    <div class="">
-                        @if ($bill->discount > 0)
-                            <div class="d-flex align-items-center justify-content-end m-0 p-0">
-                                <p class="px-2 m-0 p-0">Giảm giá: </p>
-                                <p class="text-decoration-line-through text-danger m-0 p-0"
-                                    style="font-size: 20px; font-weight: 500;">
-                                    {{ number_format($bill->discount, 0, '.', '.') ?? '' }} VNĐ
-                                </p>
-                            </div>
-                        @endif
-                        <div class="d-flex align-items-center justify-content-end m-0 p-0">
-                            <p class="px-2 m-0 p-0">Thành tiền: </p>
-                            <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
-                                {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
-                            </p>
-                        </div>
-                    </div>
+                @endif
+                <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                    <p class="px-2 m-0 p-0">Thành tiền: </p>
+                    <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
+                        {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
+                    </p>
                 </div>
             </div>
         </div>

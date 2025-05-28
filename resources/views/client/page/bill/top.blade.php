@@ -1,14 +1,7 @@
 <ul class="nav nav-tabs" id="myTabBill" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-tab-pane" type="button"
-            role="tab" aria-controls="all-tab-pane" aria-selected="true">
-            Tất cả
-        </button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="wait-confirmation-tab" data-bs-toggle="tab"
-            data-bs-target="#wait-confirmation-tab-pane" type="button" role="tab"
-            aria-controls="wait-confirmation-tab-pane" aria-selected="false">
+        <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending-tab-pane" type="button"
+            role="tab" aria-controls="pending-tab-pane" aria-selected="false">
             Chờ xác nhận
         </button>
     </li>
@@ -20,28 +13,39 @@
         </button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="waiting-delivery-tab" data-bs-toggle="tab"
-            data-bs-target="#waiting-delivery-tab-pane" type="button" role="tab"
-            aria-controls="waiting-delivery-tab-pane" aria-selected="false">
-            Chờ giao hàng
+        <button class="nav-link" id="confirmed-tab" data-bs-toggle="tab" data-bs-target="#confirmed-tab-pane"
+            type="button" role="tab" aria-controls="confirmed-tab-pane" aria-selected="false">
+            Đã xác nhận
         </button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="complete-tab" data-bs-toggle="tab" data-bs-target="#complete-tab-pane"
-            type="button" role="tab" aria-controls="complete-tab-pane" aria-selected="false">
-            Hoàn thành
+        <button class="nav-link" id="preparing-tab" data-bs-toggle="tab" data-bs-target="#preparing-tab-pane"
+            type="button" role="tab" aria-controls="preparing-tab-pane" aria-selected="false">
+            Đang chuẩn bị
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping-tab-pane"
+            type="button" role="tab" aria-controls="shipping-tab-pane" aria-selected="false">
+            Đang giao
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="refund-tab" data-bs-toggle="tab" data-bs-target="#refund-tab-pane" type="button"
+            role="tab" aria-controls="refund-tab-pane" aria-selected="false">
+            Trả hàng
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="delivered-tab" data-bs-toggle="tab" data-bs-target="#delivered-tab-pane"
+            type="button" role="tab" aria-controls="delivered-tab-pane" aria-selected="false">
+            Đã giao
         </button>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="canceled-tab" data-bs-toggle="tab" data-bs-target="#canceled-tab-pane"
             type="button" role="tab" aria-controls="canceled-tab-pane" aria-selected="false">
             Đã hủy
-        </button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="refund-tab" data-bs-toggle="tab" data-bs-target="#refund-tab-pane" type="button"
-            role="tab" aria-controls="refund-tab-pane" aria-selected="false">
-            Trả hàng hoàn tiền
         </button>
     </li>
 </ul>
