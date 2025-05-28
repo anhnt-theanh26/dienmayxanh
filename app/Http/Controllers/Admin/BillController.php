@@ -56,10 +56,10 @@ class BillController extends Controller
         return view('admin.page.bill.delivered', compact('bills'));
     }
 
-    public function canceled()
+    public function cancelled()
     {
-        $bills = Bill::orderBy('id', 'desc')->where('status', 'Canceled')->get();
-        return view('admin.page.bill.canceled', compact('bills'));
+        $bills = Bill::orderBy('id', 'desc')->where('status', 'Cancelled')->get();
+        return view('admin.page.bill.cancelled', compact('bills'));
     }
 
 }

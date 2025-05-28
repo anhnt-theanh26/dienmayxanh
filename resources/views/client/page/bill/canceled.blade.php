@@ -76,7 +76,7 @@
             <div class="d-flex align-items-center justify-content-center">
                 <img src="https://cdn-icons-png.flaticon.com/512/3142/3142603.png" width="100px" alt="">
             </div>
-            <div class="">
+            <div class="py-2">
                 Chưa có đơn hàng
             </div>
         </div>

@@ -37,7 +37,7 @@ class BillController extends Controller
             'reason' => 'required|max:255',
         ]);
         try {
-            $bill->refund_reason = $request->reason;
+            $bill->reason_cancel = $request->reason;
             $bill->save();
             Alert::success('Thành công', 'Đã gửi yêu cầu hủy đơn hàng!');
             return redirect()->back();

@@ -36,7 +36,7 @@
                     <hr>
                 @endforeach
                 <div class="d-flex align-items-center justify-content-between">
-                    @if ($bill->refund_reason == null)
+                    @if ($bill->reason_cancel == null)
                         <div class="canceled" id="canceled">
                             <div class="modal fade" id="cancel" aria-hidden="true" aria-labelledby="cancelLabel"
                                 tabindex="-1">
@@ -72,7 +72,7 @@
                                 Đã gửi yêu cầu hủy đơn hàng
                             </p>
                             <p class="m-0 p-0">Lý do:
-                                <span class="fw-bold">{{ $bill->refund_reason }}</span>
+                                <span class="fw-bold">{{ $bill->reason_cancel }}</span>
                             </p>
                         </div>
                     @endif
@@ -103,7 +103,7 @@
             <div class="d-flex align-items-center justify-content-center">
                 <img src="https://cdn-icons-png.flaticon.com/512/3142/3142603.png" width="100px" alt="">
             </div>
-            <div class="">
+            <div class="py-2">
                 Chưa có đơn hàng
             </div>
         </div>

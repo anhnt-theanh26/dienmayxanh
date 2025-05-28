@@ -51,7 +51,8 @@
                                 </span>
                             </p>
                             <p class="m-0 p-0">
-                                <a class="btn btn-outline-primary" href="#" role="button">Tiếp tục thanh toán</a>
+                                <a class="btn btn-outline-primary continue-payment-{{ $index }}" href="#"
+                                    role="button">Tiếp tục thanh toán</a>
                             </p>
                         </div>
 
@@ -83,7 +84,7 @@
             <div class="d-flex align-items-center justify-content-center">
                 <img src="https://cdn-icons-png.flaticon.com/512/3142/3142603.png" width="100px" alt="">
             </div>
-            <div class="">
+            <div class="py-2">
                 Chưa có đơn hàng
             </div>
         </div>
@@ -95,7 +96,7 @@
 
         timeElements.forEach(element => {
             let expiryTime = new Date(element.value);
-            let countdownElement = document.getElementById(`countdown_${element.id.split('_')[1]}`);
+            let countdownElement = document.getElementById(`countdown_${element.id.split('_').pop()}`);
 
             function updateCountdown() {
                 let currentTime = new Date();
@@ -103,6 +104,7 @@
                 if (timeLeft <= 0) {
                     countdownElement.innerHTML = "Đã hết thời gian!";
                     clearInterval(interval);
+                    document.querySelector(`.continue-payment-${element.id.split('_').pop()}`).remove();
                 } else {
                     let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));

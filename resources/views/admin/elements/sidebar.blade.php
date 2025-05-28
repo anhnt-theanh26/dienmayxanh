@@ -245,9 +245,9 @@
                         <div data-i18n="Delivered">Delivered</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->routeIs('admin.bill.canceled') ? 'active' : '' }}">
-                    <a href="{{ route('admin.bill.canceled') }}" class="menu-link">
-                        <div data-i18n="Canceled">Canceled</div>
+                <li class="menu-item {{ request()->routeIs('admin.bill.cancelled') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.cancelled') }}" class="menu-link">
+                        <div data-i18n="Cancelled">Cancelled</div>
                     </a>
                 </li>
             </ul>

@@ -216,7 +216,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/shipping', [BillController::class, 'shipping'])->name('shipping');
         Route::get('/refund', [BillController::class, 'refund'])->name('refund');
         Route::get('/delivered', [BillController::class, 'delivered'])->name('delivered');
-        Route::get('/canceled', [BillController::class, 'canceled'])->name('canceled');
+        Route::get('/cancelled', [BillController::class, 'cancelled'])->name('cancelled');
     });
 
 
