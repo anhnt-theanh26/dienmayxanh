@@ -43,6 +43,8 @@ return new class extends Migration {
             $table->enum('payment_status', ['Paid', 'Payment Failed', 'Unpaid'])->default('Unpaid'); // trạng thái thanh toán
             // Mã giao dịch trả về từ cổng thanh toán (để xác nhận thanh toán thành công)
             $table->string('transaction_id')->nullable()->unique(); // Lưu mã giao dịch từ cổng, kiểm tra đơn hàng được thanh toán thành công hay chưa 
+            // Trạng thái hủy đơn hàng
+            $table->enum('status_cancel', ['not_requested', 'requested', 'accepted', 'rejected'])->default('not_requested');
             // Lý do hủy
             $table->text('reason_cancel')->nullable(); // lý do hủy
             // Đánh dấu đơn hàng đã hoàn tiền hay chưa

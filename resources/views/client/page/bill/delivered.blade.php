@@ -45,11 +45,28 @@
                         </p>
                     </div>
                 @endif
-                <div class="d-flex align-items-center justify-content-end m-0 p-0">
-                    <p class="px-2 m-0 p-0">Thành tiền: </p>
-                    <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
-                        {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
-                    </p>
+                <div class="">
+                    @if ($bill->discount > 0)
+                        <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                            <p class="px-2 m-0 p-0">Giảm giá: </p>
+                            <p class="text-decoration-line-through text-danger m-0 p-0"
+                                style="font-size: 20px; font-weight: 500;">
+                                {{ number_format($bill->discount, 0, '.', '.') ?? '' }} VNĐ
+                            </p>
+                        </div>
+                    @endif
+                    <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                        <p class="px-2 m-0 p-0">Thành tiền: </p>
+                        <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
+                            {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                        <p class="px-2 m-0 p-0">Code: </p>
+                        <p class="text-danger m-0 p-0">
+                            {{ $bill->code }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -33,7 +33,7 @@
             </label>
         </div>
         <div class="card-datatable">
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>User</th>
@@ -49,18 +49,18 @@
                         <tr>
                             <td>
                                 <ul class="menu-item m-0 p-0">
-                                    <li class="menu-item m-0 p-0">Name: {{ $item->user->name }}</li>
-                                    <li class="menu-item m-0 p-0">Email: {{ $item->user->email }}</li>
-                                    <li class="menu-item m-0 p-0">Phone: {{ $item->user->phone }}</li>
+                                    <li class="menu-item m-0 p-0">Name: {{ $item->user->name ?? '' }}</li>
+                                    <li class="menu-item m-0 p-0">Email: {{ $item->user->email ?? '' }}</li>
+                                    <li class="menu-item m-0 p-0">Phone: {{ $item->user->phone ?? '' }}</li>
                                 </ul>
                             </td>
-                            <td>{{ $item->authenticatable_type }}</td>
-                            <td>{{ $item->ip_address }}</td>
+                            <td>{{ $item->authenticatable_type ?? '' }}</td>
+                            <td>{{ $item->ip_address ?? '' }}</td>
                             <td>
-                                <p>{{ $item->user_agent }}</p>
+                                <p>{{ $item->user_agent ?? '' }}</p>
                             </td>
-                            <td>{{ $item->login_at }}</td>
-                            <td>{{ $item->logout_at }}</td>
+                            <td>{{ $item->login_at ?? '' }}</td>
+                            <td>{{ $item->logout_at ?? '' }}</td>
                         </tr>
                     @endforeach
                     <div class="px-4">

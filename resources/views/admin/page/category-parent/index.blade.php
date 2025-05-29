@@ -46,7 +46,7 @@
                         class="text-muted float-end">Create</a>
                 </div>
             </div>
-            <table class="dt-fixedheader table">
+            <table class="dt-fixedheader table table-hover">
                 <thead>
                     <tr>
                         <th>Id</th>

@@ -43,7 +43,8 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="">
                         <div class="m-0 p-0">
-                            <p class="m-0 p-0">Hết hạn thanh toán sau:
+                            <p class="m-0 p-0">
+                                Hết hạn thanh toán sau:
                                 <span class="fw-bold">
                                     <span id="countdown_{{ $index }}"></span>
                                     <input type="hidden" class="datetime" name="datetime"
@@ -51,7 +52,8 @@
                                 </span>
                             </p>
                             <p class="m-0 p-0">
-                                <a class="btn btn-outline-primary continue-payment-{{ $index }}" href="#"
+                                <a class="btn btn-outline-primary continue-payment-{{ $index }}"
+                                    href="{{ route('order.continue_payment', ['id' => $bill->id]) }}"
                                     role="button">Tiếp tục thanh toán</a>
                             </p>
                         </div>
@@ -71,6 +73,12 @@
                             <p class="px-2 m-0 p-0">Thành tiền: </p>
                             <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
                                 {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                            <p class="px-2 m-0 p-0">Code: </p>
+                            <p class="text-danger m-0 p-0">
+                                {{ $bill->code }}
                             </p>
                         </div>
                     </div>

@@ -33,7 +33,7 @@
             </label>
         </div>
         <div class="card-datatable">
-            <table class="datatables-ajax table">
+            <table class="datatables-ajax table table-hover">
                 <thead>
                     <tr>
                         <th>Code</th>
@@ -42,6 +42,7 @@
                         <th>Order Date</th>
                         <th>Payment</th>
                         <th>Total Amount</th>
+                        <th>Reason Cancel</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -62,27 +63,17 @@
                                 @endif
                             </td>
                             <td>
-                                <span class="fw-bold text-success"> {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
+                                <span class="fw-bold text-success">
+                                    {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
                                 <span>VNĐ</span>
                             </td>
+                            <td>{{ $item->reason_cancel }}</td>
                             <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="ti ti-dots-vertical"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="">
-                                            <i class="ti ti-pencil me-1"></i> Edit
-                                        </a>
-                                        <form action="" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button onclick="return confirm('Xoa danh muc?')" class="dropdown-item"><i
-                                                    class="ti ti-trash me-1"></i>
-                                                Delete</button>
-                                        </form>
-                                    </div>
+                                <div class="d-flex align-items-center">
+                                    <a href="" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
+                                        aria-label="Show" data-bs-original-title="Show">
+                                        <i class="ti ti-eye mx-2 ti-sm"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -96,6 +87,7 @@
                         <th>Order Date</th>
                         <th>Payment</th>
                         <th>Total Amount</th>
+                        <th>Reason Cancel</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

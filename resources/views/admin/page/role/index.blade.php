@@ -91,14 +91,13 @@
             <!-- Role Table -->
             <div class="card">
                 <div class="card-datatable table-responsive">
-                    <table class="table border-top">
+                    <table class="table border-top table-hover">
                         <thead>
                             <tr>
                                 <th>User</th>
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Status</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
 
@@ -124,24 +123,6 @@
                                             @else
                                                 <span class="badge bg-label-secondary" text-capitalized="">Inactive</span>
                                             @endif
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="#" class="btn btn-sm btn-icon">
-                                                    <i class="ti ti-eye"></i>
-                                                </a>
-                                                <a href="javascript:;" class="text-body delete-record">
-                                                    <i class="ti ti-trash ti-sm mx-2"></i>
-                                                </a>
-                                                <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="ti ti-dots-vertical ti-sm mx-1"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end m-0">
-                                                    <a href="javascript:;"class="dropdown-item">Edit</a>
-                                                    <a href="javascript:;" class="dropdown-item">Suspend</a>
-                                                </div>
-                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -191,7 +172,7 @@
                                 <h5>Role Permissions</h5>
                                 <!-- Permission table -->
                                 <div class="table-responsive">
-                                    <table class="table table-flush-spacing">
+                                    <table class="table table-flush-spacing table-hover">
                                         <tbody>
                                             <tr>
                                                 <td class="text-nowrap fw-semibold">
@@ -279,7 +260,7 @@
                             <h5>Role Permissions</h5>
                             <!-- Permission table -->
                             <div class="table-responsive">
-                                <table class="table table-flush-spacing">
+                                <table class="table table-flush-spacing table-hover">
                                     <tbody>
                                         <tr>
                                             <td class="text-nowrap fw-semibold">

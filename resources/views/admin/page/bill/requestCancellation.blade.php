@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'Tất cả')
+@section('title', 'Đã hủy')
 
 @section('css')
     @include('admin.elements.css')
@@ -42,6 +42,7 @@
                         <th>Order Date</th>
                         <th>Payment</th>
                         <th>Total Amount</th>
+                        <th>Reason Cancel</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -62,15 +63,33 @@
                                 @endif
                             </td>
                             <td>
-                                <span class="fw-bold text-success"> {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
+                                <span class="fw-bold text-success">
+                                    {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
                                 <span>VNĐ</span>
                             </td>
+                            <td>{{ $item->reason_cancel }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
                                         aria-label="Show" data-bs-original-title="Show">
                                         <i class="ti ti-eye mx-2 ti-sm"></i>
                                     </a>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="ti ti-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                                href="{{ route('admin.bill.accept-cancel', ['id' => $item->id]) }}">
+                                                <i class="ti ti-pencil me-1"></i> Accept
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="{{ route('admin.bill.rejected-cancel', ['id' => $item->id]) }}">
+                                                <i class="ti ti-pencil me-1"></i> Rejected
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -84,6 +103,7 @@
                         <th>Order Date</th>
                         <th>Payment</th>
                         <th>Total Amount</th>
+                        <th>Reason Cancel</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

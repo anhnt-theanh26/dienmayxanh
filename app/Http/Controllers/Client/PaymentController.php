@@ -122,7 +122,7 @@ class PaymentController extends Controller
                     'transaction_time' => Carbon::createFromFormat('YmdHis', $request->input('vnp_PayDate')),
                     'expiry_time' => date('YmdHis', strtotime('+15 minutes', strtotime(date("YmdHis")))),
                     'transaction_id' => $transaction_id,
-                    'refund_amount' => $refund_amount,
+                    'refund_amount' => $bill->total_amount,
                     'status' => 'Confirmed',
                     'payment_status' => 'Paid',
                 ]);
@@ -137,7 +137,7 @@ class PaymentController extends Controller
                     'payment_status' => 'Payment Failed',
                 ]);
                 Alert::error('Thất bại', 'Thanh toán thất bại!');
-                return redirect()->route('index');
+                return redirect()->route('bill.index');
             }
         } else {
             echo "<span style='color:red'>Chu ky khong hop le</span>";

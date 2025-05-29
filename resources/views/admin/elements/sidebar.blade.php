@@ -210,14 +210,19 @@
                         <div data-i18n="Index">Index</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->routeIs('admin.bill.pending') ? 'active' : '' }}">
-                    <a href="{{ route('admin.bill.pending') }}" class="menu-link">
-                        <div data-i18n="Pending">Pending</div>
+                <li class="menu-item {{ request()->routeIs('admin.bill.request-cancellation') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.request-cancellation') }}" class="menu-link">
+                        <div data-i18n="Request Cancellation">Request Cancellation</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.bill.waitingpayment') ? 'active' : '' }}">
                     <a href="{{ route('admin.bill.waitingpayment') }}" class="menu-link">
                         <div data-i18n="Waiting Payment">Waiting Payment</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.pending') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.pending') }}" class="menu-link">
+                        <div data-i18n="Pending">Pending</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.bill.confirmed') ? 'active' : '' }}">

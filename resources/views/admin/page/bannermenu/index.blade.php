@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="card-datatable">
-            <table class="datatables-ajax table">
+            <table class="datatables-ajax table table-hover">
                 <thead>
                     <tr>
                         <th>id</th>

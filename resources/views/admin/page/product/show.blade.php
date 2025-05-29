@@ -83,7 +83,7 @@
                 </div>
                 <div class="table-responsive border-top">
                     <h6 class="mb-3 m-0 p-0 px-3 pt-3">Variants</h6>
-                    <table class="table m-0">
+                    <table class="table m-0 table-hover">
                         <thead>
                             <tr>
                                 <th>Name</th>

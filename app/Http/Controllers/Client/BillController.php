@@ -37,10 +37,59 @@ class BillController extends Controller
             'reason' => 'required|max:255',
         ]);
         try {
-            $bill->reason_cancel = $request->reason;
-            $bill->save();
-            Alert::success('Thành công', 'Đã gửi yêu cầu hủy đơn hàng!');
-            return redirect()->back();
+            $data = [
+                'reason_cancel' => $request->reason,
+                'status_cancel' => 'requested',
+            ];
+            if ($bill->status == 'Pending' || $bill->status == 'Confirmed' || $bill->status == 'Preparing') {
+                $bill->update($data);
+                Alert::success('Thành công', 'Đã gửi yêu cầu hủy đơn hàng!');
+                return redirect()->back();
+            } else {
+                if ($bill->status == 'Shipping') {
+                    $text = 'Đơn hàng đang được gửi đến bạn!';
+                } else if ($bill->status == 'Delivered') {
+                    $text = 'Đơn hàng đã được gửi đến bạn!';
+                } else if ($bill->status == 'Cancelled') {
+                    $text = 'Đơn hàng đã được hủy!';
+                } else if ($bill->status == 'Returned') {
+                    $text = 'Đơn hàng đã được trả lại!';
+                } else if ($bill->status == 'Refunded') {
+                    $text = 'Đơn hàng đã được hoàn tiền!';
+                } else if ($bill->status == 'Failed') {
+                    $text = 'Đơn hàng có lỗi!';
+                } else {
+                    $text = 'Không thể yêu cầu hủy!';
+                }
+                Alert::error('Yêu cầu thất bại', $text);
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+    }
+
+    public function refund(Request $request, string $id)
+    {
+        try {
+            $bill = Bill::where('id', $id)->first();
+            if (!$bill) {
+                Alert::error('Không tìm thấy', 'Không tìm thấy hóa đơn của bạn!');
+                return redirect()->back();
+            }
+            $request->validate([
+                'reason' => 'required|max:255',
+            ]);
+            if ($bill->payment_method == 'online') {
+                $data = [
+                    'refund_reason' => $request->reason,
+                    'refund_status' => 'Pending',
+                ];
+                $bill->update($data);
+                Alert::success('Thành công', 'Đã gửi yêu cầu hủy đơn hàng!');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -109,10 +158,35 @@ class BillController extends Controller
                 return redirect()->route('bill.index');
             }
             if ($request->payment == 'online') {
+                $bill->update([
+                    'transaction_time' => Carbon::now(),
+                    'expiry_time' => date('YmdHis', strtotime('+15 minutes', strtotime(date("YmdHis")))),
+                    'status' => 'Pending',
+                    'payment_status' => 'Payment Failed',
+                ]);
                 return redirect()->route('order.vnpay_payment', ['id' => $bill->id]);
             }
         } catch (\Throwable $th) {
             DB::rollBack();
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+    }
+
+    public function continuePayment(string $id)
+    {
+        try {
+            $bill = Bill::where('id', $id)->first();
+            if (!$bill) {
+                Alert::error('Không tìm thấy', 'Không tìm thấy hóa đơn của bạn!');
+                return redirect()->back();
+            }
+            if (now() >= $bill->expiry_time) {
+                Alert::error('Hết thời gian', 'Đơn hàng của bạn đã hết thời gian thanh toán!');
+                return redirect()->back();
+            }
+            return redirect()->route('order.vnpay_payment', ['id' => $bill->id]);
+        } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }

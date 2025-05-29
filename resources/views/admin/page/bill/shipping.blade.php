@@ -33,7 +33,7 @@
             </label>
         </div>
         <div class="card-datatable">
-            <table class="datatables-ajax table">
+            <table class="datatables-ajax table table-hover">
                 <thead>
                     <tr>
                         <th>Code</th>
@@ -62,27 +62,24 @@
                                 @endif
                             </td>
                             <td>
-                                <span class="fw-bold text-success"> {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
+                                <span class="fw-bold text-success">
+                                    {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
                                 <span>VNĐ</span>
                             </td>
                             <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="ti ti-dots-vertical"></i>
+                                <div class="btn-group" id="hover-dropdown-demo">
+                                    <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light"
+                                        data-bs-toggle="dropdown" data-trigger="hover" aria-expanded="false">
+                                        Action
                                     </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="">
-                                            <i class="ti ti-pencil me-1"></i> Edit
-                                        </a>
-                                        <form action="" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button onclick="return confirm('Xoa danh muc?')" class="dropdown-item"><i
-                                                    class="ti ti-trash me-1"></i>
-                                                Delete</button>
-                                        </form>
-                                    </div>
+                                    <ul class="dropdown-menu" style="">
+                                        <li>
+                                            <a href="" class="dropdown-item">
+                                                <i class="ti ti-eye ti-sm"></i>
+                                                Show
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </td>
                         </tr>
@@ -105,6 +102,7 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('/administrator/assets/vendor/js/dropdown-hover.js') }}"></script>
     <script>
         let tableName = 'bill';
         let status = 'index';

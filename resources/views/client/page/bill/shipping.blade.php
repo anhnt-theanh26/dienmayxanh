@@ -36,7 +36,7 @@
                     <hr>
                 @endforeach
                 <div class="d-flex align-items-center justify-content-between">
-                    <div class="">
+                    <div class="" style="width: 60%;">
                         <button class="btn btn-success" type="submit">Đã nhận hàng</button>
                         <button class="btn btn-danger" type="submit">Trả hàng</button>
                     </div>
@@ -51,9 +51,15 @@
                             </div>
                         @endif
                         <div class="d-flex align-items-center justify-content-end m-0 p-0">
-                            <p class="px-2">Thành tiền: </p>
-                            <p class="text-danger px-1" style="font-size: 24px; font-weight: 500;">
+                            <p class="px-2 m-0 p-0">Thành tiền: </p>
+                            <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
                                 {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                            <p class="px-2 m-0 p-0">Code: </p>
+                            <p class="text-danger m-0 p-0">
+                                {{ $bill->code }}
                             </p>
                         </div>
                     </div>

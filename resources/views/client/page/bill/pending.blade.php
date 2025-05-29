@@ -36,7 +36,7 @@
                     <hr>
                 @endforeach
                 <div class="d-flex align-items-center justify-content-between">
-                    @if ($bill->reason_cancel == null)
+                    @if ($bill->status_cancel == 'not_requested')
                         <div class="canceled" id="canceled">
                             <div class="modal fade" id="cancel" aria-hidden="true" aria-labelledby="cancelLabel"
                                 tabindex="-1">
@@ -56,7 +56,7 @@
                                                     <input type="text" class="form-control" name="reason"
                                                         id="reason" placeholder="Lý do hủy đơn hàng..." required>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+                                                <button type="submit" class="btn btn-primary">Gửi</button>
                                             </form>
                                         </div>
                                     </div>
@@ -66,13 +66,25 @@
                                 Yêu cầu hủy đơn hàng
                             </button>
                         </div>
-                    @else
-                        <div class="m-0 p-0">
+                    @elseif ($bill->status_cancel == 'requested')
+                        <div class="m-0 p-0" style="width: 60%;">
                             <p class="m-0 p-0">
                                 Đã gửi yêu cầu hủy đơn hàng
                             </p>
                             <p class="m-0 p-0">Lý do:
                                 <span class="fw-bold">{{ $bill->reason_cancel }}</span>
+                            </p>
+                        </div>
+                    @elseif ($bill->status_cancel == 'rejected')
+                        <div class="m-0 p-0" style="width: 60%;">
+                            <p class="m-0 p-0">
+                                Đã gửi yêu cầu hủy đơn hàng
+                            </p>
+                            <p class="m-0 p-0">Lý do:
+                                <span class="fw-bold">{{ $bill->reason_cancel }}</span>
+                            </p>
+                            <p class="m-0 badge text-bg-warning text-white">
+                                Đơn hàng không được chấp nhận hủy
                             </p>
                         </div>
                     @endif
@@ -87,9 +99,15 @@
                             </div>
                         @endif
                         <div class="d-flex align-items-center justify-content-end m-0 p-0">
-                            <p class="px-2">Thành tiền: </p>
-                            <p class="text-danger px-1" style="font-size: 24px; font-weight: 500;">
+                            <p class="px-2 m-0 p-0">Thành tiền: </p>
+                            <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
                                 {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                            <p class="px-2 m-0 p-0">Code: </p>
+                            <p class="text-danger m-0 p-0">
+                                {{ $bill->code }}
                             </p>
                         </div>
                     </div>

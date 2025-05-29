@@ -209,6 +209,9 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     // Bill
     Route::prefix('bill')->as('bill.')->group(function () {
         Route::get('/', [BillController::class, 'index'])->name('index');
+        Route::get('/request-cancellation', [BillController::class, 'requestCancellation'])->name('request-cancellation');
+        Route::get('{id}/accept-cancel', [BillController::class, 'acceptCancel'])->name('accept-cancel');
+        Route::get('{id}/rejected-cancel', [BillController::class, 'rejectedCancel'])->name('rejected-cancel');
         Route::get('/pending', [BillController::class, 'pending'])->name('pending');
         Route::get('/waitingpayment', [BillController::class, 'waitingpayment'])->name('waitingpayment');
         Route::get('/confirmed', [BillController::class, 'confirmed'])->name('confirmed');
@@ -217,6 +220,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/refund', [BillController::class, 'refund'])->name('refund');
         Route::get('/delivered', [BillController::class, 'delivered'])->name('delivered');
         Route::get('/cancelled', [BillController::class, 'cancelled'])->name('cancelled');
+        Route::get('/status', [BillController::class, 'status'])->name('status');
     });
 
 
@@ -383,11 +387,13 @@ Route::prefix('/')->as('')->group(function () {
         Route::post('/', [ClientBillController::class, 'create'])->name('create');
         Route::get('/pay/{id}', [ClientPaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
         Route::get('/callback', [ClientPaymentController::class, 'vnpayCallback'])->name('vnpay_callback');
+        Route::get('/continue-payment/{id}', [ClientBillController::class, 'continuePayment'])->name('continue_payment');
     });
     // bill 
     Route::prefix('bill')->as('bill.')->group(function () {
         Route::get('/', [ClientBillController::class, 'index'])->name('index');
         Route::post('{id}/cancel', [ClientBillController::class, 'cancel'])->name('cancel');
+        Route::post('{id}/refund', [ClientBillController::class, 'refund'])->name('refund');
     });
 
     // profile 

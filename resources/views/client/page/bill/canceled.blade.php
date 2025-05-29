@@ -37,17 +37,64 @@
                     <hr>
                 @endforeach
                 <div class="d-flex align-items-center justify-content-between">
-                    <div class="">
-                        <div class="m-0 p-0">
+                    <div class="" style="width: 60%;">
+                        <p class="m-0 p-0">Lý do:
+                            <span class="fw-bold">{{ $bill->reason_cancel }}</span>
+                        </p>
+                        @if ($bill->payment_method == 'online' && $bill->refund_status == null && $bill->payment_status == 'Paid')
+                            <div class="canceled" id="canceled">
+                                <div class="modal fade" id="refund" aria-hidden="true" aria-labelledby="refundLabel"
+                                    tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="refundLabel"> Yêu cầu hoàn tiền
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ route('bill.refund', ['id' => $bill->id]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label for="reason" class="form-label">Lý do:</label>
+                                                        <input type="text" class="form-control" name="reason"
+                                                            id="reason" placeholder="Lý do hoàn tiền..." required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Gửi</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-outline-success" data-bs-target="#refund" data-bs-toggle="modal">
+                                    Yêu cầu hoàn tiền
+                                </button>
+                            </div>
+                        @endif
+                        @if ($bill->payment_method == 'online' && $bill->refund_status != null)
                             <p class="m-0 p-0">
+                                Đã gửi yêu cầu hoàn tiền
                             </p>
-                            <p class="m-0 p-0">Lý do hủy:
+                            <p class="m-0 p-0">Lý do:
+                                <span class="fw-bold">{{ $bill->refund_reason }}</span>
+                            </p>
+                            <p class="m-0 p-0">Trạng thái:
                                 <span class="fw-bold">
-                                    {{ $bill->reason_cancel }}
+                                    @if ($bill->refund_status == 'Pending')
+                                        <span class="fw-bold">{{ $bill->refund_status }}(đang sử lý)</span>
+                                    @endif
+                                    @if ($bill->refund_status == 'Success')
+                                        <span class="fw-bold">{{ $bill->refund_status }}(đã sử lý)</span>
+                                    @endif
+                                    @if ($bill->refund_status == 'Failed')
+                                        <span class="fw-bold">{{ $bill->refund_status }}(lý do không được chấp
+                                            nhận)</span>
+                                    @endif
                                 </span>
                             </p>
-                        </div>
-
+                        @endif
                     </div>
                     <div class="">
                         @if ($bill->discount > 0)
@@ -63,6 +110,12 @@
                             <p class="px-2 m-0 p-0">Thành tiền: </p>
                             <p class="text-danger px-1 m-0 p-0" style="font-size: 24px; font-weight: 500;">
                                 {{ number_format($bill->total_amount, 0, '.', '.') ?? '' }} VNĐ
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end m-0 p-0">
+                            <p class="px-2 m-0 p-0">Code: </p>
+                            <p class="text-danger m-0 p-0">
+                                {{ $bill->code }}
                             </p>
                         </div>
                     </div>
