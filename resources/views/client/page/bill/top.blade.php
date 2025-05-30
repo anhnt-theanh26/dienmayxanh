@@ -30,12 +30,12 @@
             Đang giao
         </button>
     </li>
-    <li class="nav-item" role="presentation">
+    {{-- <li class="nav-item" role="presentation">
         <button class="nav-link" id="refund-tab" data-bs-toggle="tab" data-bs-target="#refund-tab-pane" type="button"
             role="tab" aria-controls="refund-tab-pane" aria-selected="false">
             Trả hàng
         </button>
-    </li>
+    </li> --}}
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="delivered-tab" data-bs-toggle="tab" data-bs-target="#delivered-tab-pane"
             type="button" role="tab" aria-controls="delivered-tab-pane" aria-selected="false">

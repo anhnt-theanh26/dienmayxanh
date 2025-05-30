@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> List</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> Đang giao</h4>
     <div class="card-body">
 
         @if (session('success'))
@@ -67,19 +67,24 @@
                                 <span>VNĐ</span>
                             </td>
                             <td>
-                                <div class="btn-group" id="hover-dropdown-demo">
-                                    <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-light"
-                                        data-bs-toggle="dropdown" data-trigger="hover" aria-expanded="false">
-                                        Action
-                                    </button>
-                                    <ul class="dropdown-menu" style="">
-                                        <li>
-                                            <a href="" class="dropdown-item">
-                                                <i class="ti ti-eye ti-sm"></i>
-                                                Show
+                                <div class="d-flex align-items-center">
+                                    <a href="{{ route('admin.bill.show', ['id' => $item->id]) }}" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
+                                        aria-label="Show" data-bs-original-title="Show">
+                                        <i class="ti ti-eye mx-2 ti-sm"></i>
+                                    </a>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="ti ti-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                                href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Delivered']) }}">
+                                                <i class="ti ti-pencil me-1"></i>
+                                                Delivered
                                             </a>
-                                        </li>
-                                    </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -102,7 +107,6 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('/administrator/assets/vendor/js/dropdown-hover.js') }}"></script>
     <script>
         let tableName = 'bill';
         let status = 'index';

@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
+        $categories = Category::orderBy('id', 'desc')->paginate(10);
         return view('admin.page.category.index', compact('categories'));
     }
     /**
@@ -166,7 +166,7 @@ class CategoryController extends Controller
 
     public function deleted()
     {
-        $categories = Category::onlyTrashed()->orderBy('id', 'desc')->get();
+        $categories = Category::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
         return view('admin.page.category.restore', compact('categories'));
     }
 
@@ -190,15 +190,15 @@ class CategoryController extends Controller
     {
         $status = $request->status;
         if ($status == 'index') {
-            $results = Category::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Category::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Category::orderBy('id', 'desc')->get();
+                $results = Category::orderBy('id', 'desc')->paginate(10);
             }
         }
         if ($status == 'delete') {
-            $results = Category::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Category::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Category::onlyTrashed()->orderBy('id', 'desc')->get();
+                $results = Category::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
             }
         }
         return view('admin.page.category.search', compact('results', 'status'));

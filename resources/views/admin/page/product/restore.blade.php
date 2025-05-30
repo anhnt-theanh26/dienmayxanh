@@ -94,6 +94,9 @@
 
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $products->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -112,7 +115,7 @@
 
 @section('js')
     <script>
-        let tableName = 'post';
+        let tableName = 'product';
         let status = 'delete';
     </script>
     @include('admin.elements.js')

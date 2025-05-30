@@ -67,11 +67,12 @@
                                                 <i class="ti ti-repeat me-1"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.attribute.destroy', ['id' => $item->id]) }}" method="post">
+                                        <form action="{{ route('admin.attribute.destroy', ['id' => $item->id]) }}"
+                                            method="post">
                                             @csrf
                                             @method('delete')
-                                            <button onclick="return confirm('Hanh dong nay se xoa vinh vien danh muc?')" class="dropdown-item"><i
-                                                    class="ti ti-trash me-1"></i>
+                                            <button onclick="return confirm('Hanh dong nay se xoa vinh vien danh muc?')"
+                                                class="dropdown-item"><i class="ti ti-trash me-1"></i>
                                                 Delete</button>
                                         </form>
                                     </div>
@@ -79,6 +80,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $attributes->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>

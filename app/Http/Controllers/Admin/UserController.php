@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('id', 'desc')->get();
+        $users = User::orderBy('id', 'desc')->paginate(10);
         return view('admin.page.user.index', compact('users'));
         // if (Auth::user()->can('index user')){
         // }else{
@@ -217,7 +217,7 @@ class UserController extends Controller
 
     public function deleted()
     {
-        $users = User::onlyTrashed()->orderBy('id', 'desc')->get();
+        $users = User::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
         return view('admin.page.user.restore', compact('users'));
     }
 
@@ -231,46 +231,28 @@ class UserController extends Controller
             }
             $user->restore();
             Alert::success('Thanh cong', 'Khoi phuc user thanh cong');
-            return redirect()->route('admin.user.index')->with('success', 'Khoi phuc user thanh cong!');
+            return redirect()->back()->with('success', 'Khoi phuc user thanh cong!');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
-
-    // public function search(Request $request, string $keyword)
-    // {
-    //     $status = $request->status;
-    //     if ($status == 'index') {
-    //         $results = User::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
-    //         if ($keyword == ' ') {
-    //             $results = User::orderBy('id', 'desc')->get();
-    //         }
-    //     }
-    //     if ($status == 'delete') {
-    //         $results = User::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
-    //         if ($keyword == ' ') {
-    //             $results = User::onlyTrashed()->orderBy('id', 'desc')->get();
-    //         }
-    //     }
-    //     return view('admin.page.user.search', compact('results', 'status'));
-    // }
 
     public function search(Request $request, string $keyword)
     {
         $status = $request->status;
-        if ($status === 'delete') {
-            $query = User::onlyTrashed();
-        } else {
-            $query = User::query();
+        if ($status == 'index') {
+            $results = User::where('name', 'LIKE', '%' . $keyword . '%')->orWhere('email', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
+            if ($keyword == ' ') {
+                $results = User::orderBy('id', 'desc')->paginate(10);
+            }
         }
-        if ($keyword !== '') {
-            $query->where(function ($q) use ($keyword) {
-                $q->where('name', 'LIKE', '%' . $keyword . '%')
-                    ->orWhere('email', 'LIKE', '%' . $keyword . '%');
-            });
+        if ($status == 'delete') {
+            $results = User::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orWhere('email', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
+            if ($keyword == ' ') {
+                $results = User::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
+            }
         }
-        $results = $query->orderBy('id', 'desc')->get();
         return view('admin.page.user.search', compact('results', 'status'));
     }
 }

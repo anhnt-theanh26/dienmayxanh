@@ -210,8 +210,6 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     Route::prefix('bill')->as('bill.')->group(function () {
         Route::get('/', [BillController::class, 'index'])->name('index');
         Route::get('/request-cancellation', [BillController::class, 'requestCancellation'])->name('request-cancellation');
-        Route::get('{id}/accept-cancel', [BillController::class, 'acceptCancel'])->name('accept-cancel');
-        Route::get('{id}/rejected-cancel', [BillController::class, 'rejectedCancel'])->name('rejected-cancel');
         Route::get('/pending', [BillController::class, 'pending'])->name('pending');
         Route::get('/waitingpayment', [BillController::class, 'waitingpayment'])->name('waitingpayment');
         Route::get('/confirmed', [BillController::class, 'confirmed'])->name('confirmed');
@@ -221,6 +219,9 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/delivered', [BillController::class, 'delivered'])->name('delivered');
         Route::get('/cancelled', [BillController::class, 'cancelled'])->name('cancelled');
         Route::get('/status', [BillController::class, 'status'])->name('status');
+        Route::get('/reply-cancel', [BillController::class, 'replyCancel'])->name('reply-cancel');
+        Route::get('/reply-refund', [BillController::class, 'replyRefund'])->name('reply-refund');
+        Route::get('{id}/show', [BillController::class, 'show'])->name('show');
     });
 
 
@@ -238,11 +239,13 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/', [PermissionController::class, 'store'])->name('store');
         Route::delete('{id}/', [PermissionController::class, 'destroy'])->name('destroy');
         Route::put('/{id}/update', [PermissionController::class, 'update'])->name('update');
+        Route::get('/{keyword}/search', [PermissionController::class, 'search'])->name('search');
     });
 
     // authenticationlog
     Route::prefix('authenticationlog')->as('authenticationlog.')->group(function () {
         Route::get('/', [AuthenticationlogController::class, 'index'])->name('index');
+        Route::get('/{keyword}/search', [AuthenticationlogController::class, 'search'])->name('search');
     });
 
     // Location Menu
@@ -392,8 +395,10 @@ Route::prefix('/')->as('')->group(function () {
     // bill 
     Route::prefix('bill')->as('bill.')->group(function () {
         Route::get('/', [ClientBillController::class, 'index'])->name('index');
+        Route::post('/{id}/received', [ClientBillController::class, 'received'])->name('received');
         Route::post('{id}/cancel', [ClientBillController::class, 'cancel'])->name('cancel');
         Route::post('{id}/refund', [ClientBillController::class, 'refund'])->name('refund');
+
     });
 
     // profile 

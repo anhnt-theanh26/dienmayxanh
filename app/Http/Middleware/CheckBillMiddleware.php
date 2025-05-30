@@ -25,6 +25,15 @@ class CheckBillMiddleware
                         'reason_cancel' => 'Hết thời gian thanh toán online!',
                     ]);
                 }
+                if ($bill->status == 'Shipping') {
+                    $after3day = \Carbon\Carbon::parse($bill->updated_at)->addDays(3);
+                    if (now() > $after3day) {
+                        $bill->update([
+                            'status' => 'Cancelled',
+                            'reason_cancel' => 'Người dùng không nhận hàng!',
+                        ]);
+                    }
+                }
             }
         }
         return $next($request);

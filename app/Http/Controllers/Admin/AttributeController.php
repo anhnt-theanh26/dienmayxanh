@@ -13,7 +13,7 @@ class AttributeController extends Controller
 {
     public function index()
     {
-        $attributes = Attribute::orderBy('id', 'desc')->get();
+        $attributes = Attribute::orderBy('id', 'desc')->paginate(10);
         return view('admin.page.attribute.index', compact('attributes'));
     }
 
@@ -151,7 +151,7 @@ class AttributeController extends Controller
 
     public function deleted()
     {
-        $attributes = Attribute::onlyTrashed()->orderBy('id', 'desc')->get();
+        $attributes = Attribute::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
         return view('admin.page.attribute.restore', compact('attributes'));
     }
 
@@ -176,15 +176,15 @@ class AttributeController extends Controller
     {
         $status = $request->status;
         if ($status == 'index') {
-            $results = Attribute::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Attribute::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Attribute::orderBy('id', 'desc')->get();
+                $results = Attribute::orderBy('id', 'desc')->paginate(10);
             }
         }
         if ($status == 'delete') {
-            $results = Attribute::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Attribute::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Attribute::onlyTrashed()->orderBy('id', 'desc')->get();
+                $results = Attribute::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
             }
         }
         return view('admin.page.attribute.search', compact('results', 'status'));

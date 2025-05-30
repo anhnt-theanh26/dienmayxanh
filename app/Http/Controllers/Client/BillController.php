@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\BillItem;
 use App\Models\ProductVariant;
+use App\Models\Voucher;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -87,7 +88,7 @@ class BillController extends Controller
                     'refund_status' => 'Pending',
                 ];
                 $bill->update($data);
-                Alert::success('Thành công', 'Đã gửi yêu cầu hủy đơn hàng!');
+                Alert::success('Đã gửi yêu cầu hoàn tiền', 'Vui lòng liên hệ với nhân viên để hoàn tiền!');
                 return redirect()->back();
             }
         } catch (\Throwable $th) {
@@ -99,7 +100,7 @@ class BillController extends Controller
     {
         try {
             do {
-                $code = Str::random(16);
+                $code = rand(100000, 999999);
             } while (Bill::where('code', $code)->exists());
             $variants = [];
             $errors = [];
@@ -117,6 +118,22 @@ class BillController extends Controller
             }
             if (!empty($errors)) {
                 return redirect()->back()->with('js_errors', $errors);
+            }
+            if (!empty($request['id-voucher'])) {
+                $voucher = Voucher::where('id', $request['id-voucher'])->first();
+                if ($voucher->max_use < 1) {
+                    Alert::error('Voucher hết lượt sử dụng', 'Voucher bạn đang dùng đã hết lượt sử dụng!');
+                    return redirect()->back();
+                }
+                if (!empty($voucher->users)) {
+                    $users = json_decode($voucher->users);
+                    $users = array_map(function ($value) {
+                        return $value == Auth::user()->id ? null : $value;
+                    }, $users);
+                    $voucher->users = json_encode($users);
+                }
+                $voucher->max_use -= 1;
+                $voucher->save();
             }
             $dataOrder = [
                 'user_id' => Auth::user()->id,
@@ -186,6 +203,28 @@ class BillController extends Controller
                 return redirect()->back();
             }
             return redirect()->route('order.vnpay_payment', ['id' => $bill->id]);
+        } catch (\Throwable $th) {
+            Alert::error('Có lỗi xảy ra:', $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        }
+    }
+
+    public function received(string $id)
+    {
+        try {
+            $bill = Bill::where('id', $id)->first();
+            if ($bill->status == 'Shipping') {
+                if ($bill->user_id == Auth::user()->id) {
+                    $bill->payment_status = 'Paid';
+                    $bill->status = 'Delivered';
+                    $bill->save();
+                    Alert::success('Đã nhận hàng', 'Xác nhận đã nhận hàng!');
+                    return redirect()->back();
+                }
+            } else {
+                Alert::warning('Cảng báo', 'Đơn hàng không phải trạng thái đang giao!');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());

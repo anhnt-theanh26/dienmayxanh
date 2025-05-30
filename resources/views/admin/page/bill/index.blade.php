@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> List</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> Tất cả hóa đơn</h4>
     <div class="card-body">
 
         @if (session('success'))
@@ -62,13 +62,15 @@
                                 @endif
                             </td>
                             <td>
-                                <span class="fw-bold text-success"> {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
+                                <span class="fw-bold text-success">
+                                    {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
                                 <span>VNĐ</span>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
-                                        aria-label="Show" data-bs-original-title="Show">
+                                    <a href="{{ route('admin.bill.show', ['id' => $item->id]) }}" data-bs-toggle="tooltip"
+                                        class="text-body" data-bs-placement="top" aria-label="Show"
+                                        data-bs-original-title="Show">
                                         <i class="ti ti-eye mx-2 ti-sm"></i>
                                     </a>
                                 </div>

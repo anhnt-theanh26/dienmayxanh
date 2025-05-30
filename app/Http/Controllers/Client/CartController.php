@@ -285,6 +285,7 @@ class CartController extends Controller
                 'title' => 'Giảm giá giỏ hàng!',
                 'discount' => $discount,
                 'total' => $total,
+                'voucher' => $voucher,
             ];
         }
         // voucher có sẵn
@@ -300,6 +301,7 @@ class CartController extends Controller
                 'title' => 'Giảm giá giỏ hàng!',
                 'discount' => $discount,
                 'total' => $total,
+                'voucher' => $voucher,
             ];
         }
     }

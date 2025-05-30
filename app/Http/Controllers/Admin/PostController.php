@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts = Post::orderBy('id', 'desc')->get();
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
         return view('admin.page.post.index', compact('posts'));
         // if (Auth::user()->can('index post')){
         // }else{
@@ -204,7 +204,7 @@ class PostController extends Controller
 
     public function deleted()
     {
-        $posts = Post::onlyTrashed()->orderBy('id', 'desc')->get();
+        $posts = Post::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
         return view('admin.page.post.restore', compact('posts'));
     }
 
@@ -229,15 +229,15 @@ class PostController extends Controller
     {
         $status = $request->status;
         if ($status == 'index') {
-            $results = Post::where('title', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Post::where('title', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Post::orderBy('id', 'desc')->get();
+                $results = Post::orderBy('id', 'desc')->paginate(10);
             }
         }
         if ($status == 'delete') {
-            $results = Post::onlyTrashed()->where('title', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Post::onlyTrashed()->where('title', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Post::onlyTrashed()->orderBy('id', 'desc')->get();
+                $results = Post::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
             }
         }
         return view('admin.page.post.search', compact('results', 'status'));

@@ -32,8 +32,7 @@
                 <input type="search" class="form-control" name="search" placeholder="Search...">
             </label>
             <div class="">
-                <a class="btn btn-success" href="{{ route('admin.user.create') }}"
-                    class="text-muted float-end">Create</a>
+                <a class="btn btn-success" href="{{ route('admin.user.create') }}" class="text-muted float-end">Create</a>
             </div>
         </div>
         <div class="card-datatable">
@@ -56,7 +55,8 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($item->name, 30) }}</td>
                             <td>
-                                <img src="{{ asset($item->image) }}" alt="" width="50px" id="img" class="py-1">
+                                <img src="{{ asset($item->image) }}" alt="" width="50px" id="img"
+                                    class="py-1">
                             </td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->address }}</td>
@@ -86,6 +86,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $users->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>

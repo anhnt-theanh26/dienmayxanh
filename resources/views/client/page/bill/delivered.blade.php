@@ -36,15 +36,6 @@
                     </a>
                     <hr>
                 @endforeach
-                @if ($bill->discount > 0)
-                    <div class="d-flex align-items-center justify-content-end m-0 p-0">
-                        <p class="px-2 m-0 p-0">Giảm giá: </p>
-                        <p class="text-decoration-line-through text-danger m-0 p-0"
-                            style="font-size: 20px; font-weight: 500;">
-                            {{ number_format($bill->discount, 0, '.', '.') ?? '' }} VNĐ
-                        </p>
-                    </div>
-                @endif
                 <div class="">
                     @if ($bill->discount > 0)
                         <div class="d-flex align-items-center justify-content-end m-0 p-0">

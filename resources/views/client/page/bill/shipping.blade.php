@@ -37,8 +37,11 @@
                 @endforeach
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="" style="width: 60%;">
-                        <button class="btn btn-success" type="submit">Đã nhận hàng</button>
-                        <button class="btn btn-danger" type="submit">Trả hàng</button>
+                        <form action="{{ route('bill.received', ['id' => $bill->id]) }}" method="post">
+                            @csrf
+                            <button onclick="return confirm('Xác nhận đã nhận hàng?')" class="btn btn-success"
+                                type="submit">Đã nhận hàng</button>
+                        </form>
                     </div>
                     <div class="">
                         @if ($bill->discount > 0)

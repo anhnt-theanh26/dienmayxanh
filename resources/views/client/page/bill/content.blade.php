@@ -16,9 +16,9 @@
     <div class="tab-pane fade" id="shipping-tab-pane" role="tabpanel" aria-labelledby="shipping-tab" tabindex="0">
         @include('client.page.bill.shipping')
     </div>
-    <div class="tab-pane fade" id="refund-tab-pane" role="tabpanel" aria-labelledby="refund-tab" tabindex="0">
+    {{-- <div class="tab-pane fade" id="refund-tab-pane" role="tabpanel" aria-labelledby="refund-tab" tabindex="0">
         @include('client.page.bill.refund')
-    </div>
+    </div> --}}
     <div class="tab-pane fade" id="delivered-tab-pane" role="tabpanel" aria-labelledby="delivered-tab" tabindex="0">
         @include('client.page.bill.delivered')
     </div>

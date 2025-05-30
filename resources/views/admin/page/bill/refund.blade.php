@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> List</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> Yêu cầu hoàn tiền</h4>
     <div class="card-body">
 
         @if (session('success'))
@@ -42,6 +42,7 @@
                         <th>Order Date</th>
                         <th>Payment</th>
                         <th>Total Amount</th>
+                        <th>Refund Reason</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -62,26 +63,34 @@
                                 @endif
                             </td>
                             <td>
-                                <span class="fw-bold text-success"> {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
+                                <span class="fw-bold text-success">
+                                    {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
                                 <span>VNĐ</span>
                             </td>
+                            <td>{{ $item->refund_reason }}</td>
                             <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="ti ti-dots-vertical"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="">
-                                            <i class="ti ti-pencil me-1"></i> Edit
-                                        </a>
-                                        <form action="" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button onclick="return confirm('Xoa danh muc?')" class="dropdown-item"><i
-                                                    class="ti ti-trash me-1"></i>
-                                                Delete</button>
-                                        </form>
+                                <div class="d-flex align-items-center">
+                                    <a href="{{ route('admin.bill.show', ['id' => $item->id]) }}" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
+                                        aria-label="Show" data-bs-original-title="Show">
+                                        <i class="ti ti-eye mx-2 ti-sm"></i>
+                                    </a>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="ti ti-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                                href="{{ route('admin.bill.reply-refund', ['id' => $item->id, 'status' => 'Success']) }}">
+                                                <i class="ti ti-pencil me-1"></i>
+                                                Accept
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="{{ route('admin.bill.reply-refund', ['id' => $item->id, 'status' => 'Failed']) }}">
+                                                <i class="ti ti-pencil me-1"></i>
+                                                Refuse
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -96,6 +105,7 @@
                         <th>Order Date</th>
                         <th>Payment</th>
                         <th>Total Amount</th>
+                        <th>Refund Reason</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

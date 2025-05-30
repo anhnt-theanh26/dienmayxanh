@@ -4,6 +4,7 @@
         let debounceTimer;
         searchInput.addEventListener('input', function() {
             clearTimeout(debounceTimer)
+
             debounceTimer = setTimeout(() => {
                 keyword = searchInput.value.trim();
                 if (keyword == '') {
@@ -17,12 +18,12 @@
                         }
                     })
                     .done((response) => {
-                        console.log(tableName)
+                        console.log(tableName);
                         RenderListSearch(response);
                     })
             }, 100);
         });
-    
+
         function RenderListSearch(response) {
             if ($("#search")) {
                 $("#search").empty();
@@ -30,5 +31,4 @@
             }
         }
     }
-
 </script>

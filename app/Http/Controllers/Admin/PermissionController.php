@@ -16,7 +16,7 @@ class PermissionController extends Controller
     public function index()
     {
         // $users = User::orderBy('id', 'desc')->get();
-        $users = User::get();
+        $users = User::orderBy('id', 'desc')->paginate(10);
         $roles = Role::orderBy('id', 'desc')->get();
         return view("admin.page.permission.index", compact("users", "roles"));
     }
@@ -79,5 +79,18 @@ class PermissionController extends Controller
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
             return redirect()->route('admin.permission.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
+    }
+
+    public function search(Request $request, string $keyword)
+    {
+        $status = $request->status;
+        if ($status == 'index') {
+            $results = User::where('name', 'LIKE', '%' . $keyword . '%')->orWhere('email', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
+            if ($keyword == ' ') {
+                $results = User::orderBy('id', 'desc')->paginate(10);
+            }
+        }
+        $roles = Role::orderBy('id', 'desc')->get();
+        return view('admin.page.permission.search', compact('results', 'status', 'roles'));
     }
 }

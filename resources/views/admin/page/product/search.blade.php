@@ -52,3 +52,6 @@
         </td>
     </tr>
 @endforeach
+<div class="px-4">
+    {{ $results->links('pagination::bootstrap-5') }}
+</div>

@@ -93,6 +93,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $products->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>

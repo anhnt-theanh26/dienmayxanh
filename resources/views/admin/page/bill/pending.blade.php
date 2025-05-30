@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> List</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> Chờ xác nhận</h4>
     <div class="card-body">
 
         @if (session('success'))
@@ -68,7 +68,7 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
+                                    <a href="{{ route('admin.bill.show', ['id' => $item->id]) }}" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
                                         aria-label="Show" data-bs-original-title="Show">
                                         <i class="ti ti-eye mx-2 ti-sm"></i>
                                     </a>
@@ -80,14 +80,17 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item"
                                                 href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Confirmed']) }}">
+                                                <i class="ti ti-pencil me-1"></i>
                                                 Confirmed
                                             </a>
                                             <a class="dropdown-item"
                                                 href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Preparing']) }}">
+                                                <i class="ti ti-pencil me-1"></i>
                                                 Preparing
                                             </a>
                                             <a class="dropdown-item"
                                                 href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Shipping']) }}">
+                                                <i class="ti ti-pencil me-1"></i>
                                                 Shipping
                                             </a>
                                         </div>

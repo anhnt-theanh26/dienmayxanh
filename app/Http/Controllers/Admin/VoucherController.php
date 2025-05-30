@@ -14,7 +14,7 @@ class VoucherController extends Controller
 {
     public function index()
     {
-        $vouchers = Voucher::orderBy('id', 'desc')->get();
+        $vouchers = Voucher::orderBy('id', 'desc')->paginate(10);
         return view('admin.page.voucher.index', compact('vouchers'));
     }
 
@@ -174,17 +174,21 @@ class VoucherController extends Controller
     {
         $status = $request->status;
         if ($status == 'index') {
-            $results = Voucher::where('promo_code', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Voucher::where('promo_code', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Voucher::orderBy('id', 'desc')->get();
-            }
-        }
-        if ($status == 'delete') {
-            $results = Voucher::onlyTrashed()->where('promo_code', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
-            if ($keyword == ' ') {
-                $results = Voucher::onlyTrashed()->orderBy('id', 'desc')->get();
+                $results = Voucher::orderBy('id', 'desc')->paginate(10);
             }
         }
         return view('admin.page.voucher.search', compact('results', 'status'));
+    }
+
+    public static function getUser(string $id)
+    {
+        return User::where('id', $id)->first();
+    }
+
+    public static function getProduct(string $id)
+    {
+        return Product::where('id', $id)->first();
     }
 }

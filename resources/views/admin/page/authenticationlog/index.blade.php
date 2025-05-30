@@ -83,5 +83,9 @@
 @endsection
 
 @section('js')
+    <script>
+        let tableName = 'authenticationlog';
+        let status = 'index';
+    </script>
     @include('admin.elements.js')
 @endsection

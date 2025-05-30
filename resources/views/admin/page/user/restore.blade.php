@@ -32,8 +32,7 @@
                 <input type="search" class="form-control" name="search" placeholder="Search...">
             </label>
             <div class="">
-                <a class="btn btn-success" href="{{ route('admin.post.create') }}"
-                    class="text-muted float-end">Create</a>
+                <a class="btn btn-success" href="{{ route('admin.post.create') }}" class="text-muted float-end">Create</a>
             </div>
         </div>
         <div class="card-datatable">
@@ -56,7 +55,8 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($item->name, 30) }}</td>
                             <td>
-                                <img src="{{ asset($item->image) }}" alt="" width="50px" id="img" class="py-1">
+                                <img src="{{ asset($item->image) }}" alt="" width="50px" id="img"
+                                    class="py-1">
                             </td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->address }}</td>
@@ -76,19 +76,23 @@
                                                 <i class="ti ti-repeat me-1"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.user.destroy', ['id' => $item->id]) }}" method="post">
+                                        <form action="{{ route('admin.user.destroy', ['id' => $item->id]) }}"
+                                            method="post">
                                             @csrf
                                             @method('delete')
-                                            <button onclick="return confirm('Hanh dong nay se xoa vinh vien user?')" class="dropdown-item"><i
-                                                    class="ti ti-trash me-1"></i>
+                                            <button onclick="return confirm('Hanh dong nay se xoa vinh vien user?')"
+                                                class="dropdown-item"><i class="ti ti-trash me-1"></i>
                                                 Delete</button>
                                         </form>
                                     </div>
                                 </div>
                             </td>
-                            
+
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $users->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -108,9 +112,9 @@
 @endsection
 
 @section('js')
-<script>
-    let tableName = 'user';
-    let status = 'delete';
-</script>
-@include('admin.elements.js')
+    <script>
+        let tableName = 'user';
+        let status = 'delete';
+    </script>
+    @include('admin.elements.js')
 @endsection

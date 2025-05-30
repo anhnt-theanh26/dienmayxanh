@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> List</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> Yêu cầu hủy đơn hàng</h4>
     <div class="card-body">
 
         @if (session('success'))
@@ -70,7 +70,7 @@
                             <td>{{ $item->reason_cancel }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
+                                    <a href="{{ route('admin.bill.show', ['id' => $item->id]) }}" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
                                         aria-label="Show" data-bs-original-title="Show">
                                         <i class="ti ti-eye mx-2 ti-sm"></i>
                                     </a>
@@ -81,12 +81,12 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item"
-                                                href="{{ route('admin.bill.accept-cancel', ['id' => $item->id]) }}">
+                                                href="{{ route('admin.bill.reply-cancel', ['id' => $item->id, 'status' => 'accepted']) }}">
                                                 <i class="ti ti-pencil me-1"></i> Accept
                                             </a>
                                             <a class="dropdown-item"
-                                                href="{{ route('admin.bill.rejected-cancel', ['id' => $item->id]) }}">
-                                                <i class="ti ti-pencil me-1"></i> Rejected
+                                                href="{{ route('admin.bill.reply-cancel', ['id' => $item->id, 'status' => 'rejected']) }}">
+                                                <i class="ti ti-pencil me-1"></i> Refuse
                                             </a>
                                         </div>
                                     </div>

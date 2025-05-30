@@ -11,14 +11,28 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticationlogController extends Controller
 {
-    // //
-    public function index(){
+    public function index()
+    {
         $authenticationlogs = Authentication_log::orderByDesc('id')->paginate(10);
-        return view("admin.page.authenticationlog.index",compact("authenticationlogs"));
+        return view("admin.page.authenticationlog.index", compact("authenticationlogs"));
     }
-
-    // public function getUser(string $id){
-    //     $user = User::find($id);
-    //     return $user;
-    // }
+    public function search(Request $request, string $keyword)
+    {
+        $status = $request->status;
+        if ($status == 'index') {
+            $results = Authentication_log::join('users', 'users.id', '=', 'authentication_log.authenticatable_id')
+                ->where(function ($query) use ($keyword) {
+                    $query->where('users.name', 'like', "%$keyword%")
+                        ->orWhere('users.email', 'like', "%$keyword%")
+                        ->orWhere('users.phone', 'like', "%$keyword%");
+                })
+                ->orderByDesc('id')
+                ->select('authentication_log.*')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Authentication_log::orderByDesc('id')->paginate(10);
+            }
+        }
+        return view('admin.page.authenticationlog.search', compact('results', 'status'));
+    }
 }

@@ -4,9 +4,6 @@
 
 @section('css')
     @include('admin.elements.css')
-    <link rel="stylesheet"
-        href="{{ asset('/administrator/assets/vendor/libs/formvalidation/dist/css/formValidation.min.css') }}" />
-
 @endsection
 
 @section('content')
@@ -58,7 +55,8 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>
-                                <img src="{{ $user->image }}" alt="" width="50px" id="img" class="py-1">
+                                <img src="{{ asset($user->image) }}" alt="" width="50px" id="img"
+                                    class="py-1">
                             </td>
                             <td>{{ $user->email }}</td>
                             <td>
@@ -120,6 +118,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $users->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -136,21 +137,12 @@
             </table>
         </div>
     </div>
-    {{-- <pre>
-        @foreach ($users as $user)
-      
-            {{$role = \App\Http\Controllers\Admin\PermissionController::getRole($user->id)}}
-@endforeach
-    </pre> --}}
 @endsection
 
 @section('js')
     @include('admin.elements.js')
-    <script src="{{ asset('/administrator/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js') }}">
+    <script>
+        let tableName = 'permission';
+        let status = 'index';
     </script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}">
-    </script>
-    <script src="{{ asset('/administrator/assets/js/app-access-roles.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/js/modal-add-role.js') }}"></script>
 @endsection

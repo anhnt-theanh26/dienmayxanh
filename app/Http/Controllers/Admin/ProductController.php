@@ -19,7 +19,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->get();
+        $products = Product::orderBy('id', 'desc')->paginate(10);
         return view('admin.page.product.index', compact('products'));
     }
 
@@ -379,7 +379,7 @@ class ProductController extends Controller
     public function deleted()
     {
         try {
-            $products = Product::onlyTrashed()->orderBy('id', 'desc')->get();
+            $products = Product::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
             return view('admin.page.product.restore', compact('products'));
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
@@ -408,15 +408,15 @@ class ProductController extends Controller
     {
         $status = $request->status;
         if ($status == 'index') {
-            $results = Product::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Product::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Product::orderBy('id', 'desc')->get();
+                $results = Product::orderBy('id', 'desc')->paginate(10);
             }
         }
         if ($status == 'delete') {
-            $results = Product::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = Product::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = Product::onlyTrashed()->orderBy('id', 'desc')->get();
+                $results = Product::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
             }
         }
         return view('admin.page.product.search', compact('results', 'status'));

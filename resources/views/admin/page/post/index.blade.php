@@ -32,8 +32,7 @@
                 <input type="search" class="form-control" name="search" placeholder="Search...">
             </label>
             <div class="">
-                <a class="btn btn-success" href="{{ route('admin.post.create') }}"
-                    class="text-muted float-end">Create</a>
+                <a class="btn btn-success" href="{{ route('admin.post.create') }}" class="text-muted float-end">Create</a>
             </div>
         </div>
         <div class="card-datatable">
@@ -92,6 +91,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $posts->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>

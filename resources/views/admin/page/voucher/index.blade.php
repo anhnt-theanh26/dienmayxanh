@@ -82,7 +82,12 @@
                                 @endphp
                                 @if ($users !== null)
                                     @foreach ($users as $user)
-                                        <p>{{ $user }}</p>
+                                        @php
+                                            $getUser = \App\Http\Controllers\Admin\VoucherController::getUser($user);
+                                        @endphp
+                                        @if ($getUser)
+                                            <p>{{ $getUser->name ?? $user }}</p>
+                                        @endif
                                     @endforeach
                                 @endif
                             </td>
@@ -97,8 +102,15 @@
                                     }
                                 @endphp
                                 @if ($products !== null)
-                                    @foreach ($products as $user)
-                                        <p>{{ $user }}</p>
+                                    @foreach ($products as $product)
+                                        @php
+                                            $getProduct = \App\Http\Controllers\Admin\VoucherController::getProduct(
+                                                $product,
+                                            );
+                                        @endphp
+                                        @if ($getProduct)
+                                            <p>{{ $getProduct->name ?? $product }}</p>
+                                        @endif
                                     @endforeach
                                 @endif
                             </td>
@@ -126,6 +138,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $vouchers->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -136,6 +151,8 @@
                         <th>Status</th>
                         <th>Max discount</th>
                         <th>Use</th>
+                        <th>Users</th>
+                        <th>Products</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

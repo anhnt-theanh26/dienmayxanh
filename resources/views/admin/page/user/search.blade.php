@@ -1,14 +1,14 @@
 @foreach ($results as $item)
     <tr>
         <td>{{ $item->id }}</td>
-                            <td>{{ \Illuminate\Support\Str::limit($item->name, 30) }}</td>
-                            <td>
-                                <img src="{{ asset($item->image) }}" alt="" width="50px" id="img" class="py-1">
-                            </td>
-                            <td>{{ $item->email }}</td>
-                            <td>{{ $item->address }}</td>
-                            <td>{{ $item->phone }}</td>
-                            <td>{{ $item->birthday }}</td>
+        <td>{{ \Illuminate\Support\Str::limit($item->name, 30) }}</td>
+        <td>
+            <img src="{{ asset($item->image) }}" alt="" width="50px" id="img" class="py-1">
+        </td>
+        <td>{{ $item->email }}</td>
+        <td>{{ $item->address }}</td>
+        <td>{{ $item->phone }}</td>
+        <td>{{ $item->birthday }}</td>
         <td>
             <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -46,3 +46,6 @@
         </td>
     </tr>
 @endforeach
+<div class="px-4">
+    {{ $results->links('pagination::bootstrap-5') }}
+</div>

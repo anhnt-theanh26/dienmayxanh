@@ -13,7 +13,7 @@ class CategoryParentController extends Controller
 {
     public function index()
     {
-        $categoryParents = CategoryParent::orderBy('id', 'desc')->get();
+        $categoryParents = CategoryParent::orderBy('id', 'desc')->paginate(10);
         return view("admin/page/category-parent/index", compact("categoryParents"));
     }
 
@@ -128,7 +128,7 @@ class CategoryParentController extends Controller
 
     public function deleted()
     {
-        $categoryParents = CategoryParent::onlyTrashed()->orderBy('id', 'desc')->paginate(5);
+        $categoryParents = CategoryParent::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
         return view("admin/page/category-parent/restore", compact("categoryParents"));
     }
 
@@ -167,15 +167,15 @@ class CategoryParentController extends Controller
     {
         $status = $request->status;
         if ($status == 'index') {
-            $results = CategoryParent::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = CategoryParent::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = CategoryParent::orderBy('id', 'desc')->get();
+                $results = CategoryParent::orderBy('id', 'desc')->paginate(10);
             }
         }
         if ($status == 'delete') {
-            $results = CategoryParent::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->get();
+            $results = CategoryParent::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
             if ($keyword == ' ') {
-                $results = CategoryParent::onlyTrashed()->orderBy('id', 'desc')->get();
+                $results = CategoryParent::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
             }
         }
         return view('admin.page.category-parent.search', compact('results', 'status'));
