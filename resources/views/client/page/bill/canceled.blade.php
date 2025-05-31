@@ -1,6 +1,6 @@
 @php
     $canceled = $bills->filter(function ($bill) {
-        if ($bill->status == 'Cancelled') {
+        if ($bill->status == 'Cancelled' || $bill->status == 'Returned') {
             return $bill;
         }
     });
@@ -13,7 +13,7 @@
                     <a href="{{ isset($billItem->product->slug) ? route('product-detail', ['slug' => $billItem->product->slug]) : '#' }}"
                         class="text-decoration-none text-black">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex">
+                            <div class="d-flex" style="width: 80%;">
                                 <img class="object-fit-contain"
                                     src="{{ $billItem->image ? asset($billItem->image) : asset('./storage/default.jpg') }}"
                                     width="80" alt="">

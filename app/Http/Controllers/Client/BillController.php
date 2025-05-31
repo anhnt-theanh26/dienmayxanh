@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\BillItem;
+use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Voucher;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -157,6 +158,7 @@ class BillController extends Controller
                 $dataOrderItem[] = [
                     'bill_id' => $bill->id,
                     'product_id' => $item->options->product->id,
+                    'product_variant_id' => $item->id,
                     'name' => $item->name,
                     'image' => $item->options->image,
                     'variant' => $item->options->variant,
@@ -167,6 +169,14 @@ class BillController extends Controller
             }
             foreach ($dataOrderItem as $value) {
                 BillItem::create($value);
+                $variant = ProductVariant::where('id', $value['product_variant_id'])->first();
+                $product = Product::where('id', $value['product_id'])->first();
+                $variant->update([
+                    'stock_quantity' => $variant->stock_quantity - $value['quantity'],
+                ]);
+                $product->update([
+                    'sold' => $product->sold + $value['quantity'],
+                ]);
             }
             DB::commit();
             Cart::destroy();

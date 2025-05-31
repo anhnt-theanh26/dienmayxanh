@@ -56,16 +56,6 @@
                                     @endif
                                 </div>
                                 <div class="mb-2 pt-1">
-                                    <span>Order Status:</span>
-                                    <span class="fw-semibold">{{ $bill->status }}</span>
-                                </div>
-                                @if ($bill->status == 'Cancelled')
-                                    <div class="mb-2 pt-1">
-                                        <span>Reason Cancel:</span>
-                                        <span class="fw-semibold">{{ $bill->reason_cancel }}</span>
-                                    </div>
-                                @endif
-                                <div class="mb-2 pt-1">
                                     <span>Payment Status:</span>
                                     @if ($bill->payment_status == 'Paid')
                                         <span class="fw-semibold badge bg-label-success">Đã thanh toán</span>
@@ -75,6 +65,16 @@
                                         <span class="fw-semibold badge bg-label-primary">Chưa thanh toán</span>
                                     @endif
                                 </div>
+                                <div class="mb-2 pt-1">
+                                    <span>Order Status:</span>
+                                    <span class="fw-semibold">{{ $bill->status }}</span>
+                                </div>
+                                @if ($bill->reason_cancel)
+                                    <div class="mb-2 pt-1">
+                                        <span>Reason Cancel:</span>
+                                        <span class="fw-semibold">{{ $bill->reason_cancel }}</span>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -139,13 +139,17 @@
                                     <td colspan="3" class="align-top px-4 py-4">
                                     </td>
                                     <td class="text-end pe-3 py-4">
-                                        <p class="mb-2">Discount:</p>
+                                        @if ($bill->discount > 0)
+                                            <p class="mb-2">Discount:</p>
+                                        @endif
                                         <p class="mb-0 pb-3">Total:</p>
                                     </td>
                                     <td class="ps-2 py-4">
-                                        <p class="fw-semibold mb-2">
-                                            {{ number_format($bill->disscount, 0, '.', '.') ?? 0 }} VNĐ
-                                        </p>
+                                        @if ($bill->discount > 0)
+                                            <p class="fw-semibold mb-2">
+                                                {{ number_format($bill->disscount, 0, '.', '.') ?? 0 }} VNĐ
+                                            </p>
+                                        @endif
                                         <p class="fw-semibold mb-0 pb-3">
                                             {{ number_format($bill->total_amount, 0, '.', '.') }} VNĐ
                                         </p>

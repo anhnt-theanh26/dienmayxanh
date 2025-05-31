@@ -12,6 +12,7 @@ class BillItem extends Model
     protected $fillable = [
         'bill_id',
         'product_id',
+        'product_variant_id',
         'name',
         'image',
         'variant',
@@ -28,5 +29,10 @@ class BillItem extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function variant()
+    {
+        return $this->belongsTo(ProductVariant::class);
     }
 }

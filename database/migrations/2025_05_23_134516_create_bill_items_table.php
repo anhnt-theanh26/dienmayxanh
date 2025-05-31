@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('bill_id')->nullable()->references('id')->on('bills')->onDelete('set null');
             $table->unsignedBigInteger('product_id')->nullable()->references('id')->on('products')->onDelete('set null');
+            $table->unsignedBigInteger('product_variant_id')->nullable()->references('id')->on('product_variants')->onDelete('set null');
             $table->string('name')->nullable();
             $table->string('image')->nullable();
             $table->string('variant')->nullable();

@@ -1,13 +1,13 @@
 @extends('layout.admin')
 
-@section('title', 'Yêu cầu hủy đơn hàng')
+@section('title', 'Đơn hàng bị hoàn về')
 
 @section('css')
     @include('admin.elements.css')
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> Yêu cầu hủy đơn hàng</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bill /</span> Đơn hàng bị hoàn về(bị bom)</h4>
     <div class="card-body">
 
         @if (session('success'))
@@ -74,22 +74,6 @@
                                         aria-label="Show" data-bs-original-title="Show">
                                         <i class="ti ti-eye mx-2 ti-sm"></i>
                                     </a>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="ti ti-dots-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item"
-                                                href="{{ route('admin.bill.reply-cancel', ['id' => $item->id, 'status' => 'accepted']) }}">
-                                                <i class="ti ti-pencil me-1"></i> Accept
-                                            </a>
-                                            <a class="dropdown-item"
-                                                href="{{ route('admin.bill.reply-cancel', ['id' => $item->id, 'status' => 'rejected']) }}">
-                                                <i class="ti ti-pencil me-1"></i> Refuse
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
                             </td>
                         </tr>

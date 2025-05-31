@@ -218,6 +218,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/refund', [BillController::class, 'refund'])->name('refund');
         Route::get('/delivered', [BillController::class, 'delivered'])->name('delivered');
         Route::get('/cancelled', [BillController::class, 'cancelled'])->name('cancelled');
+        Route::get('/return', [BillController::class, 'return'])->name('return');
         Route::get('/status', [BillController::class, 'status'])->name('status');
         Route::get('/reply-cancel', [BillController::class, 'replyCancel'])->name('reply-cancel');
         Route::get('/reply-refund', [BillController::class, 'replyRefund'])->name('reply-refund');

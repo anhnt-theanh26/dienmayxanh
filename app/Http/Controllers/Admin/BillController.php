@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
+use App\Models\BillItem;
+use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -18,8 +21,7 @@ class BillController extends Controller
     // yêu cầu hủy hàng
     public function requestCancellation()
     {
-        $bills = Bill::
-            orderBy('id', 'desc')
+        $bills = Bill::orderBy('id', 'desc')
             ->where('status', '!=', 'Cancelled')
             ->where('status_cancel', 'requested')
             ->where('status_cancel', 'requested')
@@ -87,6 +89,12 @@ class BillController extends Controller
         return view('admin.page.bill.cancelled', compact('bills'));
     }
 
+    public function return()
+    {
+        $bills = Bill::orderBy('id', 'desc')->where('status', 'Returned')->get();
+        return view('admin.page.bill.return', compact('bills'));
+    }
+    
     public function status(Request $request)
     {
         try {
@@ -182,6 +190,23 @@ class BillController extends Controller
                         'status' => 'Cancelled',
                         'status_cancel' => 'accepted',
                     ]);
+                    $billItems = BillItem::where('bill_id', $bill->id)->get();
+                    foreach ($billItems as $billItem) {
+                        if ($billItem->product_id != null) {
+                            $product = Product::where('id', $billItem->product_id)->first();
+                            if ($product) {
+                                $product->sold -= $billItem->quantity;
+                                $product->save();
+                            }
+                        }
+                        if ($billItem->product_variant_id != null) {
+                            $product_variant = ProductVariant::where('id', $billItem->product_variant_id)->first();
+                            if ($product_variant) {
+                                $product_variant->stock_quantity += $billItem->quantity;
+                                $product_variant->save();
+                            }
+                        }
+                    }
                     Alert::success('Thành công', 'Đã chấp nhận hủy đơn hàng!');
                     return redirect()->back()->with('success', 'Đã chấp nhận hủy đơn hàng!');
                 }

@@ -240,14 +240,19 @@
                         <div data-i18n="Shipping">Shipping</div>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->routeIs('admin.bill.delivered') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.delivered') }}" class="menu-link">
+                        <div data-i18n="Delivered">Delivered</div>
+                    </a>
+                </li>
                 <li class="menu-item {{ request()->routeIs('admin.bill.refund') ? 'active' : '' }}">
                     <a href="{{ route('admin.bill.refund') }}" class="menu-link">
                         <div data-i18n="Refund">Refund</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->routeIs('admin.bill.delivered') ? 'active' : '' }}">
-                    <a href="{{ route('admin.bill.delivered') }}" class="menu-link">
-                        <div data-i18n="Delivered">Delivered</div>
+                <li class="menu-item {{ request()->routeIs('admin.bill.return') ? 'active' : '' }}">
+                    <a href="{{ route('admin.bill.return') }}" class="menu-link">
+                        <div data-i18n="Return">Return</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.bill.cancelled') ? 'active' : '' }}">

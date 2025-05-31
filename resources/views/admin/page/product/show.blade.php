@@ -36,6 +36,7 @@
                             </div>
                             <p class="mb-2">Name: {{ $product->name }}</p>
                             <p class="mb-2">Slug: {{ $product->slug }}</p>
+                            <p class="mb-2">Sold: {{ $product->sold }}</p>
                             <p class="mb-2">Category: {{ $product->category->name }}</p>
                             <p class="mb-2">Hot:
                                 <span class="badge {{ $product->is_hot ? 'bg-success' : 'bg-secondary' }}">
