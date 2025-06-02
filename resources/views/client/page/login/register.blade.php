@@ -2,6 +2,9 @@
 
 @section('title', 'Đăng ký')
 
+@section('css')
+@endsection
+
 @section('content')
     <section>
         <div class="container p-5">
@@ -79,6 +82,10 @@
             </div>
         </div>
     </section>
+@endsection
+
+
+@section('js')
     <script>
         // 1 ảnh
         var image = document.querySelector('#image');

@@ -2,6 +2,9 @@
 
 @section('title', 'Chi tiết sản phẩm')
 
+@section('css')
+@endsection
+
 @section('content')
     @if (!empty($product) && $product !== null)
         @include('client.page.product-detail.product-name')
@@ -17,4 +20,7 @@
 
         @include('client.page.product-detail.buy-together')
     @endif
+@endsection
+
+@section('js')
 @endsection

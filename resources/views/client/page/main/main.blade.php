@@ -2,6 +2,9 @@
 
 @section('title', 'Trang chủ')
 
+@section('css')
+@endsection
+
 @section('content')
     <!-- slide 1 -->
     @include('client.page.main.slide-1')
@@ -43,4 +46,7 @@
     <!-- mọi người cũng tìm kiếm -->
     @include('client.page.main.everyone-searche')
     <!-- hết mọi người cũng tìm kiếm -->
+@endsection
+
+@section('js')
 @endsection

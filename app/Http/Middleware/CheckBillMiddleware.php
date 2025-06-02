@@ -22,11 +22,28 @@ class CheckBillMiddleware
         $bills = Bill::get();
         if ($bills) {
             foreach ($bills as $bill) {
-                if ($bill->payment_status == 'Payment Failed' && $bill->expiry_time <= now()) {
+                if ($bill->payment_status == 'Payment Failed' && now() > $bill->expiry_time && $bill->status == 'Pending') {
                     $bill->update([
                         'status' => 'Cancelled',
                         'reason_cancel' => 'Hết thời gian thanh toán online!',
                     ]);
+                    $billItems = BillItem::where('bill_id', $bill->id)->get();
+                    foreach ($billItems as $billItem) {
+                        if ($billItem->product_id != null) {
+                            $product = Product::where('id', $billItem->product_id)->first();
+                            if ($product) {
+                                $product->sold -= $billItem->quantity;
+                                $product->save();
+                            }
+                        }
+                        if ($billItem->product_variant_id != null) {
+                            $product_variant = ProductVariant::where('id', $billItem->product_variant_id)->first();
+                            if ($product_variant) {
+                                $product_variant->stock_quantity += $billItem->quantity;
+                                $product_variant->save();
+                            }
+                        }
+                    }
                 }
                 if ($bill->status == 'Shipping') {
                     $after5day = \Carbon\Carbon::parse($bill->updated_at)->addDays(5);

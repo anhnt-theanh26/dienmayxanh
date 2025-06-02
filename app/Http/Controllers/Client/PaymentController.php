@@ -26,7 +26,7 @@ class PaymentController extends Controller
         $vnp_OrderInfo = "Thanh toán đơn hàng #{$code_cart}";
         $vnp_OrderType = "billpayment";
         $vnp_Amount = $bill->total_amount * 100;
-        $vnp_Locale = "VN";
+        $vnp_Locale = "vn";
         // $vnp_BankCode = "NCB";
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         $startTime = date("YmdHis");

@@ -331,6 +331,5 @@
                 alertify.error('Thêm vào giỏ hàng thất bại!');
                 console.error("Error adding to cart:", textStatus, errorThrown);
             });
-
     }
 </script>

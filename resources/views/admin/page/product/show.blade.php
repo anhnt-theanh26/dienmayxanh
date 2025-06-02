@@ -69,7 +69,7 @@
                         <h6 class="mb-3 m-0 p-0">Attribute Value</h6>
 
                         <div class="col-xl-6 col-md-12 col-sm-5 col-12 mb-xl-0 mb-md-4 mb-sm-0 mb-4">
-                            <h6 class="mb-3">Invoice To:</h6>
+                            <h6 class="mb-3">Attribute:</h6>
                             @foreach ($product->attributeValues as $item)
                                 <p class="mb-1">{{ $item->attribute->name }}:</p>
                             @endforeach

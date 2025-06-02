@@ -2,6 +2,9 @@
 
 @section('title', 'Đăng nhập')
 
+@section('css')
+@endsection
+
 @section('content')
     <section>
         <div class="container p-5">
@@ -40,4 +43,7 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
 @endsection

@@ -20,7 +20,8 @@
     </div>
     <div class="d-grid gap-2">
         <a href="{{ route('profile.index') }}" class="text-decoration-none">
-            <button class="btn text-start text-black {{ Request::is('profile') ? 'active' : '' }}" style="width: 100%;" type="button">
+            <button class="btn text-start text-black {{ Request::is('profile') ? 'active' : '' }}" style="width: 100%;"
+                type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-person" viewBox="0 0 16 16">
                     <path
@@ -30,7 +31,8 @@
             </button>
         </a>
         <a href="{{ route('bill.index') }}" class="text-decoration-none">
-            <button class="btn text-start text-black {{ Request::is('bill') ? 'active' : '' }}" style="width: 100%;" type="button">
+            <button class="btn text-start text-black {{ Request::is('bill') ? 'active' : '' }}" style="width: 100%;"
+                type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
                     <path

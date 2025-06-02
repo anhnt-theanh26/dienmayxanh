@@ -3,6 +3,7 @@
 
 <head>
     @include('client.element.head')
+    @yield('css')
 </head>
 
 <body class="bg-light">

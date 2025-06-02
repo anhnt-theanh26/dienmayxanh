@@ -360,8 +360,11 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [ClientHomeController::class, 'index'])->name('index');
     Route::get('/home', [ClientHomeController::class, 'index'])->name('home');
-    Route::post('/search', [ClientSearchController::class, 'store'])->name('search');
     Route::get('{slug}/defail-product', [ClientProductDetailController::class, 'show'])->name('product-detail');
+    Route::prefix('search')->as('search.')->group(function () {
+        Route::get('/', [ClientSearchController::class, 'index'])->name('index');
+        Route::get('/filter', [ClientSearchController::class, 'filter'])->name('filter');
+    });
 
     // login
     Route::prefix('login')->as('login.')->group(function () {

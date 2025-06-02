@@ -1,5 +1,8 @@
 @extends('layout.client')
 
+@section('css')
+@endsection
+
 @section('content')
     <section>
         <div class="container" style="flex-shrink: 0; min-width: 1200px;">
@@ -13,7 +16,7 @@
         // 1 ảnh
         var image = document.querySelector('#image');
         var img = document.querySelector('#img');
-        if(image && img){
+        if (image && img) {
             image.addEventListener('change', function(e) {
                 e.preventDefault();
                 img.src = URL.createObjectURL(this.files[0]);

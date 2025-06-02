@@ -129,22 +129,22 @@
                     @endif
                 </li>
                 <li>
-                    <form action="{{ route('search') }}" class="d-flex" role="search" method="post">
+                    <form action="{{ route('search.index') }}" class="d-flex" role="search" method="get">
                         @csrf
-                        <input name="search" class="form-control me-2 rounded-pill input-search typeahead"
+                        <input name="keyword" class="form-control me-2 rounded-pill input-search typeahead"
                             type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search"
-                            autocomplete="off">
+                            autocomplete="off" required>
                     </form>
                     <div class="preview-show-search position-absolute bg-white rounded shadow mt-1"
-                        style="z-index: 1000; display: none; max-width: 400px; width: 400px; max-height: 400px; overflow: auto;">
+                        style="z-index: 1000; display: none; max-width: 500px; width: 500px; max-height: 400px; overflow: auto;">
                     </div>
                 </li>
 
                 @if (Auth::check())
                     <li>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-outline-light dropdown-toggle"
-                                style="border: none" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-light dropdown-toggle" style="border: none"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                     <path
@@ -174,8 +174,8 @@
                 @else
                     <a href="{{ route('login.form') }}">
                         <button type="button" class="btn btn-outline-light" style="border: none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person" viewBox="0 0 16 16">
                                 <path
                                     d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                             </svg>
@@ -187,8 +187,8 @@
                     style="border: none;">
                     <div style="position: relative; display: inline-block;">
                         <!-- SVG icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-cart" viewBox="0 0 16 16">
                             <path
                                 d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                         </svg>
@@ -202,8 +202,8 @@
                 <li>
                     <button class="btn border text-white rounded-pill" data-bs-target="#changeAddress"
                         data-bs-toggle="modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-geo-alt" viewBox="0 0 16 16">
                             <path
                                 d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
@@ -295,120 +295,20 @@
 
 <script>
     $(document).ready(function() {
-        const sampleData = [
-            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
-            'iPhone 1iPhoneiPhone 15  15 5 Pro',
-            'iPhone iPhone iPhone 15 15 15 Pro',
-            'iPhone 1iPiPhone 15 hone 15 5 Pro',
-            'iPhone 15iPhone 15 iPhone 15  Pro',
-            'iPhone 1iPhone 15 5 Pro',
-            'iPhoneiPhone 15  15 Pro',
-            'iPhoniPhone 15 e 15 Pro',
-            'iPhone 15 PiPhone 15 ro',
-            'iPhone 15 iPhone 15 Pro',
-            'Samsung Galaxy S23',
-            'Xiaomi Redmi Note 13',
-            'MacBook Air M2',
-            'Apple Watch Series 9',
-            'AirPods Pro',
-            'Dell XPS 13',
-            'Sony WH-1000XM5',
-            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
-            'iPhone 1iPhoneiPhone 15  15 5 Pro',
-            'iPhone iPhone iPhone 15 15 15 Pro',
-            'iPhone 1iPiPhone 15 hone 15 5 Pro',
-            'iPhone 15iPhone 15 iPhone 15  Pro',
-            'iPhone 1iPhone 15 5 Pro',
-            'iPhoneiPhone 15  15 Pro',
-            'iPhoniPhone 15 e 15 Pro',
-            'iPhone 15 PiPhone 15 ro',
-            'iPhone 15 iPhone 15 Pro',
-            'Samsung Galaxy S23',
-            'Xiaomi Redmi Note 13',
-            'MacBook Air M2',
-            'Apple Watch Series 9',
-            'AirPods Pro',
-            'Dell XPS 13',
-            'Sony WH-1000XM5',
-            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
-            'iPhone 1iPhoneiPhone 15  15 5 Pro',
-            'iPhone iPhone iPhone 15 15 15 Pro',
-            'iPhone 1iPiPhone 15 hone 15 5 Pro',
-            'iPhone 15iPhone 15 iPhone 15  Pro',
-            'iPhone 1iPhone 15 5 Pro',
-            'iPhoneiPhone 15  15 Pro',
-            'iPhoniPhone 15 e 15 Pro',
-            'iPhone 15 PiPhone 15 ro',
-            'iPhone 15 iPhone 15 Pro',
-            'Samsung Galaxy S23',
-            'Xiaomi Redmi Note 13',
-            'MacBook Air M2',
-            'Apple Watch Series 9',
-            'AirPods Pro',
-            'Dell XPS 13',
-            'Sony WH-1000XM5', 'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
-            'iPhone 1iPhoneiPhone 15  15 5 Pro',
-            'iPhone iPhone iPhone 15 15 15 Pro',
-            'iPhone 1iPiPhone 15 hone 15 5 Pro',
-            'iPhone 15iPhone 15 iPhone 15  Pro',
-            'iPhone 1iPhone 15 5 Pro',
-            'iPhoneiPhone 15  15 Pro',
-            'iPhoniPhone 15 e 15 Pro',
-            'iPhone 15 PiPhone 15 ro',
-            'iPhone 15 iPhone 15 Pro',
-            'Samsung Galaxy S23',
-            'Xiaomi Redmi Note 13',
-            'MacBook Air M2',
-            'Apple Watch Series 9',
-            'AirPods Pro',
-            'Dell XPS 13',
-            'Sony WH-1000XM5',
-            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
-            'iPhone 1iPhoneiPhone 15  15 5 Pro',
-            'iPhone iPhone iPhone 15 15 15 Pro',
-            'iPhone 1iPiPhone 15 hone 15 5 Pro',
-            'iPhone 15iPhone 15 iPhone 15  Pro',
-            'iPhone 1iPhone 15 5 Pro',
-            'iPhoneiPhone 15  15 Pro',
-            'iPhoniPhone 15 e 15 Pro',
-            'iPhone 15 PiPhone 15 ro',
-            'iPhone 15 iPhone 15 Pro',
-            'Samsung Galaxy S23',
-            'Xiaomi Redmi Note 13',
-            'MacBook Air M2',
-            'Apple Watch Series 9',
-            'AirPods Pro',
-            'Dell XPS 13',
-            'Sony WH-1000XM5',
-            'iPhone 15 iPhone 15 iPhone 15 iPhone 15 iPhone 15 Pro',
-            'iPhone 1iPhoneiPhone 15  15 5 Pro',
-            'iPhone iPhone iPhone 15 15 15 Pro',
-            'iPhone 1iPiPhone 15 hone 15 5 Pro',
-            'iPhone 15iPhone 15 iPhone 15  Pro',
-            'iPhone 1iPhone 15 5 Pro',
-            'iPhoneiPhone 15  15 Pro',
-            'iPhoniPhone 15 e 15 Pro',
-            'iPhone 15 PiPhone 15 ro',
-            'iPhone 15 iPhone 15 Pro',
-            'Samsung Galaxy S23',
-            'Xiaomi Redmi Note 13',
-            'MacBook Air M2',
-            'Apple Watch Series 9',
-            'AirPods Pro',
-            'Dell XPS 13',
-            'Sony WH-1000XM5',
-        ];
-
+        const sampleData = {!! json_encode($productsSearch->toArray()) !!};
         const searchInput = $('#search');
         const resultBox = $('.preview-show-search');
         let currentFocus = -1;
+        let debounceTimer;
 
         function renderSuggestions(filteredData) {
             resultBox.empty();
             filteredData.forEach(item => {
+                const itemUrl = `{{ route('product-detail', ['slug' => ':slug']) }}`.replace(':slug',
+                    item.slug);
                 resultBox.append(`
-                    <div class="p-1 search-item border-bottom text-truncate" style="cursor: pointer;">
-                        <a href="#" class="d-block text-decoration-none text-black">${item}</a>
+                    <div class="p-1 search-item border-bottom text-truncate" style="cursor: pointer; overflow: hidden;">
+                        <a href="${itemUrl}" class="d-block text-decoration-none text-black">${item.name}</a>
                     </div>
                 `);
             });
@@ -428,50 +328,24 @@
             }
         }
 
+        // Handle input with debounce
         searchInput.on('input', function() {
-            const query = $(this).val().toLowerCase();
-            currentFocus = -1;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const query = $(this).val().toLowerCase();
+                currentFocus = -1;
 
-            if (query.length > 1) {
-                const matches = sampleData.filter(item =>
-                    item.toLowerCase().includes(query)
-                );
-                if (matches.length > 0) {
-                    renderSuggestions(matches);
+                if (query.length > 1) {
+                    const matches = sampleData.filter(item =>
+                        item.name.toLowerCase().includes(query)
+                    );
+                    matches.length ? renderSuggestions(matches) : resultBox.hide();
                 } else {
                     resultBox.hide();
                 }
-            } else {
-                resultBox.hide();
-            }
+            }, 1); // 1ms debounce
         });
 
-        // searchInput.on('keydown', function(e) {
-        //     let items = $('.search-item');
-
-        //     if (e.keyCode === 40) {
-        //         // ↓
-        //         currentFocus++;
-        //         if (currentFocus >= items.length) currentFocus = 0;
-        //         setActive(currentFocus);
-        //         e.preventDefault();
-        //     } else if (e.keyCode === 38) {
-        //         // ↑
-        //         currentFocus--;
-        //         if (currentFocus < 0) currentFocus = items.length - 1;
-        //         setActive(currentFocus);
-        //         e.preventDefault();
-        //     } else if (e.keyCode === 13) {
-        //         // Enter
-        //         e.preventDefault();
-        //         if (currentFocus > -1 && items.length > 0) {
-        //             searchInput.val(items.eq(currentFocus).text().trim());
-        //             resultBox.hide();
-        //         } else {
-        //             $('form').submit(); // Không có gợi ý, submit form
-        //         }
-        //     }
-        // });
         searchInput.on('keydown', function(e) {
             let items = $('.search-item');
 
@@ -500,12 +374,14 @@
             }
         });
 
+        // Mouse click on a suggestion
         $(document).on('click', '.search-item', function() {
             searchInput.val($(this).text().trim());
             resultBox.hide();
-            $('form').submit()
+            searchInput.closest('form').submit();
         });
 
+        // Hide suggestions when clicking outside
         $(document).click(function(e) {
             if (!$(e.target).closest('.preview-show-search, #search').length) {
                 resultBox.hide();

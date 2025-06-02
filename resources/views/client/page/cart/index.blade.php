@@ -2,6 +2,9 @@
 
 @section('title', 'Giỏ hàng')
 
+@section('css')
+@endsection
+
 @section('content')
     <form action="{{ route('order.create') }}" method="post" class="form-order-submit">
         @csrf
@@ -61,6 +64,7 @@
     @if (session('js_errors'))
         <script>
             const errors = @json(session('js_errors'));
+
             function showErrors(index = 0) {
                 if (index >= errors.length) return;
 
