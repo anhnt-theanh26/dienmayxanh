@@ -6,10 +6,10 @@
                 <div class="m-0 p-0">
                     @foreach ($searchs as $search)
                         <span class="bg-dark-subtle rounded-3 px-2" style="margin-right: 10px;">
-                            <a class="text-decoration-none text-dark" href="#">{{ $search->search }}</a>
+                            <a class="text-decoration-none text-dark"
+                                href="{{ route('search.index', ['keyword' => $search->search]) }}">{{ $search->search }}</a>
                         </span>
                     @endforeach
-
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@
                     @if ($productmenuitemseconddatatake12 && $productmenuitemseconddatatake12->isNotEmpty())
                         @foreach ($productmenuitemseconddatatake12 as $product)
                             <div class="col-2 my-2">
-                                <a href="{{ route('product-detail', ['slug' => $product->slug]) }}"
+                                <a href="{{ route('product.show', ['slug' => $product->slug]) }}"
                                     class="text-decoration-none text-black">
                                     <div class="p-3 border rounded-2" style="min-height: 450px; max-height: 450px;">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -115,7 +115,7 @@
                             @if ($productmenuitemseconddataskip12 && $productmenuitemseconddataskip12->isNotEmpty())
                                 @foreach ($productmenuitemseconddataskip12 as $product)
                                     <div class="col-2 my-2">
-                                        <a href="{{ route('product-detail', ['slug' => $product->slug]) }}"
+                                        <a href="{{ route('product.show', ['slug' => $product->slug]) }}"
                                             class="text-decoration-none text-black">
                                             <div class="p-3 border rounded-2"
                                                 style="min-height: 450px; max-height: 450px;">

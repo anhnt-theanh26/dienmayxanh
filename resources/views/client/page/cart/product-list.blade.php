@@ -10,7 +10,7 @@
                     <div class="product-content-name d-flex justify-content-between">
                         <div class="product-content-name-left" style="max-width: 75%;">
                             <a class="text-decoration-none text-black"
-                                href="{{ route('product-detail', ['slug' => $item->options->product->slug]) }}">
+                                href="{{ route('product.show', ['slug' => $item->options->product->slug]) }}">
                                 {{ $item->name }}
                             </a>
                         </div>

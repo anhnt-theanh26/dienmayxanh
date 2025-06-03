@@ -7,7 +7,9 @@ use App\Models\Product;
 use App\Models\Search;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use function JmesPath\search;
 
 class SearchController extends Controller
 {
@@ -22,35 +24,44 @@ class SearchController extends Controller
             ]);
             $keyword = trim($request->input('keyword'));
             if (mb_strlen($keyword) < 2) {
+                Alert::warning('Thông báo', 'Từ khóa tìm kiếm quá ngắn, vui lòng nhập nhiều hơn 1 ký tự.');
                 return redirect()->back()->with('error', 'Từ khóa tìm kiếm quá ngắn, vui lòng nhập nhiều hơn 1 ký tự.');
             }
             $results = Product::when($keyword, function ($query, $keyword) {
                 return $query->where('name', 'LIKE', '%' . $keyword . '%');
             })->orderBy('id', 'desc')->get();
-            Search::create([
-                'keyword' => $keyword,
-                'user_id' => Auth::check() ? Auth::user()->id : null,
-            ]);
-            if ($results->isEmpty()) {
-                Alert::info('Không tìm thấy sản phẩm phù hợp với từ khóa: "' . $keyword . '"');
+            if ($keyword != '') {
+                $search = Search::where('search', $keyword)->first();
+                if (!$search) {
+                    Search::create([
+                        'search' => $keyword,
+                        'user_id' => Auth::check() ? Auth::user()->id : null,
+                    ]);
+                }
             }
-            return view('client.page.search.search', compact('results', 'keyword'));
-
+            $style = 'search';
+            return view('client.page.search.index', compact('results', 'keyword', 'style'));
         } catch (\Throwable $th) {
             Alert::error('Đã xảy ra lỗi:', $th->getMessage());
             return redirect()->route('index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
 
-    public function filter(Request $request)
+    public function arrange(Request $request)
     {
         $keyword = trim($request->input('keyword'));
         $type = $request->input('type');
-        $query = Product::query()
-            ->select('products.*')
-            ->when($keyword, function ($q) use ($keyword) {
-                return $q->where('products.name', 'LIKE', '%' . $keyword . '%');
-            });
+        $style = $request->input('style');
+        if ($style == 'search') {
+            $query = Product::query()
+                ->select('products.*')
+                ->when($keyword, function ($q) use ($keyword) {
+                    return $q->where('products.name', 'LIKE', '%' . $keyword . '%');
+                });
+        }
+        if ($style == 'category') {
+            $query = Product::join('categories', 'categories.id', '=', 'products.category_id')->where('categories.slug', $keyword)->select('products.*');
+        }
 
         switch ($type) {
             case 'outstanding':
@@ -92,56 +103,50 @@ class SearchController extends Controller
         }
 
         $results = $query->get();
-        // return $type;
-        return view('client.page.search.result', compact('results'));
+        return view('client.page.search.show', compact('results'));
     }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function filter(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        // 
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $keyword = trim($request->input('keyword'));
+        $type = $request->input('type');
+        $style = $request->input('style');
+        if ($style == 'category') {
+            $query = Product::join('categories', 'categories.id', '=', 'products.category_id')->where('categories.slug', $keyword)->select('products.*');
+        }
+        if ($style == 'search') {
+            $query = Product::query()->select('products.*')
+                ->with(['variants', 'attributeValues.attribute'])
+                ->when($keyword, function ($q) use ($keyword) {
+                    return $q->where('products.name', 'LIKE', '%' . $keyword . '%');
+                });
+        }
+        if ($request->filled('category')) {
+            $query->whereIn('category_id', $request->category);
+        }
+        if ($request->filled('min') || $request->filled('max')) {
+            $query->whereHas('variants', function ($q) use ($request) {
+                if ($request->filled('min')) {
+                    $q->where('price', '>=', $request->min);
+                }
+                if ($request->filled('max')) {
+                    $q->where('price', '<=', $request->max);
+                }
+            });
+        }
+        if ($request->filled('attribute')) {
+            $query->whereHas('attributeValues', function ($q) use ($request) {
+                $q->where(function ($orQ) use ($request) {
+                    foreach ($request->attribute as $attributeId => $values) {
+                        $valuesLower = array_map('strtolower', $values);
+                        $orQ->orWhere(function ($subQ) use ($attributeId, $valuesLower) {
+                            $subQ->where('attribute_id', $attributeId)
+                                ->whereIn(DB::raw('LOWER(value)'), $valuesLower);
+                        });
+                    }
+                });
+            });
+        }
+        $results = $query->get();
+        return view('client.page.search.show', compact('results'));
     }
 }

@@ -10,12 +10,15 @@
 
 @if ($bannermain1 && $bannermain1->isNotEmpty())
     <section>
-        <div class="large-12 columns container my-3 position-relative advertisement-01-hiding" style="flex-shrink: 0; min-width: 1200px;">
+        <div class="large-12 columns container my-3 position-relative advertisement-01-hiding"
+            style="flex-shrink: 0; min-width: 1200px;">
             <div class="owl-carousel advertisement-01">
                 <div class="item">
-                    <img class="rounded-2 object-fit-contain"
-                        src="{{ $bannermain1->first()->image ? asset($bannermain1->first()->image) : asset('storage/default.jpg') }}"
-                        alt="">
+                    <a href="{{ $bannermain1->first()->link ?? '' }}">
+                        <img class="rounded-2 object-fit-contain"
+                            src="{{ $bannermain1->first()->image ? asset($bannermain1->first()->image) : asset('storage/default.jpg') }}"
+                            alt="">
+                    </a>
                 </div>
             </div>
             <div class="position-absolute top-0 p-2 close-advertisement-01"

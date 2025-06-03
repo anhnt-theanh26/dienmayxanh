@@ -13,8 +13,10 @@
             <div class="owl-carousel advertisement-02">
                 @foreach ($bannermain3 as $item)
                     <div class="item">
-                        <img class="rounded-2 object-fit-fill" height="200px"
+                        <a href="{{ $item->link ?? '' }}">
+                            <img class="rounded-2 object-fit-fill" height="200px"
                             src="{{ $item->image ? asset($item->image) : asset('storage/default.jpg') }}" alt="">
+                        </a>
                     </div>
                 @endforeach
             </div>

@@ -39,17 +39,20 @@
                                     @foreach ($postmenus?->productmenuitems?->sortBy('location') as $muneitem)
                                         @foreach ($muneitem?->category?->posts as $post)
                                             <div class="item">
-                                                <div class="image">
-                                                    <img class="img-fluid rounded-3 object-fit-contain border"
-                                                        style="height: 160px"
-                                                        src="{{ $post->image ? asset($post->image) : asset('storage/default.jpg') }}"
-                                                        alt="{{ $post->name ? $post->name : 'Khong co anh' }}">
-                                                </div>
-                                                <div class="pt-1 title">
-                                                    <p>
-                                                        {{ \Illuminate\Support\Str::limit($post->title, 70) }}
-                                                    </p>
-                                                </div>
+                                                <a href="{{ route('post.show', ['slug' => $post->slug]) }}"
+                                                    class="text-decoration-none text-black">
+                                                    <div class="image">
+                                                        <img class="img-fluid rounded-3 object-fit-contain border"
+                                                            style="height: 160px"
+                                                            src="{{ $post->image ? asset($post->image) : asset('storage/default.jpg') }}"
+                                                            alt="{{ $post->name ? $post->name : 'Khong co anh' }}">
+                                                    </div>
+                                                    <div class="pt-1 title">
+                                                        <p>
+                                                            {{ \Illuminate\Support\Str::limit($post->title, 70) }}
+                                                        </p>
+                                                    </div>
+                                                </a>
                                             </div>
                                         @endforeach
                                     @endforeach

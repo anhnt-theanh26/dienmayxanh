@@ -45,4 +45,11 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof \Illuminate\Routing\Router) {
+            return view('error.client.404', ['statusCode' => 404]);
+        }
+    }
 }

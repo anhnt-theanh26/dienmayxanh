@@ -6,6 +6,7 @@ use App\Models\Bill;
 use App\Models\BillItem;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Search;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,6 +80,12 @@ class CheckBillMiddleware
                     }
                 }
             }
+        }
+        $count = Search::count();
+        if ($count > 100) {
+            Search::orderBy('created_at')
+                ->take($count - 100)
+                ->delete();
         }
         return $next($request);
     }

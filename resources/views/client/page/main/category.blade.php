@@ -34,19 +34,21 @@
                                 @foreach ($randomMenuCategoryHotItems as $category_hot)
                                     @if ($category_hot?->category?->is_hot == true)
                                         <div class="col-6 p-3">
-                                            <div class="text-center">
-                                                <div class="position-relative">
-                                                    <img class="rounded-2 object-fit-contain"
-                                                        style="width: 50px; height: 50px;"
-                                                        src="{{ $category_hot->category->image ? asset($category_hot->category->image) : asset('storage/default.jpg') }}"
-                                                        alt="{{ $category_hot->category->name }}">
-                                                    <span style="top: 10px; right: 0;"
-                                                        class="position-absolute translate-middle badge rounded-pill bg-danger-subtle text-danger">
-                                                        HOT
-                                                    </span>
+                                            <a href="{{ $category_hot->link }}" class="text-decoration-none text-black">
+                                                <div class="text-center">
+                                                    <div class="position-relative">
+                                                        <img class="rounded-2 object-fit-contain"
+                                                            style="width: 50px; height: 50px;"
+                                                            src="{{ $category_hot->category->image ? asset($category_hot->category->image) : asset('storage/default.jpg') }}"
+                                                            alt="{{ $category_hot->category->name }}">
+                                                        <span style="top: 10px; right: 0;"
+                                                            class="position-absolute translate-middle badge rounded-pill bg-danger-subtle text-danger">
+                                                            HOT
+                                                        </span>
+                                                    </div>
+                                                    <p class="p-0 m-0 pt-1">{{ $category_hot?->category?->name }}</p>
                                                 </div>
-                                                <p class="p-0 m-0 pt-1">{{ $category_hot?->category?->name }}</p>
-                                            </div>
+                                            </a>
                                         </div>
                                     @endif
                                 @endforeach
@@ -59,13 +61,16 @@
                             @if ($randomMenuCategoryNormalItems)
                                 @foreach ($randomMenuCategoryNormalItems as $category_normal)
                                     <div class="col-2 p-3">
-                                        <div class="text-center">
-                                            <img class="rounded-2 object-fit-contain" style="width: 50px; height: 50px;"
-                                                src="{{ $category_normal->category->image ? asset($category_normal->category->image) : asset('storage/default.jpg') }}"
-                                                alt="{{ $category_normal->category->name ? $category_normal->category->name : 'Khong co anh' }}">
+                                        <a href="{{ $category_normal->link }}" class="text-decoration-none text-black">
+                                            <div class="text-center">
+                                                <img class="rounded-2 object-fit-contain"
+                                                    style="width: 50px; height: 50px;"
+                                                    src="{{ $category_normal->category->image ? asset($category_normal->category->image) : asset('storage/default.jpg') }}"
+                                                    alt="{{ $category_normal->category->name ? $category_normal->category->name : 'Khong co anh' }}">
 
-                                            <p class="p-0 m-0 pt-1">{{ $category_normal?->category?->name }}</p>
-                                        </div>
+                                                <p class="p-0 m-0 pt-1">{{ $category_normal?->category?->name }}</p>
+                                            </div>
+                                        </a>
                                     </div>
                                 @endforeach
                             @endif

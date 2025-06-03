@@ -36,8 +36,10 @@
                     @endphp
                     <div class="col-4">
                         @if ($bannermain4 && $bannermain4->isNotEmpty())
-                            <img src="{{ $bannermain4->first()->image ? asset($bannermain4->first()->image) : asset('storage/default.jpg') }}"
-                                style="width: 380px; height: 500px;" class="object-fit-contain" alt="">
+                            <a href="{{ $bannermain4->first()->link ?? '' }}">
+                                <img src="{{ $bannermain4->first()->image ? asset($bannermain4->first()->image) : asset('storage/default.jpg') }}"
+                                    style="width: 380px; height: 500px;" class="object-fit-contain" alt="">
+                            </a>
                         @endif
                     </div>
                     <div class="col-8">
@@ -45,7 +47,7 @@
                             @foreach ($productmenuitemthirddata as $product)
                                 <div class="item row">
                                     <div class="col-12 my-2">
-                                        <a href="{{ route('product-detail', ['slug' => $product->slug]) }}"
+                                        <a href="{{ route('product.show', ['slug' => $product->slug]) }}"
                                             class="text-decoration-none text-black">
                                             <div class="p-3 m-2 border rounded-2"
                                                 style="min-height: 450px; max-height: 450px;">

@@ -8,7 +8,7 @@
                         @if ($productsamecategory->id != $product->id)
                             <div class="item row">
                                 <div class="col-12 my-2">
-                                    <a href="{{ route('product-detail', ['slug' => $productsamecategory->slug]) }}"
+                                    <a href="{{ route('product.show', ['slug' => $productsamecategory->slug]) }}"
                                         class="text-decoration-none text-black">
                                         <div class="p-3 m-2 border rounded-2" style="min-height: 450px; max-height: 450px;">
                                             <div class="d-flex justify-content-between align-items-center">

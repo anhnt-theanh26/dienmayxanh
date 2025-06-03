@@ -14,8 +14,10 @@
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                     <div class="owl-carousel advertisement-00">
                         <div class="item">
-                            <img class="rounded-2 object-fit-contain" src="{{ asset($bannerheadertop->first()->image) }}"
-                                alt="">
+                            <a href="{{ $bannerheadertop?->first()?->link ?? '' }}">
+                                <img class="rounded-2 object-fit-contain"
+                                    src="{{ asset($bannerheadertop?->first()?->image) }}" alt="">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -51,7 +53,7 @@
             <ul style="margin: 0; padding: 0;" class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('index') }}">
                     <img width="229" height="40" class="object-fit-cover"
-                        src="https://quocluat.vn/photos/portforlio/thuong-mai/dien-may-xanh/dien-may-xanh.jpg"
+                        src="https://shimono.com.vn/wp-content/uploads/2024/07/dienmayxanh-e1725984512917.png"
                         alt="">
                 </a>
                 <li class="drop-down" style="border: none">
@@ -86,7 +88,7 @@
                                         @foreach ($categoryparent->categories as $category)
                                             <div class="col-2">
                                                 <div class="submenu-content text-center">
-                                                    <a href="#">
+                                                    <a href="{{ route('category.show', ['slug' => $category->slug]) }}">
                                                         <img src="{{ $category->image ? asset($category->image) : asset('storage/default.jpg') }}"
                                                             width="48" height="48" alt="">
                                                     </a>
@@ -285,7 +287,7 @@
                 @foreach ($menufirst?->take(10) as $menuitem)
                     <li class="nav-item">
                         <a class="nav-link text-primary" style="text-transform:lowercase;" aria-current="page"
-                            href="#">{{ $menuitem?->name }}</a>
+                            href="{{ $menuitem?->link ?? '' }}">{{ $menuitem?->name }}</a>
                     </li>
                 @endforeach
             </ul>
@@ -304,7 +306,7 @@
         function renderSuggestions(filteredData) {
             resultBox.empty();
             filteredData.forEach(item => {
-                const itemUrl = `{{ route('product-detail', ['slug' => ':slug']) }}`.replace(':slug',
+                const itemUrl = `{{ route('product.show', ['slug' => ':slug']) }}`.replace(':slug',
                     item.slug);
                 resultBox.append(`
                     <div class="p-1 search-item border-bottom text-truncate" style="cursor: pointer; overflow: hidden;">

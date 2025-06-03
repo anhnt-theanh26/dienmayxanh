@@ -6,7 +6,7 @@
             $productmenuitemfirst = $firstProductMenu?->productmenus
                 ?->first()
                 ?->productmenuitems?->sortBy('location')
-                ->take(10);
+                ?->take(10);
         }
     }
 @endphp
@@ -16,8 +16,7 @@
         <div class="container" style="flex-shrink: 0; min-width: 1200px;">
             <h4 class="fw-bold py-4">{{ $firstProductMenu?->productmenus?->first()?->name }}</h4>
             <div class="bg-white rounded-4 p-3">
-                <ul class="nav d-flex nav-tabs  d-flex align-items-center justify-content-between" id="myTab"
-                    role="tablist">
+                <ul class="nav d-flex nav-tabs" id="myTab" role="tablist">
                     @foreach ($productmenuitemfirst as $index => $productmenucategoryitem)
                         <li class="nav-item" role="presentation">
                             <button class="nav-link p-2 {{ $loop->first ? 'active' : '' }}" id="tab-{{ $index }}"
@@ -41,9 +40,11 @@
                     }
                 @endphp
                 @if ($bannermain2 && $bannermain2->isNotEmpty())
-                    <img class="img-fluid p-4 object-fit-contain" width="100%"
-                        src="{{ $bannermain2->first()->image ? asset($bannermain2->first()->image) : asset('storage/default.jpg') }}"
-                        alt="">
+                    <a href="{{ $bannermain2->first()->link ?? '' }}">
+                        <img class="img-fluid p-4 object-fit-contain" width="100%"
+                            src="{{ $bannermain2->first()->image ? asset($bannermain2->first()->image) : asset('storage/default.jpg') }}"
+                            alt="">
+                    </a>
                 @endif
                 <div class="tab-content" id="myTabContent">
                     @foreach ($productmenuitemfirst as $index => $categories)
@@ -56,7 +57,7 @@
                                 @endphp
                                 @foreach ($productmenuitemfirstdatatake12 as $product)
                                     <div class="col-2 my-2">
-                                        <a href="{{ route('product-detail', ['slug' => $product->slug]) }}"
+                                        <a href="{{ route('product.show', ['slug' => $product->slug]) }}"
                                             class="text-decoration-none text-black">
                                             <div class="p-3 border rounded-2"
                                                 style="min-height: 450px; max-height: 450px;">
@@ -70,7 +71,8 @@
                                                 </div>
                                                 <div class="d-flex justify-content-center align-items-center"
                                                     style="height: 160px;">
-                                                    <img height="100%" src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
+                                                    <img height="100%"
+                                                        src="{{ $product->image ? asset($product->image) : asset('storage/default.jpg') }}"
                                                         style="" class="card-img-top rounded-2 object-fit-contain"
                                                         alt="{{ $product->name ? $product->name : 'Khong co anh' }}">
                                                 </div>

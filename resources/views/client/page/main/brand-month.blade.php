@@ -13,8 +13,10 @@
             <h4 class="fw-bold py-4">{{ $bannerMenu->bannermenus?->first()?->name }}</h4>
             <div class="owl-carousel advertisement-03">
                 <div class="item">
-                    <img src="{{ $bannermain5->first()->image ? asset($bannermain5->first()->image) : asset('storage/default.jpg') }}"
-                        class="img-fluid rounded-3" alt="">
+                    <a href="{{ $bannermain5->first()->link ?? '' }}">
+                        <img src="{{ $bannermain5->first()->image ? asset($bannermain5->first()->image) : asset('storage/default.jpg') }}"
+                            class="img-fluid rounded-3" alt="">
+                    </a>
                 </div>
             </div>
             <script>

@@ -18,7 +18,9 @@
                             if (!empty($menus) && $menus !== null) {
                                 $footerFirstMenu = $menus?->skip(2)?->first();
                                 if ($footerFirstMenu?->menus) {
-                                    $menufooterfirst = $footerFirstMenu?->menus?->first()?->menuitems?->sortBy('location');
+                                    $menufooterfirst = $footerFirstMenu?->menus
+                                        ?->first()
+                                        ?->menuitems?->sortBy('location');
                                 }
                             }
                         @endphp
@@ -26,13 +28,14 @@
                             <div class="col-5">
                                 <p class="fw-bold">{{ $footerFirstMenu?->menus?->first()->name }}</p>
                                 @foreach ($menufooterfirst->take(5) as $menuitem)
-                                    <p class="p-0 m-0 py-1"><a href="#" class="text-decoration-none text-black"
+                                    <p class="p-0 m-0 py-1"><a href="{{ $menuitem->link }}"
+                                            class="text-decoration-none text-black"
                                             style="text-transform:capitalize;">{{ $menuitem->name }}</a></p>
                                 @endforeach
                                 @if ($menufooterfirst?->count() > 5)
                                     <div class="collapse" id="seemore-one">
                                         @foreach ($menufooterfirst?->skip(5) as $menuitem)
-                                            <p class="p-0 m-0 py-1"><a href="#"
+                                            <p class="p-0 m-0 py-1"><a href="{{ $menuitem->link }}"
                                                     class="text-decoration-none text-black"
                                                     style="text-transform:capitalize;">{{ $menuitem?->name }}</a></p>
                                         @endforeach
@@ -41,9 +44,9 @@
                                         aria-expanded="false" aria-controls="seemore-one">
                                         Xem thêm
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd"
-                                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
                                         </svg>
                                     </p>
                                 @endif
@@ -54,7 +57,9 @@
                             if (!empty($menus) && $menus !== null) {
                                 $footerSecondMenu = $menus?->skip(3)?->first();
                                 if ($footerSecondMenu?->menus) {
-                                    $menufootersecond = $footerSecondMenu?->menus?->first()?->menuitems?->sortBy('location');
+                                    $menufootersecond = $footerSecondMenu?->menus
+                                        ?->first()
+                                        ?->menuitems?->sortBy('location');
                                 }
                             }
                         @endphp
@@ -62,13 +67,14 @@
                             <div class="col-7">
                                 <p class="fw-bold">{{ $footerSecondMenu?->menus?->first()->name }}</p>
                                 @foreach ($menufootersecond->take(5) as $menuitem)
-                                    <p class="p-0 m-0 py-1"><a href="#" class="text-decoration-none text-black"
+                                    <p class="p-0 m-0 py-1"><a href="{{ $menuitem->link }}"
+                                            class="text-decoration-none text-black"
                                             style="text-transform:capitalize;">{{ $menuitem?->name }}</a></p>
                                 @endforeach
                                 @if ($menufootersecond->count() > 5)
                                     <div class="collapse" id="seemore-two">
                                         @foreach ($menufootersecond->skip(5) as $menuitem)
-                                            <p class="p-0 m-0 py-1"><a href="#"
+                                            <p class="p-0 m-0 py-1"><a href="{{ $menuitem->link }}"
                                                     class="text-decoration-none text-black"
                                                     style="text-transform:capitalize;">{{ $menuitem?->name }}</a></p>
                                         @endforeach
@@ -77,9 +83,9 @@
                                         aria-expanded="false" aria-controls="seemore-two">
                                         Xem thêm
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd"
-                                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
                                         </svg>
                                     </p>
                                 @endif

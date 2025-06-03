@@ -38,7 +38,7 @@ class MenuItemController extends Controller
             $menu = Menu::where('id', $id)->first();
             if (!$menu) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
-                return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
+                return redirect()->back()->with('error', 'Khong tim thay menu!');
             }
             $menu->name = $request->name;
             $menu->save();
@@ -80,10 +80,10 @@ class MenuItemController extends Controller
                 }
             }
             Alert::success('Thanh cong', 'Cap nhap menu item thanh cong');
-            return redirect()->route('admin.menuitem.edit', ['id' => $id])->with('success', 'Cap nhap menu item thanh cong');
+            return redirect()->back()->with('success', 'Cap nhap menu item thanh cong');
         } catch (\Throwable $th) {
             Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('admin.menu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
 

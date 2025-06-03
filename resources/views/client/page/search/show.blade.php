@@ -2,16 +2,14 @@
     @php
         $takeResult12 = $results;
         $takeSkip12 = collect();
-
         if ($results->count() > 12) {
             $takeResult12 = $results->take(12);
             $takeSkip12 = $results->skip(12);
         }
     @endphp
-
     @foreach ($takeResult12 as $product)
         <div class="col-2 my-2">
-            <a href="{{ route('product-detail', ['slug' => $product->slug]) }}" class="text-decoration-none text-black">
+            <a href="{{ route('product.show', ['slug' => $product->slug]) }}" class="text-decoration-none text-black">
                 <div class="p-3 border rounded-2" style="min-height: 450px; max-height: 450px;">
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="bg-secondary-subtle rounded-1 px-1" style="font-size: 12px; width: fit-content;">Trả
@@ -72,7 +70,7 @@
         </div>
     @endforeach
     @if ($takeSkip12 && $takeSkip12->isNotEmpty())
-        <div class="text-center hiding-btn-01">
+        <div class="text-center hiding-search">
             <h6 class="text-primary">
                 <button class="btn click-hiding-search fw-bold text-primary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -89,12 +87,13 @@
             <div class="row">
                 @foreach ($takeSkip12 as $product)
                     <div class="col-2 my-2">
-                        <a href="{{ route('product-detail', ['slug' => $product->slug]) }}"
+                        <a href="{{ route('product.show', ['slug' => $product->slug]) }}"
                             class="text-decoration-none text-black">
                             <div class="p-3 border rounded-2" style="min-height: 450px; max-height: 450px;">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="bg-secondary-subtle rounded-1 px-1"
-                                        style="font-size: 12px; width: fit-content;">Trả chậm 0%</p>
+                                        style="font-size: 12px; width: fit-content;">Trả chậm 0%
+                                    </p>
                                     @if ($product?->is_hot == true)
                                         <p class="bg-danger-subtle rounded-pill px-1 text-danger fw-bold"
                                             style="font-size: 12px; width: fit-content;">Hot</p>
@@ -109,7 +108,8 @@
                                 <div>
                                     <p class="card-text m-0 p-0 py-2"
                                         style="-webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; font-size: 14px; font-weight: 600; height: 70px; overflow: hidden; position: relative; z-index: 9;">
-                                        {{ \Illuminate\Support\Str::limit($product?->name, 40) }}</p>
+                                        {{ \Illuminate\Support\Str::limit($product?->name, 40) }}
+                                    </p>
                                     <p class="card-title m-0 p-0 py-1 fw-bold text-danger" style="font-size: 18px;">
                                         {{ number_format($product?->variants?->first()?->price, 0, '.', '.') }}₫
                                     </p>
@@ -157,7 +157,7 @@
 </div>
 <script>
     $('.click-hiding-search').click(function() {
-        var advertisement02Hiding = document.querySelector('.hiding-btn-01');
-        advertisement02Hiding.style.display = 'none';
+        var hidingsearch = document.querySelector('.hiding-search');
+        hidingsearch.style.display = 'none';
     });
 </script>

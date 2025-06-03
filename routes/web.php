@@ -24,9 +24,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Client\BillController as ClientBillController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
+use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use App\Http\Controllers\Client\PaymentController as ClientPaymentController;
+use App\Http\Controllers\Client\PostController as ClientPostController;
 use App\Http\Controllers\Client\ProductDetailController as ClientProductDetailController;
 use App\Http\Controllers\Client\SearchController as ClientSearchController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
@@ -360,12 +362,18 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [ClientHomeController::class, 'index'])->name('index');
     Route::get('/home', [ClientHomeController::class, 'index'])->name('home');
-    Route::get('{slug}/defail-product', [ClientProductDetailController::class, 'show'])->name('product-detail');
-    Route::prefix('search')->as('search.')->group(function () {
-        Route::get('/', [ClientSearchController::class, 'index'])->name('index');
-        Route::get('/filter', [ClientSearchController::class, 'filter'])->name('filter');
+    Route::prefix('product')->as('product.')->group(function () {
+        Route::get('{slug}/show', [ClientProductDetailController::class, 'show'])->name('show');
     });
 
+    Route::prefix('search')->as('search.')->group(function () {
+        Route::get('/', [ClientSearchController::class, 'index'])->name('index');
+        Route::get('/arrange', [ClientSearchController::class, 'arrange'])->name('arrange');
+        Route::get('/filter', [ClientSearchController::class, 'filter'])->name('filter');
+    });
+    Route::prefix('category')->as('category.')->group(function () {
+        Route::get('{slug}', [ClientCategoryController::class, 'show'])->name('show');
+    });
     // login
     Route::prefix('login')->as('login.')->group(function () {
         Route::get('/', [ClientLoginController::class, 'index'])->name('form');
@@ -411,6 +419,17 @@ Route::prefix('/')->as('')->group(function () {
         Route::post('update', [ClientUserController::class, 'update'])->middleware(['auth'])->name('update');
         Route::post('/save-address', [ClientUserController::class, 'saveAddress'])->middleware(['auth'])->name('save-address');
         Route::post('/password', [ClientUserController::class, 'password'])->middleware(['auth'])->name('password');
+    });
+
+    // post 
+    Route::prefix('post')->as('post.')->group(function () {
+        Route::get('{slug}', [ClientPostController::class, 'show'])->name('show');
+
+    });
+
+    // error
+    Route::fallback(function () {
+        return view('error.client.404')->with('statusCode', 404);
     });
 });
 

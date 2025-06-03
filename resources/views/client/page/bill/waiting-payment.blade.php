@@ -14,7 +14,7 @@
         <div class="mt-2 border">
             <div class="p-3 pt-4 bg-white">
                 @foreach ($bill->billItems as $billItem)
-                    <a href="{{ isset($billItem->product->slug) ? route('product-detail', ['slug' => $billItem->product->slug]) : '#' }}"
+                    <a href="{{ isset($billItem->product->slug) ? route('product.show', ['slug' => $billItem->product->slug]) : '#' }}"
                         class="text-decoration-none text-black">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex" style="width: 80%;">

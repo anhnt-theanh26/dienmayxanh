@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $productmenus = Locationproductmenu::where('status', true)->get();
-        $searchs = Search::limit(40)->get();
+        $searchs = Search::limit(40)->orderByDesc('id')->get();
         return view("client.page.main.main", compact('productmenus', 'searchs'));
     }
 
