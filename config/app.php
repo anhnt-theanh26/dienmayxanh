@@ -197,7 +197,8 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         ZanySoft\ResponsiveFileManager\FileManagerServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        App\Providers\ViewComposerServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class, // hiện mà không cần gọi
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class, // seo 
     ],
 
     /*
@@ -214,6 +215,13 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        // seo
+        'SEOMeta' => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter' => Artesaos\SEOTools\Facades\TwitterCard::class,
+        'JsonLd' => Artesaos\SEOTools\Facades\JsonLd::class,
+        'JsonLdMulti' => Artesaos\SEOTools\Facades\JsonLdMulti::class,
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ])->toArray(),
 
 ];
