@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Bill;
 use App\Models\BillItem;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Search;
@@ -82,10 +83,18 @@ class CheckBillMiddleware
             }
         }
         $count = Search::count();
-        if ($count > 100) {
+        if ($count > 140) {
             Search::orderBy('created_at')
                 ->take($count - 100)
                 ->delete();
+        }
+        $posts = Post::get();
+        if ($posts) {
+            foreach ($posts as $post) {
+                if ($post->published_at >= now() && $post->status == 'draft') {
+                    $post->update(['status' => 'published']);
+                }
+            }
         }
         return $next($request);
     }

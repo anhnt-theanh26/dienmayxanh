@@ -43,7 +43,7 @@
                         @endif
                     </div>
                     <div class="col-8">
-                        <div class="owl-carousel">
+                        <div class="owl-carousel privilege">
                             @foreach ($productmenuitemthirddata as $product)
                                 <div class="item row">
                                     <div class="col-12 my-2">
@@ -115,7 +115,7 @@
                             @endforeach
                         </div>
                         <script>
-                            var owl = $('.owl-carousel');
+                            var owl = $('.privilege');
                             owl.owlCarousel({
                                 autoplay: true,
                                 margin: 10,
