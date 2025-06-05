@@ -2,10 +2,10 @@
 -- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th5 21, 2025 lúc 10:01 AM
--- Phiên bản máy phục vụ: 8.0.30
--- Phiên bản PHP: 8.1.32
+-- Host: localhost:3306
+-- Generation Time: Jun 05, 2025 at 09:48 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `dienmayxanh`
+-- Database: `dienmayxanh`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `attributes`
+-- Table structure for table `attributes`
 --
 
 CREATE TABLE `attributes` (
@@ -37,7 +37,7 @@ CREATE TABLE `attributes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `attributes`
+-- Dumping data for table `attributes`
 --
 
 INSERT INTO `attributes` (`id`, `name`, `slug`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -55,12 +55,12 @@ INSERT INTO `attributes` (`id`, `name`, `slug`, `deleted_at`, `created_at`, `upd
 (12, 'Màn hình', 'man-hinh', NULL, '2025-05-08 02:23:26', '2025-05-08 02:23:26'),
 (13, 'RAM', 'ram', NULL, '2025-05-08 02:23:36', '2025-05-08 02:23:36'),
 (14, 'Camera', 'camera', NULL, '2025-05-08 02:23:44', '2025-05-08 02:23:44'),
-(15, 'Màu sắc', 'mau-sac', NULL, '2025-05-08 02:23:52', '2025-05-08 02:23:52');
+(15, 'Màu sắc', 'mau-sac', NULL, '2025-05-08 02:23:52', '2025-05-30 06:56:22');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `authentication_log`
+-- Table structure for table `authentication_log`
 --
 
 CREATE TABLE `authentication_log` (
@@ -74,7 +74,7 @@ CREATE TABLE `authentication_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `authentication_log`
+-- Dumping data for table `authentication_log`
 --
 
 INSERT INTO `authentication_log` (`id`, `authenticatable_type`, `authenticatable_id`, `ip_address`, `user_agent`, `login_at`, `logout_at`) VALUES
@@ -170,12 +170,46 @@ INSERT INTO `authentication_log` (`id`, `authenticatable_type`, `authenticatable
 (90, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-20 01:54:17', '2025-05-20 02:31:38'),
 (91, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-20 03:33:48', NULL),
 (92, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-21 00:57:46', NULL),
-(93, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-21 06:31:57', NULL);
+(93, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-21 06:31:57', NULL),
+(94, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0', '2025-05-22 01:03:52', NULL),
+(95, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-22 04:19:17', NULL),
+(96, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-22 04:20:27', NULL),
+(97, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0', '2025-05-22 06:50:01', NULL),
+(98, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-22 09:15:00', NULL),
+(99, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-22 10:19:59', NULL),
+(100, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-23 01:19:29', '2025-05-23 01:51:04'),
+(101, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-23 01:58:32', '2025-05-23 03:01:55'),
+(102, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-23 03:03:28', NULL),
+(103, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-23 07:24:07', NULL),
+(104, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-26 01:18:48', NULL),
+(105, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-26 06:37:51', NULL),
+(106, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-27 01:07:37', '2025-05-27 03:54:13'),
+(107, 'App\\Models\\User', 44, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-27 03:54:37', '2025-05-27 03:55:28'),
+(108, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-27 03:55:41', NULL),
+(109, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-27 06:33:42', NULL),
+(110, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-27 09:02:49', NULL),
+(111, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-28 01:08:50', NULL),
+(112, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-28 06:33:58', NULL),
+(113, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-29 01:13:32', NULL),
+(114, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-29 06:34:54', '2025-05-29 10:15:24'),
+(115, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-29 10:15:36', NULL),
+(116, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '2025-05-30 01:10:44', NULL),
+(117, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-05-30 06:34:31', NULL),
+(118, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-02 00:56:07', '2025-06-02 02:42:58'),
+(119, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-02 07:28:29', NULL),
+(120, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-03 01:20:34', NULL),
+(121, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-03 07:18:35', NULL),
+(122, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-04 01:06:46', NULL),
+(123, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-04 07:15:22', NULL),
+(124, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-05 02:07:12', NULL),
+(125, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', '2025-06-05 02:32:19', NULL),
+(126, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0', '2025-06-05 03:03:06', NULL),
+(127, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0', '2025-06-05 07:26:59', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `bannermenuitems`
+-- Table structure for table `bannermenuitems`
 --
 
 CREATE TABLE `bannermenuitems` (
@@ -189,7 +223,7 @@ CREATE TABLE `bannermenuitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `bannermenuitems`
+-- Dumping data for table `bannermenuitems`
 --
 
 INSERT INTO `bannermenuitems` (`id`, `image`, `link`, `location`, `bannermenu_id`, `created_at`, `updated_at`) VALUES
@@ -213,7 +247,7 @@ INSERT INTO `bannermenuitems` (`id`, `image`, `link`, `location`, `bannermenu_id
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `bannermenus`
+-- Table structure for table `bannermenus`
 --
 
 CREATE TABLE `bannermenus` (
@@ -226,7 +260,7 @@ CREATE TABLE `bannermenus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `bannermenus`
+-- Dumping data for table `bannermenus`
 --
 
 INSERT INTO `bannermenus` (`id`, `name`, `slug`, `locationbannermenu_id`, `created_at`, `updated_at`) VALUES
@@ -241,7 +275,84 @@ INSERT INTO `bannermenus` (`id`, `name`, `slug`, `locationbannermenu_id`, `creat
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `bills`
+--
+
+CREATE TABLE `bills` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount` decimal(20,0) DEFAULT NULL,
+  `total_amount` decimal(20,0) DEFAULT NULL,
+  `shipping_address` text COLLATE utf8mb4_unicode_ci,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `recipient_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_date` date DEFAULT NULL,
+  `transaction_time` datetime DEFAULT NULL,
+  `expiry_time` datetime DEFAULT NULL,
+  `note` text COLLATE utf8mb4_unicode_ci,
+  `payment_method` enum('online','offline') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'offline',
+  `status` enum('Pending','Confirmed','Preparing','Shipping','Delivered','Cancelled','Returned','Refunded','Failed') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
+  `payment_status` enum('Paid','Payment Failed','Unpaid') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Unpaid',
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status_cancel` enum('not_requested','requested','accepted','rejected') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'not_requested',
+  `reason_cancel` text COLLATE utf8mb4_unicode_ci,
+  `refund` tinyint(1) NOT NULL DEFAULT '0',
+  `refund_amount` decimal(20,0) DEFAULT NULL,
+  `refund_reason` text COLLATE utf8mb4_unicode_ci,
+  `refund_transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `refund_time` datetime DEFAULT NULL,
+  `refund_status` enum('Pending','Success','Failed') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bills`
+--
+
+INSERT INTO `bills` (`id`, `user_id`, `code`, `discount`, `total_amount`, `shipping_address`, `phone`, `recipient_name`, `order_date`, `transaction_time`, `expiry_time`, `note`, `payment_method`, `status`, `payment_status`, `transaction_id`, `status_cancel`, `reason_cancel`, `refund`, `refund_amount`, `refund_reason`, `refund_transaction_id`, `refund_time`, `refund_status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 2, '429471', 0, 20040, 'Tiên Phương, Chương Mỹ, Hà Nội', '0348022004', 'anhnt', '2025-06-02', '2025-06-02 08:36:59', '2025-06-02 08:51:27', NULL, 'online', 'Shipping', 'Paid', '14993941', 'not_requested', NULL, 0, 20040, NULL, NULL, NULL, NULL, NULL, '2025-06-02 01:12:47', '2025-06-02 01:37:48'),
+(2, 2, '556866', 0, 20040, 'Tiên Phương, Chương Mỹ, Hà Nội', '0348022004', 'anhnt', '2025-06-02', '2025-06-02 08:32:06', '2025-06-02 08:46:33', NULL, 'online', 'Shipping', 'Paid', '14993937', 'not_requested', NULL, 0, 20040, NULL, NULL, NULL, NULL, NULL, '2025-06-02 01:18:11', '2025-06-02 01:37:40'),
+(3, 2, '895126', 0, 20025, 'Tiên Phương, Chương Mỹ, Hà Nội', '0348022004', 'anhnt', '2025-06-02', '2025-06-02 08:31:28', '2025-06-02 08:45:58', NULL, 'online', 'Shipping', 'Paid', '14993935', 'not_requested', NULL, 0, 20025, NULL, NULL, NULL, NULL, NULL, '2025-06-02 01:23:02', '2025-06-02 01:38:24'),
+(4, 2, '144030', 0, 20005, 'Tiên Phương, Chương Mỹ, Hà Nội', '0348022004', 'anhnt', '2025-06-02', '2025-06-02 08:30:48', '2025-06-02 08:45:16', NULL, 'online', 'Delivered', 'Paid', '14993934', 'not_requested', NULL, 0, 20005, NULL, NULL, NULL, NULL, NULL, '2025-06-02 01:25:41', '2025-06-02 01:38:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bill_items`
+--
+
+CREATE TABLE `bill_items` (
+  `id` bigint UNSIGNED NOT NULL,
+  `bill_id` bigint UNSIGNED DEFAULT NULL,
+  `product_id` bigint UNSIGNED DEFAULT NULL,
+  `product_variant_id` bigint UNSIGNED DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `variant` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quantity` int NOT NULL DEFAULT '0',
+  `price` decimal(20,0) NOT NULL,
+  `total_price` decimal(20,0) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bill_items`
+--
+
+INSERT INTO `bill_items` (`id`, `bill_id`, `product_id`, `product_variant_id`, `name`, `image`, `variant`, `quantity`, `price`, `total_price`, `created_at`, `updated_at`) VALUES
+(1, 1, 7, 9, '5', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', '5', 8, 5, 40, '2025-06-02 01:12:47', '2025-06-02 01:12:47'),
+(2, 2, 7, 9, '5', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', '5', 8, 5, 40, '2025-06-02 01:18:11', '2025-06-02 01:18:11'),
+(3, 3, 7, 9, '5', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', '5', 5, 5, 25, '2025-06-02 01:23:02', '2025-06-02 01:23:02'),
+(4, 4, 7, 9, '5', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', '5', 1, 5, 5, '2025-06-02 01:25:41', '2025-06-02 01:25:41');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -257,7 +368,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `is_hot`, `category_parent_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -297,12 +408,12 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `is_hot`, `category_par
 (34, 'Bảo hiểm Ô tô - Xe máy', 'bao-hiem-o-to-xe-may', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 10, NULL, '2025-05-08 02:14:09', '2025-05-08 03:14:56'),
 (35, '1234 update', '1234-update', 'http://127.0.0.1:8000/storage/photos/2/gratisography-augmented-reality-800x525.jpg', 1, 1, NULL, '2025-05-12 06:59:00', '2025-05-16 09:12:28'),
 (36, '123', '123', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 7, NULL, '2025-05-12 07:32:14', '2025-05-16 09:12:49'),
-(37, '123', '123-1', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 10, NULL, '2025-05-12 08:37:54', '2025-05-16 09:13:13');
+(37, '123', '123-1', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 10, NULL, '2025-05-12 08:37:54', '2025-05-30 06:51:32');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `category_parents`
+-- Table structure for table `category_parents`
 --
 
 CREATE TABLE `category_parents` (
@@ -315,7 +426,7 @@ CREATE TABLE `category_parents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `category_parents`
+-- Dumping data for table `category_parents`
 --
 
 INSERT INTO `category_parents` (`id`, `name`, `slug`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -333,7 +444,7 @@ INSERT INTO `category_parents` (`id`, `name`, `slug`, `deleted_at`, `created_at`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -349,7 +460,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `locationbannermenus`
+-- Table structure for table `locationbannermenus`
 --
 
 CREATE TABLE `locationbannermenus` (
@@ -362,7 +473,7 @@ CREATE TABLE `locationbannermenus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `locationbannermenus`
+-- Dumping data for table `locationbannermenus`
 --
 
 INSERT INTO `locationbannermenus` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
@@ -377,7 +488,7 @@ INSERT INTO `locationbannermenus` (`id`, `name`, `slug`, `status`, `created_at`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `locationmenus`
+-- Table structure for table `locationmenus`
 --
 
 CREATE TABLE `locationmenus` (
@@ -390,7 +501,7 @@ CREATE TABLE `locationmenus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `locationmenus`
+-- Dumping data for table `locationmenus`
 --
 
 INSERT INTO `locationmenus` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
@@ -402,7 +513,7 @@ INSERT INTO `locationmenus` (`id`, `name`, `slug`, `status`, `created_at`, `upda
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `locationproductmenus`
+-- Table structure for table `locationproductmenus`
 --
 
 CREATE TABLE `locationproductmenus` (
@@ -415,7 +526,7 @@ CREATE TABLE `locationproductmenus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `locationproductmenus`
+-- Dumping data for table `locationproductmenus`
 --
 
 INSERT INTO `locationproductmenus` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
@@ -427,7 +538,7 @@ INSERT INTO `locationproductmenus` (`id`, `name`, `slug`, `status`, `created_at`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `menuitems`
+-- Table structure for table `menuitems`
 --
 
 CREATE TABLE `menuitems` (
@@ -436,13 +547,13 @@ CREATE TABLE `menuitems` (
   `link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `location` int DEFAULT NULL,
   `menu_id` bigint UNSIGNED NOT NULL,
-  `category_id` bigint UNSIGNED NOT NULL,
+  `category_id` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `menuitems`
+-- Dumping data for table `menuitems`
 --
 
 INSERT INTO `menuitems` (`id`, `name`, `link`, `location`, `menu_id`, `category_id`, `created_at`, `updated_at`) VALUES
@@ -455,11 +566,11 @@ INSERT INTO `menuitems` (`id`, `name`, `link`, `location`, `menu_id`, `category_
 (7, 'tai nghe', '/category/tai-nghe', 7, 1, 19, '2025-05-08 02:36:46', '2025-05-08 02:36:46'),
 (8, 'Điện thoại', '/category/dien-thoai', 8, 1, 11, '2025-05-08 02:36:46', '2025-05-08 02:36:46'),
 (9, 'laptop', '/category/laptop', 9, 1, 12, '2025-05-08 02:36:46', '2025-05-08 02:36:46'),
-(10, 'tablet', '/category/tablet', 10, 1, 13, '2025-05-08 02:36:46', '2025-05-08 02:36:46'),
-(11, 'Đồng hồ thông minh', '/category/dong-ho-thong-minh', 11, 1, 14, '2025-05-08 02:36:46', '2025-05-08 02:36:46'),
-(12, 'máy lạnh', '/category/may-lanh', 12, 1, 5, '2025-05-08 02:36:46', '2025-05-08 02:36:46'),
-(13, 'tủ lạnh', '/category/tu-lanh', 13, 1, 6, '2025-05-08 02:36:46', '2025-05-08 02:36:46'),
-(14, 'tivi', '/category/tivi', 14, 1, 7, '2025-05-08 02:36:46', '2025-05-08 02:36:46'),
+(10, 'tablet', '/category/tablet', 11, 1, 13, '2025-05-08 02:36:46', '2025-06-05 02:08:32'),
+(11, 'Đồng hồ thông minh', '/category/dong-ho-thong-minh', 12, 1, 14, '2025-05-08 02:36:46', '2025-06-05 02:08:32'),
+(12, 'máy lạnh', '/category/may-lanh', 13, 1, 5, '2025-05-08 02:36:46', '2025-06-05 02:08:32'),
+(13, 'tủ lạnh', '/category/tu-lanh', 14, 1, 6, '2025-05-08 02:36:46', '2025-06-05 02:08:32'),
+(14, 'tivi', '/category/tivi', 15, 1, 7, '2025-05-08 02:36:46', '2025-06-05 02:08:32'),
 (15, 'Đồng hồ thời trang', '/category/dong-ho-thoi-trang', 1, 2, 25, '2025-05-08 02:58:07', '2025-05-08 02:58:07'),
 (16, 'Xe đạp', '/category/xe-dap', 2, 2, 26, '2025-05-08 02:58:07', '2025-05-08 02:58:07'),
 (17, 'Camera', '/category/camera', 3, 2, 27, '2025-05-08 02:58:07', '2025-05-08 02:58:07'),
@@ -489,12 +600,16 @@ INSERT INTO `menuitems` (`id`, `name`, `link`, `location`, `menu_id`, `category_
 (41, 'Tivi', '/category/tivi-1', 5, 4, 21, '2025-05-08 03:47:18', '2025-05-08 03:47:18'),
 (42, 'Máy lạnh', '/category/may-lanh-1', 6, 4, 22, '2025-05-08 03:47:18', '2025-05-08 03:47:18'),
 (43, 'Máy giặt', '/category/may-giat', 7, 4, 23, '2025-05-08 03:47:18', '2025-05-08 03:47:18'),
-(44, 'Tủ lạnh', '/category/tu-lanh-1', 8, 4, 24, '2025-05-08 03:47:18', '2025-05-08 03:47:18');
+(44, 'Tủ lạnh', '/category/tu-lanh-1', 8, 4, 24, '2025-05-08 03:47:18', '2025-05-08 03:47:18'),
+(46, 'http://127.0.0.1:8000/admin/menuitem/1/edit', 'http://127.0.0.1:8000/admin/menuitem/1/edit', 9, 4, NULL, '2025-06-03 07:54:18', '2025-06-03 07:54:18'),
+(47, 'new đường dẫn', '#', 10, 4, NULL, '2025-06-03 07:59:05', '2025-06-03 07:59:05'),
+(48, 'hẹ hẹ', NULL, 11, 4, NULL, '2025-06-03 07:59:15', '2025-06-03 07:59:15'),
+(49, 'tin tức', 'news', 10, 1, NULL, '2025-06-05 02:08:12', '2025-06-05 02:08:32');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `menus`
+-- Table structure for table `menus`
 --
 
 CREATE TABLE `menus` (
@@ -507,7 +622,7 @@ CREATE TABLE `menus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `menus`
+-- Dumping data for table `menus`
 --
 
 INSERT INTO `menus` (`id`, `name`, `slug`, `locationmenu_id`, `created_at`, `updated_at`) VALUES
@@ -519,7 +634,7 @@ INSERT INTO `menus` (`id`, `name`, `slug`, `locationmenu_id`, `created_at`, `upd
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -529,7 +644,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -563,12 +678,16 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (85, '2025_05_09_102201_create_bannermenuitems_table', 3),
 (86, '2025_05_15_102632_add_secret_code_to_users', 4),
 (87, '2025_05_20_170719_create_vouchers_table', 5),
-(88, '2025_05_21_144630_add_time_to_vouchers_table', 6);
+(88, '2025_05_21_144630_add_time_to_vouchers_table', 6),
+(94, '2025_05_27_094929_add_product_id_and_image_to_bill_items_table', 8),
+(105, '2025_05_23_134507_create_bills_table', 9),
+(106, '2025_05_23_134516_create_bill_items_table', 9),
+(107, '2025_06_03_145128_update_category_foreign_on_menuitems_table', 10);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `model_has_permissions`
+-- Table structure for table `model_has_permissions`
 --
 
 CREATE TABLE `model_has_permissions` (
@@ -580,7 +699,7 @@ CREATE TABLE `model_has_permissions` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `model_has_roles`
+-- Table structure for table `model_has_roles`
 --
 
 CREATE TABLE `model_has_roles` (
@@ -590,7 +709,7 @@ CREATE TABLE `model_has_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `model_has_roles`
+-- Dumping data for table `model_has_roles`
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
@@ -601,7 +720,7 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -621,7 +740,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_items`
+-- Table structure for table `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -640,7 +759,7 @@ CREATE TABLE `order_items` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `password_reset_tokens`
+-- Table structure for table `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
@@ -652,7 +771,7 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `payments`
+-- Table structure for table `payments`
 --
 
 CREATE TABLE `payments` (
@@ -670,7 +789,7 @@ CREATE TABLE `payments` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permissions`
+-- Table structure for table `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -684,7 +803,7 @@ CREATE TABLE `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `permissions`
+-- Dumping data for table `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `display_name`, `group_name`, `created_at`, `updated_at`) VALUES
@@ -722,7 +841,7 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `display_name`, `group_na
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `personal_access_tokens`
+-- Table structure for table `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -741,7 +860,7 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
@@ -763,21 +882,22 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `posts`
+-- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `title`, `excerpt`, `content`, `slug`, `image`, `view_count`, `is_hot`, `status`, `published_at`, `category_id`, `user_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Chat GPT là gì? Lợi ích và cách sử dụng ChatGPT tối ưu hiệu quả', 'Chat GPT làm một công cụ trợ lý trên điện thoại hay laptop tương tự như: Siri, Google Assitant,... và được phát triển bởi OpenAI.', '<h3>1Chat GPT l&agrave; g&igrave;?</h3>\r\n\r\n<p>ChatGPT (Chat Generative Pre-training Transformer) l&agrave; một Chatbot do OpenAI ph&aacute;t triển dựa tr&ecirc;n m&ocirc; h&igrave;nh Transformer của Google. Đ&acirc;y l&agrave; một AI (<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/cong-nghe-ai-tren-cac-bi-dien-tu-1238818\" target=\"_blank\">tr&iacute; tuệ nh&acirc;n tạo</a>) gi&uacute;p bạn tạo c&aacute;c cuộc tr&ograve; chuyện tự động v&agrave; trả lời c&aacute;c c&acirc;u hỏi về nhiều chủ đề v&agrave; lĩnh vực kh&aacute;c nhau. Điểm nổi bật l&agrave; khả năng tương t&aacute;c hội thoại tự nhi&ecirc;n.</p>\r\n\r\n<p><img alt=\"ChatGPT sẽ tạo ra tương tác hội thoại như khi bạn nói chuyện với bạn bè\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(2)-730x410.jpg\" /></p>\r\n\r\n<p>ChatGPT sẽ tạo ra tương t&aacute;c hội thoại như khi bạn n&oacute;i chuyện với bạn b&egrave;</p>\r\n\r\n<p>Phi&ecirc;n bản mới nhất của Chat GPT từ OpenAI đ&atilde; c&oacute; những cải tiến vượt trội trong việc hiểu v&agrave; phản hồi ng&ocirc;n ngữ tự nhi&ecirc;n. M&ocirc; h&igrave;nh n&agrave;y đa năng, c&oacute; thể trả lời c&acirc;u hỏi, viết, t&oacute;m tắt, dịch thuật v&agrave; s&aacute;ng tạo nội dung (thơ, code...). Chat GPT đ&oacute;ng vai tr&ograve; quan trọng nhờ khả năng nắm bắt ngữ cảnh, tạo c&acirc;u trả lời mạch lạc v&agrave; kh&ocirc;ng ngừng học hỏi từ người d&ugrave;ng.</p>\r\n\r\n<p>Được đ&agrave;o tạo từ h&agrave;ng triệu văn bản c&ocirc;ng khai, ChatGPT học s&acirc;u về ng&ocirc;n ngữ v&agrave; ngữ nghĩa. Chat GPT được coi l&agrave; một trong những m&ocirc; h&igrave;nh ng&ocirc;n ngữ ti&ecirc;n tiến nhất hiện nay với khả năng tự động học v&agrave; l&agrave;m việc với c&aacute;c loại dữ liệu lớn. Chat GPT đảm nhận tất cả c&aacute;c nhiệm vụ s&aacute;ng tạo v&agrave; nghệ thuật, thiết kế v&agrave; thậm ch&iacute; tạo hoặc gỡ lỗi trong lập tr&igrave;nh.</p>\r\n\r\n<p><img alt=\"Chat GPT tổng hợp thông tin từ vô vàn các nguồn khác nhau và tự đào sâu tìm hiểu nhiều tầng nghĩa từ những thông tin đó\" src=\"https://cdn.tgdd.vn//News/1518107//730x408-730x408.jpg\" /></p>\r\n\r\n<p>Chat GPT tổng hợp th&ocirc;ng tin từ v&ocirc; v&agrave;n c&aacute;c nguồn kh&aacute;c nhau v&agrave; tự đ&agrave;o s&acirc;u t&igrave;m hiểu nhiều tầng nghĩa từ những th&ocirc;ng tin đ&oacute;</p>\r\n\r\n<h3>2C&aacute;ch thức hoạt động của Chat GPT</h3>\r\n\r\n<p>Chat GPT được tinh chỉnh từ GPT-3.5 (hiện tại đ&atilde; c&oacute; phi&ecirc;n bản GPT-4), một m&ocirc; h&igrave;nh ng&ocirc;n ngữ tạo văn bản. N&oacute; đ&atilde; được tối ưu h&oacute;a cho cuộc đối thoại qua việc sử dụng&nbsp;<strong>Học tăng cường từ phản hồi của con người</strong>&nbsp;(Reinforcement Learning from Human Feedback - RLHF) - một phương ph&aacute;p sử dụng c&aacute;c v&iacute; dụ của con người để hướng dẫn m&ocirc; h&igrave;nh đến h&agrave;nh vi mong muốn.</p>\r\n\r\n<p>Chat GPT sử dụng c&aacute;c phương ph&aacute;p ti&ecirc;u d&ugrave;ng hạ tầng, đồng thời n&oacute; cũng lấy dữ liệu từ Internet n&acirc;ng kh&ocirc;ng gian lưu trữ l&ecirc;n&nbsp;<strong>570GB</strong>&nbsp;với v&ocirc; số th&ocirc;ng tin v&agrave;&nbsp;<strong>300 tỷ từ</strong>&nbsp;được &ldquo;kết nạp&rdquo; v&agrave;o hệ thống. Bạn c&oacute; thể hiểu đơn giản như sau:</p>\r\n\r\n<p>Khi bạn đặt c&acirc;u hỏi đầu v&agrave;o cho m&ocirc; h&igrave;nh rằng &ldquo;Một năm c&oacute; bao nhi&ecirc;u th&aacute;ng?&rdquo;, nếu m&ocirc; h&igrave;nh phản hồi sai th&igrave;&nbsp;<strong>đ&aacute;p &aacute;n đ&uacute;ng sẽ được update ngay lập tức</strong>. Từ những th&iacute; nghiệm nhỏ n&agrave;y sẽ gi&uacute;p hệ thống được củng cố v&agrave; dẫn trở n&ecirc;n chuẩn x&aacute;c hơn.</p>\r\n\r\n<p><img alt=\"Cấu trúc hoạt động của ChatGPT vô cùng phức tạp\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(3)-730x410.jpg\" /></p>\r\n\r\n<p>Cấu tr&uacute;c hoạt động của ChatGPT v&ocirc; c&ugrave;ng phức tạp</p>\r\n\r\n<h3>3C&aacute;ch d&ugrave;ng Chat GPT tại Việt Nam hiệu quả</h3>\r\n\r\n<p>Chat GPT đ&atilde; ch&iacute;nh thức hoạt động được ở Việt Nam. Từ ng&agrave;y 02/11/2023, bạn c&oacute; thể đăng k&yacute; v&agrave; sử dụng miễn ph&iacute; ChatGPT tại Việt Nam tr&ecirc;n nền tảng website&nbsp;<a href=\"https://chat.openai.com/auth/login\" target=\"_blank\">chat.openai.com</a>, ứng dụng ChatGPT tr&ecirc;n Android, iOS.</p>\r\n\r\n<p><strong>Tải ứng dụng ChatGPT:</strong></p>\r\n\r\n<ul>\r\n	<li><a href=\"https://play.google.com/store/apps/details?id=com.openai.chatgpt&amp;hl=vi&amp;pli=1\" target=\"_blank\">Android</a></li>\r\n	<li><a href=\"https://apps.apple.com/us/app/chatgpt/id6448311069?l=vi\" target=\"_blank\">iOS</a></li>\r\n</ul>\r\n\r\n<p><strong>Đăng k&yacute; v&agrave; đăng nhập v&agrave;o Chat GPT miễn ph&iacute;</strong></p>\r\n\r\n<p>Bước 1: Truy cập trang web ch&iacute;nh thức của OpenAI tại chat.openai.com</p>\r\n\r\n<p>Bước 2: Nhấp v&agrave;o n&uacute;t &quot;Sign up&quot; v&agrave; điền th&ocirc;ng tin c&aacute; nh&acirc;n bao gồm email v&agrave; mật khẩu</p>\r\n\r\n<p>Bước 3: X&aacute;c nhận email th&ocirc;ng qua li&ecirc;n kết được gửi đến hộp thư</p>\r\n\r\n<p>Bước 4: Ho&agrave;n tất th&ocirc;ng tin c&aacute; nh&acirc;n bổ sung nếu được y&ecirc;u cầu</p>\r\n\r\n<p>Lưu &yacute; cho người d&ugrave;ng Việt Nam: Nếu gặp kh&oacute; khăn khi truy cập, h&atilde;y sử dụng VPN để vượt qua giới hạn địa l&yacute;. Sau khi đăng nhập th&agrave;nh c&ocirc;ng, bạn c&oacute; thể bắt đầu kh&aacute;m ph&aacute; Chat GPT ngay trong giao diện tr&ograve; chuyện trực quan.</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong>&nbsp;<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/chat-gpt-la-gi-cach-dang-ky-su-dung-chat-gpt-1518194\" target=\"_blank\">C&aacute;ch đăng k&yacute;, sử dụng Chat GPT tại Việt Nam miễn ph&iacute;</a></p>\r\n\r\n<p><img alt=\"Chat GPT có khả năng \" src=\"https://cdn.tgdd.vn//News/1518107//730x408-1-730x408.jpg\" /></p>\r\n\r\n<p>Chat GPT c&oacute; thể d&ugrave;ng miễn ph&iacute; tại Việt Nam</p>\r\n\r\n<p><strong>C&aacute;ch d&ugrave;ng Prompt Engineering để tối ưu sức mạnh Chat GPT</strong></p>\r\n\r\n<p>Để khai th&aacute;c tối đa sức mạnh của Chat GPT, kỹ thuật đặt c&acirc;u hỏi (Prompt Engineering) rất quan trọng. Vệc x&acirc;y dựng prompt chi tiết v&agrave; r&otilde; r&agrave;ng sẽ mở ra c&aacute;nh cửa đến những phản hồi s&acirc;u sắc v&agrave; hữu &iacute;ch hơn.</p>\r\n\r\n<p><strong>X&aacute;c định r&otilde; bối cảnh:</strong>&nbsp;H&atilde;y cung cấp cho Chat GPT một bức tranh to&agrave;n cảnh về vấn đề bạn đang quan t&acirc;m. Điều n&agrave;y bao gồm lĩnh vực, ng&agrave;nh nghề, mục ti&ecirc;u bạn muốn đạt được, v&agrave; bất kỳ th&ocirc;ng tin nền tảng n&agrave;o li&ecirc;n quan.</p>\r\n\r\n<p><strong>N&ecirc;u r&otilde; y&ecirc;u cầu cụ thể:</strong>&nbsp;Bạn mong đợi Chat GPT sẽ l&agrave;m g&igrave; với th&ocirc;ng tin đ&oacute;? Viết một b&agrave;i luận, t&oacute;m tắt một đoạn văn, so s&aacute;nh c&aacute;c lựa chọn, đưa ra lời khuy&ecirc;n, hay giải th&iacute;ch một kh&aacute;i niệm phức tạp? Sử dụng động từ mạnh mẽ v&agrave; chỉ định r&otilde; h&agrave;nh động bạn muốn AI thực hiện.</p>\r\n\r\n<p><strong>Chỉ định định dạng đầu ra:</strong>&nbsp;Bạn muốn c&acirc;u trả lời được tr&igrave;nh b&agrave;y như thế n&agrave;o? Một danh s&aacute;ch đ&aacute;nh số dễ theo d&otilde;i, một bảng so s&aacute;nh trực quan, c&aacute;c đoạn văn ngắn gọn, hay một hướng dẫn từng bước chi tiết? Việc chỉ định định dạng gi&uacute;p Chat GPT cấu tr&uacute;c th&ocirc;ng tin một c&aacute;ch dễ hiểu v&agrave; ph&ugrave; hợp với mục đ&iacute;ch sử dụng của bạn.</p>\r\n\r\n<p><strong>Điều chỉnh độ s&acirc;u th&ocirc;ng tin:</strong>&nbsp;Sử dụng c&aacute;c cụm từ như &quot;giải th&iacute;ch chi tiết&quot;, &quot;ph&acirc;n t&iacute;ch chuy&ecirc;n s&acirc;u&quot;, &quot;so s&aacute;nh to&agrave;n diện&quot; để y&ecirc;u cầu Chat GPT cung cấp th&ocirc;ng tin ở mức độ bạn mong muốn. Ngược lại, nếu bạn chỉ cần một c&aacute;i nh&igrave;n tổng quan, h&atilde;y sử dụng c&aacute;c cụm từ như &quot;t&oacute;m tắt ngắn gọn&quot;, &quot;giới thiệu chung&quot;.</p>\r\n\r\n<p>V&iacute; dụ:</p>\r\n\r\n<p>Prompt k&eacute;m hiệu quả: &quot;Marketing l&agrave; g&igrave;?&quot;</p>\r\n\r\n<p>Prompt hiệu quả: &quot;Giải th&iacute;ch kh&aacute;i niệm &#39;marketing du k&iacute;ch&#39; l&agrave; g&igrave; v&agrave; cho ba v&iacute; dụ cụ thể về c&aacute;c chiến dịch marketing du k&iacute;ch th&agrave;nh c&ocirc;ng của c&aacute;c c&ocirc;ng ty khởi nghiệp trong lĩnh vực c&ocirc;ng nghệ tại Đ&ocirc;ng Nam &Aacute; trong 2 năm gần đ&acirc;y.&quot;</p>\r\n\r\n<p><img alt=\"ChatGPT đã khả dụng tại Việt Nam từ ngày 11/2 với phiên bản ChatGPT Plus\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(4)-730x410.jpg\" /></p>\r\n\r\n<p>Chat GPT đ&atilde; khả dụng tại Việt Nam từ ng&agrave;y 11/2 với g&oacute;i ChatGPT Plus</p>\r\n\r\n<h3>4Ứng dụng của Chat GPT</h3>\r\n\r\n<p><strong>- Nh&acirc;n c&aacute;ch h&oacute;a cuộc tr&ograve; chuyện:</strong>&nbsp;Chat GPT được thiết kế để hiểu ng&ocirc;n ngữ giao tiếp v&agrave; tham gia v&agrave;o cuộc tr&ograve; chuyện giữa người v&agrave; người. Điều n&agrave;y mang đến trải nghiệm&nbsp;<strong>tương t&aacute;c v&agrave; c&aacute; nh&acirc;n h&oacute;a hơn</strong>&nbsp;so với việc bạn nhập t&igrave;m kiếm tr&ecirc;n Google.</p>\r\n\r\n<p><strong>- Cung cấp c&acirc;u trả lời chuy&ecirc;n s&acirc;u:</strong>&nbsp;Mặc d&ugrave; Google dễ d&agrave;ng cung cấp c&acirc;u trả lời cực nhanh ch&oacute;ng cho c&aacute;c c&acirc;u hỏi thực tế nhưng Chat GPT c&oacute; thể cung cấp c&acirc;u trả lời&nbsp;<strong>chuy&ecirc;n s&acirc;u hơn</strong>&nbsp;để giải th&iacute;ch c&aacute;c chủ đề phức tạp theo c&aacute;ch dễ hiểu.</p>\r\n\r\n<p><strong>- Đưa ra c&aacute;c đề xuất:</strong>&nbsp;Chat GPT c&oacute; thể đưa ra những đề xuất dựa tr&ecirc;n t&ugrave;y chọn v&agrave; mối quan t&acirc;m của người d&ugrave;ng, điều n&agrave;y đặc biệt hữu &iacute;ch với nhu cầu t&igrave;m s&aacute;ch hay phim.</p>\r\n\r\n<p><strong>- S&aacute;ng tạo nội dung:</strong>&nbsp;Chat GPT c&ograve;n hỗ trợ t&igrave;m kiếm nguồn cảm hứng hoặc &yacute; tưởng mới cho c&aacute;c c&ocirc;ng việc li&ecirc;n quan đến s&aacute;ng tạo như l&agrave;m thơ, viết văn, s&aacute;ng t&aacute;c nhạc, thiết kế đồ họa, kiến tr&uacute;c,...</p>\r\n\r\n<p><strong>- Hỗ trợ học ngoại ngữ:</strong>&nbsp;Chat GPT c&oacute; thể hỗ trợ bạn học ngoại ngữ bằng c&aacute;ch tham gia v&agrave;o cuộc tr&ograve; chuyện với bạn bằng ng&ocirc;n ngữ m&agrave; bạn lựa chọn, cung cấp c&aacute;c b&agrave;i học ngữ ph&aacute;p, từ vựng, đồng thời đưa ra phản hồi v&agrave; chỉnh sửa.</p>\r\n\r\n<p><strong>- Dịch thuật:</strong>&nbsp;Chat GPT c&oacute; thể hỗ trợ dịch ng&ocirc;n ngữ trong thời gian thực, cho ph&eacute;p bạn giao tiếp với những người n&oacute;i c&aacute;c ng&ocirc;n ngữ kh&aacute;c nhau th&ocirc;ng qua giao diện tr&ograve; chuyện.</p>\r\n\r\n<p><strong>- Hỗ trợ đưa ra c&aacute;c chẩn đo&aacute;n y tế:</strong>&nbsp;Chat GPT c&oacute; thể hỗ trợ chẩn đo&aacute;n y tế bằng c&aacute;ch đặt c&aacute;c c&acirc;u hỏi c&oacute; li&ecirc;n quan v&agrave; cung cấp th&ocirc;ng tin chi tiết, cũng như đề xuất dựa tr&ecirc;n c&aacute;c triệu chứng v&agrave; tiền sử bệnh của người d&ugrave;ng.</p>\r\n\r\n<p><strong>- Sử dụng cho mục đ&iacute;ch giải tr&iacute;:</strong>&nbsp;Chat GPT cũng dễ d&agrave;ng đưa ra c&aacute;c tr&ograve; chơi, kể chuyện cười hoặc cung cấp c&acirc;u đố đ&aacute;p ứng nhu cầu giải tr&iacute;, thư gi&atilde;n của người d&ugrave;ng.</p>\r\n\r\n<p><img alt=\"Bạn có thể hỏi ChatGPT về công thức nấu ăn\" src=\"https://cdn.tgdd.vn//News/0//Baiviet-730x410.jpg\" /></p>\r\n\r\n<p>Bạn c&oacute; thể hỏi Chat GPT về c&ocirc;ng thức nấu ăn</p>\r\n\r\n<h3>5Ưu điểm của Chat GPT</h3>\r\n\r\n<p>Lợi &iacute;ch của Chat GPT</p>\r\n\r\n<p><strong>- Tr&igrave;nh triển khai:</strong>&nbsp;Chat GPT c&oacute; khả năng triển khai tr&ecirc;n nhiều nền tảng, bao gồm cả web, mobile v&agrave; c&aacute;c nền tảng kh&aacute;c.</p>\r\n\r\n<p><strong>- Hỗ trợ nhiều ng&ocirc;n ngữ:</strong>&nbsp;Chat GPT được huấn luyện tr&ecirc;n nhiều ng&ocirc;n ngữ, cho ph&eacute;p hỗ trợ người d&ugrave;ng tr&ecirc;n to&agrave;n thế giới.</p>\r\n\r\n<p><strong>- Giải đ&aacute;p c&aacute;c thắc mắc trong mọi lĩnh vực:</strong>&nbsp;Chat GPT c&oacute; thể trả lời hầu hết c&aacute;c c&acirc;u hỏi của người d&ugrave;ng với đa dạng chủ đề kh&aacute;c nhau, bao gồm kiến thức, địa l&yacute;, lịch sử, kinh tế, ch&iacute;nh trị, văn h&oacute;a v&agrave; nhiều hơn thế nữa.</p>\r\n\r\n<p><strong>- Tạo nội dung tự động:</strong>&nbsp;Chat GPT c&oacute; thể sử dụng cho việc tạo nội dung tự động, bao gồm viết b&agrave;i, tạo c&acirc;u chuyện v&agrave; tạo ra c&aacute;c loại nội dung kh&aacute;c.</p>\r\n\r\n<p><strong>- Giải quyết vấn đề hỗ trợ kh&aacute;ch h&agrave;ng:</strong>&nbsp;Chat GPT c&oacute; thể sử dụng để giải quyết vấn đề hỗ trợ kh&aacute;ch h&agrave;ng v&agrave; cung cấp th&ocirc;ng tin cho người d&ugrave;ng một c&aacute;ch nhanh ch&oacute;ng v&agrave; ch&iacute;nh x&aacute;c, từ đ&oacute; n&acirc;ng cao chất lượng dịch vụ.</p>\r\n\r\n<p><strong>- Tự động ho&aacute; c&aacute;c quy tr&igrave;nh:</strong>&nbsp;Chat GPT c&oacute; thể sử dụng để tự động ho&aacute; v&agrave; giải quyết c&aacute;c t&aacute;c vụ thủ c&ocirc;ng từ đ&oacute; gi&uacute;p tăng năng suất v&agrave; hiệu quả của c&aacute;c doanh nghiệp v&agrave; tổ chức.</p>\r\n\r\n<p><strong>- Ph&acirc;n t&iacute;ch dữ liệu v&agrave; thống k&ecirc;:</strong>&nbsp;Chat GPT c&oacute; thể sử dụng để ph&acirc;n t&iacute;ch dữ liệu v&agrave; thống k&ecirc;, gi&uacute;p c&aacute;c doanh nghiệp v&agrave; tổ chức cải thiện hoạt động v&agrave; quản l&yacute; dữ liệu một c&aacute;ch hiệu quả.</p>\r\n\r\n<p><strong>- Tạo ra c&aacute;c trải nghiệm người d&ugrave;ng tốt hơn:</strong>&nbsp;Chat GPT c&oacute; thể gi&uacute;p tạo ra c&aacute;c trải nghiệm người d&ugrave;ng tốt hơn bằng c&aacute;ch cung cấp th&ocirc;ng tin ch&iacute;nh x&aacute;c v&agrave; nhanh ch&oacute;ng cho người d&ugrave;ng.</p>\r\n\r\n<p><img alt=\"ChatGPT thậm chí có thể giải thích theo nhiều ngữ cảnh và độ tuổi của người sử dụng\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(1)-730x410.jpg\" /></p>\r\n\r\n<p>Chat GPT thậm ch&iacute; c&oacute; thể giải th&iacute;ch theo nhiều ngữ cảnh v&agrave; độ tuổi của người sử dụng</p>\r\n\r\n<p>Nhược điểm của Chat GPT</p>\r\n\r\n<p><strong>- Sự xuất hiện của c&aacute;c phần mềm lừa đảo:</strong>&nbsp;Khi Chat GPT ra đời, một số người d&ugrave;ng c&oacute; &yacute; đồ xấu, đ&atilde; sử dụng khả năng lập tr&igrave;nh của chatbot để tạo ra phần mềm giả mạo với mục đ&iacute;ch tấn c&ocirc;ng v&agrave; đ&aacute;nh cắp th&ocirc;ng tin. Thậm ch&iacute;, Chat GPT c&oacute; thể sử dụng code do ch&iacute;nh m&igrave;nh tạo ra để thực hiện c&aacute;c phương thức lừa đảo tinh vi hơn.</p>\r\n\r\n<p><strong>- Thiếu ch&iacute;nh x&aacute;c:</strong>&nbsp;Chat GPT được huấn luyện tr&ecirc;n cơ sở dữ liệu lớn nhưng vẫn c&ograve;n thiếu ch&iacute;nh x&aacute;c trong một số trường hợp.</p>\r\n\r\n<p><strong>- Xuy&ecirc;n tạc th&ocirc;ng tin:</strong>&nbsp;Chat GPT c&oacute; thể xuy&ecirc;n tạc hoặc sai lầm th&ocirc;ng tin, đặc biệt l&agrave; khi được huấn luyện tr&ecirc;n dữ liệu cũ hoặc kh&ocirc;ng ch&iacute;nh x&aacute;c.</p>\r\n\r\n<p><strong>- Cản trở s&aacute;ng tạo:</strong>&nbsp;Sử dụng Chat GPT c&oacute; thể giảm s&aacute;ng tạo của con người v&igrave; họ c&oacute; thể trở n&ecirc;n qu&aacute; phụ thuộc v&agrave;o m&aacute;y t&iacute;nh để giải quyết c&aacute;c vấn đề.</p>\r\n\r\n<p><strong>- T&aacute;c động đến việc t&igrave;m kiếm th&ocirc;ng tin:</strong>&nbsp;Chat GPT c&oacute; thể t&aacute;c động đến việc t&igrave;m kiếm th&ocirc;ng tin của con người v&igrave; họ c&oacute; thể dễ d&agrave;ng nhận được c&acirc;u trả lời m&agrave; kh&ocirc;ng phải tham gia qu&aacute; tr&igrave;nh t&igrave;m kiếm th&ocirc;ng tin tự nhi&ecirc;n.</p>\r\n\r\n<p><strong>- Tiềm ẩn nguy cơ thay thế một số ng&agrave;nh nghề:</strong>&nbsp;Năng lực bi&ecirc;n tập đ&aacute;ng sợ của Chat GPT v&agrave; c&aacute;c c&ocirc;ng cụ chatbot hiện đại c&oacute; thể dễ d&agrave;ng đe dọa c&ocirc;ng việc của một số ng&agrave;nh như: copywriter, lập tr&igrave;nh vi&ecirc;n, bi&ecirc;n tập vi&ecirc;n, bi&ecirc;n kịch, thiết kế đồ họa,...</p>\r\n\r\n<p><img alt=\"Bạn cũng cần cẩn trọng và kiểm tra lại thông tin khi sử dụng ChatGPT\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(5)-730x410.jpg\" /></p>\r\n\r\n<p>Bạn cũng cần cẩn trọng v&agrave; kiểm tra lại th&ocirc;ng tin khi sử dụng ChatGPT</p>\r\n\r\n<h3>6Sự kh&aacute;c biệt giữa Chat GPT so với c&aacute;c c&ocirc;ng cụ chat bot kh&aacute;c</h3>\r\n\r\n<p>Một số c&ocirc;ng cụ t&igrave;m kiếm kh&aacute;c như&nbsp;<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/google-bard-la-gi-tim-hieu-ve-google-bard-1544092\" target=\"_blank\">Google Bard</a>,&nbsp;<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/google-gemini-la-gi-thong-tin-ve-ai-moi-nhat-cua-1564006\" target=\"_blank\">Gemini AI</a>,&nbsp;<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/copilot-la-gi-lam-duoc-gi-1574847\" target=\"_blank\">Copilot</a>... phản hồi nhu cầu người d&ugrave;ng bằng c&aacute;ch lập chỉ mục c&aacute;c trang web tr&ecirc;n Internet để gi&uacute;p người d&ugrave;ng t&igrave;m được th&ocirc;ng tin m&agrave; m&igrave;nh muốn. Trong khi, Chat GPT sẽ&nbsp;<strong>kh&ocirc;ng c&oacute; khả năng t&igrave;m kiếm nguồn th&ocirc;ng tin tr&ecirc;n Internet</strong>.</p>\r\n\r\n<p>Thay v&agrave;o đ&oacute;, n&oacute; sẽ tận dụng những g&igrave; m&agrave; m&igrave;nh đ&atilde; học được trong qu&aacute; tr&igrave;nh được đ&agrave;o tạo, nghi&ecirc;n cứu để phản hồi lại người d&ugrave;ng. Tuy nhi&ecirc;n, điều n&agrave;y cũng c&oacute; thể xảy ra lỗi v&agrave; độ ch&iacute;nh x&aacute;c kh&ocirc;ng đạt tuyệt đối.</p>\r\n\r\n<p>Điểm kh&aacute;c biệt kh&aacute;c c&oacute; thể kể đến l&agrave; c&aacute;ch m&agrave;&nbsp;<strong>Chat GPT được đ&agrave;o tạo chuy&ecirc;n biệt</strong>. N&oacute; c&oacute; thể hiểu được mong muốn của con người th&ocirc;ng qua c&acirc;u hỏi v&agrave; c&oacute; những c&acirc;u trả lời hữu &iacute;ch, trung thực.</p>\r\n\r\n<h3>7T&aacute;c hại của Chat GPT đối với đời sống</h3>\r\n\r\n<p>Mặc d&ugrave; ChatGPT v&agrave; c&aacute;c m&ocirc; h&igrave;nh ng&ocirc;n ngữ lớn kh&aacute;c mang lại nhiều lợi &iacute;ch, ch&uacute;ng cũng tiềm ẩn một số t&aacute;c hại cần được c&acirc;n nhắc:</p>\r\n\r\n<p>1. Th&ocirc;ng tin sai lệch v&agrave; thiếu ch&iacute;nh x&aacute;c: ChatGPT c&oacute; thể tạo ra th&ocirc;ng tin kh&ocirc;ng ch&iacute;nh x&aacute;c hoặc bịa đặt, đặc biệt khi được hỏi về c&aacute;c chủ đề phức tạp hoặc kh&ocirc;ng c&oacute; đủ dữ liệu huấn luyện. Người d&ugrave;ng cần kiểm chứng th&ocirc;ng tin từ c&aacute;c nguồn đ&aacute;ng tin cậy kh&aacute;c.</p>\r\n\r\n<p>2. Mối lo ngại về đạo văn: Do khả năng tạo văn bản giống con người, ChatGPT c&oacute; thể bị lạm dụng để đạo văn. Sinh vi&ecirc;n c&oacute; thể sử dụng n&oacute; để viết b&agrave;i luận, l&agrave;m b&agrave;i tập về nh&agrave; m&agrave; kh&ocirc;ng thực sự hiểu b&agrave;i.</p>\r\n\r\n<p>3. Thi&ecirc;n kiến v&agrave; ph&acirc;n biệt đối xử: V&igrave; được huấn luyện tr&ecirc;n dữ liệu từ internet, ChatGPT c&oacute; thể học v&agrave; t&aacute;i tạo c&aacute;c định kiến x&atilde; hội, dẫn đến ph&acirc;n biệt đối xử về chủng tộc, giới t&iacute;nh, t&ocirc;n gi&aacute;o, ...</p>\r\n\r\n<p>4. Mất việc l&agrave;m: Sự ph&aacute;t triển của c&aacute;c m&ocirc; h&igrave;nh ng&ocirc;n ngữ lớn như ChatGPT c&oacute; thể dẫn đến mất việc l&agrave;m trong một số ng&agrave;nh nghề, đặc biệt l&agrave; những c&ocirc;ng việc li&ecirc;n quan đến viết l&aacute;ch, dịch thuật, v&agrave; nhập liệu.</p>\r\n\r\n<p>5. Lạm dụng: ChatGPT c&oacute; thể bị lạm dụng để tạo ra tin giả, th&ocirc;ng tin sai lệch, tuy&ecirc;n truyền, hoặc thậm ch&iacute; lừa đảo. Việc qu&aacute; phụ thuộc v&agrave;o ChatGPT c&oacute; thể l&agrave;m giảm khả năng tư duy, s&aacute;ng tạo v&agrave; giải quyết vấn đề của con người.</p>\r\n\r\n<p>6. Hạn chế về hiểu biết s&acirc;u: ChatGPT chỉ c&oacute; thể xử l&yacute; th&ocirc;ng tin dựa tr&ecirc;n dữ liệu đ&atilde; được huấn luyện. N&oacute; kh&ocirc;ng c&oacute; khả năng hiểu biết s&acirc;u sắc về thế giới thực, cảm x&uacute;c, hoặc &yacute; thức như con người.</p>\r\n\r\n<p>7. Kh&oacute; khăn trong việc x&aacute;c định nguồn gốc th&ocirc;ng tin: Do ChatGPT c&oacute; thể tạo ra nội dung giống con người, n&ecirc;n rất kh&oacute; để ph&acirc;n biệt giữa nội dung do con người tạo ra v&agrave; nội dung do ChatGPT tạo ra. Điều n&agrave;y c&oacute; thể g&acirc;y kh&oacute; khăn trong việc kiểm chứng th&ocirc;ng tin v&agrave; x&aacute;c định nguồn gốc.</p>\r\n\r\n<p>8. Vấn đề bảo mật: Dữ liệu được sử dụng để huấn luyện v&agrave; tương t&aacute;c với ChatGPT c&oacute; thể gặp rủi ro về bảo mật v&agrave; quyền ri&ecirc;ng tư.</p>\r\n\r\n<p>Để giảm thiểu t&aacute;c hại của ChatGPT, người d&ugrave;ng cần sử dụng một c&aacute;ch c&oacute; tr&aacute;ch nhiệm, kiểm chứng th&ocirc;ng tin từ nhiều nguồn, v&agrave; nhận thức r&otilde; về những hạn chế của c&ocirc;ng nghệ n&agrave;y. C&aacute;c nh&agrave; ph&aacute;t triển cũng cần nỗ lực để cải thiện m&ocirc; h&igrave;nh, giảm thiểu thi&ecirc;n kiến, v&agrave; tăng cường t&iacute;nh bảo mật.</p>', 'chat-gpt-la-gi-loi-ich-va-cach-su-dung-chatgpt-toi-uu-hieu-qua', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, 'published', '2025-05-08 12:00:00', 30, 1, NULL, '2025-05-08 02:18:07', '2025-05-13 02:01:53'),
-(2, 'Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', 'Máy xay đậu nành là thiết bị hữu ích giúp người dùng chế biến được nhiều thức uống bổ dưỡng như các loại sữa hạt, sữa ngũ cốc, xay sinh tố, nấu cháo, nấu súp,...', '<h3>1<a href=\"https://dienmayxanh.com/may-lam-sua-hat/bluestone-blb-6031?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=titleproduct\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt đa năng BlueStone BLB-6031</a>&nbsp;</h3>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt đa năng BlueStone BLB-6031 sở hữu thiết kế hiện đại, m&agrave;u sắc trang nh&atilde;, ph&ugrave; hợp với nhiều kh&ocirc;ng gian bếp Việt. Sản phẩm nổi bật với c&ocirc;ng suất xay 800W v&agrave; c&ocirc;ng suất nấu 800W, kết hợp lưỡi dao inox 8 c&aacute;nh sắc b&eacute;n, tốc độ quay mạnh mẽ gi&uacute;p xay nhuyễn thực phẩm dễ d&agrave;ng, kể cả c&aacute;c loại hạt cứng.</p>\r\n\r\n<p>Cối xay bằng thủy tinh borosilicate cao cấp, chịu nhiệt tốt, dung t&iacute;ch sử dụng 1.75 l&iacute;t th&iacute;ch hợp để nấu sữa hạt cho gia đ&igrave;nh 2 - 4 người. M&aacute;y c&ograve;n t&iacute;ch hợp 9 chương tr&igrave;nh nấu tự động như: sữa đậu n&agrave;nh, ch&aacute;o, sinh tố, hầm canh... v&agrave; 9 mức tốc độ xay linh hoạt, k&egrave;m chức năng hẹn giờ l&ecirc;n đến 12 tiếng tiện lợi.</p>\r\n\r\n<p>Bảng điều khiển cảm ứng hiện đại với m&agrave;n h&igrave;nh LED, hướng dẫn tiếng Việt r&otilde; r&agrave;ng, dễ thao t&aacute;c cho cả người lớn tuổi. Ngo&agrave;i ra,&nbsp;<a href=\"https://www.dienmayxanh.com/may-lam-sua-hat-bluestone\" target=\"_blank\">m&aacute;y l&agrave;m sữa hạt BlueStone</a>&nbsp;c&ograve;n c&oacute; t&iacute;nh năng tự vệ sinh v&agrave; ch&acirc;n đế chống trượt, đảm bảo an to&agrave;n trong qu&aacute; tr&igrave;nh sử dụng.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><img src=\"https://cdn.tgdd.vn/Products/Images/2322/303381/Slider/bluestone-blb-6031638212985105229234.jpg\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ul>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/303381/Slider/bluestone-blb-6031638212985106628751.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/303381/Slider/bluestone-blb-6031638212985107578723.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/303381/Slider/bluestone-blb-6031638212985111358792.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/303381/Slider/bluestone-blb-6031638212985113318692.jpg\" style=\"height:60px; width:90px\" />\r\n	<p>Xem th&ecirc;m<br />\r\n	7&nbsp;h&igrave;nh</p>\r\n	</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat/bluestone-blb-6031?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=303381\"><img alt=\"Máy làm sữa hạt đa năng BlueStone BLB-6031\" src=\"https://cdn.tgdd.vn/Products/Images/2322/303381/bluestone-blb-6031-040423-104702-600x600.jpg\" /></a></p>\r\n\r\n<p><img alt=\"label template\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/Campaign/f9/be/f9be92f4b97a04f236a8d404ec6989d0.png\" style=\"height:20px; width:20px\" />Trả chậm 3 th&aacute;ng</p>\r\n\r\n<h3>M&aacute;y l&agrave;m sữa hạt đa năng BlueStone BLB-6031</h3>\r\n\r\n<p>1.890.000₫</p>\r\n\r\n<p>2.599.000₫</p>\r\n\r\n<p>&nbsp;-27%</p>\r\n\r\n<p>Qu&agrave;&nbsp;<strong>300.000₫</strong></p>\r\n\r\n<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat/bluestone-blb-6031?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=303381\" target=\"_blank\">Xem chi tiết</a></p>\r\n\r\n<ul>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>❝</strong>X&acirc;y cực nhuyễn, ko thấy x&aacute;c hạt. M&aacute;y x&acirc;y v&agrave; nghỉ theo chu k&igrave; n&ecirc;n &iacute;t ồn<strong>❞</strong></p>\r\n\r\n<p><strong>Tri Nguyen</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&igrave;nh mới sử dụng được thời gian &iacute;t n&ecirc;n chưa đ&aacute;nh gi&aacute; ch&iacute;nh x&aacute;c được. Hiện tại d&ugrave;ng thấy cũng ổn<strong>❞</strong></p>\r\n\r\n<p><strong>C&ocirc; Hiền</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>Ok<strong>❞</strong></p>\r\n\r\n<p><strong>Phung Dang</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&igrave;nh mua m&aacute;y l&uacute;c sales n&ecirc;n rẻ được một t&iacute;. Ship h&agrave;ng rất nhanh. Nh&igrave;n chung trải nghiệm tốt, chất lượng xứng đ&aacute;ng với tầm gi&aacute; rẻ so với nhiều mẫu kh&aacute;c.Nhiều b&aacute;c cứ bảo m&aacute;y ồn nhưng m&igrave;nh thấy n&oacute; chạy như m&aacute;y sinh tố th&ocirc;i m&agrave;. Bật l&ecirc;n cho n&oacute; tự chạy xong m&igrave;nh đi l&agrave;m việc kh&aacute;c thấy kh&aacute; nh&agrave;n. Cực khoản vệ sinh m&aacute;y th&ocirc;i.M&igrave;nh thử c&aacute;c chức năng th&igrave; thấy chức năng l&agrave;m sữa hạt xay kĩ v&agrave; mịn hơn chức năng l&agrave;m sữa đậu n&agrave;nh. Nh&igrave;n chung sản phầm tốt. C&oacute; vấn đề g&igrave; sẽ quay lại đ&acirc;y viết tiếp<strong>❞</strong></p>\r\n\r\n<p><strong>Hanh Hoang</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>X&acirc;y cực nhuyễn, ko thấy x&aacute;c hạt. M&aacute;y x&acirc;y v&agrave; nghỉ theo chu k&igrave; n&ecirc;n &iacute;t ồn<strong>❞</strong></p>\r\n\r\n<p><strong>Tri Nguyen</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&igrave;nh mới sử dụng được thời gian &iacute;t n&ecirc;n chưa đ&aacute;nh gi&aacute; ch&iacute;nh x&aacute;c được. Hiện tại d&ugrave;ng thấy cũng ổn<strong>❞</strong></p>\r\n\r\n<p><strong>C&ocirc; Hiền</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>Ok<strong>❞</strong></p>\r\n\r\n<p><strong>Phung Dang</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&igrave;nh mua m&aacute;y l&uacute;c sales n&ecirc;n rẻ được một t&iacute;. Ship h&agrave;ng rất nhanh. Nh&igrave;n chung trải nghiệm tốt, chất lượng xứng đ&aacute;ng với tầm gi&aacute; rẻ so với nhiều mẫu kh&aacute;c.Nhiều b&aacute;c cứ bảo m&aacute;y ồn nhưng m&igrave;nh thấy n&oacute; chạy như m&aacute;y sinh tố th&ocirc;i m&agrave;. Bật l&ecirc;n cho n&oacute; tự chạy xong m&igrave;nh đi l&agrave;m việc kh&aacute;c thấy kh&aacute; nh&agrave;n. Cực khoản vệ sinh m&aacute;y th&ocirc;i.M&igrave;nh thử c&aacute;c chức năng th&igrave; thấy chức năng l&agrave;m sữa hạt xay kĩ v&agrave; mịn hơn chức năng l&agrave;m sữa đậu n&agrave;nh. Nh&igrave;n chung sản phầm tốt. C&oacute; vấn đề g&igrave; sẽ quay lại đ&acirc;y viết tiếp<strong>❞</strong></p>\r\n\r\n<p><strong>Hanh Hoang</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3>2<a href=\"https://dienmayxanh.com/may-lam-sua-hat/tefal-bl967b66?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=titleproduct\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt đa năng Tefal BL967B66</a>&nbsp;</h3>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt đa năng Tefal BL967B66 c&oacute; thiết kế hiện đại, sắc x&aacute;m đậm tinh tế mang đậm phong c&aacute;ch ch&acirc;u &Acirc;u, l&agrave; điểm nhấn nổi bật cho kh&ocirc;ng gian bếp. M&aacute;y hoạt động mạnh mẽ với c&ocirc;ng suất xay 1000W, c&ocirc;ng suất nấu 1300W, t&iacute;ch hợp lưỡi dao th&eacute;p kh&ocirc;ng gỉ 6 c&aacute;nh ứng dụng c&ocirc;ng nghệ Powelix, gi&uacute;p xay nhuyễn mịn c&aacute;c loại hạt, kể cả hạt cứng v&agrave; thực phẩm đ&ocirc;ng lạnh.</p>\r\n\r\n<p>Cối xay l&agrave;m bằng thủy tinh chịu nhiệt cao cấp, dung t&iacute;ch tổng 1.75 l&iacute;t, ph&ugrave; hợp để nấu sữa hoặc s&uacute;p cho gia đ&igrave;nh từ 4 - 5 người. Chất liệu cối gi&uacute;p dễ vệ sinh, kh&ocirc;ng b&aacute;m m&ugrave;i thực phẩm v&agrave; chịu nhiệt tốt khi sử dụng ở c&ocirc;ng suất cao.</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat-tefal\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt Tefal</a>&nbsp;được t&iacute;ch hợp đến 12 chương tr&igrave;nh nấu tự động như: sữa đậu n&agrave;nh, sinh tố, kem, s&uacute;p n&oacute;ng, tr&agrave; thảo mộc,&hellip; Đối với chương tr&igrave;nh l&agrave;m sữa đậu n&agrave;nh, chỉ n&ecirc;n sử dụng tối đa 1 l&iacute;t nước với &lt;= 70 gr hạt đậu n&agrave;nh.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><img src=\"https://cdn.tgdd.vn/Products/Images/2322/247536/Slider/vi-vn-tefal-bl967b66-270821-0514-1020x570-1020x570.jpg\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ul>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/247536/Slider/tefal-bl967b66-270821-0514303.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/247536/Slider/tefal-bl967b66-270821-0514304.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/247536/Slider/tefal-bl967b66-270821-0514305.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/247536/Slider/tefal-bl967b66-270821-0514316.jpg\" style=\"height:60px; width:90px\" />\r\n	<p>Xem th&ecirc;m<br />\r\n	5&nbsp;h&igrave;nh</p>\r\n	</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat/tefal-bl967b66?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=247536\"><img alt=\"Máy làm sữa hạt đa năng Tefal BL967B66\" src=\"https://cdn.tgdd.vn/Products/Images/2322/247536/tefal-bl967b66-151021-114713-600x600.jpg\" /></a></p>\r\n\r\n<p><img alt=\"label template\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/Campaign/40/40/40409df50151a792be44c25b647323e3.png\" style=\"height:20px; width:20px\" />Tặng m&aacute;y vắt cam</p>\r\n\r\n<h3>M&aacute;y l&agrave;m sữa hạt đa năng Tefal BL967B66</h3>\r\n\r\n<p>2.690.000₫</p>\r\n\r\n<p>3.500.000₫</p>\r\n\r\n<p>&nbsp;-23%</p>\r\n\r\n<p>Qu&agrave;&nbsp;<strong>300.000₫</strong></p>\r\n\r\n<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat/tefal-bl967b66?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=247536\" target=\"_blank\">Xem chi tiết</a></p>\r\n\r\n<ul>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>❝</strong>Tốt<strong>❞</strong></p>\r\n\r\n<p><strong>Phạm Minh Ho&agrave;ng</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&aacute;y l&agrave;m hạt ok nha mn, n&ecirc;n mua, sữa l&agrave;m ra mịn uống thơm ngon<strong>❞</strong></p>\r\n\r\n<p><strong>Nga</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>X&acirc;y rất mịn, hoạt động tốt<strong>❞</strong></p>\r\n\r\n<p><strong>Linh</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&aacute;y chạy tốt, xay hạt min, sữa ngon<strong>❞</strong></p>\r\n\r\n<p><strong>C&ocirc; Thắm</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>Tốt<strong>❞</strong></p>\r\n\r\n<p><strong>Phạm Minh Ho&agrave;ng</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&aacute;y l&agrave;m hạt ok nha mn, n&ecirc;n mua, sữa l&agrave;m ra mịn uống thơm ngon<strong>❞</strong></p>\r\n\r\n<p><strong>Nga</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>X&acirc;y rất mịn, hoạt động tốt<strong>❞</strong></p>\r\n\r\n<p><strong>Linh</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&aacute;y chạy tốt, xay hạt min, sữa ngon<strong>❞</strong></p>\r\n\r\n<p><strong>C&ocirc; Thắm</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3>3<a href=\"https://dienmayxanh.com/may-lam-sua-hat/may-lam-sua-hat-da-nang-rapido-rhb-800dm?utm_flashsale=1?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=titleproduct\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt đa năng Rapido RHB-800DM</a>&nbsp;</h3>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt đa năng Rapido RHB-800DM sở hữu thiết kế nhỏ gọn, trọng lượng nhẹ chỉ 1.62 kg c&ugrave;ng tay cầm chắc chắn, dễ d&agrave;ng di chuyển v&agrave; ph&ugrave; hợp với nhiều kh&ocirc;ng gian bếp hiện đại. M&aacute;y hoạt động với c&ocirc;ng suất xay 150W v&agrave; c&ocirc;ng suất nấu 800W, kết hợp lưỡi dao inox 304 sắc b&eacute;n, gi&uacute;p xay nhuyễn mịn c&aacute;c loại hạt v&agrave; thực phẩm một c&aacute;ch hiệu quả.</p>\r\n\r\n<p>Cối xay được l&agrave;m từ th&eacute;p kh&ocirc;ng gỉ bền đẹp, dung t&iacute;ch 1.2 l&iacute;t, ph&ugrave; hợp để nấu sữa hoặc s&uacute;p cho gia đ&igrave;nh nhỏ từ 2&ndash;3 người. Chất liệu cối gi&uacute;p dễ vệ sinh, kh&ocirc;ng b&aacute;m m&ugrave;i thực phẩm v&agrave; an to&agrave;n cho sức khỏe.</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat-rapido\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt Rapido</a>&nbsp;t&iacute;ch hợp 8 chương tr&igrave;nh nấu tự động như: sữa đậu n&agrave;nh, sinh tố, ch&aacute;o dinh dưỡng, nấu chậm, giữ ấm, đun nước, c&ugrave;ng chức năng tự l&agrave;m sạch, đ&aacute;p ứng đa dạng nhu cầu chế biến của người d&ugrave;ng.</p>\r\n\r\n<p>Lưu &yacute;: Để sữa nấu sữa đậu n&agrave;nh được mịn hơn n&ecirc;n sơ chế trước khi tiến h&agrave;nh nấu bằng c&aacute;ch t&aacute;ch vỏ hạt v&agrave; c&oacute; thời gian ng&acirc;m ủ cho hạt.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><img src=\"https://cdn.tgdd.vn/Products/Images/2322/323129/Slider/323129-1020x570.jpg\" /><img src=\"https://cdn.tgdd.vn/dmx2016/Content/images/icon-yt.png\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ul>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/323129/Slider/may-lam-sua-hat-da-nang-rapido-rhb-800dm638527482564090968-1020x570.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/323129/Slider/may-lam-sua-hat-da-nang-rapido-rhb-800dm638527482562920964.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/323129/Slider/may-lam-sua-hat-da-nang-rapido-rhb-800dm638527482565050957.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/323129/Slider/may-lam-sua-hat-da-nang-rapido-rhb-800dm638527482566091011.jpg\" style=\"height:60px; width:90px\" />\r\n	<p>Xem th&ecirc;m<br />\r\n	7&nbsp;h&igrave;nh</p>\r\n	</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat/may-lam-sua-hat-da-nang-rapido-rhb-800dm?utm_flashsale=1?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=323129\"><img alt=\"Máy làm sữa hạt đa năng Rapido RHB-800DM\" src=\"https://cdn.tgdd.vn/Products/Images/2322/323129/may-lam-sua-hat-da-nang-rapido-rhb-800dm-060824-114335-600x600.jpg\" /></a></p>\r\n\r\n<p><img alt=\"label template\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/Campaign/f9/be/f9be92f4b97a04f236a8d404ec6989d0.png\" style=\"height:20px; width:20px\" />Trả chậm 3 th&aacute;ng</p>\r\n\r\n<h3>M&aacute;y l&agrave;m sữa hạt đa năng Rapido RHB-800DM</h3>\r\n\r\n<p>1.090.000₫</p>\r\n\r\n<p>1.560.000₫</p>\r\n\r\n<p>&nbsp;-30%</p>\r\n\r\n<p>Qu&agrave;&nbsp;<strong>300.000₫</strong></p>\r\n\r\n<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat/may-lam-sua-hat-da-nang-rapido-rhb-800dm?utm_flashsale=1?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=323129\" target=\"_blank\">Xem chi tiết</a></p>\r\n\r\n<ul>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>❝</strong>L&agrave;m sữa mịn<strong>❞</strong></p>\r\n\r\n<p><strong>Chi Thường</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>Sản phẩm tốt dễ sử dụng<strong>❞</strong></p>\r\n\r\n<p><strong>Đạt</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&aacute;y tốt, dễ sử dụng<strong>❞</strong></p>\r\n\r\n<p><strong>Nguyễn Thiphương Th&uacute;y</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>Rất tốt<strong>❞</strong></p>\r\n\r\n<p><strong>Anh Th&agrave;nh</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>L&agrave;m sữa mịn<strong>❞</strong></p>\r\n\r\n<p><strong>Chi Thường</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>Sản phẩm tốt dễ sử dụng<strong>❞</strong></p>\r\n\r\n<p><strong>Đạt</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>M&aacute;y tốt, dễ sử dụng<strong>❞</strong></p>\r\n\r\n<p><strong>Nguyễn Thiphương Th&uacute;y</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><strong>❝</strong>Rất tốt<strong>❞</strong></p>\r\n\r\n<p><strong>Anh Th&agrave;nh</strong>&nbsp;- InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3>4<a href=\"https://dienmayxanh.com/may-lam-sua-hat/may-lam-sua-hat-da-nang-sunhouse-shd5261?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=titleproduct\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt đa năng Sunhouse SHD5261</a>&nbsp;</h3>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt đa năng Sunhouse SHD5261 sở hữu thiết kế nhỏ gọn, hiện đại với t&ocirc;ng m&agrave;u trắng - x&aacute;m trang nh&atilde;, ph&ugrave; hợp với nhiều kh&ocirc;ng gian bếp. M&aacute;y hoạt động với c&ocirc;ng suất 400W, t&iacute;ch hợp lưỡi dao 8 c&aacute;nh bằng th&eacute;p kh&ocirc;ng gỉ sắc b&eacute;n, gi&uacute;p xay nhuyễn mịn c&aacute;c loại hạt v&agrave; thực phẩm.</p>\r\n\r\n<p>Cối xay được l&agrave;m từ thủy tinh chịu lực v&agrave; chịu nhiệt tốt, dung t&iacute;ch 1 l&iacute;t, ph&ugrave; hợp để nấu sữa hoặc s&uacute;p cho gia đ&igrave;nh nhỏ từ 2 - 3 người. Chất liệu cối gi&uacute;p dễ vệ sinh, kh&ocirc;ng b&aacute;m m&ugrave;i thực phẩm v&agrave; an to&agrave;n cho sức khỏe.</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat-sunhouse\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt Sunhouse</a>&nbsp;t&iacute;ch hợp 8 chương tr&igrave;nh nấu tự động như ngũ cốc, sữa đậu, ch&aacute;o hạt, s&uacute;p, tr&agrave;, giữ ấm, sữa lắc v&agrave; sinh tố đ&aacute;p ứng đa dạng nhu cầu chế biến của người d&ugrave;ng.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><img src=\"https://cdn.tgdd.vn/Products/Images/2322/325224/Slider/may-lam-sua-hat-da-nang-sunhouse-shd5261638672883384362380.jpg\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ul>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/325224/Slider/may-lam-sua-hat-da-nang-sunhouse-shd5261638672883385472389.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/325224/Slider/may-lam-sua-hat-da-nang-sunhouse-shd5261638672883386362390.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/325224/Slider/may-lam-sua-hat-da-nang-sunhouse-shd5261638672883387262393.jpg\" style=\"height:60px; width:90px\" /></li>\r\n	<li><img src=\"https://cdn.tgdd.vn/Products/Images/2322/325224/Slider/may-lam-sua-hat-da-nang-sunhouse-shd5261638672883389262402.jpg\" style=\"height:60px; width:90px\" />\r\n	<p>Xem th&ecirc;m<br />\r\n	7&nbsp;h&igrave;nh</p>\r\n	</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat/may-lam-sua-hat-da-nang-sunhouse-shd5261?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=325224\"><img alt=\"Máy làm sữa hạt đa năng Sunhouse SHD5261\" src=\"https://cdn.tgdd.vn/Products/Images/2322/325224/may-lam-sua-hat-da-nang-sunhouse-shd5261-090724-103920-600x600.jpg\" /></a></p>\r\n\r\n<p><img alt=\"label template\" src=\"https://cdnv2.tgdd.vn/mwg-static/common/Campaign/f9/be/f9be92f4b97a04f236a8d404ec6989d0.png\" style=\"height:20px; width:20px\" />Trả chậm 3 th&aacute;ng</p>\r\n\r\n<h3>M&aacute;y l&agrave;m sữa hạt đa năng Sunhouse SHD5261</h3>\r\n\r\n<p>1.490.000₫</p>\r\n\r\n<p>1.860.000₫</p>\r\n\r\n<p>&nbsp;-19%</p>\r\n\r\n<p>Qu&agrave;&nbsp;<strong>300.000₫</strong></p>\r\n\r\n<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>\r\n\r\n<p>Xem đặc điểm nổi bật</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat/may-lam-sua-hat-da-nang-sunhouse-shd5261?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=325224\" target=\"_blank\">Xem chi tiết</a></p>\r\n\r\n<ul>\r\n</ul>\r\n\r\n<h3>5<a href=\"https://dienmayxanh.com/may-lam-sua-hat/may-xay-nau-da-nang-kangaroo-kg175hb1?itm_source=knh&amp;itm_medium=shortcode&amp;itm_content=titleproduct\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt đa năng Kangaroo KG175HB1</a>&nbsp;</h3>\r\n\r\n<p>M&aacute;y xay nấu đa năng Kangaroo KG175HB1 sở hữu thiết kế chắc chắn, sang trọng. M&aacute;y được trang bị lưỡi dao 3 lớp 8 c&aacute;nh bằng th&eacute;p kh&ocirc;ng gỉ, c&ocirc;ng suất xay 800W, c&ocirc;ng suất nấu 900W, động cơ mạnh mẽ với lực xoắn v&agrave; tốc độ l&ecirc;n tới 28.000 v&ograve;ng/ph&uacute;t, gi&uacute;p xay nhuyễn mịn c&aacute;c loại thực phẩm một c&aacute;ch nhanh ch&oacute;ng v&agrave; hiệu quả.</p>\r\n\r\n<p>Cối xay bằng thủy tinh cao cấp, dung t&iacute;ch tổng 1.75 l&iacute;t, ph&ugrave; hợp để nấu sữa hoặc s&uacute;p cho gia đ&igrave;nh từ 4 - 5 người. Chất liệu cối gi&uacute;p dễ vệ sinh, kh&ocirc;ng b&aacute;m m&ugrave;i thực phẩm v&agrave; an to&agrave;n cho sức khỏe.</p>\r\n\r\n<p><a href=\"https://www.dienmayxanh.com/may-lam-sua-hat-kangaroo\" target=\"_blank\">M&aacute;y l&agrave;m sữa hạt Kangaroo</a>&nbsp;t&iacute;ch hợp 11 chương tr&igrave;nh nấu tự động v&agrave; 9 tốc độ xay, đ&aacute;p ứng đa dạng nhu cầu chế biến của người d&ugrave;ng. Ngo&agrave;i ra, m&aacute;y c&ograve;n hỗ trợ chức năng hẹn giờ l&ecirc;n đến 12 tiếng, tiện lợi cho việc chuẩn bị m&oacute;n ăn theo lịch tr&igrave;nh c&aacute; nh&acirc;n.</p>\r\n\r\n<p>M&aacute;y được trang bị bảng điều khiển cảm ứng hiện đại với m&agrave;n h&igrave;nh LED, hỗ trợ ng&ocirc;n ngữ Anh - Việt, gi&uacute;p người d&ugrave;ng dễ d&agrave;ng thao t&aacute;c v&agrave; t&ugrave;y chỉnh c&aacute;c chức năng. Ngo&agrave;i ra, sản phẩm c&ograve;n c&oacute; t&iacute;nh năng chỉ hoạt động khi cối được lắp đ&uacute;ng khớp với th&acirc;n m&aacute;y v&agrave; ch&acirc;n đế chống trượt, đảm bảo an to&agrave;n trong qu&aacute; tr&igrave;nh sử dụng.</p>', 'may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, 'published', '2025-05-08 12:00:00', 34, 1, NULL, '2025-05-08 02:19:20', '2025-05-08 02:19:20'),
-(3, 'Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', '1', '<p>`1234567890</p>', '1', NULL, 0, 1, 'published', '2025-05-09 12:00:00', 30, 1, NULL, '2025-05-09 01:11:05', '2025-05-09 01:11:05'),
-(4, '12345', '12345', '<p>123456</p>', '12345', NULL, 0, 1, 'published', '2025-05-10 12:00:00', 34, 1, NULL, '2025-05-09 01:11:32', '2025-05-09 01:11:32'),
-(5, '1234', '324', '2132132', '1234', NULL, 0, 1, 'published', '2025-06-04 12:00:00', 30, 1, NULL, '2025-05-12 07:03:44', '2025-05-12 07:03:44'),
-(6, '123321', '212132', '<p>1232</p>', '123321', NULL, 0, 1, 'published', '2025-06-04 12:00:00', 34, 2, NULL, '2025-05-12 08:39:47', '2025-05-12 08:39:47');
+(1, 'Chat GPT là gì? Lợi ích và cách sử dụng ChatGPT tối ưu hiệu quả', 'Chat GPT làm một công cụ trợ lý trên điện thoại hay laptop tương tự như: Siri, Google Assitant,... và được phát triển bởi OpenAI.', '<h3>1Chat GPT l&agrave; g&igrave;?</h3>\r\n\r\n<p>ChatGPT (Chat Generative Pre-training Transformer) l&agrave; một Chatbot do OpenAI ph&aacute;t triển dựa tr&ecirc;n m&ocirc; h&igrave;nh Transformer của Google. Đ&acirc;y l&agrave; một AI (<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/cong-nghe-ai-tren-cac-bi-dien-tu-1238818\" target=\"_blank\">tr&iacute; tuệ nh&acirc;n tạo</a>) gi&uacute;p bạn tạo c&aacute;c cuộc tr&ograve; chuyện tự động v&agrave; trả lời c&aacute;c c&acirc;u hỏi về nhiều chủ đề v&agrave; lĩnh vực kh&aacute;c nhau. Điểm nổi bật l&agrave; khả năng tương t&aacute;c hội thoại tự nhi&ecirc;n.</p>\r\n\r\n<p><img alt=\"ChatGPT sẽ tạo ra tương tác hội thoại như khi bạn nói chuyện với bạn bè\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(2)-730x410.jpg\" /></p>\r\n\r\n<p>ChatGPT sẽ tạo ra tương t&aacute;c hội thoại như khi bạn n&oacute;i chuyện với bạn b&egrave;</p>\r\n\r\n<p>Phi&ecirc;n bản mới nhất của Chat GPT từ OpenAI đ&atilde; c&oacute; những cải tiến vượt trội trong việc hiểu v&agrave; phản hồi ng&ocirc;n ngữ tự nhi&ecirc;n. M&ocirc; h&igrave;nh n&agrave;y đa năng, c&oacute; thể trả lời c&acirc;u hỏi, viết, t&oacute;m tắt, dịch thuật v&agrave; s&aacute;ng tạo nội dung (thơ, code...). Chat GPT đ&oacute;ng vai tr&ograve; quan trọng nhờ khả năng nắm bắt ngữ cảnh, tạo c&acirc;u trả lời mạch lạc v&agrave; kh&ocirc;ng ngừng học hỏi từ người d&ugrave;ng.</p>\r\n\r\n<p>Được đ&agrave;o tạo từ h&agrave;ng triệu văn bản c&ocirc;ng khai, ChatGPT học s&acirc;u về ng&ocirc;n ngữ v&agrave; ngữ nghĩa. Chat GPT được coi l&agrave; một trong những m&ocirc; h&igrave;nh ng&ocirc;n ngữ ti&ecirc;n tiến nhất hiện nay với khả năng tự động học v&agrave; l&agrave;m việc với c&aacute;c loại dữ liệu lớn. Chat GPT đảm nhận tất cả c&aacute;c nhiệm vụ s&aacute;ng tạo v&agrave; nghệ thuật, thiết kế v&agrave; thậm ch&iacute; tạo hoặc gỡ lỗi trong lập tr&igrave;nh.</p>\r\n\r\n<p><img alt=\"Chat GPT tổng hợp thông tin từ vô vàn các nguồn khác nhau và tự đào sâu tìm hiểu nhiều tầng nghĩa từ những thông tin đó\" src=\"https://cdn.tgdd.vn//News/1518107//730x408-730x408.jpg\" /></p>\r\n\r\n<p>Chat GPT tổng hợp th&ocirc;ng tin từ v&ocirc; v&agrave;n c&aacute;c nguồn kh&aacute;c nhau v&agrave; tự đ&agrave;o s&acirc;u t&igrave;m hiểu nhiều tầng nghĩa từ những th&ocirc;ng tin đ&oacute;</p>\r\n\r\n<h3>2C&aacute;ch thức hoạt động của Chat GPT</h3>\r\n\r\n<p>Chat GPT được tinh chỉnh từ GPT-3.5 (hiện tại đ&atilde; c&oacute; phi&ecirc;n bản GPT-4), một m&ocirc; h&igrave;nh ng&ocirc;n ngữ tạo văn bản. N&oacute; đ&atilde; được tối ưu h&oacute;a cho cuộc đối thoại qua việc sử dụng&nbsp;<strong>Học tăng cường từ phản hồi của con người</strong>&nbsp;(Reinforcement Learning from Human Feedback - RLHF) - một phương ph&aacute;p sử dụng c&aacute;c v&iacute; dụ của con người để hướng dẫn m&ocirc; h&igrave;nh đến h&agrave;nh vi mong muốn.</p>\r\n\r\n<p>Chat GPT sử dụng c&aacute;c phương ph&aacute;p ti&ecirc;u d&ugrave;ng hạ tầng, đồng thời n&oacute; cũng lấy dữ liệu từ Internet n&acirc;ng kh&ocirc;ng gian lưu trữ l&ecirc;n&nbsp;<strong>570GB</strong>&nbsp;với v&ocirc; số th&ocirc;ng tin v&agrave;&nbsp;<strong>300 tỷ từ</strong>&nbsp;được &ldquo;kết nạp&rdquo; v&agrave;o hệ thống. Bạn c&oacute; thể hiểu đơn giản như sau:</p>\r\n\r\n<p>Khi bạn đặt c&acirc;u hỏi đầu v&agrave;o cho m&ocirc; h&igrave;nh rằng &ldquo;Một năm c&oacute; bao nhi&ecirc;u th&aacute;ng?&rdquo;, nếu m&ocirc; h&igrave;nh phản hồi sai th&igrave;&nbsp;<strong>đ&aacute;p &aacute;n đ&uacute;ng sẽ được update ngay lập tức</strong>. Từ những th&iacute; nghiệm nhỏ n&agrave;y sẽ gi&uacute;p hệ thống được củng cố v&agrave; dẫn trở n&ecirc;n chuẩn x&aacute;c hơn.</p>\r\n\r\n<p><img alt=\"Cấu trúc hoạt động của ChatGPT vô cùng phức tạp\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(3)-730x410.jpg\" /></p>\r\n\r\n<p>Cấu tr&uacute;c hoạt động của ChatGPT v&ocirc; c&ugrave;ng phức tạp</p>\r\n\r\n<h3>3C&aacute;ch d&ugrave;ng Chat GPT tại Việt Nam hiệu quả</h3>\r\n\r\n<p>Chat GPT đ&atilde; ch&iacute;nh thức hoạt động được ở Việt Nam. Từ ng&agrave;y 02/11/2023, bạn c&oacute; thể đăng k&yacute; v&agrave; sử dụng miễn ph&iacute; ChatGPT tại Việt Nam tr&ecirc;n nền tảng website&nbsp;<a href=\"https://chat.openai.com/auth/login\" target=\"_blank\">chat.openai.com</a>, ứng dụng ChatGPT tr&ecirc;n Android, iOS.</p>\r\n\r\n<p><strong>Tải ứng dụng ChatGPT:</strong></p>\r\n\r\n<ul>\r\n	<li><a href=\"https://play.google.com/store/apps/details?id=com.openai.chatgpt&amp;hl=vi&amp;pli=1\" target=\"_blank\">Android</a></li>\r\n	<li><a href=\"https://apps.apple.com/us/app/chatgpt/id6448311069?l=vi\" target=\"_blank\">iOS</a></li>\r\n</ul>\r\n\r\n<p><strong>Đăng k&yacute; v&agrave; đăng nhập v&agrave;o Chat GPT miễn ph&iacute;</strong></p>\r\n\r\n<p>Bước 1: Truy cập trang web ch&iacute;nh thức của OpenAI tại chat.openai.com</p>\r\n\r\n<p>Bước 2: Nhấp v&agrave;o n&uacute;t &quot;Sign up&quot; v&agrave; điền th&ocirc;ng tin c&aacute; nh&acirc;n bao gồm email v&agrave; mật khẩu</p>\r\n\r\n<p>Bước 3: X&aacute;c nhận email th&ocirc;ng qua li&ecirc;n kết được gửi đến hộp thư</p>\r\n\r\n<p>Bước 4: Ho&agrave;n tất th&ocirc;ng tin c&aacute; nh&acirc;n bổ sung nếu được y&ecirc;u cầu</p>\r\n\r\n<p>Lưu &yacute; cho người d&ugrave;ng Việt Nam: Nếu gặp kh&oacute; khăn khi truy cập, h&atilde;y sử dụng VPN để vượt qua giới hạn địa l&yacute;. Sau khi đăng nhập th&agrave;nh c&ocirc;ng, bạn c&oacute; thể bắt đầu kh&aacute;m ph&aacute; Chat GPT ngay trong giao diện tr&ograve; chuyện trực quan.</p>\r\n\r\n<p><strong>Xem th&ecirc;m:</strong>&nbsp;<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/chat-gpt-la-gi-cach-dang-ky-su-dung-chat-gpt-1518194\" target=\"_blank\">C&aacute;ch đăng k&yacute;, sử dụng Chat GPT tại Việt Nam miễn ph&iacute;</a></p>\r\n\r\n<p><img alt=\"Chat GPT có khả năng \" src=\"https://cdn.tgdd.vn//News/1518107//730x408-1-730x408.jpg\" /></p>\r\n\r\n<p>Chat GPT c&oacute; thể d&ugrave;ng miễn ph&iacute; tại Việt Nam</p>\r\n\r\n<p><strong>C&aacute;ch d&ugrave;ng Prompt Engineering để tối ưu sức mạnh Chat GPT</strong></p>\r\n\r\n<p>Để khai th&aacute;c tối đa sức mạnh của Chat GPT, kỹ thuật đặt c&acirc;u hỏi (Prompt Engineering) rất quan trọng. Vệc x&acirc;y dựng prompt chi tiết v&agrave; r&otilde; r&agrave;ng sẽ mở ra c&aacute;nh cửa đến những phản hồi s&acirc;u sắc v&agrave; hữu &iacute;ch hơn.</p>\r\n\r\n<p><strong>X&aacute;c định r&otilde; bối cảnh:</strong>&nbsp;H&atilde;y cung cấp cho Chat GPT một bức tranh to&agrave;n cảnh về vấn đề bạn đang quan t&acirc;m. Điều n&agrave;y bao gồm lĩnh vực, ng&agrave;nh nghề, mục ti&ecirc;u bạn muốn đạt được, v&agrave; bất kỳ th&ocirc;ng tin nền tảng n&agrave;o li&ecirc;n quan.</p>\r\n\r\n<p><strong>N&ecirc;u r&otilde; y&ecirc;u cầu cụ thể:</strong>&nbsp;Bạn mong đợi Chat GPT sẽ l&agrave;m g&igrave; với th&ocirc;ng tin đ&oacute;? Viết một b&agrave;i luận, t&oacute;m tắt một đoạn văn, so s&aacute;nh c&aacute;c lựa chọn, đưa ra lời khuy&ecirc;n, hay giải th&iacute;ch một kh&aacute;i niệm phức tạp? Sử dụng động từ mạnh mẽ v&agrave; chỉ định r&otilde; h&agrave;nh động bạn muốn AI thực hiện.</p>\r\n\r\n<p><strong>Chỉ định định dạng đầu ra:</strong>&nbsp;Bạn muốn c&acirc;u trả lời được tr&igrave;nh b&agrave;y như thế n&agrave;o? Một danh s&aacute;ch đ&aacute;nh số dễ theo d&otilde;i, một bảng so s&aacute;nh trực quan, c&aacute;c đoạn văn ngắn gọn, hay một hướng dẫn từng bước chi tiết? Việc chỉ định định dạng gi&uacute;p Chat GPT cấu tr&uacute;c th&ocirc;ng tin một c&aacute;ch dễ hiểu v&agrave; ph&ugrave; hợp với mục đ&iacute;ch sử dụng của bạn.</p>\r\n\r\n<p><strong>Điều chỉnh độ s&acirc;u th&ocirc;ng tin:</strong>&nbsp;Sử dụng c&aacute;c cụm từ như &quot;giải th&iacute;ch chi tiết&quot;, &quot;ph&acirc;n t&iacute;ch chuy&ecirc;n s&acirc;u&quot;, &quot;so s&aacute;nh to&agrave;n diện&quot; để y&ecirc;u cầu Chat GPT cung cấp th&ocirc;ng tin ở mức độ bạn mong muốn. Ngược lại, nếu bạn chỉ cần một c&aacute;i nh&igrave;n tổng quan, h&atilde;y sử dụng c&aacute;c cụm từ như &quot;t&oacute;m tắt ngắn gọn&quot;, &quot;giới thiệu chung&quot;.</p>\r\n\r\n<p>V&iacute; dụ:</p>\r\n\r\n<p>Prompt k&eacute;m hiệu quả: &quot;Marketing l&agrave; g&igrave;?&quot;</p>\r\n\r\n<p>Prompt hiệu quả: &quot;Giải th&iacute;ch kh&aacute;i niệm &#39;marketing du k&iacute;ch&#39; l&agrave; g&igrave; v&agrave; cho ba v&iacute; dụ cụ thể về c&aacute;c chiến dịch marketing du k&iacute;ch th&agrave;nh c&ocirc;ng của c&aacute;c c&ocirc;ng ty khởi nghiệp trong lĩnh vực c&ocirc;ng nghệ tại Đ&ocirc;ng Nam &Aacute; trong 2 năm gần đ&acirc;y.&quot;</p>\r\n\r\n<p><img alt=\"ChatGPT đã khả dụng tại Việt Nam từ ngày 11/2 với phiên bản ChatGPT Plus\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(4)-730x410.jpg\" /></p>\r\n\r\n<p>Chat GPT đ&atilde; khả dụng tại Việt Nam từ ng&agrave;y 11/2 với g&oacute;i ChatGPT Plus</p>\r\n\r\n<h3>4Ứng dụng của Chat GPT</h3>\r\n\r\n<p><strong>- Nh&acirc;n c&aacute;ch h&oacute;a cuộc tr&ograve; chuyện:</strong>&nbsp;Chat GPT được thiết kế để hiểu ng&ocirc;n ngữ giao tiếp v&agrave; tham gia v&agrave;o cuộc tr&ograve; chuyện giữa người v&agrave; người. Điều n&agrave;y mang đến trải nghiệm&nbsp;<strong>tương t&aacute;c v&agrave; c&aacute; nh&acirc;n h&oacute;a hơn</strong>&nbsp;so với việc bạn nhập t&igrave;m kiếm tr&ecirc;n Google.</p>\r\n\r\n<p><strong>- Cung cấp c&acirc;u trả lời chuy&ecirc;n s&acirc;u:</strong>&nbsp;Mặc d&ugrave; Google dễ d&agrave;ng cung cấp c&acirc;u trả lời cực nhanh ch&oacute;ng cho c&aacute;c c&acirc;u hỏi thực tế nhưng Chat GPT c&oacute; thể cung cấp c&acirc;u trả lời&nbsp;<strong>chuy&ecirc;n s&acirc;u hơn</strong>&nbsp;để giải th&iacute;ch c&aacute;c chủ đề phức tạp theo c&aacute;ch dễ hiểu.</p>\r\n\r\n<p><strong>- Đưa ra c&aacute;c đề xuất:</strong>&nbsp;Chat GPT c&oacute; thể đưa ra những đề xuất dựa tr&ecirc;n t&ugrave;y chọn v&agrave; mối quan t&acirc;m của người d&ugrave;ng, điều n&agrave;y đặc biệt hữu &iacute;ch với nhu cầu t&igrave;m s&aacute;ch hay phim.</p>\r\n\r\n<p><strong>- S&aacute;ng tạo nội dung:</strong>&nbsp;Chat GPT c&ograve;n hỗ trợ t&igrave;m kiếm nguồn cảm hứng hoặc &yacute; tưởng mới cho c&aacute;c c&ocirc;ng việc li&ecirc;n quan đến s&aacute;ng tạo như l&agrave;m thơ, viết văn, s&aacute;ng t&aacute;c nhạc, thiết kế đồ họa, kiến tr&uacute;c,...</p>\r\n\r\n<p><strong>- Hỗ trợ học ngoại ngữ:</strong>&nbsp;Chat GPT c&oacute; thể hỗ trợ bạn học ngoại ngữ bằng c&aacute;ch tham gia v&agrave;o cuộc tr&ograve; chuyện với bạn bằng ng&ocirc;n ngữ m&agrave; bạn lựa chọn, cung cấp c&aacute;c b&agrave;i học ngữ ph&aacute;p, từ vựng, đồng thời đưa ra phản hồi v&agrave; chỉnh sửa.</p>\r\n\r\n<p><strong>- Dịch thuật:</strong>&nbsp;Chat GPT c&oacute; thể hỗ trợ dịch ng&ocirc;n ngữ trong thời gian thực, cho ph&eacute;p bạn giao tiếp với những người n&oacute;i c&aacute;c ng&ocirc;n ngữ kh&aacute;c nhau th&ocirc;ng qua giao diện tr&ograve; chuyện.</p>\r\n\r\n<p><strong>- Hỗ trợ đưa ra c&aacute;c chẩn đo&aacute;n y tế:</strong>&nbsp;Chat GPT c&oacute; thể hỗ trợ chẩn đo&aacute;n y tế bằng c&aacute;ch đặt c&aacute;c c&acirc;u hỏi c&oacute; li&ecirc;n quan v&agrave; cung cấp th&ocirc;ng tin chi tiết, cũng như đề xuất dựa tr&ecirc;n c&aacute;c triệu chứng v&agrave; tiền sử bệnh của người d&ugrave;ng.</p>\r\n\r\n<p><strong>- Sử dụng cho mục đ&iacute;ch giải tr&iacute;:</strong>&nbsp;Chat GPT cũng dễ d&agrave;ng đưa ra c&aacute;c tr&ograve; chơi, kể chuyện cười hoặc cung cấp c&acirc;u đố đ&aacute;p ứng nhu cầu giải tr&iacute;, thư gi&atilde;n của người d&ugrave;ng.</p>\r\n\r\n<p><img alt=\"Bạn có thể hỏi ChatGPT về công thức nấu ăn\" src=\"https://cdn.tgdd.vn//News/0//Baiviet-730x410.jpg\" /></p>\r\n\r\n<p>Bạn c&oacute; thể hỏi Chat GPT về c&ocirc;ng thức nấu ăn</p>\r\n\r\n<h3>5Ưu điểm của Chat GPT</h3>\r\n\r\n<p>Lợi &iacute;ch của Chat GPT</p>\r\n\r\n<p><strong>- Tr&igrave;nh triển khai:</strong>&nbsp;Chat GPT c&oacute; khả năng triển khai tr&ecirc;n nhiều nền tảng, bao gồm cả web, mobile v&agrave; c&aacute;c nền tảng kh&aacute;c.</p>\r\n\r\n<p><strong>- Hỗ trợ nhiều ng&ocirc;n ngữ:</strong>&nbsp;Chat GPT được huấn luyện tr&ecirc;n nhiều ng&ocirc;n ngữ, cho ph&eacute;p hỗ trợ người d&ugrave;ng tr&ecirc;n to&agrave;n thế giới.</p>\r\n\r\n<p><strong>- Giải đ&aacute;p c&aacute;c thắc mắc trong mọi lĩnh vực:</strong>&nbsp;Chat GPT c&oacute; thể trả lời hầu hết c&aacute;c c&acirc;u hỏi của người d&ugrave;ng với đa dạng chủ đề kh&aacute;c nhau, bao gồm kiến thức, địa l&yacute;, lịch sử, kinh tế, ch&iacute;nh trị, văn h&oacute;a v&agrave; nhiều hơn thế nữa.</p>\r\n\r\n<p><strong>- Tạo nội dung tự động:</strong>&nbsp;Chat GPT c&oacute; thể sử dụng cho việc tạo nội dung tự động, bao gồm viết b&agrave;i, tạo c&acirc;u chuyện v&agrave; tạo ra c&aacute;c loại nội dung kh&aacute;c.</p>\r\n\r\n<p><strong>- Giải quyết vấn đề hỗ trợ kh&aacute;ch h&agrave;ng:</strong>&nbsp;Chat GPT c&oacute; thể sử dụng để giải quyết vấn đề hỗ trợ kh&aacute;ch h&agrave;ng v&agrave; cung cấp th&ocirc;ng tin cho người d&ugrave;ng một c&aacute;ch nhanh ch&oacute;ng v&agrave; ch&iacute;nh x&aacute;c, từ đ&oacute; n&acirc;ng cao chất lượng dịch vụ.</p>\r\n\r\n<p><strong>- Tự động ho&aacute; c&aacute;c quy tr&igrave;nh:</strong>&nbsp;Chat GPT c&oacute; thể sử dụng để tự động ho&aacute; v&agrave; giải quyết c&aacute;c t&aacute;c vụ thủ c&ocirc;ng từ đ&oacute; gi&uacute;p tăng năng suất v&agrave; hiệu quả của c&aacute;c doanh nghiệp v&agrave; tổ chức.</p>\r\n\r\n<p><strong>- Ph&acirc;n t&iacute;ch dữ liệu v&agrave; thống k&ecirc;:</strong>&nbsp;Chat GPT c&oacute; thể sử dụng để ph&acirc;n t&iacute;ch dữ liệu v&agrave; thống k&ecirc;, gi&uacute;p c&aacute;c doanh nghiệp v&agrave; tổ chức cải thiện hoạt động v&agrave; quản l&yacute; dữ liệu một c&aacute;ch hiệu quả.</p>\r\n\r\n<p><strong>- Tạo ra c&aacute;c trải nghiệm người d&ugrave;ng tốt hơn:</strong>&nbsp;Chat GPT c&oacute; thể gi&uacute;p tạo ra c&aacute;c trải nghiệm người d&ugrave;ng tốt hơn bằng c&aacute;ch cung cấp th&ocirc;ng tin ch&iacute;nh x&aacute;c v&agrave; nhanh ch&oacute;ng cho người d&ugrave;ng.</p>\r\n\r\n<p><img alt=\"ChatGPT thậm chí có thể giải thích theo nhiều ngữ cảnh và độ tuổi của người sử dụng\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(1)-730x410.jpg\" /></p>\r\n\r\n<p>Chat GPT thậm ch&iacute; c&oacute; thể giải th&iacute;ch theo nhiều ngữ cảnh v&agrave; độ tuổi của người sử dụng</p>\r\n\r\n<p>Nhược điểm của Chat GPT</p>\r\n\r\n<p><strong>- Sự xuất hiện của c&aacute;c phần mềm lừa đảo:</strong>&nbsp;Khi Chat GPT ra đời, một số người d&ugrave;ng c&oacute; &yacute; đồ xấu, đ&atilde; sử dụng khả năng lập tr&igrave;nh của chatbot để tạo ra phần mềm giả mạo với mục đ&iacute;ch tấn c&ocirc;ng v&agrave; đ&aacute;nh cắp th&ocirc;ng tin. Thậm ch&iacute;, Chat GPT c&oacute; thể sử dụng code do ch&iacute;nh m&igrave;nh tạo ra để thực hiện c&aacute;c phương thức lừa đảo tinh vi hơn.</p>\r\n\r\n<p><strong>- Thiếu ch&iacute;nh x&aacute;c:</strong>&nbsp;Chat GPT được huấn luyện tr&ecirc;n cơ sở dữ liệu lớn nhưng vẫn c&ograve;n thiếu ch&iacute;nh x&aacute;c trong một số trường hợp.</p>\r\n\r\n<p><strong>- Xuy&ecirc;n tạc th&ocirc;ng tin:</strong>&nbsp;Chat GPT c&oacute; thể xuy&ecirc;n tạc hoặc sai lầm th&ocirc;ng tin, đặc biệt l&agrave; khi được huấn luyện tr&ecirc;n dữ liệu cũ hoặc kh&ocirc;ng ch&iacute;nh x&aacute;c.</p>\r\n\r\n<p><strong>- Cản trở s&aacute;ng tạo:</strong>&nbsp;Sử dụng Chat GPT c&oacute; thể giảm s&aacute;ng tạo của con người v&igrave; họ c&oacute; thể trở n&ecirc;n qu&aacute; phụ thuộc v&agrave;o m&aacute;y t&iacute;nh để giải quyết c&aacute;c vấn đề.</p>\r\n\r\n<p><strong>- T&aacute;c động đến việc t&igrave;m kiếm th&ocirc;ng tin:</strong>&nbsp;Chat GPT c&oacute; thể t&aacute;c động đến việc t&igrave;m kiếm th&ocirc;ng tin của con người v&igrave; họ c&oacute; thể dễ d&agrave;ng nhận được c&acirc;u trả lời m&agrave; kh&ocirc;ng phải tham gia qu&aacute; tr&igrave;nh t&igrave;m kiếm th&ocirc;ng tin tự nhi&ecirc;n.</p>\r\n\r\n<p><strong>- Tiềm ẩn nguy cơ thay thế một số ng&agrave;nh nghề:</strong>&nbsp;Năng lực bi&ecirc;n tập đ&aacute;ng sợ của Chat GPT v&agrave; c&aacute;c c&ocirc;ng cụ chatbot hiện đại c&oacute; thể dễ d&agrave;ng đe dọa c&ocirc;ng việc của một số ng&agrave;nh như: copywriter, lập tr&igrave;nh vi&ecirc;n, bi&ecirc;n tập vi&ecirc;n, bi&ecirc;n kịch, thiết kế đồ họa,...</p>\r\n\r\n<p><img alt=\"Bạn cũng cần cẩn trọng và kiểm tra lại thông tin khi sử dụng ChatGPT\" src=\"https://cdn.tgdd.vn//News/0//Baiviet(5)-730x410.jpg\" /></p>\r\n\r\n<p>Bạn cũng cần cẩn trọng v&agrave; kiểm tra lại th&ocirc;ng tin khi sử dụng ChatGPT</p>\r\n\r\n<h3>6Sự kh&aacute;c biệt giữa Chat GPT so với c&aacute;c c&ocirc;ng cụ chat bot kh&aacute;c</h3>\r\n\r\n<p>Một số c&ocirc;ng cụ t&igrave;m kiếm kh&aacute;c như&nbsp;<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/google-bard-la-gi-tim-hieu-ve-google-bard-1544092\" target=\"_blank\">Google Bard</a>,&nbsp;<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/google-gemini-la-gi-thong-tin-ve-ai-moi-nhat-cua-1564006\" target=\"_blank\">Gemini AI</a>,&nbsp;<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/copilot-la-gi-lam-duoc-gi-1574847\" target=\"_blank\">Copilot</a>... phản hồi nhu cầu người d&ugrave;ng bằng c&aacute;ch lập chỉ mục c&aacute;c trang web tr&ecirc;n Internet để gi&uacute;p người d&ugrave;ng t&igrave;m được th&ocirc;ng tin m&agrave; m&igrave;nh muốn. Trong khi, Chat GPT sẽ&nbsp;<strong>kh&ocirc;ng c&oacute; khả năng t&igrave;m kiếm nguồn th&ocirc;ng tin tr&ecirc;n Internet</strong>.</p>\r\n\r\n<p>Thay v&agrave;o đ&oacute;, n&oacute; sẽ tận dụng những g&igrave; m&agrave; m&igrave;nh đ&atilde; học được trong qu&aacute; tr&igrave;nh được đ&agrave;o tạo, nghi&ecirc;n cứu để phản hồi lại người d&ugrave;ng. Tuy nhi&ecirc;n, điều n&agrave;y cũng c&oacute; thể xảy ra lỗi v&agrave; độ ch&iacute;nh x&aacute;c kh&ocirc;ng đạt tuyệt đối.</p>\r\n\r\n<p>Điểm kh&aacute;c biệt kh&aacute;c c&oacute; thể kể đến l&agrave; c&aacute;ch m&agrave;&nbsp;<strong>Chat GPT được đ&agrave;o tạo chuy&ecirc;n biệt</strong>. N&oacute; c&oacute; thể hiểu được mong muốn của con người th&ocirc;ng qua c&acirc;u hỏi v&agrave; c&oacute; những c&acirc;u trả lời hữu &iacute;ch, trung thực.</p>\r\n\r\n<h3>7T&aacute;c hại của Chat GPT đối với đời sống</h3>\r\n\r\n<p>Mặc d&ugrave; ChatGPT v&agrave; c&aacute;c m&ocirc; h&igrave;nh ng&ocirc;n ngữ lớn kh&aacute;c mang lại nhiều lợi &iacute;ch, ch&uacute;ng cũng tiềm ẩn một số t&aacute;c hại cần được c&acirc;n nhắc:</p>\r\n\r\n<p>1. Th&ocirc;ng tin sai lệch v&agrave; thiếu ch&iacute;nh x&aacute;c: ChatGPT c&oacute; thể tạo ra th&ocirc;ng tin kh&ocirc;ng ch&iacute;nh x&aacute;c hoặc bịa đặt, đặc biệt khi được hỏi về c&aacute;c chủ đề phức tạp hoặc kh&ocirc;ng c&oacute; đủ dữ liệu huấn luyện. Người d&ugrave;ng cần kiểm chứng th&ocirc;ng tin từ c&aacute;c nguồn đ&aacute;ng tin cậy kh&aacute;c.</p>\r\n\r\n<p>2. Mối lo ngại về đạo văn: Do khả năng tạo văn bản giống con người, ChatGPT c&oacute; thể bị lạm dụng để đạo văn. Sinh vi&ecirc;n c&oacute; thể sử dụng n&oacute; để viết b&agrave;i luận, l&agrave;m b&agrave;i tập về nh&agrave; m&agrave; kh&ocirc;ng thực sự hiểu b&agrave;i.</p>\r\n\r\n<p>3. Thi&ecirc;n kiến v&agrave; ph&acirc;n biệt đối xử: V&igrave; được huấn luyện tr&ecirc;n dữ liệu từ internet, ChatGPT c&oacute; thể học v&agrave; t&aacute;i tạo c&aacute;c định kiến x&atilde; hội, dẫn đến ph&acirc;n biệt đối xử về chủng tộc, giới t&iacute;nh, t&ocirc;n gi&aacute;o, ...</p>\r\n\r\n<p>4. Mất việc l&agrave;m: Sự ph&aacute;t triển của c&aacute;c m&ocirc; h&igrave;nh ng&ocirc;n ngữ lớn như ChatGPT c&oacute; thể dẫn đến mất việc l&agrave;m trong một số ng&agrave;nh nghề, đặc biệt l&agrave; những c&ocirc;ng việc li&ecirc;n quan đến viết l&aacute;ch, dịch thuật, v&agrave; nhập liệu.</p>\r\n\r\n<p>5. Lạm dụng: ChatGPT c&oacute; thể bị lạm dụng để tạo ra tin giả, th&ocirc;ng tin sai lệch, tuy&ecirc;n truyền, hoặc thậm ch&iacute; lừa đảo. Việc qu&aacute; phụ thuộc v&agrave;o ChatGPT c&oacute; thể l&agrave;m giảm khả năng tư duy, s&aacute;ng tạo v&agrave; giải quyết vấn đề của con người.</p>\r\n\r\n<p>6. Hạn chế về hiểu biết s&acirc;u: ChatGPT chỉ c&oacute; thể xử l&yacute; th&ocirc;ng tin dựa tr&ecirc;n dữ liệu đ&atilde; được huấn luyện. N&oacute; kh&ocirc;ng c&oacute; khả năng hiểu biết s&acirc;u sắc về thế giới thực, cảm x&uacute;c, hoặc &yacute; thức như con người.</p>\r\n\r\n<p>7. Kh&oacute; khăn trong việc x&aacute;c định nguồn gốc th&ocirc;ng tin: Do ChatGPT c&oacute; thể tạo ra nội dung giống con người, n&ecirc;n rất kh&oacute; để ph&acirc;n biệt giữa nội dung do con người tạo ra v&agrave; nội dung do ChatGPT tạo ra. Điều n&agrave;y c&oacute; thể g&acirc;y kh&oacute; khăn trong việc kiểm chứng th&ocirc;ng tin v&agrave; x&aacute;c định nguồn gốc.</p>\r\n\r\n<p>8. Vấn đề bảo mật: Dữ liệu được sử dụng để huấn luyện v&agrave; tương t&aacute;c với ChatGPT c&oacute; thể gặp rủi ro về bảo mật v&agrave; quyền ri&ecirc;ng tư.</p>\r\n\r\n<p>Để giảm thiểu t&aacute;c hại của ChatGPT, người d&ugrave;ng cần sử dụng một c&aacute;ch c&oacute; tr&aacute;ch nhiệm, kiểm chứng th&ocirc;ng tin từ nhiều nguồn, v&agrave; nhận thức r&otilde; về những hạn chế của c&ocirc;ng nghệ n&agrave;y. C&aacute;c nh&agrave; ph&aacute;t triển cũng cần nỗ lực để cải thiện m&ocirc; h&igrave;nh, giảm thiểu thi&ecirc;n kiến, v&agrave; tăng cường t&iacute;nh bảo mật.</p>', 'chat-gpt-la-gi-loi-ich-va-cach-su-dung-chatgpt-toi-uu-hieu-qua', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, 'published', '2025-05-08 12:00:00', 30, 1, NULL, '2025-05-08 02:18:07', '2025-05-13 02:01:53'),
+(2, 'Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', 'Máy xay đậu nành là thiết bị hữu ích giúp người dùng chế biến được nhiều thức uống bổ dưỡng như các loại sữa hạt, sữa ngũ cốc, xay sinh tố, nấu cháo, nấu súp,...', '<p>1M&aacute;y l&agrave;m sữa hạt đa năng BlueStone BLB-6031</p>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt đa năng BlueStone BLB-6031 sở hữu thiết kế hiện đại, m&agrave;u sắc trang nh&atilde;, ph&ugrave; hợp với nhiều kh&ocirc;ng gian bếp Việt. Sản phẩm nổi bật với c&ocirc;ng suất xay 800W v&agrave; c&ocirc;ng suất nấu 800W, kết hợp lưỡi dao inox 8 c&aacute;nh sắc b&eacute;n, tốc độ quay mạnh mẽ gi&uacute;p xay nhuyễn thực phẩm dễ d&agrave;ng, kể cả c&aacute;c loại hạt cứng.</p>\r\n\r\n<p>Cối xay bằng thủy tinh borosilicate cao cấp, chịu nhiệt tốt, dung t&iacute;ch sử dụng 1.75 l&iacute;t th&iacute;ch hợp để nấu sữa hạt cho gia đ&igrave;nh 2 - 4 người. M&aacute;y c&ograve;n t&iacute;ch hợp 9 chương tr&igrave;nh nấu tự động như: sữa đậu n&agrave;nh, ch&aacute;o, sinh tố, hầm canh... v&agrave; 9 mức tốc độ xay linh hoạt, k&egrave;m chức năng hẹn giờ l&ecirc;n đến 12 tiếng tiện lợi.</p>\r\n\r\n<p>Bảng điều khiển cảm ứng hiện đại với m&agrave;n h&igrave;nh LED, hướng dẫn tiếng Việt r&otilde; r&agrave;ng, dễ thao t&aacute;c cho cả người lớn tuổi.</p>\r\n\r\n<p><br />\r\nXem th&ecirc;m<br />\r\n7 h&igrave;nh</p>\r\n\r\n<p><br />\r\nM&aacute;y l&agrave;m sữa hạt đa năng Rapido RHB-800DM M&aacute;y l&agrave;m sữa hạt đa năng Rapido RHB-800DM</p>\r\n\r\n<p>label templateTrả chậm 3 th&aacute;ng</p>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt đa năng Rapido RHB-800DM</p>\r\n\r\n<p>1.090.000₫</p>\r\n\r\n<p>1.560.000₫</p>\r\n\r\n<p>-30%</p>\r\n\r\n<p>Qu&agrave; 300.000₫</p>\r\n\r\n<p><br />\r\nXem chi tiết</p>\r\n\r\n<p><br />\r\n❝L&agrave;m sữa mịn❞</p>\r\n\r\n<p>Chi Thường - InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>❝Sản phẩm tốt dễ sử dụng❞</p>\r\n\r\n<p>Đạt - InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>❝M&aacute;y tốt, dễ sử dụng❞</p>\r\n\r\n<p>Nguyễn Thiphương Th&uacute;y - InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>❝Rất tốt❞</p>\r\n\r\n<p>Anh Th&agrave;nh - InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>❝L&agrave;m sữa mịn❞</p>\r\n\r\n<p>Chi Thường - InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>❝Sản phẩm tốt dễ sử dụng❞</p>\r\n\r\n<p>Đạt - InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>❝M&aacute;y tốt, dễ sử dụng❞</p>\r\n\r\n<p>Nguyễn Thiphương Th&uacute;y - InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p>❝Rất tốt❞</p>\r\n\r\n<p>Anh Th&agrave;nh - InfoĐ&atilde; mua tại Điện m&aacute;y XANH</p>\r\n\r\n<p><br />\r\n4M&aacute;y l&agrave;m sữa hạt đa năng Sunhouse SHD5261</p>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt đa năng Sunhouse SHD5261 sở hữu thiết kế nhỏ gọn, hiện đại với t&ocirc;ng m&agrave;u trắng - x&aacute;m trang nh&atilde;, ph&ugrave; hợp với nhiều kh&ocirc;ng gian bếp. M&aacute;y hoạt động với c&ocirc;ng suất 400W, t&iacute;ch hợp lưỡi dao 8 c&aacute;nh bằng th&eacute;p kh&ocirc;ng gỉ sắc b&eacute;n, gi&uacute;p xay nhuyễn mịn c&aacute;c loại hạt v&agrave; thực phẩm.</p>\r\n\r\n<p>Cối xay được l&agrave;m từ thủy tinh chịu lực v&agrave; chịu nhiệt tốt, dung t&iacute;ch 1 l&iacute;t, ph&ugrave; hợp để nấu sữa hoặc s&uacute;p cho gia đ&igrave;nh nhỏ từ 2 - 3 người. Chất liệu cối gi&uacute;p dễ vệ sinh, kh&ocirc;ng b&aacute;m m&ugrave;i thực phẩm v&agrave; an to&agrave;n cho sức khỏe.</p>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt Sunhouse t&iacute;ch hợp 8 chương tr&igrave;nh nấu tự động như ngũ cốc, sữa đậu, ch&aacute;o hạt, s&uacute;p, tr&agrave;, giữ ấm, sữa lắc v&agrave; sinh tố đ&aacute;p ứng đa dạng nhu cầu chế biến của người d&ugrave;ng.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Xem th&ecirc;m<br />\r\n7 h&igrave;nh</p>\r\n\r\n<p><br />\r\nM&aacute;y l&agrave;m sữa hạt đa năng Sunhouse SHD5261 M&aacute;y l&agrave;m sữa hạt đa năng Sunhouse SHD5261</p>\r\n\r\n<p>label templateTrả chậm 3 th&aacute;ng</p>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt đa năng Sunhouse SHD5261</p>\r\n\r\n<p>1.490.000₫</p>\r\n\r\n<p>1.860.000₫</p>\r\n\r\n<p>-19%</p>\r\n\r\n<p>Qu&agrave; 300.000₫</p>\r\n\r\n<p><br />\r\nXem đặc điểm nổi bật</p>\r\n\r\n<p>Xem chi tiết</p>\r\n\r\n<p>5M&aacute;y l&agrave;m sữa hạt đa năng Kangaroo KG175HB1</p>\r\n\r\n<p>M&aacute;y xay nấu đa năng Kangaroo KG175HB1 sở hữu thiết kế chắc chắn, sang trọng. M&aacute;y được trang bị lưỡi dao 3 lớp 8 c&aacute;nh bằng th&eacute;p kh&ocirc;ng gỉ, c&ocirc;ng suất xay 800W, c&ocirc;ng suất nấu 900W, động cơ mạnh mẽ với lực xoắn v&agrave; tốc độ l&ecirc;n tới 28.000 v&ograve;ng/ph&uacute;t, gi&uacute;p xay nhuyễn mịn c&aacute;c loại thực phẩm một c&aacute;ch nhanh ch&oacute;ng v&agrave; hiệu quả.</p>\r\n\r\n<p>Cối xay bằng thủy tinh cao cấp, dung t&iacute;ch tổng 1.75 l&iacute;t, ph&ugrave; hợp để nấu sữa hoặc s&uacute;p cho gia đ&igrave;nh từ 4 - 5 người. Chất liệu cối gi&uacute;p dễ vệ sinh, kh&ocirc;ng b&aacute;m m&ugrave;i thực phẩm v&agrave; an to&agrave;n cho sức khỏe.</p>\r\n\r\n<p>M&aacute;y l&agrave;m sữa hạt Kangaroo t&iacute;ch hợp 11 chương tr&igrave;nh nấu tự động v&agrave; 9 tốc độ xay, đ&aacute;p ứng đa dạng nhu cầu chế biến của người d&ugrave;ng. Ngo&agrave;i ra, m&aacute;y c&ograve;n hỗ trợ chức năng hẹn giờ l&ecirc;n đến 12 tiếng, tiện lợi cho việc chuẩn bị m&oacute;n ăn theo lịch tr&igrave;nh c&aacute; nh&acirc;n.</p>\r\n\r\n<p>M&aacute;y được trang bị bảng điều khiển cảm ứng hiện đại với m&agrave;n h&igrave;nh LED, hỗ trợ ng&ocirc;n ngữ Anh - Việt, gi&uacute;p người d&ugrave;ng dễ d&agrave;ng thao t&aacute;c v&agrave; t&ugrave;y chỉnh c&aacute;c chức năng. Ngo&agrave;i ra, sản phẩm c&ograve;n c&oacute; t&iacute;nh năng chỉ hoạt động khi cối được lắp đ&uacute;ng khớp với th&acirc;n m&aacute;y v&agrave; ch&acirc;n đế chống trượt, đảm bảo an to&agrave;n trong qu&aacute; tr&igrave;nh sử dụng.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>', 'may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 33, 0, 'published', '2025-06-05 12:00:00', 34, 1, NULL, '2025-05-08 02:19:20', '2025-06-05 09:36:20'),
+(3, 'Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', '1', '<p>`1234567890</p>', '1', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, 'published', '2025-05-09 12:00:00', 30, 1, NULL, '2025-05-09 01:11:05', '2025-05-09 01:11:05'),
+(4, 'Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', 'Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', '<p>123456</p>', 'may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat-may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 2, 1, 'published', '2025-06-05 12:00:00', 34, 1, NULL, '2025-05-09 01:11:32', '2025-06-05 07:38:43'),
+(5, 'Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', 'Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', '<p>2132132</p>', 'may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat-may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat-1', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 2, 0, 'published', '2025-06-05 14:03:44', 30, 1, NULL, '2025-05-12 07:03:44', '2025-06-05 07:18:22'),
+(6, '123321 Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', '212132 Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', '<p>1232</p>', '123321-may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat-may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 4, 0, 'published', '2025-06-04 12:00:00', 34, 1, NULL, '2025-05-12 08:39:47', '2025-06-05 07:38:40'),
+(7, '123321 Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', '123321 Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất Máy xay đậu nành loại nào tốt? Top 5 máy xay đậu nành đáng mua nhất', '<p><strong>123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất123321 M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất M&aacute;y xay đậu n&agrave;nh loại n&agrave;o tốt? Top 5 m&aacute;y xay đậu n&agrave;nh đ&aacute;ng mua nhất</strong></p>', '123321-may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat-may-xay-dau-nanh-loai-nao-tot-top-5-may-xay-dau-nanh-dang-mua-nhat-1', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 1, 1, 'published', '2025-06-03 12:00:00', 34, 2, NULL, '2025-06-05 03:05:07', '2025-06-05 07:13:57');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `productmenuitems`
+-- Table structure for table `productmenuitems`
 --
 
 CREATE TABLE `productmenuitems` (
@@ -792,7 +912,7 @@ CREATE TABLE `productmenuitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `productmenuitems`
+-- Dumping data for table `productmenuitems`
 --
 
 INSERT INTO `productmenuitems` (`id`, `name`, `link`, `location`, `productmenu_id`, `category_id`, `created_at`, `updated_at`) VALUES
@@ -869,7 +989,7 @@ INSERT INTO `productmenuitems` (`id`, `name`, `link`, `location`, `productmenu_i
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `productmenus`
+-- Table structure for table `productmenus`
 --
 
 CREATE TABLE `productmenus` (
@@ -882,7 +1002,7 @@ CREATE TABLE `productmenus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `productmenus`
+-- Dumping data for table `productmenus`
 --
 
 INSERT INTO `productmenus` (`id`, `name`, `slug`, `locationproductmenu_id`, `created_at`, `updated_at`) VALUES
@@ -895,7 +1015,7 @@ INSERT INTO `productmenus` (`id`, `name`, `slug`, `locationproductmenu_id`, `cre
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -914,32 +1034,32 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `sku`, `name`, `slug`, `image`, `sold`, `is_hot`, `description`, `category_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'NIS-C09R2T28', 'Máy lạnh Nagakawa Inverter 1 HP NIS-C09R2T28', 'nis-c09r2t28', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>Đ&aacute;nh gi&aacute; chi tiết m&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28<br />\r\nM&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28&nbsp;c&oacute; khả năng l&agrave;m lạnh nhanh nhưng vẫn đảm bảo được hiệu quả tiết kiệm điện. Hơn nữa, mẫu m&aacute;y lạnh n&agrave;y c&ograve;n c&oacute; thể h&uacute;t ẩm độc lập, gi&uacute;p căn ph&ograve;ng trở n&ecirc;n kh&ocirc; tho&aacute;ng cho những ng&agrave;y trời ẩm ướt.</p>\r\n\r\n<p>Thiết kế<br />\r\nD&agrave;n lạnh:</p>\r\n\r\n<p>Được thiết kế&nbsp;h&igrave;nh chữ nhật nằm ngang&nbsp;quen thuộc với chất liệu vỏ nhựa cao cấp v&agrave; sở hữu gam&nbsp;m&agrave;u trắng tinh tế.</p>\r\n\r\n<p>D&agrave;n n&oacute;ng:</p>\r\n\r\n<p>- Được thiết kế&nbsp;h&igrave;nh hộp chữ nhật&nbsp;với chất liệu vỏ nhựa bền bỉ.</p>\r\n\r\n<p>-&nbsp;L&aacute; tản nhiệt bằng nh&ocirc;m được phủ lớp Golden Fin&nbsp;c&oacute; khả năng chống ăn m&ograve;n tốt, gi&uacute;p tăng độ bền cho m&aacute;y trong suốt thời gian hoạt động.</p>\r\n\r\n<p>- Cả d&agrave;n lạnh v&agrave; d&agrave;n n&oacute;ng của&nbsp;m&aacute;y lạnh Nagakawa&nbsp;đều&nbsp;sử dụng ống dẫn gas được l&agrave;m bằng đồng, cho khả năng l&agrave;m lạnh nhanh v&agrave; s&acirc;u.</p>\r\n\r\n<p>- M&aacute;y lạnh&nbsp;sử dụng gas R32&nbsp;th&acirc;n thiện với m&ocirc;i trường v&agrave; mang lại hiệu quả l&agrave;m m&aacute;t tối ưu.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>C&ocirc;ng nghệ l&agrave;m lạnh<br />\r\n-&nbsp;M&aacute;y lạnh&nbsp;sở hữu&nbsp;c&ocirc;ng suất 1 HP, đ&aacute;p ứng khả năng l&agrave;m lạnh cho những căn ph&ograve;ng c&oacute; diện t&iacute;ch&nbsp;dưới 15m&sup2;.</p>\r\n\r\n<p>-&nbsp;Chế độ l&agrave;m lạnh nhanh Turbo: Động cơ m&aacute;y n&eacute;n sẽ hoạt động với c&ocirc;ng suất tối đa, gi&uacute;p nhiệt độ trong căn ph&ograve;ng được hạ nhanh ch&oacute;ng đến mức nhiệt độ m&agrave; người d&ugrave;ng c&agrave;i đặt, nhờ đ&oacute; người d&ugrave;ng&nbsp;cảm thấy m&aacute;t lạnh gần như ngay lập tức&nbsp;sau khi k&iacute;ch hoạt chế độ n&agrave;y.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Cơ chế thổi gi&oacute;<br />\r\nCảm biến nhiệt độ I Feel: Cho ph&eacute;p người d&ugrave;ng c&oacute; thể tự động điều chỉnh chế độ hoạt động của m&aacute;y lạnh tại vị tr&iacute; remote nhờ bộ phận cảm biến được t&iacute;ch hợp, từ đ&oacute; gi&uacute;p người d&ugrave;ng&nbsp;cảm thấy m&aacute;t mẻ v&agrave; thoải m&aacute;i d&ugrave; ngồi bất k&igrave; vị tr&iacute; n&agrave;o gần remote m&aacute;y lạnh&nbsp;trong căn ph&ograve;ng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>C&aacute;c c&ocirc;ng nghệ tiết kiệm điện<br />\r\n-&nbsp;C&ocirc;ng nghệ Inverter: C&oacute; khả năng điều chỉnh linh hoạt v&ograve;ng quay m&aacute;y n&eacute;n, gi&uacute;p m&aacute;y lạnh&nbsp;duy tr&igrave; nhiệt độ ổn định&nbsp;b&ecirc;n trong căn ph&ograve;ng m&agrave; vẫn&nbsp;ti&ecirc;u thụ điện năng &iacute;t nhất&nbsp;c&oacute; thể.</p>\r\n\r\n<p>-&nbsp;Chức năng tiết kiệm năng lượng (Economy): Hỗ trợ m&aacute;y lạnh c&oacute; khả năng&nbsp;tiết kiệm điện đến mức tối ưu, g&oacute;p phần l&agrave;m giảm chi ph&iacute; tiền điện mỗi th&aacute;ng cho người sử dụng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Khả năng lọc kh&ocirc;ng kh&iacute; - sức khoẻ<br />\r\nM&agrave;ng lọc 6 trong 1: Được cấu tạo từ 6 tấm lọc gồm c&oacute; Photocatalyst, Ion Silver, Active Carbon, Catechin, Vitamin C v&agrave; Catalyst, nhờ đ&oacute; mang lại khả năng&nbsp;lọc sạch bụi bẩn v&agrave; c&aacute;c chất g&acirc;y dị ứng tối ưu, đồng thời&nbsp;khử m&ugrave;i h&ocirc;i hiệu quả, trả lại&nbsp;bầu kh&ocirc;ng kh&iacute; tươi m&aacute;t&nbsp;cho căn ph&ograve;ng, thậm ch&iacute; c&ograve;n&nbsp;hỗ trợ l&agrave;m đẹp da&nbsp;cho người sử dụng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Tiện &iacute;ch<br />\r\n-&nbsp;Hẹn giờ bật tắt m&aacute;y: C&oacute; khả năng hẹn giờ bật hoặc tắt m&aacute;y l&ecirc;n đến 24 tiếng, gi&uacute;p người d&ugrave;ng&nbsp;kiểm so&aacute;t thời gian sử dụng m&aacute;y lạnh, tiện lợi cho việc sử dụng v&agrave;o ban đ&ecirc;m.</p>\r\n\r\n<p>-&nbsp;Tự khởi động lại khi c&oacute; điện: C&oacute; khả năng tự khởi động lại khi xảy ra t&igrave;nh trạng c&uacute;p điện đột ngột, m&agrave; người d&ugrave;ng kh&ocirc;ng cần phải c&agrave;i đặt lại chế độ l&agrave;m lạnh như ban đầu.</p>\r\n\r\n<p>-&nbsp;Chế độ c&agrave;i đặt y&ecirc;u th&iacute;ch I-set:&nbsp;M&aacute;y lạnh Nagakawa Inverter&nbsp;n&agrave;y c&oacute; khả năng ghi nhớ c&agrave;i đặt y&ecirc;u th&iacute;ch của người sử dụng, từ đ&oacute;&nbsp;giảm bớt thao t&aacute;c v&agrave; thời gian c&agrave;i đặt&nbsp;m&aacute;y lạnh mỗi khi d&ugrave;ng.</p>\r\n\r\n<p>-&nbsp;Chế độ vận h&agrave;nh khi ngủ:&nbsp;M&aacute;y lạnh Nagakawa 1 HP&nbsp;n&agrave;y c&oacute; thể tự động tăng nhiệt độ v&agrave;o ban đ&ecirc;m,&nbsp;tr&aacute;nh g&acirc;y cảm gi&aacute;c lạnh buốt&nbsp;v&agrave; gi&uacute;p cho người d&ugrave;ng c&oacute; được giấc ngủ ngon hơn.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>T&oacute;m lại, m&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28 ph&ugrave; hợp cho mọi gia đ&igrave;nh hiện nay khi c&oacute; nhu cầu l&agrave;m m&aacute;t trong căn ph&ograve;ng nhỏ diện t&iacute;ch dưới 15m&sup2;. Hơn nữa, chiếc m&aacute;y lạnh n&agrave;y rất th&iacute;ch hợp cho những ai c&oacute; sức khỏe nhạy cảm khi nằm trong ph&ograve;ng m&aacute;y lạnh nhờ trang bị chế độ hoạt động khi ngủ v&agrave; bộ lọc 6 trong 1.&nbsp;</p>', 26, NULL, '2025-05-08 02:27:41', '2025-05-16 04:05:01'),
-(2, 'GC-12IS35', 'Máy lạnh Casper Inverter 1.5 HP GC-12IS35', 'may-lanh-casper-inverter-15-hp-gc-12is35', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p><em>19.990.00019.990.000</em></p>', 25, NULL, '2025-05-08 03:54:05', '2025-05-20 01:11:57'),
-(3, '1', '1', '1', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p>1</p>', 25, NULL, '2025-05-08 03:55:45', '2025-05-08 04:05:42'),
-(4, '2', '2', '2', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>2</p>', 25, NULL, '2025-05-08 03:56:14', '2025-05-08 04:05:11'),
-(5, '3', '3', '3', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>3</p>', 25, NULL, '2025-05-08 03:57:59', '2025-05-08 03:57:59'),
-(6, '4', '4', '4', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>4</p>', 25, NULL, '2025-05-08 03:58:58', '2025-05-08 03:58:58'),
-(7, '5', '5', '5', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>5</p>', 25, NULL, '2025-05-08 03:59:33', '2025-05-08 03:59:33'),
-(8, '6', '6', '6', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 0, NULL, 25, NULL, '2025-05-08 04:00:13', '2025-05-08 04:00:13'),
-(9, '7', '7', '7', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>7</p>', 25, NULL, '2025-05-08 04:00:51', '2025-05-08 04:00:51'),
-(10, '8', '8', '8', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>8</p>', 25, NULL, '2025-05-08 04:01:32', '2025-05-08 04:01:32'),
-(11, '9', '9', '9', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 0, '<p>9</p>', 25, NULL, '2025-05-08 04:02:18', '2025-05-08 04:02:18'),
-(12, '10', '10', '10', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p>10</p>', 25, NULL, '2025-05-08 04:03:04', '2025-05-08 04:03:04'),
-(13, '11', '11', '11', 'http://127.0.0.1:8000/storage/photos/2/950a82c88b10d6c42df763f2ad9b8151.png', 0, 0, '<p>11</p>', 25, NULL, '2025-05-08 04:03:50', '2025-05-13 04:47:09'),
-(14, '12', '12', '12', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>12</p>', 25, NULL, '2025-05-08 04:04:48', '2025-05-08 04:04:48'),
-(15, '13', '13 Đồng hồ thời trang Đồng hồ thời trang Đồng hồ thời trang Đồng hồ thời trang Đồng hồ thời trang', '13', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>13</p>', 25, NULL, '2025-05-08 04:48:27', '2025-05-08 09:12:12'),
-(16, '23', '232', '23', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>123</p>', 20, NULL, '2025-05-12 07:51:49', '2025-05-16 04:08:33'),
-(17, '123', 'anhntph43180@fpt.edu12341243125245.vn', '123', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>123r</p>', 24, NULL, '2025-05-12 08:02:03', '2025-05-16 04:09:20');
+(1, 'NIS-C09R2T28', 'Máy lạnh Nagakawa Inverter 1 HP NIS-C09R2T28 + 12', 'may-lanh-nagakawa-inverter-1-hp-nis-c09r2t28-12', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>Đ&aacute;nh gi&aacute; chi tiết m&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28<br />\r\nM&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28&nbsp;c&oacute; khả năng l&agrave;m lạnh nhanh nhưng vẫn đảm bảo được hiệu quả tiết kiệm điện. Hơn nữa, mẫu m&aacute;y lạnh n&agrave;y c&ograve;n c&oacute; thể h&uacute;t ẩm độc lập, gi&uacute;p căn ph&ograve;ng trở n&ecirc;n kh&ocirc; tho&aacute;ng cho những ng&agrave;y trời ẩm ướt.</p>\r\n\r\n<p>Thiết kế<br />\r\nD&agrave;n lạnh:</p>\r\n\r\n<p>Được thiết kế&nbsp;h&igrave;nh chữ nhật nằm ngang&nbsp;quen thuộc với chất liệu vỏ nhựa cao cấp v&agrave; sở hữu gam&nbsp;m&agrave;u trắng tinh tế.</p>\r\n\r\n<p>D&agrave;n n&oacute;ng:</p>\r\n\r\n<p>- Được thiết kế&nbsp;h&igrave;nh hộp chữ nhật&nbsp;với chất liệu vỏ nhựa bền bỉ.</p>\r\n\r\n<p>-&nbsp;L&aacute; tản nhiệt bằng nh&ocirc;m được phủ lớp Golden Fin&nbsp;c&oacute; khả năng chống ăn m&ograve;n tốt, gi&uacute;p tăng độ bền cho m&aacute;y trong suốt thời gian hoạt động.</p>\r\n\r\n<p>- Cả d&agrave;n lạnh v&agrave; d&agrave;n n&oacute;ng của&nbsp;m&aacute;y lạnh Nagakawa&nbsp;đều&nbsp;sử dụng ống dẫn gas được l&agrave;m bằng đồng, cho khả năng l&agrave;m lạnh nhanh v&agrave; s&acirc;u.</p>\r\n\r\n<p>- M&aacute;y lạnh&nbsp;sử dụng gas R32&nbsp;th&acirc;n thiện với m&ocirc;i trường v&agrave; mang lại hiệu quả l&agrave;m m&aacute;t tối ưu.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>C&ocirc;ng nghệ l&agrave;m lạnh<br />\r\n-&nbsp;M&aacute;y lạnh&nbsp;sở hữu&nbsp;c&ocirc;ng suất 1 HP, đ&aacute;p ứng khả năng l&agrave;m lạnh cho những căn ph&ograve;ng c&oacute; diện t&iacute;ch&nbsp;dưới 15m&sup2;.</p>\r\n\r\n<p>-&nbsp;Chế độ l&agrave;m lạnh nhanh Turbo: Động cơ m&aacute;y n&eacute;n sẽ hoạt động với c&ocirc;ng suất tối đa, gi&uacute;p nhiệt độ trong căn ph&ograve;ng được hạ nhanh ch&oacute;ng đến mức nhiệt độ m&agrave; người d&ugrave;ng c&agrave;i đặt, nhờ đ&oacute; người d&ugrave;ng&nbsp;cảm thấy m&aacute;t lạnh gần như ngay lập tức&nbsp;sau khi k&iacute;ch hoạt chế độ n&agrave;y.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Cơ chế thổi gi&oacute;<br />\r\nCảm biến nhiệt độ I Feel: Cho ph&eacute;p người d&ugrave;ng c&oacute; thể tự động điều chỉnh chế độ hoạt động của m&aacute;y lạnh tại vị tr&iacute; remote nhờ bộ phận cảm biến được t&iacute;ch hợp, từ đ&oacute; gi&uacute;p người d&ugrave;ng&nbsp;cảm thấy m&aacute;t mẻ v&agrave; thoải m&aacute;i d&ugrave; ngồi bất k&igrave; vị tr&iacute; n&agrave;o gần remote m&aacute;y lạnh&nbsp;trong căn ph&ograve;ng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>C&aacute;c c&ocirc;ng nghệ tiết kiệm điện<br />\r\n-&nbsp;C&ocirc;ng nghệ Inverter: C&oacute; khả năng điều chỉnh linh hoạt v&ograve;ng quay m&aacute;y n&eacute;n, gi&uacute;p m&aacute;y lạnh&nbsp;duy tr&igrave; nhiệt độ ổn định&nbsp;b&ecirc;n trong căn ph&ograve;ng m&agrave; vẫn&nbsp;ti&ecirc;u thụ điện năng &iacute;t nhất&nbsp;c&oacute; thể.</p>\r\n\r\n<p>-&nbsp;Chức năng tiết kiệm năng lượng (Economy): Hỗ trợ m&aacute;y lạnh c&oacute; khả năng&nbsp;tiết kiệm điện đến mức tối ưu, g&oacute;p phần l&agrave;m giảm chi ph&iacute; tiền điện mỗi th&aacute;ng cho người sử dụng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Khả năng lọc kh&ocirc;ng kh&iacute; - sức khoẻ<br />\r\nM&agrave;ng lọc 6 trong 1: Được cấu tạo từ 6 tấm lọc gồm c&oacute; Photocatalyst, Ion Silver, Active Carbon, Catechin, Vitamin C v&agrave; Catalyst, nhờ đ&oacute; mang lại khả năng&nbsp;lọc sạch bụi bẩn v&agrave; c&aacute;c chất g&acirc;y dị ứng tối ưu, đồng thời&nbsp;khử m&ugrave;i h&ocirc;i hiệu quả, trả lại&nbsp;bầu kh&ocirc;ng kh&iacute; tươi m&aacute;t&nbsp;cho căn ph&ograve;ng, thậm ch&iacute; c&ograve;n&nbsp;hỗ trợ l&agrave;m đẹp da&nbsp;cho người sử dụng.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>Tiện &iacute;ch<br />\r\n-&nbsp;Hẹn giờ bật tắt m&aacute;y: C&oacute; khả năng hẹn giờ bật hoặc tắt m&aacute;y l&ecirc;n đến 24 tiếng, gi&uacute;p người d&ugrave;ng&nbsp;kiểm so&aacute;t thời gian sử dụng m&aacute;y lạnh, tiện lợi cho việc sử dụng v&agrave;o ban đ&ecirc;m.</p>\r\n\r\n<p>-&nbsp;Tự khởi động lại khi c&oacute; điện: C&oacute; khả năng tự khởi động lại khi xảy ra t&igrave;nh trạng c&uacute;p điện đột ngột, m&agrave; người d&ugrave;ng kh&ocirc;ng cần phải c&agrave;i đặt lại chế độ l&agrave;m lạnh như ban đầu.</p>\r\n\r\n<p>-&nbsp;Chế độ c&agrave;i đặt y&ecirc;u th&iacute;ch I-set:&nbsp;M&aacute;y lạnh Nagakawa Inverter&nbsp;n&agrave;y c&oacute; khả năng ghi nhớ c&agrave;i đặt y&ecirc;u th&iacute;ch của người sử dụng, từ đ&oacute;&nbsp;giảm bớt thao t&aacute;c v&agrave; thời gian c&agrave;i đặt&nbsp;m&aacute;y lạnh mỗi khi d&ugrave;ng.</p>\r\n\r\n<p>-&nbsp;Chế độ vận h&agrave;nh khi ngủ:&nbsp;M&aacute;y lạnh Nagakawa 1 HP&nbsp;n&agrave;y c&oacute; thể tự động tăng nhiệt độ v&agrave;o ban đ&ecirc;m,&nbsp;tr&aacute;nh g&acirc;y cảm gi&aacute;c lạnh buốt&nbsp;v&agrave; gi&uacute;p cho người d&ugrave;ng c&oacute; được giấc ngủ ngon hơn.</p>\r\n\r\n<p>*H&igrave;nh ảnh chỉ mang t&iacute;nh chất minh họa</p>\r\n\r\n<p>T&oacute;m lại, m&aacute;y lạnh Nagakawa Inverter 1 HP NIS-C09R2T28 ph&ugrave; hợp cho mọi gia đ&igrave;nh hiện nay khi c&oacute; nhu cầu l&agrave;m m&aacute;t trong căn ph&ograve;ng nhỏ diện t&iacute;ch dưới 15m&sup2;. Hơn nữa, chiếc m&aacute;y lạnh n&agrave;y rất th&iacute;ch hợp cho những ai c&oacute; sức khỏe nhạy cảm khi nằm trong ph&ograve;ng m&aacute;y lạnh nhờ trang bị chế độ hoạt động khi ngủ v&agrave; bộ lọc 6 trong 1.&nbsp;</p>', 26, NULL, '2025-05-08 02:27:41', '2025-06-02 09:49:31'),
+(2, 'GC-12IS35', 'Máy lạnh Casper Inverter 1.5 HP GC-12IS35 + 12', 'may-lanh-casper-inverter-15-hp-gc-12is35-12', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p><em>19.990.00019.990.000</em></p>', 25, NULL, '2025-05-08 03:54:05', '2025-06-02 09:49:41'),
+(3, '1', '1 + 12', '1-12', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p>1</p>', 25, NULL, '2025-05-08 03:55:45', '2025-06-02 09:49:57'),
+(4, '2', '2 + 12', '2', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>2</p>', 25, NULL, '2025-05-08 03:56:14', '2025-05-26 03:19:31'),
+(5, '3', '3 + 12', '3-12', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>3</p>', 25, NULL, '2025-05-08 03:57:59', '2025-06-02 09:50:24'),
+(6, '4', '4 + 12', '4', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>4</p>', 25, NULL, '2025-05-08 03:58:58', '2025-05-08 03:58:58'),
+(7, '5', '5 + 12', '5-12', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 4, 1, '<p>5</p>', 25, NULL, '2025-05-08 03:59:33', '2025-06-02 09:50:38'),
+(8, '6', '6 + 12', '6-12', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 0, NULL, 25, NULL, '2025-05-08 04:00:13', '2025-06-02 09:50:53'),
+(9, '7', '7 + 12', '7-12', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 10, 0, '<p>7</p>', 25, NULL, '2025-05-08 04:00:51', '2025-06-03 01:23:57'),
+(10, '8', '8 + 12', '8-12', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>8</p>', 25, NULL, '2025-05-08 04:01:32', '2025-06-03 01:23:29'),
+(11, '9', '9 + 12', '9-12', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 0, '<p>9</p>', 25, NULL, '2025-05-08 04:02:18', '2025-06-03 01:23:00'),
+(12, '10', '10 + 12', '10-12', 'http://127.0.0.1:8000/userfiles/images/gratisography-augmented-reality-800x525.jpg', 0, 1, '<p>10</p>', 25, NULL, '2025-05-08 04:03:04', '2025-06-03 01:22:36'),
+(13, '11', '11 + 12', '11-12', 'http://127.0.0.1:8000/storage/photos/2/950a82c88b10d6c42df763f2ad9b8151.png', 0, 0, '<p>11</p>', 25, NULL, '2025-05-08 04:03:50', '2025-06-03 01:22:12'),
+(14, '12', '12 + 12', '12-12', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>12</p>', 25, NULL, '2025-05-08 04:04:48', '2025-06-03 01:21:58'),
+(15, '13', '13 Đồng hồ thời trang Đồng hồ thời trang Đồng hồ thời trang Đồng hồ thời trang Đồng hồ thời trang + 12', '13-dong-ho-thoi-trang-dong-ho-thoi-trang-dong-ho-thoi-trang-dong-ho-thoi-trang-dong-ho-thoi-trang-12', 'http://127.0.0.1:8000/userfiles/images/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>13</p>', 25, NULL, '2025-05-08 04:48:27', '2025-06-03 01:21:46'),
+(16, '23', '232', '232', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 0, '<p>123</p>', 20, NULL, '2025-05-12 07:51:49', '2025-06-03 02:23:49'),
+(17, '123', 'anhntph43180@fpt.edu12341243125245.vn + 12', '123', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', 0, 1, '<p>123r</p>', 24, '2025-05-30 06:57:03', '2025-05-12 08:02:03', '2025-05-30 06:57:03');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_attribute_values`
+-- Table structure for table `product_attribute_values`
 --
 
 CREATE TABLE `product_attribute_values` (
@@ -952,28 +1072,41 @@ CREATE TABLE `product_attribute_values` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_attribute_values`
+-- Dumping data for table `product_attribute_values`
 --
 
 INSERT INTO `product_attribute_values` (`id`, `product_id`, `attribute_id`, `value`, `created_at`, `updated_at`) VALUES
-(1, 3, 14, '12', '2025-05-08 03:55:45', '2025-05-08 04:05:42'),
-(2, 2, 15, 'do', '2025-05-08 03:56:33', '2025-05-20 01:11:57'),
-(3, 1, 13, '12', '2025-05-08 03:57:07', '2025-05-16 04:05:01'),
-(4, 5, 12, '3', '2025-05-08 03:57:59', '2025-05-08 03:57:59'),
-(5, 7, 13, '5', '2025-05-08 03:59:33', '2025-05-08 03:59:33'),
-(6, 8, 1, '6', '2025-05-08 04:00:13', '2025-05-08 04:00:13'),
-(7, 9, 12, '7', '2025-05-08 04:00:51', '2025-05-08 04:00:51'),
-(8, 11, 15, '9', '2025-05-08 04:02:18', '2025-05-08 04:02:18'),
-(9, 13, 13, '11', '2025-05-08 04:03:50', '2025-05-13 04:47:09'),
-(10, 14, 12, '12', '2025-05-08 04:04:48', '2025-05-08 04:04:48'),
-(11, 15, 13, '13', '2025-05-08 04:48:27', '2025-05-08 09:12:12'),
-(12, 16, 14, '1231', '2025-05-12 07:51:49', '2025-05-16 04:08:33'),
-(13, 17, 14, '1234', '2025-05-12 08:02:03', '2025-05-16 04:09:20');
+(1, 3, 14, '4k', '2025-05-08 03:55:45', '2025-06-02 09:49:57'),
+(2, 2, 15, 'Đỏ', '2025-05-08 03:56:33', '2025-06-02 09:49:41'),
+(3, 1, 13, '8GB', '2025-05-08 03:57:07', '2025-06-02 09:49:31'),
+(4, 5, 12, 'olded', '2025-05-08 03:57:59', '2025-06-02 09:50:24'),
+(5, 7, 13, '5gb', '2025-05-08 03:59:33', '2025-06-02 09:50:38'),
+(6, 8, 1, '1HP', '2025-05-08 04:00:13', '2025-06-02 09:50:53'),
+(7, 9, 12, '4K', '2025-05-08 04:00:51', '2025-06-03 01:23:57'),
+(8, 11, 15, 'XaNh', '2025-05-08 04:02:18', '2025-06-03 01:23:00'),
+(9, 13, 13, '11GB', '2025-05-08 04:03:50', '2025-06-03 01:22:12'),
+(10, 14, 12, '70Ich', '2025-05-08 04:04:48', '2025-06-03 01:21:58'),
+(11, 15, 13, '13GB', '2025-05-08 04:48:27', '2025-06-03 01:21:46'),
+(12, 16, 14, '2k', '2025-05-12 07:51:49', '2025-06-03 02:23:49'),
+(13, 17, 14, '1234', '2025-05-12 08:02:03', '2025-05-16 04:09:20'),
+(14, 16, 13, '8GB', '2025-06-03 01:21:33', '2025-06-03 02:23:49'),
+(15, 16, 12, 'oldled', '2025-06-03 01:21:33', '2025-06-03 02:23:49'),
+(16, 15, 14, '4k', '2025-06-03 01:21:46', '2025-06-03 01:21:46'),
+(17, 14, 14, '4k', '2025-06-03 01:21:58', '2025-06-03 01:21:58'),
+(18, 13, 14, '4K', '2025-06-03 01:22:12', '2025-06-03 01:22:12'),
+(19, 12, 14, '4K', '2025-06-03 01:22:36', '2025-06-03 01:22:36'),
+(20, 12, 13, '8gb', '2025-06-03 01:22:36', '2025-06-03 01:22:36'),
+(21, 11, 13, '4gb', '2025-06-03 01:23:00', '2025-06-03 01:23:00'),
+(22, 11, 12, 'olded', '2025-06-03 01:23:00', '2025-06-03 01:23:00'),
+(23, 10, 14, '2k', '2025-06-03 01:23:29', '2025-06-03 01:23:29'),
+(24, 10, 13, '16gb', '2025-06-03 01:23:29', '2025-06-03 01:23:29'),
+(25, 9, 14, '126hz', '2025-06-03 01:23:57', '2025-06-03 01:23:57'),
+(26, 9, 13, '6gb', '2025-06-03 01:23:57', '2025-06-03 01:23:57');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_images`
+-- Table structure for table `product_images`
 --
 
 CREATE TABLE `product_images` (
@@ -985,7 +1118,7 @@ CREATE TABLE `product_images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_images`
+-- Dumping data for table `product_images`
 --
 
 INSERT INTO `product_images` (`id`, `image`, `product_id`, `created_at`, `updated_at`) VALUES
@@ -998,12 +1131,13 @@ INSERT INTO `product_images` (`id`, `image`, `product_id`, `created_at`, `update
 (7, '[\"http:\\/\\/127.0.0.1:8000\\/userfiles\\/images\\/pngtree-flower-jpg-vector-png-image_6886192.png\"]', 15, '2025-05-08 04:48:27', '2025-05-08 04:48:27'),
 (8, '[\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/pngtree-flower-jpg-vector-png-image_6886192.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/gratisography-augmented-reality-800x525.jpg\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/e1e79e4c6294b601281013b2fb99433b.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/c5d3883a7a8533d3172a6386bbf87b84.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/e1123f3241680e57094af88bd1c6675b.png\"]', 17, '2025-05-12 08:02:03', '2025-05-16 04:09:20'),
 (9, '[\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/607e0cd2ba3a68161bcbc99e71179c24.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/197e8e38f558b24af8e415c2cc7dba8d.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/9924377b70eebde3615863d508ff352e.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/92606e36fe0b41c33b95e18550cfa673.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/pngtree-flower-jpg-vector-png-image_6886192.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/gratisography-augmented-reality-800x525.jpg\"]', 13, '2025-05-13 04:43:35', '2025-05-13 04:47:09'),
-(10, '[\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/9924377b70eebde3615863d508ff352e.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/c5d3883a7a8533d3172a6386bbf87b84.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/e1123f3241680e57094af88bd1c6675b.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/pngtree-flower-jpg-vector-png-image_6886192.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/gratisography-augmented-reality-800x525.jpg\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/e1e79e4c6294b601281013b2fb99433b.png\"]', 16, '2025-05-16 04:08:33', '2025-05-16 04:08:33');
+(10, '[\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/9924377b70eebde3615863d508ff352e.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/c5d3883a7a8533d3172a6386bbf87b84.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/e1123f3241680e57094af88bd1c6675b.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/pngtree-flower-jpg-vector-png-image_6886192.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/gratisography-augmented-reality-800x525.jpg\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/e1e79e4c6294b601281013b2fb99433b.png\"]', 16, '2025-05-16 04:08:33', '2025-05-16 04:08:33'),
+(11, '[\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/e1123f3241680e57094af88bd1c6675b.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/c5d3883a7a8533d3172a6386bbf87b84.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/9924377b70eebde3615863d508ff352e.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/950a82c88b10d6c42df763f2ad9b8151.png\",\"http:\\/\\/127.0.0.1:8000\\/storage\\/photos\\/2\\/92606e36fe0b41c33b95e18550cfa673.png\"]', 9, '2025-06-02 09:51:23', '2025-06-02 09:51:23');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_variants`
+-- Table structure for table `product_variants`
 --
 
 CREATE TABLE `product_variants` (
@@ -1020,39 +1154,39 @@ CREATE TABLE `product_variants` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_variants`
+-- Dumping data for table `product_variants`
 --
 
 INSERT INTO `product_variants` (`id`, `name`, `price`, `price_old`, `stock_quantity`, `status`, `product_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '1 hp', 4990000, 8990000, 10, 'published', 1, NULL, '2025-05-08 02:27:41', '2025-05-16 04:05:01'),
-(2, '2 hp', 6990000, 10990000, 11, 'published', 1, NULL, '2025-05-08 02:27:41', '2025-05-16 04:05:01'),
-(3, '1 hp', 6590000, 9290000, 8, 'draft', 2, NULL, '2025-05-08 03:54:05', '2025-05-20 01:11:57'),
-(4, '2.5 hp', 15390000, 19990000, 3, 'published', 2, NULL, '2025-05-08 03:54:05', '2025-05-20 01:11:57'),
-(5, '1', 1, 1, 1, 'draft', 3, NULL, '2025-05-08 03:55:45', '2025-05-08 04:05:42'),
-(6, '2', 2, 2, 2, 'draft', 4, NULL, '2025-05-08 03:56:14', '2025-05-08 04:05:11'),
-(7, '3', 3, 3, 3, 'draft', 5, NULL, '2025-05-08 03:57:59', '2025-05-08 03:57:59'),
-(8, '4', 4, 4, 4, 'draft', 6, NULL, '2025-05-08 03:58:58', '2025-05-08 03:58:58'),
-(9, '5', 5, 5, 5, 'draft', 7, NULL, '2025-05-08 03:59:33', '2025-05-08 03:59:33'),
-(10, '6', 6, 6, 6, 'draft', 8, NULL, '2025-05-08 04:00:13', '2025-05-08 04:00:13'),
-(11, '7', 7, 7, 7, 'draft', 9, NULL, '2025-05-08 04:00:51', '2025-05-08 04:00:51'),
-(12, '8', 8, 8, 8, 'draft', 10, NULL, '2025-05-08 04:01:32', '2025-05-08 04:01:32'),
-(13, '9', 9, 9, 9, 'draft', 11, NULL, '2025-05-08 04:02:18', '2025-05-08 04:02:18'),
-(14, '10', 110, 10, 10, 'draft', 12, NULL, '2025-05-08 04:03:04', '2025-05-08 04:03:04'),
-(15, '11', 11, 11, 11, 'published', 13, NULL, '2025-05-08 04:03:50', '2025-05-13 04:47:09'),
-(16, '12', 12, 12, 12, 'draft', 14, NULL, '2025-05-08 04:04:48', '2025-05-08 04:04:48'),
-(17, '13', 13, 13, 13, 'draft', 15, NULL, '2025-05-08 04:48:27', '2025-05-08 09:12:12'),
-(18, '123', 321, 123, 123, 'published', 16, NULL, '2025-05-12 07:51:49', '2025-05-16 04:08:33'),
+(1, '1 hp', 4990000, 8990000, 10, 'published', 1, NULL, '2025-05-08 02:27:41', '2025-06-02 09:49:31'),
+(2, '2 hp', 6990000, 10990000, 11, 'published', 1, NULL, '2025-05-08 02:27:41', '2025-06-02 09:49:31'),
+(3, '1 hp', 6590000, 9290000, 8, 'published', 2, NULL, '2025-05-08 03:54:05', '2025-06-02 09:49:41'),
+(4, '2.5 hp', 15390000, 19990000, 3, 'published', 2, NULL, '2025-05-08 03:54:05', '2025-06-02 09:49:41'),
+(5, '1', 1, 1, 3, 'published', 3, NULL, '2025-05-08 03:55:45', '2025-06-02 09:49:57'),
+(6, '2', 2, 2, 3, 'published', 4, NULL, '2025-05-08 03:56:14', '2025-05-26 03:19:31'),
+(7, '3', 3, 3, 3, 'published', 5, NULL, '2025-05-08 03:57:59', '2025-06-02 09:50:24'),
+(8, '4', 4, 4, 4, 'published', 6, NULL, '2025-05-08 03:58:58', '2025-05-08 03:58:58'),
+(9, '5', 5, 5, 15, 'published', 7, NULL, '2025-05-08 03:59:33', '2025-06-02 09:50:38'),
+(10, '6', 6, 6, 6, 'published', 8, NULL, '2025-05-08 04:00:13', '2025-06-02 09:50:53'),
+(11, '7', 7, 7, 7, 'published', 9, NULL, '2025-05-08 04:00:51', '2025-06-03 01:23:57'),
+(12, '8', 8, 8, 8, 'published', 10, NULL, '2025-05-08 04:01:32', '2025-06-03 01:23:29'),
+(13, '9', 9, 9, 9, 'published', 11, NULL, '2025-05-08 04:02:18', '2025-06-03 01:23:00'),
+(14, '10', 110, 10, 10, 'published', 12, NULL, '2025-05-08 04:03:04', '2025-06-03 01:22:36'),
+(15, '11', 10, 10, 11, 'published', 13, NULL, '2025-05-08 04:03:50', '2025-06-03 01:22:12'),
+(16, '12', 12, 12, 12, 'published', 14, NULL, '2025-05-08 04:04:48', '2025-06-03 01:21:58'),
+(17, '13', 13, 13, 13, 'published', 15, NULL, '2025-05-08 04:48:27', '2025-06-03 01:21:46'),
+(18, '123', 321, 123, 123, 'published', 16, NULL, '2025-05-12 07:51:49', '2025-06-03 02:23:49'),
 (19, '123', 32, 123, 32, 'published', 17, NULL, '2025-05-12 08:02:03', '2025-05-16 04:09:20'),
-(20, '342', 432, 43, 234, 'published', 13, NULL, '2025-05-13 04:43:35', '2025-05-13 04:47:09'),
-(21, '234', 43, 234, 43, 'published', 13, NULL, '2025-05-13 04:43:35', '2025-05-13 04:47:09'),
-(22, '321', 123, 1000000000000, 123, 'draft', 17, NULL, '2025-05-16 03:49:41', '2025-05-16 04:09:20'),
+(20, '342', 400, 40, 234, 'published', 13, NULL, '2025-05-13 04:43:35', '2025-06-03 01:22:12'),
+(21, '234', 40, 200, 43, 'published', 13, NULL, '2025-05-13 04:43:35', '2025-06-03 01:22:12'),
+(22, '321', 123, 1000000000000, 123, 'published', 17, NULL, '2025-05-16 03:49:41', '2025-05-16 04:09:20'),
 (23, '222', 123, 32132, 123, 'published', 17, NULL, '2025-05-16 03:56:06', '2025-05-16 04:09:20'),
-(24, '12333', 123, 321123, 123321, 'draft', 17, NULL, '2025-05-16 03:56:06', '2025-05-16 04:09:20');
+(24, '12333', 123, 321123, 123321, 'published', 17, NULL, '2025-05-16 03:56:06', '2025-05-16 04:09:20');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `reviews`
+-- Table structure for table `reviews`
 --
 
 CREATE TABLE `reviews` (
@@ -1069,7 +1203,7 @@ CREATE TABLE `reviews` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -1081,7 +1215,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -1090,7 +1224,7 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `role_has_permissions`
+-- Table structure for table `role_has_permissions`
 --
 
 CREATE TABLE `role_has_permissions` (
@@ -1099,7 +1233,7 @@ CREATE TABLE `role_has_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `role_has_permissions`
+-- Dumping data for table `role_has_permissions`
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
@@ -1137,7 +1271,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `searchs`
+-- Table structure for table `searchs`
 --
 
 CREATE TABLE `searchs` (
@@ -1149,20 +1283,30 @@ CREATE TABLE `searchs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `searchs`
+-- Dumping data for table `searchs`
 --
 
 INSERT INTO `searchs` (`id`, `search`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'tim kiem', 1, '2025-05-08 09:44:10', '2025-05-08 09:44:10'),
-(2, '123', 1, '2025-05-08 09:46:04', '2025-05-08 09:46:04'),
-(3, '123456', NULL, '2025-05-08 09:46:04', '2025-05-08 09:46:04'),
-(4, '1345', NULL, '2025-05-08 09:55:37', '2025-05-08 09:55:37'),
-(5, '12346', NULL, '2025-05-08 10:00:58', '2025-05-08 10:00:58');
+(514, NULL, 2, '2025-06-03 08:16:46', '2025-06-03 08:16:46'),
+(515, '12', 2, '2025-06-03 08:17:30', '2025-06-03 08:17:30'),
+(516, '12', 2, '2025-06-03 08:17:40', '2025-06-03 08:17:40'),
+(517, '12', 2, '2025-06-03 08:17:51', '2025-06-03 08:17:51'),
+(518, '12345', 2, '2025-06-03 08:18:19', '2025-06-03 08:18:19'),
+(519, '12', 2, '2025-06-03 08:21:10', '2025-06-03 08:21:10'),
+(520, '12', 2, '2025-06-03 08:21:17', '2025-06-03 08:21:17'),
+(521, '12', 2, '2025-06-03 08:21:24', '2025-06-03 08:21:24'),
+(522, '12', 2, '2025-06-03 08:21:34', '2025-06-03 08:21:34'),
+(523, '123', 2, '2025-06-03 08:24:51', '2025-06-03 08:24:51'),
+(524, '21', 2, '2025-06-03 08:27:07', '2025-06-03 08:27:07'),
+(525, 'đồng hồ', 2, '2025-06-03 08:27:17', '2025-06-03 08:27:17'),
+(526, '1', 2, '2025-06-03 08:27:30', '2025-06-03 08:27:30'),
+(527, '12314', 2, '2025-06-03 09:42:17', '2025-06-03 09:42:17'),
+(528, '3245', 2, '2025-06-03 09:50:11', '2025-06-03 09:50:11');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -1183,18 +1327,21 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `address`, `image`, `phone`, `birthday`, `remember_token`, `secret_code`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'admin@gmail.com', '2025-05-16 01:09:59', '$2y$10$qhx7ZlobqFJ11Nh9AFrTH.xWtAYHR5NwQBy1P5IaAhWb6teZ.1S2W', 'Tiên Phương, Chương Mỹ, Hà Nội', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', '0348022005', NULL, NULL, NULL, NULL, '2025-05-08 01:04:25', '2025-05-21 02:41:10'),
-(2, 'anhnt', 'anhnt@gmail.com', '2025-05-15 09:30:14', '$2y$10$Bg6e62TlfTlCvDHX2HAIZe7rQcOLYVSSyQ/PveJYMAOsBfteNKI3u', 'Tiên Phương, Chương Mỹ, Hà Nội', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', '0348022004', '2025-05-12', 'rOekLRB9x20mgkeBBLM7DtERYwIMWz18DdSoT8vXM7a2Q4ZB8lHiuOAnfPrF', NULL, NULL, '2025-05-12 08:21:24', '2025-05-21 02:34:02'),
-(44, 'Nguyễn Thế Anh', 'nguyentheanh260204@gmail.com', '2025-05-16 02:33:50', '$2y$10$U.9R0hA7XWmYaWkTRywkteaGq/3mIHsDAcMgyIGCg74LB6j.BfKPS', 'Tiên Phương, Chương Mỹ, Hà Nội', 'http://127.0.0.1:8000/storage/photos/2/pngtree-flower-jpg-vector-png-image_6886192.png', '0981621246', '2025-05-01', NULL, NULL, NULL, '2025-05-16 02:33:34', '2025-05-21 02:43:34');
+(1, 'Super Admin', 'admin@gmail.com', '2025-05-16 01:09:59', '$2y$10$qhx7ZlobqFJ11Nh9AFrTH.xWtAYHR5NwQBy1P5IaAhWb6teZ.1S2W', 'Tiên Phương, Chương Mỹ, Hà Nội', 'storage/user/fsTrvRfG3U0meYYKOOhMNjlhhbpNpjbzkDfu4Whw.jpg', '0348022005', NULL, NULL, NULL, NULL, '2025-05-08 01:04:25', '2025-05-27 01:11:50'),
+(2, 'anhnt', 'anhnt@gmail.com', '2025-05-15 09:30:14', '$2y$10$Bg6e62TlfTlCvDHX2HAIZe7rQcOLYVSSyQ/PveJYMAOsBfteNKI3u', 'Tiên Phương, Chương Mỹ, Hà Nội', 'storage/user/abcSqMgWekGtZGHfmdVeBcEKq2QWBz1tQSOXinA4.png', '0348022004', '2025-05-12', 'C9RL55OlR1tTO4nRNXFHH53gvGbyQMFAtKYoWwTYaG5s5bfk3PWUpdPZHQme', NULL, NULL, '2025-05-12 08:21:24', '2025-05-27 01:15:02'),
+(44, 'Nguyễn Thế Anh', 'nguyentheanh260204@gmail.com', '2025-05-16 02:33:50', '$2y$10$U.9R0hA7XWmYaWkTRywkteaGq/3mIHsDAcMgyIGCg74LB6j.BfKPS', 'Tiên Phương, Chương Mỹ, Hà Nội', 'storage/user/VfHpAaDtTmw6ZK9zEKliSJIHY11pGJHR6voY7HAC.jpg', '0981621246', '2025-05-01', NULL, NULL, NULL, '2025-05-16 02:33:34', '2025-05-30 08:37:10'),
+(45, 'Nguyễn Thế Anh', '1232@gmail.com', NULL, '$2y$10$i6of4.yiJjUONc/sd3Q8OeJVSjO8S2RIqwB.x4thxQs9vd9jn.bAW', 'Tiên Phương, Chương Mỹ, Hà Nội', 'storage/user/fnwTILiT2kKb0It9YIocagd9X29rbyOzC57pEXF2.png', '0348022001', '2025-05-06', NULL, NULL, NULL, '2025-05-26 09:44:53', '2025-05-30 08:36:51'),
+(46, 'Nguyễn Thế Anh', '32@intern.imtatech.com', NULL, '$2y$10$MBJOq6UVdHPpKTH/FnaoIOQJTkIeESNuKdboh0UwrPux8X5tv5XhC', 'Tiên Phương, Chương Mỹ, Hà Nội', 'storage/user/J0eF6Qw99ItxlQeOos8E77ZH38fYnp52NWeejdnD.png', '0348022000', '2025-05-20', NULL, NULL, NULL, '2025-05-26 10:05:23', '2025-05-30 08:36:36'),
+(47, 'Nguyễn Thế Anh', 'nguyanh260204@gmail.com', NULL, '$2y$10$P8pj/rgsPybyvq7Sb4/PkOQyEnb1FXa3rI0YpraOfvrivQsT8N5HO', 'Tiên Phương, Chương Mỹ, Hà Nội', 'storage/user/0wInCDABc9tmFyFSaf8yJ7bIvOyDr0wbQrsQ9lB0.jpg', '0348022009', '2025-05-13', NULL, NULL, NULL, '2025-05-26 10:17:23', '2025-05-30 08:11:22');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `vouchers`
+-- Table structure for table `vouchers`
 --
 
 CREATE TABLE `vouchers` (
@@ -1205,9 +1352,9 @@ CREATE TABLE `vouchers` (
   `end_date` datetime DEFAULT NULL,
   `time` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
-  `max_discount` decimal(20,2) DEFAULT NULL,
-  `max_use` int UNSIGNED NOT NULL DEFAULT '1',
-  `discount_condition` decimal(20,2) NOT NULL DEFAULT '0.00',
+  `max_discount` decimal(20,0) DEFAULT NULL,
+  `max_use` int UNSIGNED NOT NULL DEFAULT '0',
+  `discount_condition` decimal(20,0) NOT NULL DEFAULT '0',
   `users` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `products` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1215,50 +1362,68 @@ CREATE TABLE `vouchers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `vouchers`
+-- Dumping data for table `vouchers`
 --
 
 INSERT INTO `vouchers` (`id`, `promo_code`, `discount_percentage`, `start_date`, `end_date`, `time`, `status`, `max_discount`, `max_use`, `discount_condition`, `users`, `products`, `created_at`, `updated_at`) VALUES
-(1, '123', 12, '2025-05-21 00:00:00', '2025-05-21 23:59:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 123.00, 32, 12.00, '[\"2\"]', '[\"17\"]', '2025-05-21 07:32:31', '2025-05-21 07:32:31'),
-(2, '2', 1, '2025-05-12 00:00:00', '2025-07-29 23:00:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 123.00, 1, 123.00, '[\"2\"]', '[\"17\"]', '2025-05-21 07:52:12', '2025-05-21 07:52:12'),
-(3, '1234', 12, '2025-05-21 00:00:00', '2025-05-21 23:59:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 123.00, 1, 123.00, '[\"44\",\"2\",\"1\"]', '[\"17\",\"16\",\"15\",\"10\",\"9\",\"8\"]', '2025-05-21 08:08:34', '2025-05-21 08:08:34'),
-(4, '12', 21, '2025-05-21 00:00:00', '2025-05-21 23:59:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 21.00, 1, 2.00, NULL, NULL, '2025-05-21 08:20:56', '2025-05-21 08:20:56'),
-(5, 'ád', 1, '2025-05-21 00:00:00', '2025-05-21 23:59:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 1.00, 1, 0.00, NULL, NULL, '2025-05-21 08:23:42', '2025-05-21 08:23:42');
+(1, '123', 12, '2025-05-21 00:00:00', '2025-05-22 00:00:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 0, 123, 0, 12, '[\"2\"]', '[\"17\"]', '2025-05-21 07:32:31', '2025-05-22 02:26:01'),
+(2, '2', 1, '2025-05-21 00:00:00', '2025-05-22 00:00:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 1, 123, 1, 123, '[\"2\"]', '[\"17\"]', '2025-05-21 07:52:12', '2025-05-22 01:06:48'),
+(3, '1', 12, '2025-05-23 00:00:00', '2025-07-20 00:00:00', '05/23/2025 12:00 AM - 07/20/2025 12:00 AM', 1, 123, 1, 123, '[\"2\",\"1\"]', '[\"17\",\"16\",\"15\",\"10\",\"9\",\"8\"]', '2025-05-21 08:08:34', '2025-05-23 02:16:52'),
+(4, '12', 21, '2025-05-21 00:00:00', '2025-05-22 00:00:00', '05/21/2025 12:00 AM - 05/22/2025 12:00 AM', 1, 21, 1, 2001234567890, NULL, NULL, '2025-05-21 08:20:56', '2025-05-22 01:29:39'),
+(5, '1234567890', 1, '2025-05-14 00:00:00', '2025-06-26 00:00:00', '05/14/2025 12:00 AM - 06/26/2025 12:00 AM', 1, 121345, 0, 0, '[\"1\"]', '[\"4\",\"2\"]', '2025-05-21 08:23:42', '2025-05-30 08:08:52'),
+(9, 'ht', 90, '2025-05-13 10:00:00', '2025-06-05 07:00:00', '05/13/2025 10:00 AM - 06/05/2025 7:00 AM', 1, 1, 4, 2, NULL, NULL, '2025-05-22 02:23:10', '2025-05-30 10:05:01');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `attributes`
+-- Indexes for table `attributes`
 --
 ALTER TABLE `attributes`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `attributes_slug_unique` (`slug`);
 
 --
--- Chỉ mục cho bảng `authentication_log`
+-- Indexes for table `authentication_log`
 --
 ALTER TABLE `authentication_log`
   ADD PRIMARY KEY (`id`),
   ADD KEY `authentication_log_authenticatable_type_authenticatable_id_index` (`authenticatable_type`,`authenticatable_id`);
 
 --
--- Chỉ mục cho bảng `bannermenuitems`
+-- Indexes for table `bannermenuitems`
 --
 ALTER TABLE `bannermenuitems`
   ADD PRIMARY KEY (`id`),
   ADD KEY `bannermenuitems_bannermenu_id_foreign` (`bannermenu_id`);
 
 --
--- Chỉ mục cho bảng `bannermenus`
+-- Indexes for table `bannermenus`
 --
 ALTER TABLE `bannermenus`
   ADD PRIMARY KEY (`id`),
   ADD KEY `bannermenus_locationbannermenu_id_foreign` (`locationbannermenu_id`);
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `bills`
+--
+ALTER TABLE `bills`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `bills_code_unique` (`code`),
+  ADD UNIQUE KEY `bills_transaction_id_unique` (`transaction_id`),
+  ADD UNIQUE KEY `bills_refund_transaction_id_unique` (`refund_transaction_id`),
+  ADD KEY `bills_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `bill_items`
+--
+ALTER TABLE `bill_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bill_items_bill_id_foreign` (`bill_id`);
+
+--
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
@@ -1266,39 +1431,39 @@ ALTER TABLE `categories`
   ADD KEY `categories_category_parent_id_foreign` (`category_parent_id`);
 
 --
--- Chỉ mục cho bảng `category_parents`
+-- Indexes for table `category_parents`
 --
 ALTER TABLE `category_parents`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `category_parents_slug_unique` (`slug`);
 
 --
--- Chỉ mục cho bảng `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Chỉ mục cho bảng `locationbannermenus`
+-- Indexes for table `locationbannermenus`
 --
 ALTER TABLE `locationbannermenus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `locationmenus`
+-- Indexes for table `locationmenus`
 --
 ALTER TABLE `locationmenus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `locationproductmenus`
+-- Indexes for table `locationproductmenus`
 --
 ALTER TABLE `locationproductmenus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `menuitems`
+-- Indexes for table `menuitems`
 --
 ALTER TABLE `menuitems`
   ADD PRIMARY KEY (`id`),
@@ -1306,41 +1471,41 @@ ALTER TABLE `menuitems`
   ADD KEY `menuitems_category_id_foreign` (`category_id`);
 
 --
--- Chỉ mục cho bảng `menus`
+-- Indexes for table `menus`
 --
 ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`),
   ADD KEY `menus_locationmenu_id_foreign` (`locationmenu_id`);
 
 --
--- Chỉ mục cho bảng `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `model_has_permissions`
+-- Indexes for table `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
   ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Chỉ mục cho bảng `model_has_roles`
+-- Indexes for table `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `orders_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `order_items`
+-- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
@@ -1348,27 +1513,27 @@ ALTER TABLE `order_items`
   ADD KEY `order_items_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `password_reset_tokens`
+-- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Chỉ mục cho bảng `payments`
+-- Indexes for table `payments`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `payments_order_id_foreign` (`order_id`);
 
 --
--- Chỉ mục cho bảng `permissions`
+-- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
 
 --
--- Chỉ mục cho bảng `personal_access_tokens`
+-- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -1376,7 +1541,7 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Chỉ mục cho bảng `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
@@ -1385,7 +1550,7 @@ ALTER TABLE `posts`
   ADD KEY `posts_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `productmenuitems`
+-- Indexes for table `productmenuitems`
 --
 ALTER TABLE `productmenuitems`
   ADD PRIMARY KEY (`id`),
@@ -1393,14 +1558,14 @@ ALTER TABLE `productmenuitems`
   ADD KEY `productmenuitems_category_id_foreign` (`category_id`);
 
 --
--- Chỉ mục cho bảng `productmenus`
+-- Indexes for table `productmenus`
 --
 ALTER TABLE `productmenus`
   ADD PRIMARY KEY (`id`),
   ADD KEY `productmenus_locationproductmenu_id_foreign` (`locationproductmenu_id`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
@@ -1409,7 +1574,7 @@ ALTER TABLE `products`
   ADD KEY `products_category_id_foreign` (`category_id`);
 
 --
--- Chỉ mục cho bảng `product_attribute_values`
+-- Indexes for table `product_attribute_values`
 --
 ALTER TABLE `product_attribute_values`
   ADD PRIMARY KEY (`id`),
@@ -1417,21 +1582,21 @@ ALTER TABLE `product_attribute_values`
   ADD KEY `product_attribute_values_attribute_id_foreign` (`attribute_id`);
 
 --
--- Chỉ mục cho bảng `product_images`
+-- Indexes for table `product_images`
 --
 ALTER TABLE `product_images`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_images_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `product_variants`
+-- Indexes for table `product_variants`
 --
 ALTER TABLE `product_variants`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_variants_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `reviews`
+-- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`),
@@ -1439,350 +1604,374 @@ ALTER TABLE `reviews`
   ADD KEY `reviews_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
 
 --
--- Chỉ mục cho bảng `role_has_permissions`
+-- Indexes for table `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
--- Chỉ mục cho bảng `searchs`
+-- Indexes for table `searchs`
 --
 ALTER TABLE `searchs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `searchs_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- Chỉ mục cho bảng `vouchers`
+-- Indexes for table `vouchers`
 --
 ALTER TABLE `vouchers`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `attributes`
+-- AUTO_INCREMENT for table `attributes`
 --
 ALTER TABLE `attributes`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT cho bảng `authentication_log`
+-- AUTO_INCREMENT for table `authentication_log`
 --
 ALTER TABLE `authentication_log`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
--- AUTO_INCREMENT cho bảng `bannermenuitems`
+-- AUTO_INCREMENT for table `bannermenuitems`
 --
 ALTER TABLE `bannermenuitems`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT cho bảng `bannermenus`
+-- AUTO_INCREMENT for table `bannermenus`
 --
 ALTER TABLE `bannermenus`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `bills`
+--
+ALTER TABLE `bills`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `bill_items`
+--
+ALTER TABLE `bill_items`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- AUTO_INCREMENT cho bảng `category_parents`
+-- AUTO_INCREMENT for table `category_parents`
 --
 ALTER TABLE `category_parents`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT cho bảng `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `locationbannermenus`
+-- AUTO_INCREMENT for table `locationbannermenus`
 --
 ALTER TABLE `locationbannermenus`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `locationmenus`
+-- AUTO_INCREMENT for table `locationmenus`
 --
 ALTER TABLE `locationmenus`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `locationproductmenus`
+-- AUTO_INCREMENT for table `locationproductmenus`
 --
 ALTER TABLE `locationproductmenus`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `menuitems`
+-- AUTO_INCREMENT for table `menuitems`
 --
 ALTER TABLE `menuitems`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
--- AUTO_INCREMENT cho bảng `menus`
+-- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `order_items`
+-- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `payments`
+-- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `permissions`
+-- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT cho bảng `personal_access_tokens`
+-- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `productmenuitems`
+-- AUTO_INCREMENT for table `productmenuitems`
 --
 ALTER TABLE `productmenuitems`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
--- AUTO_INCREMENT cho bảng `productmenus`
+-- AUTO_INCREMENT for table `productmenus`
 --
 ALTER TABLE `productmenus`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT cho bảng `product_attribute_values`
+-- AUTO_INCREMENT for table `product_attribute_values`
 --
 ALTER TABLE `product_attribute_values`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT cho bảng `product_images`
+-- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT cho bảng `product_variants`
+-- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT cho bảng `reviews`
+-- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `searchs`
+-- AUTO_INCREMENT for table `searchs`
 --
 ALTER TABLE `searchs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=529;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
--- AUTO_INCREMENT cho bảng `vouchers`
+-- AUTO_INCREMENT for table `vouchers`
 --
 ALTER TABLE `vouchers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- Ràng buộc đối với các bảng kết xuất
+-- Constraints for dumped tables
 --
 
 --
--- Ràng buộc cho bảng `bannermenuitems`
+-- Constraints for table `bannermenuitems`
 --
 ALTER TABLE `bannermenuitems`
   ADD CONSTRAINT `bannermenuitems_bannermenu_id_foreign` FOREIGN KEY (`bannermenu_id`) REFERENCES `bannermenus` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `bannermenus`
+-- Constraints for table `bannermenus`
 --
 ALTER TABLE `bannermenus`
   ADD CONSTRAINT `bannermenus_locationbannermenu_id_foreign` FOREIGN KEY (`locationbannermenu_id`) REFERENCES `locationbannermenus` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `categories`
+-- Constraints for table `bills`
+--
+ALTER TABLE `bills`
+  ADD CONSTRAINT `bills_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `bill_items`
+--
+ALTER TABLE `bill_items`
+  ADD CONSTRAINT `bill_items_bill_id_foreign` FOREIGN KEY (`bill_id`) REFERENCES `bills` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `categories`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `categories_category_parent_id_foreign` FOREIGN KEY (`category_parent_id`) REFERENCES `category_parents` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `menuitems`
+-- Constraints for table `menuitems`
 --
 ALTER TABLE `menuitems`
-  ADD CONSTRAINT `menuitems_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `menuitems_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `menuitems_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `menus`
+-- Constraints for table `menus`
 --
 ALTER TABLE `menus`
   ADD CONSTRAINT `menus_locationmenu_id_foreign` FOREIGN KEY (`locationmenu_id`) REFERENCES `locationmenus` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `model_has_permissions`
+-- Constraints for table `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `model_has_roles`
+-- Constraints for table `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `order_items`
+-- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `payments`
+-- Constraints for table `payments`
 --
 ALTER TABLE `payments`
   ADD CONSTRAINT `payments_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `posts`
+-- Constraints for table `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `productmenuitems`
+-- Constraints for table `productmenuitems`
 --
 ALTER TABLE `productmenuitems`
   ADD CONSTRAINT `productmenuitems_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `productmenuitems_productmenu_id_foreign` FOREIGN KEY (`productmenu_id`) REFERENCES `productmenus` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `productmenus`
+-- Constraints for table `productmenus`
 --
 ALTER TABLE `productmenus`
   ADD CONSTRAINT `productmenus_locationproductmenu_id_foreign` FOREIGN KEY (`locationproductmenu_id`) REFERENCES `locationproductmenus` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `products`
+-- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `product_attribute_values`
+-- Constraints for table `product_attribute_values`
 --
 ALTER TABLE `product_attribute_values`
   ADD CONSTRAINT `product_attribute_values_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_attribute_values_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `product_images`
+-- Constraints for table `product_images`
 --
 ALTER TABLE `product_images`
   ADD CONSTRAINT `product_images_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `product_variants`
+-- Constraints for table `product_variants`
 --
 ALTER TABLE `product_variants`
   ADD CONSTRAINT `product_variants_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `reviews`
+-- Constraints for table `reviews`
 --
 ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `reviews_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `role_has_permissions`
+-- Constraints for table `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Ràng buộc cho bảng `searchs`
+-- Constraints for table `searchs`
 --
 ALTER TABLE `searchs`
   ADD CONSTRAINT `searchs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;

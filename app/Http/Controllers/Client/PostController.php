@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Productmenu;
 use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
@@ -12,6 +13,12 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
+    public function index(Request $request, string $slug)
+    {
+        $posts = Productmenu::where('slug', $slug)->first();
+        return view('client.page.post.index', compact('posts'));
+    }
+
     public function show(Request $request, string $slug)
     {
         $post = Post::where('slug', $slug)->first();
@@ -49,6 +56,6 @@ class PostController extends Controller
         } elseif (!empty($post->image)) {
             JsonLd::addImage($post->image);
         }
-        return view('client.page.post.index', compact('post'));
+        return view('client.page.post.show', compact('post'));
     }
 }

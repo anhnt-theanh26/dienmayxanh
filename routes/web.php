@@ -423,8 +423,8 @@ Route::prefix('/')->as('')->group(function () {
 
     // post 
     Route::prefix('post')->as('post.')->group(function () {
+        Route::get('{slug}/index', [ClientPostController::class, 'index'])->name('index');
         Route::get('{slug}', [ClientPostController::class, 'show'])->name('show');
-
     });
 
     // error

@@ -1,6 +1,6 @@
 <section>
     <div class="bg-white border-top">
-        <div class="container" style="font-size: 15px; flex-shrink: 0; min-width: 1200px;">
+        <div class="container" style="font-size: 15px; flex-shrink: 0;">
             <div class="row p-2 pt-3">
                 <div class="col-3">
                     <p class="fw-bold">Tổng đài hỗ trợ</p>

@@ -79,7 +79,7 @@
                                     <h6 class="text-primary pt-3">
                                         <span>
                                             <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0"
-                                                href="#"> Xem thêm {{ $postmenus->name }}</a>
+                                                href="{{ route('post.index', ['slug' => $postmenus->slug]) }}"> Xem thêm {{ $postmenus->name }}</a>
                                         </span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
