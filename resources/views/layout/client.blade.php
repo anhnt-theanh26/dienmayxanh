@@ -10,12 +10,12 @@
 <body class="bg-light">
     @include('sweetalert::alert'){{-- libary alert --}}
     <!-- header  -->
-    <header class="position-fixed w-100" style="z-index: 99">
+    <header class="position-fixed w-100" style="z-index: 10; top: 0;">
         @include('client.element.header')
     </header>
     <!--hết header  -->
 
-    <main style="margin-top: 170px;">
+    <main style="margin-top: 150px">
         @yield('content')
     </main>
 

@@ -102,13 +102,13 @@ video {
 }
 
 /* fit cứng giao diện */
-html,
+/* html,
 body {
   margin: 0;
   padding: 0;
   overflow-x: auto;
   min-width: 1200px;
-}
+} */
 
 /* HTML5 display-role reset for older browsers */
 article,

@@ -48,7 +48,7 @@
 @endif
 
 <div class="" style="background-color: #2a83e9;">
-    <div class="container" style="flex-shrink: 0; min-width: 1200px;">
+    <div class="container" style="flex-shrink: 0;">
         <nav class="menu py-1 pt-2">
             <ul style="margin: 0; padding: 0;" class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('index') }}">
@@ -282,7 +282,7 @@
 @if ($menufirst && $menufirst->isNotEmpty())
     <section>
         <div class="d-flex justify-content-center"
-            style="background-color: #eaecf0; flex-shrink: 0; min-width: 1200px;">
+            style="background-color: #eaecf0; flex-shrink: 0;">
             <ul class="nav">
                 @foreach ($menufirst?->take(10) as $menuitem)
                     <li class="nav-item">

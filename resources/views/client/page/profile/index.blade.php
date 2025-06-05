@@ -5,7 +5,7 @@
 
 @section('content')
     <section>
-        <div class="container" style="flex-shrink: 0; min-width: 1200px;">
+        <div class="container" style="flex-shrink: 0;">
             <div class="row p-3">
                 @include('client.page.profile.left')
                 @yield('content-profile-bill')

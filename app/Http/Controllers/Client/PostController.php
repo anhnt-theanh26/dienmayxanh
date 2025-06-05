@@ -41,19 +41,11 @@ class PostController extends Controller
         if (!empty($post->image)) {
             OpenGraph::addImage($post->image);
         }
-        if (!empty($post->images) && $post->images->count() > 0) {
-            foreach ($post->images as $img) {
-                OpenGraph::addImage($img->url);
-            }
-        }
-        OpenGraph::addImage('http://image.url.com/cover.jpg', ['height' => 300, 'width' => 300]);
+        OpenGraph::addImage($post->image, ['height' => 300, 'width' => 300]);
         JsonLd::setTitle($post->title);
         JsonLd::setDescription($post->excerpt ?? '');
         JsonLd::setType('Article');
-        if (!empty($post->images) && $post->images->count() > 0) {
-            $imageUrls = $post->images->pluck('url')->toArray();
-            JsonLd::addImage($imageUrls);
-        } elseif (!empty($post->image)) {
+        if (!empty($post->image)) {
             JsonLd::addImage($post->image);
         }
         return view('client.page.post.show', compact('post'));

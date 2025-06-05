@@ -24,7 +24,7 @@
 
 @if ($productmenuitemsecond && $productmenuitemsecond->isNotEmpty())
     <section>
-        <div class="container" style="flex-shrink: 0; min-width: 1200px;">
+        <div class="container" style="flex-shrink: 0;">
             <h4 class="fw-bold py-4">{{ $secondProductMenu->productmenus->first()->name }}</h4>
             <div class="bg-white rounded-4 p-2">
                 <div class="row">

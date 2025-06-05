@@ -160,7 +160,7 @@
         </div>
     </div>
     <div class="">
-        <div class="container" style="flex-shrink: 0; min-width: 1200px;">
+        <div class="container" style="flex-shrink: 0;">
             <p class="py-4" style="font-size: 15px;">
                 © 2018. Công ty cổ phần Thế Giới Di Động. GPDKKD: 0303217354 do sở KH & ĐT TP.HCM cấp ngày
                 02/01/2007. GPMXH: 21/GP-BTTTT do Bộ Thông Tin và Truyền Thông cấp ngày 11/01/2021.
