@@ -1,7 +1,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>@yield('title')</title>
-<link rel="icon" type="image/png" href="https://www.vlance.vn/uploads/portfolio/view/1a3eb0a1488cbf0eb22f10ad8a7cc7e9e0cc691b1.png" style="border-radius: 100%" />
+
+@hasSection('title')
+    <title>@yield('title')</title>
+@endif
+@yield('seo')
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/x-icon"
+    href="https://www.vlance.vn/uploads/portfolio/view/1a3eb0a1488cbf0eb22f10ad8a7cc7e9e0cc691b1.png" />
 <!--Google -Fonts-->
 <link href='https://fonts.googleapis.com/css?family=Sintony:400,700&subset=latin-ext' rel='stylesheet' type='text/css'>
 

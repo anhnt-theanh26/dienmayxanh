@@ -4,7 +4,6 @@
 <head>
     @include('client.element.head')
     @yield('css')
-    @yield('seo')
 </head>
 
 <body class="bg-light">

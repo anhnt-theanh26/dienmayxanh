@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductMenuController;
 use App\Http\Controllers\Admin\ProductMenuItemController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Client\BillController as ClientBillController;
@@ -352,6 +353,13 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/{id}/store', [BannerMenuItemController::class, 'store'])->name('store');
         Route::put('/{id}/update', [BannerMenuItemController::class, 'update'])->name('update');
         Route::get('/{id}/destroy', [BannerMenuItemController::class, 'destroy'])->name('destroy');
+    });
+
+    // Settings
+    Route::prefix('setting')->as('setting.')->group(function () {
+        Route::get('/', [SettingController::class, 'index'])->name('index');
+        Route::get('/create', [SettingController::class, 'create'])->name('create');
+        Route::post('/store', [SettingController::class, 'store'])->name('store');
     });
 });
 

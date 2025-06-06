@@ -4,12 +4,27 @@
             <div class="row p-2 pt-3">
                 <div class="col-3">
                     <p class="fw-bold">Tổng đài hỗ trợ</p>
-                    <p class="p-0 m-0 py-1">Gọi mua: <span><a class="text-decoration-none" href="">1900 232
-                                461</a></span><span> (8:00 - 21:30)</span></p>
-                    <p class="p-0 m-0 py-1">Khiếu nại: <span><a class="text-decoration-none"
-                                href="">1800.1063</a></span><span> (8:00 - 21:30)</span></p>
-                    <p class="p-0 m-0 py-1">Bảo hành: <span><a class="text-decoration-none" href="">1900 232
-                                465</a></span><span> (8:00 - 21:00)</span></p>
+                    <p class="p-0 m-0 py-1">
+                        Gọi mua:
+                        <span>
+                            <a class="text-decoration-none" href="tel:0348022004">034 802 2004</a>
+                        </span>
+                        <span> (8:00 - 21:30)</span>
+                    </p>
+                    <p class="p-0 m-0 py-1">
+                        Khiếu nại:
+                        <span>
+                            <a class="text-decoration-none" href="">1800.1063</a>
+                        </span>
+                        <span> (8:00 - 21:30)</span>
+                    </p>
+                    <p class="p-0 m-0 py-1">
+                        Bảo hành:
+                        <span>
+                            <a class="text-decoration-none" href="">1900 232 465</a>
+                        </span>
+                        <span> (8:00 - 21:00)</span>
+                    </p>
                 </div>
                 <div class="col-5">
                     <div class="row">

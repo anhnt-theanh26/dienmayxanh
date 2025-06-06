@@ -1,8 +1,10 @@
 @extends('layout.client')
 
-@section('title', $posts->name ?? 'Tin tức')
-
 @section('seo')
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
 @endsection
 
 @section('css')
