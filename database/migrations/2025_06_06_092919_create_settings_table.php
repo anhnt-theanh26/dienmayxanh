@@ -12,12 +12,15 @@ return new class extends Migration {
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
             $table->text('logo')->nullable();
             $table->text('support')->nullable();
-            $table->text('main-color')->nullable();
-            $table->text('seo')->nullable();
-            $table->text('layout-not-found')->nullable();
-            $table->text('title-login-admin')->nullable();
+            $table->text('main_color')->nullable();
+            $table->text('seo_products')->nullable();
+            $table->text('seo_posts')->nullable();
+            $table->text('layout_not_found')->nullable();
+            $table->text('title_login_admin')->nullable();
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

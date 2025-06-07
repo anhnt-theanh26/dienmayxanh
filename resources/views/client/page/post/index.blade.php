@@ -63,7 +63,7 @@
                     @endphp
                     @if ($postMenus && $postMenus->isNotEmpty())
                         @foreach ($postMenus as $post)
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-12 mt-3">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-12 mt-4">
                                 <a href="{{ route('post.show', ['slug' => $post->slug]) }}"
                                     class="text-decoration-none text-black">
                                     <div style="background-color: #f7f7f7;">

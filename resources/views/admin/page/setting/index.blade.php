@@ -42,28 +42,30 @@
                     <tr>
                         <th>id</th>
                         <th>Name</th>
-                        <th>Slug</th>
-                        <th>Hot</th>
+                        <th>Color</th>
+                        <th>Status</th>
                         <th>Image</th>
-                        <th>Setting Parent</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="search">
-                    {{-- @foreach ($categories as $item)
+                    @foreach ($settings as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->slug }}</td>
                             <td>
-                                <span class="badge {{ $item->is_hot ? 'bg-success' : 'bg-secondary' }}">
-                                    {{ $item->is_hot ? 'Yes' : 'Not' }}
+                                <span class="badge badge-center" style="background: {{ $item->main_color }}"><i
+                                        class="ti ti-palette"></i></span>
+                            </td>
+                            <td>
+                                <span class="badge {{ $item->status ? 'bg-success' : 'bg-secondary' }}">
+                                    {{ $item->status ? 'Yes' : 'Not' }}
                                 </span>
                             </td>
                             <td>
-                                <img src="{{ $item->image }}" alt="" width="50px" id="img" class="py-1">
+                                <img src="{{ $item->logo }}" alt="{{ $item->name }}" width="50px" id="img"
+                                    class="py-1">
                             </td>
-                            <td>{{ $item->parent->name }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -75,11 +77,11 @@
                                             href="{{ route('admin.setting.edit', ['id' => $item->id]) }}">
                                             <i class="ti ti-pencil me-1"></i> Edit
                                         </a>
-                                        <form action="{{ route('admin.setting.delete', ['id' => $item->id]) }}"
+                                        <form action="{{ route('admin.setting.destroy', ['id' => $item->id]) }}"
                                             method="post">
                                             @csrf
                                             @method('delete')
-                                            <button onclick="return confirm('Xoa danh muc?')" class="dropdown-item"><i
+                                            <button onclick="return confirm('Xóa cài đặt?')" class="dropdown-item"><i
                                                     class="ti ti-trash me-1"></i>
                                                 Delete</button>
                                         </form>
@@ -88,18 +90,14 @@
                             </td>
                         </tr>
                     @endforeach
-                    <div class="px-4">
-                        {{ $categories->links('pagination::bootstrap-5') }}
-                    </div> --}}
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>id</th>
                         <th>Name</th>
-                        <th>Slug</th>
-                        <th>Hot</th>
+                        <th>Color</th>
+                        <th>Status</th>
                         <th>Image</th>
-                        <th>Setting Parent</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

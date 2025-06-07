@@ -360,6 +360,9 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::get('/create', [SettingController::class, 'create'])->name('create');
         Route::post('/store', [SettingController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [SettingController::class, 'edit'])->name('edit');
+        Route::put('/{id}/update', [SettingController::class, 'update'])->name('update');
+        Route::delete('/{id}/destroy', [SettingController::class, 'destroy'])->name('destroy');
     });
 });
 
@@ -418,7 +421,6 @@ Route::prefix('/')->as('')->group(function () {
         Route::post('/{id}/received', [ClientBillController::class, 'received'])->name('received');
         Route::post('{id}/cancel', [ClientBillController::class, 'cancel'])->name('cancel');
         Route::post('{id}/refund', [ClientBillController::class, 'refund'])->name('refund');
-
     });
 
     // profile 

@@ -10,11 +10,14 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'logo',
         'support',
-        'main-color',
-        'seo',
-        'layout-not-found',
-        'title-login-admin',
+        'main_color',
+        'seo_products',
+        'seo_posts',
+        'layout_not_found',
+        'title_login_admin',
+        'status',
     ];
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Productmenu;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -14,6 +15,8 @@ class PostController extends Controller
     public function index(Request $request, string $slug)
     {
         $posts = Productmenu::where('slug', $slug)->first();
+        $setting = Setting::where('status', true)->first();
+
         $pageTitle = $posts->name . ' | ' . config('app.name');
         $pageDescription = 'Cập nhật những bài viết mới nhất về chủ đề XYZ. Xem tất cả bài viết tại đây.';
 

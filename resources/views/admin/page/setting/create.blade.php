@@ -18,270 +18,234 @@
             @endforeach
         @endif
     </div>
-    {{-- <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <h5 class="card-header">Setting</h5>
-                <form action="{{ route('admin.setting.store') }}" method="post">
-                    <div class="card-body">
-                        <div class="row">
-                            @csrf
-                            <div class="col-md-6 mb-4">
-                                <div class="col-md-12">
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="logo">Logo</label>
-                                            <input id="thumbnail" class="form-control" type="hidden" name="logo">
-                                            <div class="d-flex align-items-center">
-                                                <div class="input-group"
-                                                    style="position: relative; display: inline-block; width: 80px;">
-                                                    <img id="img" class="btn-image rounded-1"
-                                                        src="{{ asset('./storage/default.jpg') }}" width="80px"
-                                                        alt="logo">
-                                                    <button id="lfm" data-input="thumbnail" data-preview="holder"
-                                                        type="button" class="btn btn-light btn-image rounded-1"
-                                                        id="choose-button"
-                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
-                                                        Choose
-                                                    </button>
-                                                </div>
-                                                <div id="holder" class="mx-2" style="width: 100%"></div>
-                                            </div>
-                                            @error('logo')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-3">
-                                            <div id="support-container">
-                                                <div class="row support-row">
-                                                    <div class="mb-3 col-lg-3 col-12">
-                                                        <label class="form-label" for="support[0][method]">Method</label>
-                                                        <textarea name="support[0][method]" placeholder="Method" id="support[0][method]" class="form-control" rows="1"></textarea>
-                                                        @error('support.*.method')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="mb-3 col-lg-3 col-12">
-                                                        <label class="form-label" for="support[0][phone]">Phone</label>
-                                                        <textarea name="support[0][phone]" placeholder="Phone" id="support[0][phone]" class="form-control" rows="1"></textarea>
-                                                        @error('support.*.phone')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="mb-3 col-lg-3 col-12">
-                                                        <label class="form-label" for="support[0][time]">Time</label>
-                                                        <textarea name="support[0][time]" placeholder="Time" id="support[0][time]" class="form-control" rows="1"></textarea>
-                                                        @error('support.*.time')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="mb-3 col-lg-3 col-12">
-                                                        <div class="d-flex justify-content-between m-0 p-0">
-                                                            <label class="form-label" for="support[0][href]">Href</label>
-                                                            <i class="ti ti-x ti-xs me-1 btn-delete-support"></i>
-                                                        </div>
-                                                        <textarea name="support[0][href]" placeholder="Href" id="support[0][href]" class="form-control" rows="1"></textarea>
-                                                        @error('support.*.href')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr />
-                                            <div class="mb-0">
-                                                <button class="btn btn-outline-primary text-center" id="add-support"
-                                                    type="button">
-                                                    <i class="menu-icon tf-icons ti ti-plus m-0 p-0"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="color">Color Main</label><br>
-                                            <div class="btn-group py-2" role="group" style="width: 100%;"
-                                                aria-label="Basic radio toggle button group">
-                                                <input type="radio" class="btn-check btn-color" id="btn-color2"
-                                                    checked="" value="choose">
-                                                <label class="btn btn-outline-primary waves-effect" for="btn-color2">
-                                                    Chọn
-                                                </label>
-                                                <input type="radio" class="btn-check btn-color" id="btn-color1"
-                                                    value="enter">
-                                                <label class="btn btn-outline-primary waves-effect" for="btn-color1">
-                                                    Nhập
-                                                </label>
-                                            </div>
-                                            <div class="show-color">
-                                                <input class="form-control" type="color" value="" name="color"
-                                                    id="html5-color-input color">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="greetingAndInstruct">
-                                                Lời chào, hướng dẫn đăng nhập - Admin
-                                            </label>
-                                            <div class="col-12">
-                                                <label class="form-label" for="greeting">Lời chào</label>
-                                                <textarea name="greeting" placeholder="Chào mừng đến với..." id="greeting" class="form-control" rows="1"></textarea>
-                                            </div>
-                                            <div class="col-12">
-                                                <label class="form-label" for="instruct">Hướng dẫn</label>
-                                                <textarea name="instruct" placeholder="Vui lòng đăng nhập..." id="instruct" class="form-control" rows="1"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="layout-not-found">Giao diện không tìm thấy
-                                                trang chủ</label>
-                                            <textarea name="layout-not-found" placeholder="Not Fount" id="layout-not-found" class="form-control"
-                                                rows="10"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="col-md-12">
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="seo">Seo</label>
-                                            <div class="col-12">
-                                                <label class="form-label" for="title">Seo Title</label>
-                                                <textarea name="title" placeholder="Title" id="title" class="form-control" rows="1"></textarea>
-                                            </div>
-                                            <div class="col-12">
-                                                <label class="form-label" for="description">Seo Description</label>
-                                                <textarea name="description" placeholder="description" id="description" class="form-control" rows="1"></textarea>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="seoimage">Seo Image</label>
-                                                <input id="thumbnail" class="form-control" type="hidden"
-                                                    name="seoimage">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="input-group"
-                                                        style="position: relative; display: inline-block; width: 80px;">
-                                                        <img id="img" class="btn-image rounded-1"
-                                                            src="{{ asset('./storage/default.jpg') }}" width="80px"
-                                                            alt="seoimage">
-                                                        <button id="lfm_2" data-input="thumbnail"
-                                                            data-preview="holder" type="button"
-                                                            class="btn btn-light btn-image rounded-1" id="choose-button"
-                                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
-                                                            Choose
-                                                        </button>
-                                                    </div>
-                                                    <div id="holder" class="mx-2" style="width: 100%"></div>
-                                                </div>
-                                                @error('seoimage')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="TagifyBasic" class="form-label">Seo Keyword</label>
-                                                <input id="TagifyBasic" class="form-control" name="keyword"
-                                                    placeholder="Keyword" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="seo">Seo</label>
-                                            <div class="col-12">
-                                                <label class="form-label" for="title">Seo Title</label>
-                                                <textarea name="title" placeholder="Title" id="title" class="form-control" rows="1"></textarea>
-                                            </div>
-                                            <div class="col-12">
-                                                <label class="form-label" for="description">Seo Description</label>
-                                                <textarea name="description" placeholder="description" id="description" class="form-control" rows="1"></textarea>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="seoimage">Seo Image</label>
-                                                <input id="thumbnail" class="form-control" type="hidden"
-                                                    name="seoimage">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="input-group"
-                                                        style="position: relative; display: inline-block; width: 80px;">
-                                                        <img id="img" class="btn-image rounded-1"
-                                                            src="{{ asset('./storage/default.jpg') }}" width="80px"
-                                                            alt="seoimage">
-                                                        <button id="lfm_2" data-input="thumbnail"
-                                                            data-preview="holder" type="button"
-                                                            class="btn btn-light btn-image rounded-1" id="choose-button"
-                                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
-                                                            Choose
-                                                        </button>
-                                                    </div>
-                                                    <div id="holder" class="mx-2" style="width: 100%"></div>
-                                                </div>
-                                                @error('seoimage')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="TagifyBasic" class="form-label">Seo Keyword</label>
-                                                <input id="TagifyBasic" class="form-control" name="keyword"
-                                                    placeholder="Keyword" value="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <a class="btn btn-secondary" href="{{ route('admin.setting.index') }}"
-                                class="text-muted float-end">Back</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
-    <form action="" method="post">
+    <form action="{{ route('admin.setting.store') }}" method="post">
+        @csrf
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-xl-6">
                 <div class="card mb-4">
-                    <h5 class="card-header">Default</h5>
+                    <h5 class="card-header">Name</h5>
                     <div class="card-body">
-                        <div>
-                            <label for="defaultFormControlInput" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="John Doe"
-                                aria-describedby="defaultFormControlHelp">
-                            <div id="defaultFormControlHelp" class="form-text">
-                                We'll never share your details with anyone else.
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Name</label>
+                            <input id="name" class="form-control" type="text" name="name"
+                                placeholder="Tên cài đặt...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <h5 class="card-header">Logo</h5>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label" for="logo">Logo</label>
+                            <input id="thumbnail" class="form-control" type="hidden" name="logo">
+                            <div class="d-flex align-items-center">
+                                <div class="input-group" style="position: relative; display: inline-block; width: 80px;">
+                                    <img id="img" class="btn-image rounded-1"
+                                        src="{{ asset('./storage/default.jpg') }}" width="80px" alt="logo">
+                                    <button id="lfm" data-input="thumbnail" data-preview="holder" type="button"
+                                        class="btn btn-light btn-image rounded-1" id="choose-button"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                        Choose
+                                    </button>
+                                </div>
+                                <div id="holder" class="mx-2" style="width: 100%"></div>
+                            </div>
+                            @error('logo')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <h5 class="card-header">Support</h5>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div id="support-container">
+                                <div class="row support-row">
+                                    <div class="mb-3 col-lg-6 col-12">
+                                        <label class="form-label" for="support[0][method]">Method</label>
+                                        <textarea name="support[0][method]" placeholder="Method Support" id="support[0][method]" class="form-control"
+                                            rows="1"></textarea>
+                                    </div>
+                                    <div class="mb-3 col-lg-6 col-12">
+                                        <div class="d-flex justify-content-between m-0 p-0">
+                                            <label class="form-label" for="support[0][phone]">Phone</label>
+                                            <i class="ti ti-x ti-xs me-1 btn-delete-support"></i>
+                                        </div>
+                                        <textarea name="support[0][phone]" placeholder="Phone Support" id="support[0][phone]" class="form-control"
+                                            rows="1"></textarea>
+                                    </div>
+                                    <div class="mb-3 col-lg-6 col-12">
+                                        <label class="form-label" for="support[0][time]">Time</label>
+                                        <textarea name="support[0][time]" placeholder="Time Support" id="support[0][time]" class="form-control" rows="1"></textarea>
+                                    </div>
+                                    <div class="mb-3 col-lg-6 col-12">
+                                        <label class="form-label" for="support[0][href]">Href</label>
+                                        <textarea name="support[0][href]" placeholder="Href Support" id="support[0][href]" class="form-control" rows="1"></textarea>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <button class="btn btn-outline-primary text-center" id="add-support" type="button">
+                                    <i class="menu-icon tf-icons ti ti-plus m-0 p-0"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <h5 class="card-header">Main Color</h5>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label" for="color">Color Main</label><br>
+                            <div class="btn-group py-2" role="group" style="width: 100%;"
+                                aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check btn-color" id="btn-color2" value="choose"
+                                    name="" checked>
+                                <label class="btn btn-outline-primary waves-effect" for="btn-color2">Chọn</label>
+
+                                <input type="radio" class="btn-check btn-color" id="btn-color1" value="enter"
+                                    name="">
+                                <label class="btn btn-outline-primary waves-effect" for="btn-color1">Nhập</label>
+                            </div>
+
+                            <div class="show-color mt-3">
+                                <input class="form-control" type="color" value="" name="main_color"
+                                    id="color-picker">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <h5 class="card-header">Greeting And Instruct</h5>
+                    <div class="card-body">
+                        <label class="form-label" for="greetingAndInstruct">
+                            Lời chào, hướng dẫn đăng nhập - Admin
+                        </label>
+                        <div class="mb-3">
+                            <div class="col-12">
+                                <label class="form-label" for="greeting">Lời chào</label>
+                                <textarea name="greeting" placeholder="Chào mừng đến với..." id="greeting" class="form-control" rows="1"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="col-12">
+                                <label class="form-label" for="instruct">Hướng dẫn</label>
+                                <textarea name="instruct" placeholder="Vui lòng đăng nhập..." id="instruct" class="form-control" rows="1"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+
+            <div class="col-xl-6">
                 <div class="card mb-4">
-                    <h5 class="card-header">Float label</h5>
+                    <h5 class="card-header">Seo Products</h5>
                     <div class="card-body">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="John Doe"
-                                aria-describedby="floatingInputHelp">
-                            <label for="floatingInput">Name</label>
-                            <div id="floatingInputHelp" class="form-text">
-                                We'll never share your details with anyone else.
+                        <div class="mb-3">
+                            <label class="form-label">Products</label>
+                            <div class="col-12">
+                                <label class="form-label" for="seo_title_products">Seo Title</label>
+                                <textarea name="title_products" placeholder="Title" id="seo_title_products" class="form-control" rows="1"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="seo_description_products">Seo Description</label>
+                                <textarea name="description_products" placeholder="Description" id="seo_description_products" class="form-control"
+                                    rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="seo_image_products">Seo Image</label>
+                                <input id="thumbnail_products" class="form-control" type="hidden"
+                                    name="seoimage_products">
+                                <div class="d-flex align-items-center">
+                                    <div class="input-group"
+                                        style="position: relative; display: inline-block; width: 80px;">
+                                        <img id="img_products" class="btn-image rounded-1"
+                                            src="{{ asset('./storage/default.jpg') }}" width="80px" alt="seoimage">
+                                        <button id="lfm_products" data-input="thumbnail_products"
+                                            data-preview="holder_products" type="button"
+                                            class="btn btn-light btn-image rounded-1"
+                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                            Choose
+                                        </button>
+                                    </div>
+                                    <div id="holder_products" class="mx-2" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="TagifyBasic" class="form-label">Seo Robots</label>
+                                <input id="TagifyBasic" class="form-control" name="robots_products"
+                                    placeholder="Seo Robots" value="" />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
+
                 <div class="card mb-4">
-                    <h5 class="card-header">Float label</h5>
+                    <h5 class="card-header">Seo Posts</h5>
                     <div class="card-body">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="John Doe"
-                                aria-describedby="floatingInputHelp">
-                            <label for="floatingInput">Name</label>
-                            <div id="floatingInputHelp" class="form-text">
-                                We'll never share your details with anyone else.
+                        <div class="mb-3">
+                            <label class="form-label">Posts</label>
+                            <div class="col-12">
+                                <label class="form-label" for="seo_title_posts">Seo Title</label>
+                                <textarea name="title_posts" placeholder="Title" id="seo_title_posts" class="form-control" rows="1"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="seo_description_posts">Seo Description</label>
+                                <textarea name="description_posts" placeholder="Description" id="seo_description_posts" class="form-control"
+                                    rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="seo_image_posts">Seo Image</label>
+                                <input id="thumbnail_posts" class="form-control" type="hidden" name="seoimage_posts">
+                                <div class="d-flex align-items-center">
+                                    <div class="input-group"
+                                        style="position: relative; display: inline-block; width: 80px;">
+                                        <img id="img_posts" class="btn-image rounded-1"
+                                            src="{{ asset('./storage/default.jpg') }}" width="80px" alt="seoimage">
+                                        <button id="lfm_posts" data-input="thumbnail_posts" data-preview="holder_posts"
+                                            type="button" class="btn btn-light btn-image rounded-1"
+                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                            Choose
+                                        </button>
+                                    </div>
+                                    <div id="holder_posts" class="mx-2" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="TagifyReadonly" class="form-label">Seo Robots</label>
+                                <input id="TagifyReadonly" class="form-control" name="robots_posts"
+                                    placeholder="Seo Robots" value="" />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="demo-inline-spacing">
-                <button type="button" class="btn btn-primary waves-effect waves-light">Primary</button>
-                <button type="button" class="btn btn-secondary waves-effect waves-light">Secondary</button>
+
+                <div class="card mb-4">
+                    <h5 class="card-header">Layout Not Found</h5>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label" for="layout">
+                                Giao diện trang không tìm thấy
+                            </label>
+                            <div class="col-12">
+                                <label class="form-label" for="layout">Layout</label>
+                                <textarea name="layout"
+                                    placeholder='<h1>Xin lỗi, chúng tôi không tìm thấy trang mà bạn cần!<h1><img src="https://not-found.png" alt="">...'
+                                    id="layout" class="form-control" rows="8"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary" href="{{ route('admin.setting.index') }}" class="text-muted float-end">Back</a>
     </form>
 @endsection
 
@@ -289,7 +253,8 @@
     <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script>
         $('#lfm').filemanager('image');
-        $('#lfm_2').filemanager('image');
+        $('#lfm_products').filemanager('image');
+        $('#lfm_posts').filemanager('image');
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -325,13 +290,18 @@
             const firstRow = container.querySelector('.support-row');
             const newRow = firstRow.cloneNode(true);
 
-            // Reset input values & update name attributes
-            newRow.querySelectorAll('input, select').forEach(input => {
-                const name = input.getAttribute('name');
-                const newName = name.replace(/\[\d+\]/, `[${supportIndex}]`);
-                input.setAttribute('name', newName);
-                if (input.tagName === 'INPUT') input.value = '';
-                if (input.tagName === 'SELECT') input.selectedIndex = 0;
+            newRow.querySelectorAll('textarea').forEach(textarea => {
+                const oldName = textarea.getAttribute('name');
+                const newName = oldName.replace(/\[\d+\]/, `[${supportIndex}]`);
+                textarea.setAttribute('name', newName);
+                textarea.setAttribute('id', newName);
+                textarea.value = '';
+
+                // Cập nhật label tương ứng
+                const label = newRow.querySelector(`label[for="${oldName}"]`);
+                if (label) {
+                    label.setAttribute('for', newName);
+                }
             });
 
             container.appendChild(newRow);
@@ -341,19 +311,17 @@
 
         attachDeleteEvents();
     </script>
+
     <script>
         document.querySelectorAll('.btn-color').forEach(btn => {
-            btn.addEventListener('change', function() {
-                if (btn.value == 'choose') {
-                    $('.show-color').empty().html(
-                        `<input class="form-control" type="color" value="" name="main-color" id="html5-color-input color">`
-                    );
-                    console.log('choose');
-                } else if (btn.value == 'enter') {
-                    $('.show-color').empty().html(
-                        `<input class="form-control" type="text" value="" name="main-color" id="html5-color-input color" placeholder="Mã Màu (VD: #FFFFFF)" required>`
-                    );
-                    console.log('enter');
+            btn.addEventListener('click', function() {
+                const showColorDiv = document.querySelector('.show-color');
+                if (btn.value === 'choose') {
+                    showColorDiv.innerHTML =
+                        `<input class="form-control" type="color" value="#000000" name="main-color" id="color-picker">`;
+                } else if (btn.value === 'enter') {
+                    showColorDiv.innerHTML =
+                        `<input class="form-control" type="text" value="" name="main-color" id="color-input" placeholder="Mã Màu (VD: #FFFFFF)">`;
                 }
             });
         });
