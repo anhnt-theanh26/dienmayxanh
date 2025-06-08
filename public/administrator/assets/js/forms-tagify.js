@@ -194,12 +194,11 @@
       tabindex="0"
       role="option"
     >
-      ${
-        tagData.avatar
-          ? `<div class='tagify__dropdown__item__avatar-wrap'>
+      ${tagData.avatar
+        ? `<div class='tagify__dropdown__item__avatar-wrap'>
           <img onerror="this.style.visibility='hidden'" src="${tagData.avatar}">
         </div>`
-          : ''
+        : ''
       }
       <strong>${tagData.name}</strong>
       <span>${tagData.email}</span>
@@ -273,23 +272,6 @@
     );
   });
 
-  const TagifyEmailListEl = document.querySelector('#TagifyEmailList'),
-    TagifyEmailList = new Tagify(TagifyEmailListEl, {
-      // email address validation (https://stackoverflow.com/a/46181/104380)
-      pattern:
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      whitelist: randomStringsArr,
-      callbacks: {
-        invalid: onInvalidTag
-      },
-      dropdown: {
-        position: 'text',
-        enabled: 1 // show suggestions dropdown after 1 typed character
-      }
-    }),
-    button = TagifyEmailListEl.nextElementSibling; // "add new tag" action-button
-
-  button.addEventListener('click', onAddButtonClick);
 
   function onAddButtonClick() {
     TagifyEmailList.addEmptyTag();

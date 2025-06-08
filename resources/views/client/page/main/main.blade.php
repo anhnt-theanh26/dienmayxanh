@@ -1,6 +1,11 @@
 @extends('layout.client')
 
-@section('title', 'Trang chủ')
+@section('seo')
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
+@endsection
 
 @section('css')
 @endsection

@@ -105,16 +105,16 @@
                             <div class="btn-group py-2" role="group" style="width: 100%;"
                                 aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check btn-color" id="btn-color2" value="choose"
-                                    name="" checked>
+                                    name="color-option" checked>
                                 <label class="btn btn-outline-primary waves-effect" for="btn-color2">Chọn</label>
 
                                 <input type="radio" class="btn-check btn-color" id="btn-color1" value="enter"
-                                    name="">
+                                    name="color-option">
                                 <label class="btn btn-outline-primary waves-effect" for="btn-color1">Nhập</label>
                             </div>
 
                             <div class="show-color mt-3">
-                                <input class="form-control" type="color" value="" name="main_color"
+                                <input class="form-control" type="color" value="#000000" name="main_color"
                                     id="color-picker">
                             </div>
                         </div>
@@ -178,9 +178,14 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="TagifyBasic" class="form-label">Seo Robots</label>
-                                <input id="TagifyBasic" class="form-control" name="robots_products"
-                                    placeholder="Seo Robots" value="" />
+                                <label for="robots_products" class="form-label">Seo Robots</label>
+                                <select id="robots_products" name="robots_products" class="selectpicker w-100"
+                                    data-style="btn-default">
+                                    <option value="index, follow">index, follow</option>
+                                    <option value="noindex, follow">noindex, follow</option>
+                                    <option value="index, nofollow">index, nofollow</option>
+                                    <option value="noindex, nofollow">noindex, nofollow</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -218,9 +223,14 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="TagifyReadonly" class="form-label">Seo Robots</label>
-                                <input id="TagifyReadonly" class="form-control" name="robots_posts"
-                                    placeholder="Seo Robots" value="" />
+                                <label for="robots_posts" class="form-label">Seo Robots</label>
+                                <select id="robots_posts" name="robots_posts" class="selectpicker w-100"
+                                    data-style="btn-default">
+                                    <option value="index, follow">index, follow</option>
+                                    <option value="noindex, follow">noindex, follow</option>
+                                    <option value="index, nofollow">index, nofollow</option>
+                                    <option value="noindex, nofollow">noindex, nofollow</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -318,10 +328,10 @@
                 const showColorDiv = document.querySelector('.show-color');
                 if (btn.value === 'choose') {
                     showColorDiv.innerHTML =
-                        `<input class="form-control" type="color" value="#000000" name="main-color" id="color-picker">`;
+                        `<input class="form-control" type="color" value="#000000" name="main_color" id="color-picker">`;
                 } else if (btn.value === 'enter') {
                     showColorDiv.innerHTML =
-                        `<input class="form-control" type="text" value="" name="main-color" id="color-input" placeholder="Mã Màu (VD: #FFFFFF)">`;
+                        `<input class="form-control" type="text" value="" name="main_color" id="color-input" placeholder="Mã Màu (VD: #FFFFFF)">`;
                 }
             });
         });

@@ -4,27 +4,28 @@
             <div class="row p-2 pt-3">
                 <div class="col-3">
                     <p class="fw-bold">Tổng đài hỗ trợ</p>
-                    <p class="p-0 m-0 py-1">
-                        Gọi mua:
-                        <span>
-                            <a class="text-decoration-none" href="tel:0348022004">034 802 2004</a>
-                        </span>
-                        <span> (8:00 - 21:30)</span>
-                    </p>
-                    <p class="p-0 m-0 py-1">
-                        Khiếu nại:
-                        <span>
-                            <a class="text-decoration-none" href="">1800.1063</a>
-                        </span>
-                        <span> (8:00 - 21:30)</span>
-                    </p>
-                    <p class="p-0 m-0 py-1">
-                        Bảo hành:
-                        <span>
-                            <a class="text-decoration-none" href="">1900 232 465</a>
-                        </span>
-                        <span> (8:00 - 21:00)</span>
-                    </p>
+                    @if ($setting->support)
+                        @php
+                            $supportArr = null;
+                            if ($setting?->support) {
+                                $supportArr = json_decode($setting?->support, true);
+                                if (json_last_error() !== JSON_ERROR_NONE) {
+                                    $supportArr = null;
+                                }
+                            }
+                        @endphp
+                    @endif
+                    @if ($supportArr)
+                        @foreach ($supportArr as $item)
+                            <p class="p-0 m-0 py-1">
+                                {{ $item['method'] }}:
+                                <span>
+                                    <a class="text-decoration-none" style="color: var(--main-color);" href="{{ $item['href'] }}">{{ $item['phone'] }}</a>
+                                </span>
+                                <span> ({{ $item['time'] }})</span>
+                            </p>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="col-5">
                     <div class="row">
@@ -148,8 +149,8 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-facebook text-primary" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-facebook text-primary" viewBox="0 0 16 16">
                                 <path
                                     d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
                             </svg>

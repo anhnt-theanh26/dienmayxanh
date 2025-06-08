@@ -6,6 +6,7 @@ use App\Models\CategoryParent;
 use App\Models\Locationbannermenu;
 use App\Models\Locationmenu;
 use App\Models\Product;
+use App\Models\Setting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,27 +18,26 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function register(): void
     {
         View::composer('layout.client', function ($view) {
-            $categoryparents = CategoryParent::get();
-            $menus = Locationmenu::where('status', true)->get();
-            $bannermenus = Locationbannermenu::where('status', true)->get();
-            $productsSearch = Product::get();
             $view->with([
-                'categoryparents' => $categoryparents,
-                'menus' => $menus,
-                'bannermenus' => $bannermenus,
-                'productsSearch' => $productsSearch,
+                'categoryparents' => CategoryParent::get(),
+                'menus' => Locationmenu::where('status', true)->get(),
+                'bannermenus' => Locationbannermenu::where('status', true)->get(),
+                'productsSearch' => Product::get(),
+                'setting' => Setting::where('status', true)->first(),
             ]);
         });
         View::composer('client.page.main.main', function ($view) {
-            $categoryparents = CategoryParent::get();
-            $menus = Locationmenu::where('status', true)->get();
-            $bannermenus = Locationbannermenu::where('status', true)->get();
-            $productsSearch = Product::get();
             $view->with([
-                'categoryparents' => $categoryparents,
-                'menus' => $menus,
-                'bannermenus' => $bannermenus,
-                'productsSearch' => $productsSearch,
+                'categoryparents' => CategoryParent::get(),
+                'menus' => Locationmenu::where('status', true)->get(),
+                'bannermenus' => Locationbannermenu::where('status', true)->get(),
+                'productsSearch' => Product::get(),
+                'setting' => Setting::where('status', true)->first(),
+            ]);
+        });
+        View::composer('error.client.404', function ($view) {
+            $view->with([
+                'setting' => Setting::where('status', true)->first(),
             ]);
         });
     }

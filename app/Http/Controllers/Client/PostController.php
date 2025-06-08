@@ -17,8 +17,17 @@ class PostController extends Controller
         $posts = Productmenu::where('slug', $slug)->first();
         $setting = Setting::where('status', true)->first();
 
-        $pageTitle = $posts->name . ' | ' . config('app.name');
-        $pageDescription = 'Cập nhật những bài viết mới nhất về chủ đề XYZ. Xem tất cả bài viết tại đây.';
+        $seoPosts = null;
+        if ($setting->seo_posts) {
+            $seoPosts = json_decode($setting->seo_posts, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $seoPosts = null;
+            }
+        }
+        $pageTitle = $seoPosts['title_posts'] ?? $posts->name . ' | ' . config('app.name');
+        $pageDescription = $seoPosts['description_posts'] ?? 'Cập nhật những bài viết mới nhất về chủ đề ' . $posts->name;
+        $pageRobots = $seoPosts['robots_posts'] ?? 'index, follow';
+        $pageImage = $seoPosts['seoimage_posts'] ?? asset('./storage/default.jpg');
 
         SEOTools::setTitle($pageTitle);
         SEOTools::setDescription($pageDescription);

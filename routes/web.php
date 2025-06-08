@@ -362,6 +362,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/store', [SettingController::class, 'store'])->name('store');
         Route::get('/{id}/edit', [SettingController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [SettingController::class, 'update'])->name('update');
+        Route::post('/{id}/status', [SettingController::class, 'status'])->name('status');
         Route::delete('/{id}/destroy', [SettingController::class, 'destroy'])->name('destroy');
     });
 });

@@ -1,9 +1,13 @@
 @extends('layout.client')
 
-@section('title', $style == 'search' ? 'Tìm kiếm' : 'Danh mục')
+@section('seo')
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
+@endsection
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css" rel="stylesheet">
-
 @endsection
 
 @section('content')
@@ -148,5 +152,4 @@
             });
         }
     </script>
-
 @endsection

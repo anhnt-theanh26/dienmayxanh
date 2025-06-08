@@ -4,6 +4,11 @@
 <head>
     @include('client.element.head')
     @yield('css')
+    <style>
+        :root {
+            --main-color: {{ $setting->main_color ?? '#000000' }};
+        }
+    </style>
 </head>
 
 <body class="bg-light">

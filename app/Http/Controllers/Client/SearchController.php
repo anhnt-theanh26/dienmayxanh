@@ -5,6 +5,8 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Search;
+use App\Models\Setting;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +42,36 @@ class SearchController extends Controller
                 }
             }
             $style = 'search';
+            $setting = Setting::where('status', true)->first();
+            $seoProducts = null;
+            if ($setting->seo_products) {
+                $seoProducts = json_decode($setting->seo_products, true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    $seoProducts = null;
+                }
+            }
+            $pageTitle = $keyword . ' | ' . config('app.name');
+            $pageDescription = $seoProducts['description_products'] ?? '';
+            $pageRobots = $seoProducts['robots_products'] ?? 'index, follow';
+            $pageImage = $seoProducts['seoimage_products'] ?? asset('./storage/default.jpg');
+
+            SEOTools::setTitle($pageTitle);
+            SEOTools::setDescription($pageDescription);
+            SEOTools::setCanonical(url()->current());
+
+            SEOTools::opengraph()->setUrl(url()->current());
+            SEOTools::opengraph()->setTitle($pageTitle);
+            SEOTools::opengraph()->setDescription($pageDescription);
+            SEOTools::opengraph()->addProperty('type', 'website');
+
+            SEOTools::twitter()->setTitle($pageTitle);
+            SEOTools::twitter()->setDescription($pageDescription);
+            SEOTools::twitter()->setSite('@anhnt_theanh26');
+
+            SEOTools::jsonLd()->setType('WebPage');
+            SEOTools::jsonLd()->setTitle($pageTitle);
+            SEOTools::jsonLd()->setDescription($pageDescription);
+            SEOTools::jsonLd()->setUrl(url()->current());
             return view('client.page.search.index', compact('results', 'keyword', 'style'));
         } catch (\Throwable $th) {
             Alert::error('Đã xảy ra lỗi:', $th->getMessage());

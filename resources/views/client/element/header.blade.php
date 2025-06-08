@@ -47,13 +47,12 @@
     </script>
 @endif
 
-<div class="" style="background-color: #2a83e9;">
+<div class="" style="background-color: var(--main-color);">
     <div class="container" style="flex-shrink: 0;">
         <nav class="menu py-1 pt-2">
             <ul style="margin: 0; padding: 0;" class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('index') }}">
-                    <img width="229" height="40" class="object-fit-cover"
-                        src="https://shimono.com.vn/wp-content/uploads/2024/07/dienmayxanh-e1725984512917.png"
+                    <img width="229" height="40" class="object-fit-cover" src="{{ $setting->logo }}"
                         alt="">
                 </a>
                 <li class="drop-down" style="border: none">
@@ -88,7 +87,8 @@
                                         @foreach ($categoryparent->categories as $category)
                                             <div class="col-2">
                                                 <div class="submenu-content text-center">
-                                                    <a href="{{ route('category.show', ['slug' => $category->slug]) }}">
+                                                    <a
+                                                        href="{{ route('category.show', ['slug' => $category->slug]) }}">
                                                         <img src="{{ $category->image ? asset($category->image) : asset('storage/default.jpg') }}"
                                                             width="48" height="48" alt="">
                                                     </a>
@@ -145,8 +145,8 @@
                 @if (Auth::check())
                     <li>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-outline-light dropdown-toggle" style="border: none"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-light dropdown-toggle"
+                                style="border: none" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                     <path
@@ -176,8 +176,8 @@
                 @else
                     <a href="{{ route('login.form') }}">
                         <button type="button" class="btn btn-outline-light" style="border: none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-person" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                 <path
                                     d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                             </svg>
@@ -204,8 +204,8 @@
                 <li>
                     <button class="btn border text-white rounded-pill" data-bs-target="#changeAddress"
                         data-bs-toggle="modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
                             <path
                                 d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
@@ -281,13 +281,12 @@
 
 @if ($menufirst && $menufirst->isNotEmpty())
     <section>
-        <div class="d-flex justify-content-center"
-            style="background-color: #eaecf0; flex-shrink: 0;">
+        <div class="d-flex justify-content-center" style="background-color: #eaecf0; flex-shrink: 0;">
             <ul class="nav">
                 @foreach ($menufirst?->take(10) as $menuitem)
                     <li class="nav-item">
-                        <a class="nav-link text-primary" style="text-transform:lowercase;" aria-current="page"
-                            href="{{ $menuitem?->link ?? '' }}">{{ $menuitem?->name }}</a>
+                        <a class="nav-link" style="text-transform:lowercase; color: var(--main-color);"
+                            aria-current="page" href="{{ $menuitem?->link ?? '' }}">{{ $menuitem?->name }}</a>
                     </li>
                 @endforeach
             </ul>

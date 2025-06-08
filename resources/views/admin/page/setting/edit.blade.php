@@ -3,7 +3,14 @@
 @section('title', 'Chinh sua')
 
 @section('css')
+    {{-- <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.css') }}" /> --}}
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/node-waves/node-waves.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/typeahead-js/typeahead.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/bootstrap-select/bootstrap-select.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/typeahead-js/typeahead.css') }}" />
 @endsection
 
 @section('content')
@@ -20,6 +27,7 @@
     </div>
     <form action="{{ route('admin.setting.update', ['id' => $setting->id]) }}" method="post">
         @csrf
+        @method('put')
         <div class="row">
             <div class="col-xl-6">
                 <div class="card mb-4">
@@ -111,33 +119,6 @@
                                             @endforeach
                                         @endif
                                     </div>
-                                @else
-                                    <div class="row support-row">
-                                        <div class="mb-3 col-lg-6 col-12">
-                                            <label class="form-label" for="support[0][method]">Method</label>
-                                            <textarea name="support[0][method]" placeholder="Method Support" id="support[0][method]" class="form-control"
-                                                rows="1"></textarea>
-                                        </div>
-                                        <div class="mb-3 col-lg-6 col-12">
-                                            <div class="d-flex justify-content-between m-0 p-0">
-                                                <label class="form-label" for="support[0][phone]">Phone</label>
-                                                <i class="ti ti-x ti-xs me-1 btn-delete-support"></i>
-                                            </div>
-                                            <textarea name="support[0][phone]" placeholder="Phone Support" id="support[0][phone]" class="form-control"
-                                                rows="1"></textarea>
-                                        </div>
-                                        <div class="mb-3 col-lg-6 col-12">
-                                            <label class="form-label" for="support[0][time]">Time</label>
-                                            <textarea name="support[0][time]" placeholder="Time Support" id="support[0][time]" class="form-control"
-                                                rows="1"></textarea>
-                                        </div>
-                                        <div class="mb-3 col-lg-6 col-12">
-                                            <label class="form-label" for="support[0][href]">Href</label>
-                                            <textarea name="support[0][href]" placeholder="Href Support" id="support[0][href]" class="form-control"
-                                                rows="1"></textarea>
-                                        </div>
-                                        <hr>
-                                    </div>
                                 @endif
                                 <template id="support-template">
                                     <div class="row support-row">
@@ -185,11 +166,11 @@
                             <div class="btn-group py-2" role="group" style="width: 100%;"
                                 aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check btn-color" id="btn-color2" value="choose"
-                                    name="" checked>
+                                    name="color-option" checked>
                                 <label class="btn btn-outline-primary waves-effect" for="btn-color2">Chọn</label>
 
                                 <input type="radio" class="btn-check btn-color" id="btn-color1" value="enter"
-                                    name="">
+                                    name="color-option">
                                 <label class="btn btn-outline-primary waves-effect" for="btn-color1">Nhập</label>
                             </div>
 
@@ -297,9 +278,22 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="TagifyBasic" class="form-label">Seo Robots</label>
-                                    <input id="TagifyBasic" class="form-control" name="robots_products"
-                                        placeholder="Seo Robots" value="{{ $seoProduct['robots_products'] }}" />
+                                    <label for="robots_products" class="form-label">Seo Robots</label>
+                                    <select id="robots_products" name="robots_products" class="selectpicker w-100"
+                                        data-style="btn-default">
+                                        <option value="index, follow"
+                                            {{ $seoProduct['robots_products'] == 'index, follow' ? 'selected' : '' }}>
+                                            index, follow</option>
+                                        <option value="noindex, follow"
+                                            {{ $seoProduct['robots_products'] == 'noindex, follow' ? 'selected' : '' }}>
+                                            noindex, follow</option>
+                                        <option value="index, nofollow"
+                                            {{ $seoProduct['robots_products'] == 'index, nofollow' ? 'selected' : '' }}>
+                                            index, nofollow</option>
+                                        <option value="noindex, nofollow"
+                                            {{ $seoProduct['robots_products'] == 'noindex, nofollow' ? 'selected' : '' }}>
+                                            noindex, nofollow</option>
+                                    </select>
                                 </div>
                             </div>
                         @else
@@ -335,9 +329,14 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="TagifyBasic" class="form-label">Seo Robots</label>
-                                    <input id="TagifyBasic" class="form-control" name="robots_products"
-                                        placeholder="Seo Robots" value="" />
+                                    <label for="robots_products" class="form-label">Seo Robots</label>
+                                    <select id="robots_products" name="robots_products" class="selectpicker w-100"
+                                        data-style="btn-default">
+                                        <option value="index, follow">index, follow</option>
+                                        <option value="noindex, follow">noindex, follow</option>
+                                        <option value="index, nofollow">index, nofollow</option>
+                                        <option value="noindex, nofollow">noindex, nofollow</option>
+                                    </select>
                                 </div>
                             </div>
                         @endif
@@ -392,9 +391,23 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="TagifyReadonly" class="form-label">Seo Robots</label>
-                                    <input id="TagifyReadonly" class="form-control" name="robots_posts"
-                                        placeholder="Seo Robots" value="{{ $seoPost['robots_posts'] }}" />
+                                    <label for="robots_posts" class="form-label">Seo Robots</label>
+                                    <select id="robots_posts" name="robots_posts" class="selectpicker w-100"
+                                        data-style="btn-default">
+                                        <option value="index, follow"
+                                            {{ $seoPost['robots_posts'] == 'index, follow' ? 'selected' : '' }}>
+                                            index, follow</option>
+                                        <option value="noindex, follow"
+                                            {{ $seoPost['robots_posts'] == 'noindex, follow' ? 'selected' : '' }}>
+                                            noindex, follow</option>
+                                        <option value="index, nofollow"
+                                            {{ $seoPost['robots_posts'] == 'index, nofollow' ? 'selected' : '' }}>
+                                            index, nofollow</option>
+                                        <option value="noindex, nofollow"
+                                            {{ $seoPost['robots_posts'] == 'noindex, nofollow' ? 'selected' : '' }}>
+                                            noindex, nofollow</option>
+                                    </select>
+
                                 </div>
                             </div>
                         @else
@@ -430,9 +443,14 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="TagifyReadonly" class="form-label">Seo Robots</label>
-                                    <input id="TagifyReadonly" class="form-control" name="robots_posts"
-                                        placeholder="Seo Robots" value="" />
+                                    <label for="robots_posts" class="form-label">Seo Robots</label>
+                                    <select id="robots_posts" name="robots_posts" class="selectpicker w-100"
+                                        data-style="btn-default">
+                                        <option value="index, follow">index, follow</option>
+                                        <option value="noindex, follow">noindex, follow</option>
+                                        <option value="index, nofollow">index, nofollow</option>
+                                        <option value="noindex, nofollow">noindex, nofollow</option>
+                                    </select>
                                 </div>
                             </div>
                         @endif
@@ -472,7 +490,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        let supportIndex = 0;
+        let supportIndex = 1000;
 
         function attachDeleteEvents() {
             document.querySelectorAll('.btn-delete-support').forEach(button => {
@@ -507,10 +525,15 @@
             const clone = template.content.cloneNode(true);
 
             // Thay __index__ thành chỉ số thật
-            clone.querySelectorAll('input, select').forEach(el => {
+            clone.querySelectorAll('textarea, label').forEach(el => {
                 const name = el.getAttribute('name');
                 if (name) {
                     el.setAttribute('name', name.replace('__index__', supportIndex));
+                    el.setAttribute('id', name.replace('__index__', supportIndex));
+                }
+                if (el.hasAttribute('for')) {
+                    const newFor = el.getAttribute('for').replace('__index__', supportIndex);
+                    el.setAttribute('for', newFor);
                 }
             });
 
@@ -528,15 +551,27 @@
                 const showColorDiv = document.querySelector('.show-color');
                 if (btn.value === 'choose') {
                     showColorDiv.innerHTML =
-                        `<input class="form-control" type="color" value="{{ $setting->main_color }}" name="main-color" id="color-picker">`;
+                        `<input class="form-control" type="color" value="{{ $setting->main_color }}" name="main_color" id="color-picker">`;
                 } else if (btn.value === 'enter') {
                     showColorDiv.innerHTML =
-                        `<input class="form-control" type="text" value="{{ $setting->main_color }}" name="main-color" id="color-input" placeholder="Mã Màu (VD: #FFFFFF)">`;
+                        `<input class="form-control" type="text" value="{{ $setting->main_color }}" name="main_color" id="color-input" placeholder="Mã Màu (VD: #FFFFFF)">`;
                 }
             });
         });
     </script>
+    {{-- <script src="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/js/forms-tagify.js') }}"></script> --}}
+    <script src="{{ asset('/administrator/assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/js/forms-tagify.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/vendor/libs/bloodhound/bloodhound.js') }}"></script>
 
+    <!-- Main JS -->
+    <script src="{{ asset('/administrator/assets/js/main.js') }}"></script>
+
+    <!-- Page JS -->
+    <script src="{{ asset('/administrator/assets/js/forms-selects.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/js/forms-tagify.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/js/forms-typeahead.js') }}"></script>
 @endsection
