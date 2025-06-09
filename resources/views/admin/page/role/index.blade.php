@@ -163,7 +163,7 @@
                             <div class="col-12 mb-4">
                                 <label class="form-label" for="modalRoleName">Role Name</label>
                                 <input type="text" id="modalRoleName" name="modalRoleName" class="form-control"
-                                    value="{{ $role->name }}" placeholder="Enter a role name" tabindex="-1" />
+                                    value="{{ $role->name }}" placeholder="Enter a role name" tabindex="-1" required />
                                 @error('modalRoleName')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -204,10 +204,11 @@
                                                                 <div class="form-check me-3 me-lg-5">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         {{ in_array($item->id, $result) ? 'checked' : '' }}
-                                                                        name="permissions[]" id="{{ $item->id }}"
+                                                                        name="permissions[]"
+                                                                        id="{{ $item->id }}-{{ $item->id }}-{{ $role->name }}"
                                                                         value="{{ $item->id }}" />
                                                                     <label class="form-check-label"
-                                                                        for="{{ $item->id }}">
+                                                                        for="{{ $item->id }}-{{ $item->id }}-{{ $role->name }}">
                                                                         {{ $item->display_name }}
                                                                     </label>
                                                                 </div>
@@ -251,7 +252,7 @@
                         <div class="col-12 mb-4">
                             <label class="form-label" for="roleName">Role Name</label>
                             <input type="text" id="roleName" name="roleName" value="{{ old('roleName') }}"
-                                class="form-control"placeholder="Enter a role name" tabindex="-1" />
+                                class="form-control"placeholder="Enter a role name" tabindex="-1" required />
                             @error('roleName')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -285,10 +286,10 @@
                                                         @foreach ($items as $item)
                                                             <div class="form-check me-3 me-lg-5">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    id="{{ $item->name }}-{{ $item->id }}" name="permission_id[]"
-                                                                    value="{{ $item->id }}" />
+                                                                    id="{{ $item->name }}-{{ $role->name }}-{{ $item->id }}"
+                                                                    name="permission_id[]" value="{{ $item->id }}" />
                                                                 <label class="form-check-label"
-                                                                    for="{{ $item->name }}-{{ $item->id }}">
+                                                                    for="{{ $item->name }}-{{ $role->name }}-{{ $item->id }}">
                                                                     {{ $item->display_name }}
                                                                 </label>
                                                             </div>

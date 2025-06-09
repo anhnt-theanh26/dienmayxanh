@@ -52,8 +52,8 @@
         <nav class="menu py-1 pt-2">
             <ul style="margin: 0; padding: 0;" class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('index') }}">
-                    <img width="229" height="40" class="object-fit-cover" src="{{ $setting->logo }}"
-                        alt="">
+                    <img width="229" height="40" class="object-fit-cover" src="{{ $setting->logo ?? '' }}"
+                        alt="logo">
                 </a>
                 <li class="drop-down" style="border: none">
                     <a href="#">

@@ -240,4 +240,18 @@ class BillController extends Controller
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
         }
     }
+
+    public function review(Request $request, string $id)
+    {
+        $billItem = BillItem::where('id', $id)->first();
+        $rating = $request->query('rating');
+        $comment = $request->query('comment');
+        $data = [
+            'product_id' => '',
+            'user_id' => '',
+            'rating' => '',
+            'comment' => '',
+        ];
+        return $billItem;
+    }
 }

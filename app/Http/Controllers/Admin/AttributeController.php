@@ -13,180 +13,217 @@ class AttributeController extends Controller
 {
     public function index()
     {
-        $attributes = Attribute::orderBy('id', 'desc')->paginate(10);
-        return view('admin.page.attribute.index', compact('attributes'));
+        if (Auth::user()->can('index attribute')) {
+            if (Auth::user()->can('index post')) {
+                $attributes = Attribute::orderBy('id', 'desc')->paginate(10);
+                return view('admin.page.attribute.index', compact('attributes'));
+            } else {
+                Alert::error('Không có quyền truy cập');
+                return redirect()->route('admin.dashboard');
+            }
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        return view('admin.page.attribute.create');
+        if (Auth::user()->can('create attribute')) {
+            return view('admin.page.attribute.create');
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        try {
-            $originalSlug = Str::slug($request->name);
-            $slug = $originalSlug;
-            $count = 1;
-            while (Attribute::where('slug', $slug)->exists()) {
-                $slug = $originalSlug . '-' . $count++;
+        if (Auth::user()->can('create attribute')) {
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
+            try {
+                $originalSlug = Str::slug($request->name);
+                $slug = $originalSlug;
+                $count = 1;
+                while (Attribute::where('slug', $slug)->exists()) {
+                    $slug = $originalSlug . '-' . $count++;
+                }
+                $data = [
+                    'name' => $request->name,
+                    'slug' => $slug,
+                ];
+                Attribute::create($data);
+                Alert::success('Thanh cong', 'Them moi thuoc tinh thanh cong');
+                return redirect()->route('admin.attribute.index')->with('success', 'Thêm mới thuộc tính thành công');
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra:', $th->getMessage());
+                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
-            $data = [
-                'name' => $request->name,
-                'slug' => $slug,
-            ];
-            Attribute::create($data);
-            Alert::success('Thanh cong', 'Them moi thuoc tinh thanh cong');
-            return redirect()->route('admin.attribute.index')->with('success', 'Thêm mới thuộc tính thành công');
-        } catch (\Throwable $th) {
-            Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
         }
     }
 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        try {
-            $attribute = Attribute::where('id', $id)->first();
-            if (!$attribute) {
-                Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh:');
-                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh');
+        if (Auth::user()->can('edit attribute')) {
+            try {
+                $attribute = Attribute::where('id', $id)->first();
+                if (!$attribute) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh:');
+                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh');
+                }
+                return view('admin.page.attribute.edit', compact('attribute'));
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra:', $th->getMessage());
+                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
-            return view('admin.page.attribute.edit', compact('attribute'));
-        } catch (\Throwable $th) {
-            Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        try {
-            $attribute = Attribute::where('id', $id)->first();
-            if (!$attribute) {
-                Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay bai viet!');
+        if (Auth::user()->can('edit attribute')) {
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
+            try {
+                $attribute = Attribute::where('id', $id)->first();
+                if (!$attribute) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
+                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay bai viet!');
+                }
+                $originalSlug = Str::slug($request->name);
+                $newSlug = $originalSlug;
+                $count = 1;
+                while (Attribute::where('slug', $newSlug)->where('id', '!=', $attribute->id)->exists()) {
+                    $newSlug = $originalSlug . '-' . $count++;
+                }
+                $data = [
+                    'name' => $request->name,
+                    'slug' => $newSlug,
+                ];
+                $attribute->update($data);
+                Alert::success('Thanh cong', 'Cap nhap thuoc tinh thanh cong');
+                return redirect()->route('admin.attribute.index')->with('success', 'Cập nhật thành công!');
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra:', $th->getMessage());
+                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
-            $originalSlug = Str::slug($request->name);
-            $newSlug = $originalSlug;
-            $count = 1;
-            while (Attribute::where('slug', $newSlug)->where('id', '!=', $attribute->id)->exists()) {
-                $newSlug = $originalSlug . '-' . $count++;
-            }
-            $data = [
-                'name' => $request->name,
-                'slug' => $newSlug,
-            ];
-            $attribute->update($data);
-            Alert::success('Thanh cong', 'Cap nhap thuoc tinh thanh cong');
-            return redirect()->route('admin.attribute.index')->with('success', 'Cập nhật thành công!');
-        } catch (\Throwable $th) {
-            Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
-        try {
-            $attribute = Attribute::onlyTrashed()->where('id', $id)->first();
-            if (!$attribute) {
-                Alert::error('Khong thay thuoc tinh', 'thuoc tinh khong ton tai');
-                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+        if (Auth::user()->can('delete attribute')) {
+            try {
+                $attribute = Attribute::onlyTrashed()->where('id', $id)->first();
+                if (!$attribute) {
+                    Alert::error('Khong thay thuoc tinh', 'thuoc tinh khong ton tai');
+                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+                }
+                $attribute->forceDelete();
+                Alert::success('Thanh cong', 'Xoa vinh vien thuoc tinh thanh cong');
+                return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra:', $th->getMessage());
+                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
-            $attribute->forceDelete();
-            Alert::success('Thanh cong', 'Xoa vinh vien thuoc tinh thanh cong');
-            return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
-        } catch (\Throwable $th) {
-            Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
         }
     }
 
     public function delete(string $id)
     {
-        try {
-            $attribute = Attribute::where('id', $id)->first();
-            if (!$attribute) {
-                Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+        if (Auth::user()->can('delete attribute')) {
+            try {
+                $attribute = Attribute::where('id', $id)->first();
+                if (!$attribute) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
+                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+                }
+                $attribute->delete();
+                Alert::success('Thanh cong', 'Xoa thuoc tinh thanh cong');
+                return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra:', $th->getMessage());
+                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
-            $attribute->delete();
-            Alert::success('Thanh cong', 'Xoa thuoc tinh thanh cong');
-            return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
-        } catch (\Throwable $th) {
-            Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
         }
     }
 
     public function deleted()
     {
-        $attributes = Attribute::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
-        return view('admin.page.attribute.restore', compact('attributes'));
+        if (Auth::user()->can('index attribute')) {
+            $attributes = Attribute::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
+            return view('admin.page.attribute.restore', compact('attributes'));
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     public function restore(string $id)
     {
-        try {
-            $attribute = Attribute::withTrashed()->where("id", $id)->first();
-            if (!$attribute) {
-                Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-                return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+        if (Auth::user()->can('delete attribute')) {
+            try {
+                $attribute = Attribute::withTrashed()->where("id", $id)->first();
+                if (!$attribute) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
+                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+                }
+                $attribute->restore();
+                Alert::success('Thanh cong', 'Khoi phuc thuoc tinh thanh cong');
+                return redirect()->route('admin.attribute.index')->with('success', 'Khoi phuc thuoc tinh thanh cong!');
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra:', $th->getMessage());
+                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
-            $attribute->restore();
-            Alert::success('Thanh cong', 'Khoi phuc thuoc tinh thanh cong');
-            return redirect()->route('admin.attribute.index')->with('success', 'Khoi phuc thuoc tinh thanh cong!');
-        } catch (\Throwable $th) {
-            Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
         }
     }
 
     public function search(Request $request, string $keyword)
     {
-        $status = $request->status;
-        if ($status == 'index') {
-            $results = Attribute::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
-            if ($keyword == ' ') {
-                $results = Attribute::orderBy('id', 'desc')->paginate(10);
+        if (Auth::user()->can('index attribute')) {
+            $status = $request->status;
+            if ($status == 'index') {
+                $results = Attribute::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
+                if ($keyword == ' ') {
+                    $results = Attribute::orderBy('id', 'desc')->paginate(10);
+                }
             }
-        }
-        if ($status == 'delete') {
-            $results = Attribute::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
-            if ($keyword == ' ') {
-                $results = Attribute::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
+            if ($status == 'delete') {
+                $results = Attribute::onlyTrashed()->where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
+                if ($keyword == ' ') {
+                    $results = Attribute::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
+                }
             }
+            return view('admin.page.attribute.search', compact('results', 'status'));
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
         }
-        return view('admin.page.attribute.search', compact('results', 'status'));
     }
 }

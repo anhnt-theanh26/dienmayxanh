@@ -4,23 +4,24 @@
             <div class="row p-2 pt-3">
                 <div class="col-3">
                     <p class="fw-bold">Tổng đài hỗ trợ</p>
-                    @if ($setting->support)
-                        @php
-                            $supportArr = null;
+                    @php
+                        $supportArr = null;
+                        if ($setting) {
                             if ($setting?->support) {
                                 $supportArr = json_decode($setting?->support, true);
                                 if (json_last_error() !== JSON_ERROR_NONE) {
                                     $supportArr = null;
                                 }
                             }
-                        @endphp
-                    @endif
+                        }
+                    @endphp
                     @if ($supportArr)
                         @foreach ($supportArr as $item)
                             <p class="p-0 m-0 py-1">
                                 {{ $item['method'] }}:
                                 <span>
-                                    <a class="text-decoration-none" style="color: var(--main-color);" href="{{ $item['href'] }}">{{ $item['phone'] }}</a>
+                                    <a class="text-decoration-none" style="color: var(--main-color);"
+                                        href="{{ $item['href'] }}">{{ $item['phone'] }}</a>
                                 </span>
                                 <span> ({{ $item['time'] }})</span>
                             </p>

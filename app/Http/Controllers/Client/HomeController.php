@@ -19,12 +19,15 @@ class HomeController extends Controller
         $searchs = Search::limit(40)->orderByDesc('id')->get();
         $setting = Setting::where('status', true)->first();
         $seoProducts = null;
-        if ($setting->seo_products) {
-            $seoProducts = json_decode($setting->seo_products, true);
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                $seoProducts = null;
+        if ($setting) {
+            if ($setting?->seo_products) {
+                $seoProducts = json_decode($setting?->seo_products, true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    $seoProducts = null;
+                }
             }
         }
+
         $pageTitle = config('app.name');
         $pageDescription = $seoProducts['description_products'] ?? '';
         $pageRobots = $seoProducts['robots_products'] ?? 'index, follow';
@@ -50,5 +53,7 @@ class HomeController extends Controller
         return view("client.page.main.main", compact('productmenus', 'searchs'));
     }
 
-    public function getProduct(string $id) {}
+    public function getProduct(string $id)
+    {
+    }
 }

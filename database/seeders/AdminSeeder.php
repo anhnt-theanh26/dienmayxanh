@@ -141,14 +141,6 @@ class AdminSeeder extends Seeder
             ],
 
 
-            // image
-            [ // danh sách, chi tiết
-                'name' => 'index image',
-                'display_name' => 'Read',
-                'group_name' => 'Image',
-            ],
-
-
             // user
             [ // danh sách, chi tiết
                 'name' => 'index user',
@@ -169,6 +161,14 @@ class AdminSeeder extends Seeder
                 'name' => 'delete user',
                 'display_name' => 'Delete',
                 'group_name' => 'User',
+            ],
+
+
+            // image
+            [ // danh sách, chi tiết
+                'name' => 'index image',
+                'display_name' => 'Read',
+                'group_name' => 'Image',
             ],
 
 
@@ -194,7 +194,20 @@ class AdminSeeder extends Seeder
                 'group_name' => 'Voucher',
             ],
 
-            
+
+            // bill
+            [ // danh sách, chi tiết
+                'name' => 'index bill',
+                'display_name' => 'Read',
+                'group_name' => 'Bill',
+            ],
+            [ // sửa
+                'name' => 'edit bill',
+                'display_name' => 'Edit',
+                'group_name' => 'Bill',
+            ],
+
+
             // role permission
             // user
             [ // danh sách, chi tiết
@@ -216,6 +229,106 @@ class AdminSeeder extends Seeder
                 'name' => 'delete role permission',
                 'display_name' => 'Delete',
                 'group_name' => 'Role Permission',
+            ],
+
+
+            // authentication log 
+            [ // danh sách, chi tiết
+                'name' => 'index authentication',
+                'display_name' => 'Read',
+                'group_name' => 'Authentication',
+            ],
+
+
+            // location menu
+            [ // danh sách, chi tiết
+                'name' => 'index location menu',
+                'display_name' => 'Read',
+                'group_name' => 'Location Menu',
+            ],
+            [ // thêm
+                'name' => 'create location menu',
+                'display_name' => 'Create',
+                'group_name' => 'Location Menu',
+            ],
+            [ // sửa
+                'name' => 'edit location menu',
+                'display_name' => 'Edit',
+                'group_name' => 'Location Menu',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete location menu',
+                'display_name' => 'Delete',
+                'group_name' => 'Location Menu',
+            ],
+
+
+            // location product
+            [ // danh sách, chi tiết
+                'name' => 'index location product',
+                'display_name' => 'Read',
+                'group_name' => 'Location Product',
+            ],
+            [ // thêm
+                'name' => 'create location product',
+                'display_name' => 'Create',
+                'group_name' => 'Location Product',
+            ],
+            [ // sửa
+                'name' => 'edit location product',
+                'display_name' => 'Edit',
+                'group_name' => 'Location Product',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete location product',
+                'display_name' => 'Delete',
+                'group_name' => 'Location Product',
+            ],
+
+
+            // location banner
+            [ // danh sách, chi tiết
+                'name' => 'index location banner',
+                'display_name' => 'Read',
+                'group_name' => 'Location Banner',
+            ],
+            [ // thêm
+                'name' => 'create location banner',
+                'display_name' => 'Create',
+                'group_name' => 'Location Banner',
+            ],
+            [ // sửa
+                'name' => 'edit location banner',
+                'display_name' => 'Edit',
+                'group_name' => 'Location Banner',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete location banner',
+                'display_name' => 'Delete',
+                'group_name' => 'Location Banner',
+            ],
+
+
+            // setting
+            [ // danh sách, chi tiết
+                'name' => 'index setting',
+                'display_name' => 'Read',
+                'group_name' => 'Setting',
+            ],
+            [ // thêm
+                'name' => 'create setting',
+                'display_name' => 'Create',
+                'group_name' => 'Setting',
+            ],
+            [ // sửa
+                'name' => 'edit setting',
+                'display_name' => 'Edit',
+                'group_name' => 'Setting',
+            ],
+            [ // xóa, khôi phục, xóa vĩnh viễn
+                'name' => 'delete setting',
+                'display_name' => 'Delete',
+                'group_name' => 'Setting',
             ],
         ];
         // Tạo các Permission nếu chưa tồn tại
@@ -246,5 +359,7 @@ class AdminSeeder extends Seeder
         // Gán Role "admin" cho User "admin"
         $adminUser->assignRole($adminRole);
         echo "Seeder đã tạo user admin, role, và các quyền.\n";
+        echo "Tài khoản: admin@gmail.com \n";
+        echo "Mật khẩu: 123 \n";
     }
 }

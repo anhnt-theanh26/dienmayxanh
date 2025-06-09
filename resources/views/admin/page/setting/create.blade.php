@@ -3,7 +3,7 @@
 @section('title', 'Them moi')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/bootstrap-select/bootstrap-select.css') }}" />
 @endsection
 
 @section('content')
@@ -336,7 +336,5 @@
             });
         });
     </script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/js/forms-tagify.js') }}"></script>
-
+    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
 @endsection

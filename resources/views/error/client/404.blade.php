@@ -1,4 +1,4 @@
-@if ($setting->layout_not_found)
+@if ($setting)
     {!! $setting->layout_not_found !!}
 @else
     <!DOCTYPE html>

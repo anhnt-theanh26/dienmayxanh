@@ -18,10 +18,12 @@ class PostController extends Controller
         $setting = Setting::where('status', true)->first();
 
         $seoPosts = null;
-        if ($setting->seo_posts) {
-            $seoPosts = json_decode($setting->seo_posts, true);
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                $seoPosts = null;
+        if ($setting) {
+            if ($setting->seo_posts) {
+                $seoPosts = json_decode($setting->seo_posts, true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    $seoPosts = null;
+                }
             }
         }
         $pageTitle = $seoPosts['title_posts'] ?? $posts->name . ' | ' . config('app.name');

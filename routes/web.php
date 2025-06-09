@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BannerMenuItemController;
 use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryParentController;
+use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\LocationBannerMenuController;
 use App\Http\Controllers\Admin\LocationMenuController;
 use App\Http\Controllers\Admin\LocationProductMenuController;
@@ -169,7 +170,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
     // Image
     Route::prefix('image')->as('image.')->group(function () {
-        Route::get('/', [AdminController::class, 'image'])->name('image');
+        Route::get('/', [FileManagerController::class, 'index'])->name('index');
     });
 
     // Voucher
@@ -422,6 +423,8 @@ Route::prefix('/')->as('')->group(function () {
         Route::post('/{id}/received', [ClientBillController::class, 'received'])->name('received');
         Route::post('{id}/cancel', [ClientBillController::class, 'cancel'])->name('cancel');
         Route::post('{id}/refund', [ClientBillController::class, 'refund'])->name('refund');
+        Route::post('{id}/review', [ClientBillController::class, 'review'])->name('review');
+
     });
 
     // profile 

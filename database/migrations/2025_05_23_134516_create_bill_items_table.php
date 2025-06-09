@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->integer('quantity')->default(0);
             $table->decimal('price', 20, 0);
             $table->decimal('total_price', 20, 0);
+            $table->boolean('review_status')->default(false);
             $table->timestamps();
         });
     }

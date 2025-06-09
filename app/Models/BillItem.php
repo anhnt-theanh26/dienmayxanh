@@ -19,6 +19,7 @@ class BillItem extends Model
         'quantity',
         'price',
         'total_price',
+        'review_status',
     ];
 
     public function bill()

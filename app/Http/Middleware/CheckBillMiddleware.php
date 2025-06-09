@@ -7,9 +7,12 @@ use App\Models\BillItem;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Review;
 use App\Models\Search;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckBillMiddleware
@@ -24,6 +27,7 @@ class CheckBillMiddleware
         $bills = Bill::get();
         if ($bills) {
             foreach ($bills as $bill) {
+                $after5day = \Carbon\Carbon::parse($bill->updated_at)->addDays(5);
                 if ($bill->payment_status == 'Payment Failed' && now() > $bill->expiry_time && $bill->status == 'Pending') {
                     $bill->update([
                         'status' => 'Cancelled',
@@ -48,7 +52,6 @@ class CheckBillMiddleware
                     }
                 }
                 if ($bill->status == 'Shipping') {
-                    $after5day = \Carbon\Carbon::parse($bill->updated_at)->addDays(5);
                     if (now() > $after5day) {
                         if ($bill->payment_method == 'online' && $bill->payment_status == 'Paid') {
                             $bill->update([
@@ -76,6 +79,16 @@ class CheckBillMiddleware
                                         $product_variant->save();
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+                if ($bill->status == 'Delivered') {
+                    if (Carbon::parse($bill->updated_at)->addDays(5)->isPast()) {
+                        foreach ($bill->billItems as $billItem) {
+                            if (!$billItem->review_status) {
+                                $billItem->review_status = true;
+                                $billItem->save();
                             }
                         }
                     }
