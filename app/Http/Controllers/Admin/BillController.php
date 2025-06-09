@@ -349,4 +349,15 @@ class BillController extends Controller
             return redirect()->route('admin.dashboard');
         }
     }
+
+    public function search(Request $request, string $keyword)
+    {
+        if (Auth::user()->can('index bill')) {
+            $status = $request->status;
+            
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
+    }
 }

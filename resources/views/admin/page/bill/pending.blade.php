@@ -119,7 +119,7 @@
 @section('js')
     <script>
         let tableName = 'bill';
-        let status = 'index';
+        let status = 'pending';
     </script>
     @include('admin.elements.js')
 @endsection

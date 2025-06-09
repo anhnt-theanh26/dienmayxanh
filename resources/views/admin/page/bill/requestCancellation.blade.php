@@ -115,7 +115,7 @@
 @section('js')
     <script>
         let tableName = 'bill';
-        let status = 'index';
+        let status = 'requestCancellation';
     </script>
     @include('admin.elements.js')
 @endsection

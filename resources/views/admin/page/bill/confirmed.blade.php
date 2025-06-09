@@ -115,7 +115,7 @@
     <script src="{{ asset('/administrator/assets/vendor/js/dropdown-hover.js') }}"></script>
     <script>
         let tableName = 'bill';
-        let status = 'index';
+        let status = 'confirmed';
     </script>
     @include('admin.elements.js')
 @endsection

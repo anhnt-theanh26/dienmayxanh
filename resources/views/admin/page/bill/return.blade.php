@@ -99,7 +99,7 @@
 @section('js')
     <script>
         let tableName = 'bill';
-        let status = 'index';
+        let status = 'return';
     </script>
     @include('admin.elements.js')
 @endsection

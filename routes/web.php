@@ -227,6 +227,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/reply-cancel', [BillController::class, 'replyCancel'])->name('reply-cancel');
         Route::get('/reply-refund', [BillController::class, 'replyRefund'])->name('reply-refund');
         Route::get('{id}/show', [BillController::class, 'show'])->name('show');
+        Route::get('/{keyword}/search', [BillController::class, 'search'])->name('search');
     });
 
 
