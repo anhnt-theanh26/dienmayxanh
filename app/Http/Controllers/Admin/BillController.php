@@ -16,7 +16,7 @@ class BillController extends Controller
     public function index()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->get();
+            $bills = Bill::orderBy('id', 'desc')->paginate(10);
             return view('admin.page.bill.index', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -32,7 +32,7 @@ class BillController extends Controller
                 ->where('status', '!=', 'Cancelled')
                 ->where('status_cancel', 'requested')
                 ->where('status_cancel', 'requested')
-                ->get();
+                ->paginate(10);
             return view('admin.page.bill.requestCancellation', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -47,7 +47,7 @@ class BillController extends Controller
                 ->where('status', 'Pending')
                 ->where('payment_method', 'offline')
                 ->where('status_cancel', '!=', 'requested')
-                ->get();
+                ->paginate(10);
             return view('admin.page.bill.pending', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -60,7 +60,7 @@ class BillController extends Controller
         if (Auth::user()->can('index bill')) {
             $bills = Bill::where('payment_status', 'Payment Failed')
                 ->where('expiry_time', '>=', now())
-                ->get();
+                ->paginate(10);
             return view('admin.page.bill.waitingpayment', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -74,7 +74,7 @@ class BillController extends Controller
             $bills = Bill::orderBy('id', 'desc')
                 ->where('status', 'Confirmed')
                 ->where('status_cancel', '!=', 'requested')
-                ->get();
+                ->paginate(10);
             return view('admin.page.bill.confirmed', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -88,7 +88,7 @@ class BillController extends Controller
             $bills = Bill::orderBy('id', 'desc')
                 ->where('status', 'Preparing')
                 ->where('status_cancel', '!=', 'requested')
-                ->get();
+                ->paginate(10);
             return view('admin.page.bill.preparing', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -99,7 +99,7 @@ class BillController extends Controller
     public function shipping()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Shipping')->get();
+            $bills = Bill::orderBy('id', 'desc')->where('status', 'Shipping')->paginate(10);
             return view('admin.page.bill.shipping', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -110,7 +110,7 @@ class BillController extends Controller
     public function refund()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Cancelled')->where('refund_status', 'Pending')->get();
+            $bills = Bill::orderBy('id', 'desc')->where('status', 'Cancelled')->where('refund_status', 'Pending')->paginate(10);
             return view('admin.page.bill.refund', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -121,7 +121,7 @@ class BillController extends Controller
     public function delivered()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Delivered')->get();
+            $bills = Bill::orderBy('id', 'desc')->where('status', 'Delivered')->paginate(10);
             return view('admin.page.bill.delivered', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -132,7 +132,7 @@ class BillController extends Controller
     public function cancelled()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Cancelled')->get();
+            $bills = Bill::orderBy('id', 'desc')->where('status', 'Cancelled')->paginate(10);
             return view('admin.page.bill.cancelled', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -143,7 +143,7 @@ class BillController extends Controller
     public function return()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Returned')->get();
+            $bills = Bill::orderBy('id', 'desc')->where('status', 'Returned')->paginate(10);
             return view('admin.page.bill.return', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -252,7 +252,7 @@ class BillController extends Controller
                             'status' => 'Cancelled',
                             'status_cancel' => 'accepted',
                         ]);
-                        $billItems = BillItem::where('bill_id', $bill->id)->get();
+                        $billItems = BillItem::where('bill_id', $bill->id)->paginate(10);
                         foreach ($billItems as $billItem) {
                             if ($billItem->product_id != null) {
                                 $product = Product::where('id', $billItem->product_id)->first();
@@ -352,12 +352,144 @@ class BillController extends Controller
 
     public function search(Request $request, string $keyword)
     {
-        if (Auth::user()->can('index bill')) {
-            $status = $request->status;
-            
-        } else {
-            Alert::error('Không có quyền truy cập');
-            return redirect()->route('admin.dashboard');
+        $status = $request->status;
+        if ($status == 'index') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')->paginate(10);
+            }
+            return view('admin.page.bill-search.index', compact('results'));
+
+        }
+        if ($status == 'requestCancellation') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', '!=', 'Cancelled')
+                ->where('status_cancel', 'requested')
+                ->where('status_cancel', 'requested')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')
+                    ->where('status', '!=', 'Cancelled')
+                    ->where('status_cancel', 'requested')
+                    ->where('status_cancel', 'requested')
+                    ->paginate(10);
+            }
+            return view('admin.page.bill-search.requestCancellation', compact('results'));
+        }
+        if ($status == 'pending') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', 'Pending')
+                ->where('payment_method', 'offline')
+                ->where('status_cancel', '!=', 'requested')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')
+                    ->where('status', 'Pending')
+                    ->where('payment_method', 'offline')
+                    ->where('status_cancel', '!=', 'requested')
+                    ->paginate(10);
+            }
+            return view('admin.page.bill-search.pending', compact('results'));
+        }
+        if ($status == 'waitingpayment') {
+            $results = Bill::where('payment_status', 'Payment Failed')
+                ->where('expiry_time', '>=', now())
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::where('payment_status', 'Payment Failed')
+                    ->where('expiry_time', '>=', now())
+                    ->paginate(10);
+            }
+            return view('admin.page.bill-search.waitingpayment', compact('results'));
+        }
+        if ($status == 'confirmed') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', 'Confirmed')
+                ->where('status_cancel', '!=', 'requested')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')
+                    ->where('status', 'Confirmed')
+                    ->where('status_cancel', '!=', 'requested')
+                    ->paginate(10);
+            }
+            return view('admin.page.bill-search.confirmed', compact('results'));
+        }
+        if ($status == 'preparing') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', 'Preparing')
+                ->where('status_cancel', '!=', 'requested')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')
+                    ->where('status', 'Preparing')
+                    ->where('status_cancel', '!=', 'requested')
+                    ->paginate(10);
+            }
+            return view('admin.page.bill-search.preparing', compact('results'));
+        }
+        if ($status == 'shipping') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', 'Shipping')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')
+                    ->where('status', 'Shipping')
+                    ->paginate(10);
+            }
+            return view('admin.page.bill-search.shipping', compact('results'));
+        }
+        if ($status == 'refund') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', 'Cancelled')
+                ->where('refund_status', 'Pending')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')
+                    ->where('status', 'Cancelled')
+                    ->where('refund_status', 'Pending')
+                    ->paginate(10);
+            }
+            return view('admin.page.bill-search.refund', compact('results'));
+        }
+        if ($status == 'delivered') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', 'Delivered')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')->where('status', 'Delivered')->paginate(10);
+            }
+            return view('admin.page.bill-search.delivered', compact('results'));
+        }
+        if ($status == 'cancelled') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', 'Cancelled')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')->where('status', 'Cancelled')->paginate(10);
+            }
+            return view('admin.page.bill-search.cancelled', compact('results'));
+        }
+        if ($status == 'return') {
+            $results = Bill::orderBy('id', 'desc')
+                ->where('status', 'Returned')
+                ->where('code', 'LIKE', '%' . $keyword . '%')
+                ->paginate(10);
+            if ($keyword == ' ') {
+                $results = Bill::orderBy('id', 'desc')->where('status', 'Returned')->paginate(10);
+            }
+            return view('admin.page.bill-search.return', compact('results'));
         }
     }
 }

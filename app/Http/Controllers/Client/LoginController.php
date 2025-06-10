@@ -17,11 +17,15 @@ class LoginController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            Auth::logout();
+        }
         return view('client.page.login.login');
     }
 
     public function login(Request $request)
     {
+
         try {
             $request->validate([
                 'name' => 'required',
@@ -40,9 +44,10 @@ class LoginController extends Controller
                 ], $remember);
             if ($loginSuccess) {
                 if (Auth::user()->email_verified_at === null) {
-                    Auth::logout();
-                    Alert::error('Chưa xác minh email', 'Vui lòng xác minh email trước khi đăng nhập.');
-                    return redirect()->back()->withInput()->with("error", "Tài khoản chưa xác minh email.");
+                    event(new Registered(Auth::user()));
+                    Auth::login(Auth::user());
+                    Alert::warning('Cảnh báo', 'Vui lòng xác minh email');
+                    return redirect('/email/verify');
                 }
                 // $infor = [
                 //     'title' => 'Thong bao Dang nhap',
@@ -109,7 +114,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        Alert::success('Đã đăng xuất');
         return redirect()->route('index');
     }
 }

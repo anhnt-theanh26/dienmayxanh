@@ -89,6 +89,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $bills->links('pagination::bootstrap-5') }}
+                    </div>
                 </tbody>
                 <tfoot>
                     <tr>

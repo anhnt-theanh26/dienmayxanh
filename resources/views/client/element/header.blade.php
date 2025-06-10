@@ -87,8 +87,7 @@
                                         @foreach ($categoryparent->categories as $category)
                                             <div class="col-2">
                                                 <div class="submenu-content text-center">
-                                                    <a
-                                                        href="{{ route('category.show', ['slug' => $category->slug]) }}">
+                                                    <a href="{{ route('category.show', ['slug' => $category->slug]) }}">
                                                         <img src="{{ $category->image ? asset($category->image) : asset('storage/default.jpg') }}"
                                                             width="48" height="48" alt="">
                                                     </a>
@@ -142,11 +141,11 @@
                     </div>
                 </li>
 
-                @if (Auth::check())
+                @if (Auth::check() && Auth::user()->email_verified_at)
                     <li>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-outline-light dropdown-toggle"
-                                style="border: none" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-light dropdown-toggle" style="border: none"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                     <path
@@ -176,8 +175,8 @@
                 @else
                     <a href="{{ route('login.form') }}">
                         <button type="button" class="btn btn-outline-light" style="border: none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person" viewBox="0 0 16 16">
                                 <path
                                     d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                             </svg>
@@ -204,8 +203,8 @@
                 <li>
                     <button class="btn border text-white rounded-pill" data-bs-target="#changeAddress"
                         data-bs-toggle="modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-geo-alt" viewBox="0 0 16 16">
                             <path
                                 d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
@@ -224,7 +223,7 @@
                                 <div class="modal-body">
                                     <p class="m-0 p-0">Địa chỉ đang chọn:
                                         <span class="fw-bold" id="selectedAddress">
-                                            {{ Auth::user() ? Auth::user()->address : '' }}
+                                            {{ Auth::user() && Auth::user()->email_verified_at ? Auth::user()->address : '' }}
                                         </span>
                                     </p>
 
@@ -250,7 +249,7 @@
                                             title="Chọn Phường Xã">
                                             <option value="0">Phường Xã</option>
                                         </select>
-                                        @if (Auth::check())
+                                        @if (Auth::check() && Auth::user()->email_verified_at)
                                             <form action="{{ route('profile.save-address') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="allDressHiding" id="allDressHiding"

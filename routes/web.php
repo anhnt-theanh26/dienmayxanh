@@ -424,8 +424,7 @@ Route::prefix('/')->as('')->group(function () {
         Route::post('/{id}/received', [ClientBillController::class, 'received'])->name('received');
         Route::post('{id}/cancel', [ClientBillController::class, 'cancel'])->name('cancel');
         Route::post('{id}/refund', [ClientBillController::class, 'refund'])->name('refund');
-        Route::post('{id}/review', [ClientBillController::class, 'review'])->name('review');
-
+        Route::post('/review', [ClientBillController::class, 'review'])->name('review');
     });
 
     // profile 
@@ -442,7 +441,7 @@ Route::prefix('/')->as('')->group(function () {
         Route::get('{slug}', [ClientPostController::class, 'show'])->name('show');
     });
 
-    // error
+    // // error
     Route::fallback(function () {
         return view('error.client.404')->with('statusCode', 404);
     });
@@ -455,13 +454,13 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    Alert::success('XÃ¡c minh Email thÃ nh cÃ´ng', 'ChÃ o má»«ng báº¡n Ä‘áº¿n vá»›i Äiá»‡n MÃ¡y XANH');
+    Alert::success('Xác minh email thành công', 'Chào mừng bạn đến với điện máy xanh');
     return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+})->middleware(['auth'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Email xÃ¡c minh Ä‘Ã£ Ä‘Æ°á»£c gá»­i láº¡i!');
+    return back()->with('message', 'Liên kết xác minh đã được gửi!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 

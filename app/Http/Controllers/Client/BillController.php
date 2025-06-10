@@ -7,6 +7,7 @@ use App\Models\Bill;
 use App\Models\BillItem;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Review;
 use App\Models\Voucher;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -99,104 +100,111 @@ class BillController extends Controller
     }
     public function create(Request $request)
     {
-        try {
-            do {
-                $code = rand(100000, 999999);
-            } while (Bill::where('code', $code)->exists());
-            $variants = [];
-            $errors = [];
-            foreach (Cart::content() as $item) {
-                $variant = ProductVariant::where('id', $item->id)->first();
-                if ($variant) {
-                    if ($variant->stock_quantity >= $item->qty) {
-                        array_push($variants, $item);
+        if (Auth::user()->email_verified_at) {
+            try {
+                do {
+                    $code = rand(100000, 999999);
+                } while (Bill::where('code', $code)->exists());
+                $variants = [];
+                $errors = [];
+                foreach (Cart::content() as $item) {
+                    $variant = ProductVariant::where('id', $item->id)->first();
+                    if ($variant) {
+                        if ($variant->stock_quantity >= $item->qty) {
+                            array_push($variants, $item);
+                        } else {
+                            $errors[] = 'Sản phẩm ' . $variant->name . ' chỉ còn ' . $variant->stock_quantity;
+                        }
                     } else {
-                        $errors[] = 'Sản phẩm ' . $variant->name . ' chỉ còn ' . $variant->stock_quantity;
+                        $errors[] = 'Không tìm thấy sản phẩm với ID ' . $item->id;
                     }
-                } else {
-                    $errors[] = 'Không tìm thấy sản phẩm với ID ' . $item->id;
                 }
-            }
-            if (!empty($errors)) {
-                return redirect()->back()->with('js_errors', $errors);
-            }
-            if (!empty($request['id-voucher'])) {
-                $voucher = Voucher::where('id', $request['id-voucher'])->first();
-                if ($voucher->max_use < 1) {
-                    Alert::error('Voucher hết lượt sử dụng', 'Voucher bạn đang dùng đã hết lượt sử dụng!');
-                    return redirect()->back();
+                if (!empty($errors)) {
+                    return redirect()->back()->with('js_errors', $errors);
                 }
-                if (!empty($voucher->users)) {
-                    $users = json_decode($voucher->users);
-                    $users = array_map(function ($value) {
-                        return $value == Auth::user()->id ? null : $value;
-                    }, $users);
-                    $voucher->users = json_encode($users);
+                if (!empty($request['id-voucher'])) {
+                    $voucher = Voucher::where('id', $request['id-voucher'])->first();
+                    if ($voucher->max_use < 1) {
+                        Alert::error('Voucher hết lượt sử dụng', 'Voucher bạn đang dùng đã hết lượt sử dụng!');
+                        return redirect()->back();
+                    }
+                    if (!empty($voucher->users)) {
+                        $users = json_decode($voucher->users);
+                        $users = array_map(function ($value) {
+                            return $value == Auth::user()->id ? null : $value;
+                        }, $users);
+                        $voucher->users = json_encode($users);
+                    }
+                    $voucher->max_use -= 1;
+                    $voucher->save();
                 }
-                $voucher->max_use -= 1;
-                $voucher->save();
-            }
-            $dataOrder = [
-                'user_id' => Auth::user()->id,
-                'code' => $code,
-                'discount' => $request['discount'],
-                'total_amount' => $request['total-price'],
-                'shipping_address' => $request['address'],
-                'phone' => $request['phone'],
-                'recipient_name' => $request['name'],
-                'order_date' => Carbon::now(),
-                'note' => $request['note'],
-                'payment_method' => $request['payment'],
-                'status' => 'Pending',
-                'payment_status' => 'Unpaid',
-                'refund' => false,
-                'refund_amount' => $request['total-price'],
-            ];
-            $bill = Bill::create($dataOrder);
-            $dataOrderItem = [];
-            foreach ($variants as $item) {
-                $dataOrderItem[] = [
-                    'bill_id' => $bill->id,
-                    'product_id' => $item->options->product->id,
-                    'product_variant_id' => $item->id,
-                    'name' => $item->name,
-                    'image' => $item->options->image,
-                    'variant' => $item->options->variant,
-                    'quantity' => $item->qty,
-                    'price' => $item->price,
-                    'total_price' => $item->qty * $item->price,
-                ];
-            }
-            foreach ($dataOrderItem as $value) {
-                BillItem::create($value);
-                $variant = ProductVariant::where('id', $value['product_variant_id'])->first();
-                $product = Product::where('id', $value['product_id'])->first();
-                $variant->update([
-                    'stock_quantity' => $variant->stock_quantity - $value['quantity'],
-                ]);
-                $product->update([
-                    'sold' => $product->sold + $value['quantity'],
-                ]);
-            }
-            DB::commit();
-            Cart::destroy();
-            if ($request->payment == 'offline') {
-                Alert::success('Đặt hàng thành công', 'Đã đặt hàng thành công');
-                return redirect()->route('bill.index');
-            }
-            if ($request->payment == 'online') {
-                $bill->update([
-                    'transaction_time' => Carbon::now(),
-                    'expiry_time' => date('YmdHis', strtotime('+15 minutes', strtotime(date("YmdHis")))),
+                $dataOrder = [
+                    'user_id' => Auth::user()->id,
+                    'code' => $code,
+                    'discount' => $request['discount'],
+                    'total_amount' => $request['total-price'],
+                    'shipping_address' => $request['address'],
+                    'phone' => $request['phone'],
+                    'recipient_name' => $request['name'],
+                    'order_date' => Carbon::now(),
+                    'note' => $request['note'],
+                    'payment_method' => $request['payment'],
                     'status' => 'Pending',
-                    'payment_status' => 'Payment Failed',
-                ]);
-                return redirect()->route('order.vnpay_payment', ['id' => $bill->id]);
+                    'payment_status' => 'Unpaid',
+                    'refund' => false,
+                    'refund_amount' => $request['total-price'],
+                ];
+                $bill = Bill::create($dataOrder);
+                $dataOrderItem = [];
+                foreach ($variants as $item) {
+                    $dataOrderItem[] = [
+                        'bill_id' => $bill->id,
+                        'product_id' => $item->options->product->id,
+                        'product_variant_id' => $item->id,
+                        'name' => $item->name,
+                        'image' => $item->options->image,
+                        'variant' => $item->options->variant,
+                        'quantity' => $item->qty,
+                        'price' => $item->price,
+                        'total_price' => $item->qty * $item->price,
+                    ];
+                }
+                foreach ($dataOrderItem as $value) {
+                    BillItem::create($value);
+                    $variant = ProductVariant::where('id', $value['product_variant_id'])->first();
+                    $product = Product::where('id', $value['product_id'])->first();
+                    $variant->update([
+                        'stock_quantity' => $variant->stock_quantity - $value['quantity'],
+                    ]);
+                    $product->update([
+                        'sold' => $product->sold + $value['quantity'],
+                    ]);
+                }
+                DB::commit();
+                Cart::destroy();
+                if ($request->payment == 'offline') {
+                    Alert::success('Đặt hàng thành công', 'Đã đặt hàng thành công');
+                    return redirect()->route('bill.index');
+                }
+                if ($request->payment == 'online') {
+                    $bill->update([
+                        'transaction_time' => Carbon::now(),
+                        'expiry_time' => date('YmdHis', strtotime('+15 minutes', strtotime(date("YmdHis")))),
+                        'status' => 'Pending',
+                        'payment_status' => 'Payment Failed',
+                    ]);
+                    return redirect()->route('order.vnpay_payment', ['id' => $bill->id]);
+                }
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                Alert::error('Có lỗi xảy ra:', $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            Alert::error('Có lỗi xảy ra:', $th->getMessage());
-            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+        } else {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route('index');
         }
     }
 
@@ -241,17 +249,35 @@ class BillController extends Controller
         }
     }
 
-    public function review(Request $request, string $id)
+    public function review(Request $request)
     {
+        $id = $request->id;
+        $rating = $request->rating;
+        $comment = $request->comment;
+        $imageArr = $request->images;
+        return $imageArr;   
         $billItem = BillItem::where('id', $id)->first();
-        $rating = $request->query('rating');
-        $comment = $request->query('comment');
-        $data = [
-            'product_id' => '',
-            'user_id' => '',
-            'rating' => '',
-            'comment' => '',
+        $status = false;
+        $message = 'Đánh giá thất bại';
+        if (Auth::user()->email_verified_at != null && Auth::user()->id == $billItem->bill->user_id) {
+            $data = [
+                'product_id' => $billItem->product_id,
+                'user_id' => Auth::user()->id,
+                'rating' => $rating,
+                'comment' => $comment,
+            ];
+            $billItem->review_status = true;
+            $billItem->save();
+            Review::create($data);
+            $status = true;
+            $message = 'Đánh giá thành công';
+        }
+        $delivered = Bill::where('status', 'Delivered')->orderBy('id', 'desc')->get();
+        $result = [
+            'status' => $status,
+            'message' => $message,
+            'html' => view('client.page.bill.review', compact('delivered'))->render(),
         ];
-        return $billItem;
+        return $result;
     }
 }
