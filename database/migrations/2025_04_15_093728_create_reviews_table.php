@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('bill_item_id')->nullable();
+            $table->foreign('bill_item_id')->references('id')->on('bill_items')->onDelete('set null');
             $table->integer('rating')->default(5)->check('rating >= 1 and rating <= 5');
             $table->longText('comment')->nullable();
             $table->string('image')->nullable();

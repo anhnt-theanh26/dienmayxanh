@@ -4,14 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::table('reviews', function (Blueprint $table) {
-            $table->text('image')->nullable()->after('comment');
+            $table->unsignedBigInteger('bill_item_id')->nullable()->after('user_id');
+            $table->foreign('bill_item_id')->references('id')->on('bill_items')->onDelete('set null');
         });
     }
 
@@ -21,7 +23,8 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('reviews', function (Blueprint $table) {
-            $table->dropColumn('image');
+            $table->dropForeign(['bill_item_id']);
+            $table->dropColumn('bill_item_id');
         });
     }
 };

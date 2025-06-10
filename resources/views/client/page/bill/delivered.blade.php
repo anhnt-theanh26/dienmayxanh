@@ -81,7 +81,7 @@
                                                                 <i class="bi bi-star rating-star" data-rating="5"></i>
                                                             </div>
                                                             <input type="hidden" class="rating_{{ $billItem->id }}"
-                                                                id="rating" name="rating" value="0">
+                                                                name="rating" value="0">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="review" class="form-label">Đánh giá</label>
@@ -93,8 +93,6 @@
                                                                 for="image_{{ $billItem->id }}">Upload</label>
                                                             <input type="file" class="form-control" name="image"
                                                                 id="image_{{ $billItem->id }}" multiple>
-                                                            <input class="imagesHidden_{{ $billItem->id }}"
-                                                                type="hidden" id="imagesHidden" name="imagesHidden">
                                                         </div>
                                                         <div class="preview-image m-0 p-0"></div>
                                                     </div>
@@ -110,7 +108,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="assessmented" id="assessmented">
+                                    <div class="assessmented">
                                         <button class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#{{ $billItem->id }}ratingModal">Đánh giá</button>
                                     </div>
@@ -160,105 +158,132 @@
 @endif
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    function initializeReviewModals() {
         document.querySelectorAll('.modal').forEach(modal => {
-            const stars = modal.querySelectorAll('.rating-star');
             const ratingInput = modal.querySelector('input[name="rating"]');
-            // 
-            const image = modal.querySelector('input[name="image"]');
-            const previewimage = modal.querySelector('.preview-image');
-            const imagesHidden = modal.querySelector('#imagesHidden');
-            if (image) {
-                image.addEventListener('change', function() {
-                    if (image.files.length > 0) {
-                        previewimage.innerHTML = '';
-                        const fileNames = [];
-                        for (let index = 0; index < image.files.length; index++) {
-                            const file = image.files[index];
+            const initialStarsInThisModal = modal.querySelectorAll('.rating-star');
+
+            function updateStarsDisplay(currentRatingValue) {
+                const currentStarsNodeList = modal.querySelectorAll('.rating-star');
+                currentStarsNodeList.forEach(star => {
+                    star.classList.remove('bi-star-fill');
+                    star.classList.add('bi-star');
+                });
+                for (let i = 0; i < currentRatingValue; i++) {
+                    if (currentStarsNodeList[i]) {
+                        currentStarsNodeList[i].classList.remove('bi-star');
+                        currentStarsNodeList[i].classList.add('bi-star-fill');
+                    }
+                }
+            }
+
+            if (initialStarsInThisModal.length > 0 && ratingInput) {
+                initialStarsInThisModal.forEach(originalStar => {
+                    const newStar = originalStar.cloneNode(true);
+                    originalStar.parentNode.replaceChild(newStar, originalStar);
+
+                    newStar.addEventListener('click', function() {
+                        const rating = this.getAttribute('data-rating');
+                        ratingInput.value = rating;
+                        updateStarsDisplay(rating);
+                    });
+                });
+            }
+
+            const imageInput = modal.querySelector('input[name="image"]');
+            const previewImageContainer = modal.querySelector('.preview-image');
+
+            if (imageInput && previewImageContainer) {
+                const newImageInput = imageInput.cloneNode(true);
+                imageInput.parentNode.replaceChild(newImageInput, imageInput);
+
+                newImageInput.addEventListener('change', function() {
+                    while (previewImageContainer.firstChild) {
+                        const img = previewImageContainer.firstChild;
+                        if (img.src && img.src.startsWith('blob:')) {
+                            URL.revokeObjectURL(img.src);
+                        }
+                        previewImageContainer.removeChild(img);
+                    }
+                    if (this.files.length > 0) {
+                        Array.from(this.files).forEach(file => {
                             const imgElement = document.createElement('img');
                             const objectURL = URL.createObjectURL(file);
                             imgElement.src = objectURL;
                             imgElement.alt = file.name;
                             imgElement.style.maxWidth = '50px';
                             imgElement.style.margin = '5px';
-                            previewimage.appendChild(imgElement);
-
-                            fileNames.push(file.name);
-                        }
-                        imagesHidden.value = fileNames.join(',');
-                    } else {
-                        imagesHidden.value = '';
+                            previewImageContainer.appendChild(imgElement);
+                        });
                     }
-                });
-            }
-
-            // 
-            stars.forEach(star => {
-                star.addEventListener('click', function() {
-                    const rating = this.getAttribute('data-rating');
-                    ratingInput.value = rating;
-                    resetStars();
-                    for (let i = 0; i < rating; i++) {
-                        stars[i].classList.remove('bi-star');
-                        stars[i].classList.add('bi-star-fill');
-                    }
-                });
-            });
-
-            function resetStars() {
-                stars.forEach(star => {
-                    star.classList.remove('bi-star-fill');
-                    star.classList.add('bi-star');
                 });
             }
         });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeReviewModals();
     });
 
     function review(id) {
         const _token = '{{ csrf_token() }}';
-        let flag = false;
-        const rating = document.querySelector(`.rating_${id}`).value;
-        const comment = document.querySelector(`#review_${id}`).value;
-        const images = document.querySelectorAll(`#image_${id}`);
-        let imageArr = [];
-        if (rating > 0) {
-            flag = true;
-            let btnsubmitreview = document.querySelector(`#btn-submit-review-${id}`);
-            btnsubmitreview.click();
-        }
-        if (flag == false) {
+        const ratingValue = document.querySelector(`.rating_${id}`).value;
+        const commentValue = document.querySelector(`#review_${id}`).value;
+        const files = document.querySelector(`#image_${id}`).files;
+
+        if (parseInt(ratingValue, 10) <= 0) {
             alertify.warning('Vui lòng chọn sao!');
             return;
         }
-        images.forEach(image => {
-            imageArr.push(image.files);
-            console.log(image.files);
-        });
+
+        const allOpenReviewModalButtons = document.querySelectorAll('.assessmented button[data-bs-toggle="modal"]');
+        allOpenReviewModalButtons.forEach(btn => btn.disabled = true);
+
+        let btnCloseModal = document.querySelector(`#btn-submit-review-${id}`);
+        if (btnCloseModal) {
+            btnCloseModal.click();
+        }
+        const formData = new FormData();
+        formData.append('_token', _token);
+        formData.append('id', id);
+        formData.append('rating', ratingValue);
+        formData.append('comment', commentValue);
+
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images[]', files[i]);
+            }
+        }
         $.ajax({
                 type: 'POST',
                 url: "{{ route('bill.review') }}",
-                data: {
-                    _token: _token,
-                    id: id,
-                    rating: rating,
-                    comment: comment,
-                    // images: imageArr,
-                }
+                data: formData,
+                contentType: false,
+                processData: false,
             })
             .done((response) => {
-                // console.log(response);
-                // $('#show-delivered').empty().text(response);
-                $('#show-delivered').empty().html(response['html']);
-                if (response['status'] == true) {
-                    alertify.success(response['message']);
+                if (response && typeof response === 'object' && response.hasOwnProperty('html')) {
+                    $('#show-delivered').empty().html(response['html']);
+                    initializeReviewModals();
+                } else {
+                    console.warn("AJAX response did not contain 'html' property or was not an object.");
+                    initializeReviewModals();
                 }
-                if (response['status'] == false) {
+
+                if (response && response['status'] === true) {
+                    alertify.success(response['message']);
+                } else if (response && response['status'] === false) {
                     alertify.error(response['message']);
+                } else if (response && response['message']) {
+                    alertify.log(response['message']);
                 }
             })
             .fail((jqXHR, textStatus, errorThrown) => {
                 alertify.error('Đánh giá thất bại!');
                 console.error("Review error:", textStatus, errorThrown);
+            })
+            .always(() => {
+                allOpenReviewModalButtons.forEach(btn => btn.disabled = false);
             });
     }
 </script>

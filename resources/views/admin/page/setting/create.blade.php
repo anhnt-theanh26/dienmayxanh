@@ -104,16 +104,16 @@
                             <label class="form-label" for="color">Color Main</label><br>
                             <div class="btn-group py-2" role="group" style="width: 100%;"
                                 aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check btn-color" id="btn-color2" value="choose"
+                                <input type="radio" class="btn-check btn-color-main" id="btn-color2" value="choose"
                                     name="color-option" checked>
                                 <label class="btn btn-outline-primary waves-effect" for="btn-color2">Chọn</label>
 
-                                <input type="radio" class="btn-check btn-color" id="btn-color1" value="enter"
+                                <input type="radio" class="btn-check btn-color-main" id="btn-color1" value="enter"
                                     name="color-option">
                                 <label class="btn btn-outline-primary waves-effect" for="btn-color1">Nhập</label>
                             </div>
 
-                            <div class="show-color mt-3">
+                            <div class="show-color-main mt-3">
                                 <input class="form-control" type="color" value="#000000" name="main_color"
                                     id="color-picker">
                             </div>
@@ -323,9 +323,9 @@
     </script>
 
     <script>
-        document.querySelectorAll('.btn-color').forEach(btn => {
+        document.querySelectorAll('.btn-color-main').forEach(btn => {
             btn.addEventListener('click', function() {
-                const showColorDiv = document.querySelector('.show-color');
+                const showColorDiv = document.querySelector('.show-color-main');
                 if (btn.value === 'choose') {
                     showColorDiv.innerHTML =
                         `<input class="form-control" type="color" value="#000000" name="main_color" id="color-picker">`;

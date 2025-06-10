@@ -254,17 +254,34 @@ class BillController extends Controller
         $id = $request->id;
         $rating = $request->rating;
         $comment = $request->comment;
-        $imageArr = $request->images;
-        return $imageArr;   
+        $images = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = 'storage/' . $image->store('reviews', 'public');
+                $images[] = $path;
+            }
+        }
+
         $billItem = BillItem::where('id', $id)->first();
+        if (!$billItem) {
+            $delivered = Bill::where('status', 'Delivered')->orderBy('id', 'desc')->get();
+            return [
+                'status' => false,
+                'message' => 'Không tìm thấy sản phẩm để đánh giá.',
+                'html' => view('client.page.bill.review', compact('delivered'))->render(),
+            ];
+        }
+
         $status = false;
         $message = 'Đánh giá thất bại';
         if (Auth::user()->email_verified_at != null && Auth::user()->id == $billItem->bill->user_id) {
             $data = [
                 'product_id' => $billItem->product_id,
                 'user_id' => Auth::user()->id,
+                'bill_item_id' => $billItem->id,
                 'rating' => $rating,
                 'comment' => $comment,
+                'image' => json_encode($images),
             ];
             $billItem->review_status = true;
             $billItem->save();

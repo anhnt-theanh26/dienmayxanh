@@ -53,8 +53,7 @@
                                                         <i class="bi bi-star rating-star" data-rating="4"></i>
                                                         <i class="bi bi-star rating-star" data-rating="5"></i>
                                                     </div>
-                                                    <input type="hidden" class="rating_{{ $billItem->id }}"
-                                                        id="rating" name="rating" value="0">
+                                                            <input type="hidden" class="rating_{{ $billItem->id }}" name="rating" value="0">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="review" class="form-label">Đánh giá</label>
@@ -64,10 +63,8 @@
                                                 <div class="input-group mb-3">
                                                     <label class="input-group-text"
                                                         for="image_{{ $billItem->id }}">Upload</label>
-                                                    <input type="file" class="form-control" name="image[]"
+                                                    <input type="file" class="form-control" name="image"
                                                         id="image_{{ $billItem->id }}" multiple>
-                                                    <input class="imagesHidden_{{ $billItem->id }}" type="hidden"
-                                                        id="imagesHidden" name="imagesHidden">
                                                 </div>
                                                 <div class="preview-image m-0 p-0"></div>
                                             </div>
@@ -82,7 +79,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="assessmented" id="assessmented">
+                                    <div class="assessmented">
                                 <button class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#{{ $billItem->id }}ratingModal">Đánh giá</button>
                             </div>
@@ -117,3 +114,4 @@
         </div>
     </div>
 @endforeach
+{{-- Script tag removed as JS logic should be centralized in the main page (e.g., delivered.blade.php) --}}
