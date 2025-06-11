@@ -7,6 +7,7 @@
     <style>
         :root {
             --main-color: {{ $setting->main_color ?? '#000000' }};
+            --secondary-color: {{ $setting->secondary_color ?? '#000000' }};
         }
     </style>
 </head>

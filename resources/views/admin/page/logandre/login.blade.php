@@ -30,8 +30,20 @@
                 </a>
             </div>
             <!-- /Logo -->
-            <h4 class="mb-1 pt-2">Welcome to Vuexy! 👋</h4>
-            <p class="mb-4">Please sign-in to your account and start the adventure</p>
+            @php
+                $title_admin = null;
+                if ($setting) {
+                    if ($setting->title_admin) {
+                        $seoPosts = json_decode($setting->title_login_admin, true);
+                        if (json_last_error() !== JSON_ERROR_NONE) {
+                            $title_admin = null;
+                        }
+                    }
+                }
+            @endphp
+            <h4 class="mb-1 pt-2">{{ $title_admin['greeting'] ?? 'Welcome to Vuexy!' }}! 👋</h4>
+            <p class="mb-4">{{ $title_admin['instruct'] ?? 'Please sign-in to your account and start the adventure!' }}
+            </p>
 
             <form class="mb-3" action="{{ route('admin.login.process') }}" method="POST">
                 @csrf

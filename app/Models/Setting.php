@@ -14,6 +14,7 @@ class Setting extends Model
         'logo',
         'support',
         'main_color',
+        'secondary_color',
         'seo_products',
         'seo_posts',
         'layout_not_found',

@@ -129,7 +129,7 @@
                                     <div class="card-body">
                                         <div id="variant-container">
                                             <div class="row variant-row">
-                                                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Name</label>
                                                     <input type="text" name="variants[0][name]" class="form-control"
                                                         placeholder="Name" />
@@ -137,7 +137,7 @@
                                                         <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Price</label>
                                                     <input type="number" name="variants[0][price]" class="form-control"
                                                         placeholder="Price" />
@@ -145,7 +145,7 @@
                                                         <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Price Old</label>
                                                     <input type="number" name="variants[0][price_old]"
                                                         class="form-control" placeholder="Price" />
@@ -153,7 +153,15 @@
                                                         <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
+                                                    <label class="form-label">Import Price</label>
+                                                    <input type="number" name="variants[0][import_price]"
+                                                        class="form-control" placeholder="Price" />
+                                                    @error('variants.*.import_price')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Quantity</label>
                                                     <input type="number" name="variants[0][stock_quantity]"
                                                         class="form-control" placeholder="Quantity" />
@@ -161,7 +169,7 @@
                                                         <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
                                                     <label class="form-label">Status</label>
                                                     <select name="variants[0][status]" class="form-control">
                                                         <option value="published">Published</option>

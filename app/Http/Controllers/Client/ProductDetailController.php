@@ -8,6 +8,7 @@ use App\Models\Locationbannermenu;
 use App\Models\Locationmenu;
 use App\Models\Locationproductmenu;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Search;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -21,7 +22,16 @@ class ProductDetailController extends Controller
             Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham:');
             return redirect()->route('index');
         }
-        return view('client.page.product-detail.main', compact('product'));
+        $reviews = Review::where('product_id', $product->id)->orderByDesc('id')->get();
+        return view('client.page.product-detail.main', compact('product', 'reviews'));
+    }
+
+    public function review(string $slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        $reviews = Review::where('product_id', $product->id)->orderByDesc('id')->get();
+        $title = count($reviews) . ' đánh gia ' . $product->name;
+        return view('client.page.product-detail.review', compact('product', 'reviews', 'title'));
     }
 
 }

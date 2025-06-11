@@ -101,20 +101,46 @@
                     <h5 class="card-header">Main Color</h5>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label" for="color">Color Main</label><br>
+                            <label class="form-label" for="color-main">Color Main</label><br>
                             <div class="btn-group py-2" role="group" style="width: 100%;"
                                 aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check btn-color-main" id="btn-color2" value="choose"
-                                    name="color-option" checked>
-                                <label class="btn btn-outline-primary waves-effect" for="btn-color2">Chọn</label>
+                                <input type="radio" class="btn-check btn-color-main" id="btn-color-main-1"
+                                    value="choose" name="color-option" checked>
+                                <label class="btn btn-outline-primary waves-effect" for="btn-color-main-1">Chọn</label>
 
-                                <input type="radio" class="btn-check btn-color-main" id="btn-color1" value="enter"
-                                    name="color-option">
-                                <label class="btn btn-outline-primary waves-effect" for="btn-color1">Nhập</label>
+                                <input type="radio" class="btn-check btn-color-main" id="btn-color-main-2"
+                                    value="enter" name="color-option">
+                                <label class="btn btn-outline-primary waves-effect" for="btn-color-main-2">Nhập</label>
                             </div>
 
                             <div class="show-color-main mt-3">
                                 <input class="form-control" type="color" value="#000000" name="main_color"
+                                    id="color-picker">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <h5 class="card-header">Secondary Color</h5>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label" for="color-secondary">Color Secondary</label><br>
+                            <div class="btn-group py-2" role="group" style="width: 100%;"
+                                aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check btn-color-secondary" id="btn-color-secondary-1"
+                                    value="choose" name="color-option" checked>
+                                <label class="btn btn-outline-primary waves-effect"
+                                    for="btn-color-secondary-1">Chọn</label>
+
+                                <input type="radio" class="btn-check btn-color-secondary" id="btn-color-secondary-2"
+                                    value="enter" name="color-option">
+                                <label class="btn btn-outline-primary waves-effect"
+                                    for="btn-color-secondary-2">Nhập</label>
+                            </div>
+
+                            <div class="show-color-secondary mt-3">
+                                <input class="form-control" type="color" value="#000000" name="secondary_color"
                                     id="color-picker">
                             </div>
                         </div>
@@ -325,13 +351,26 @@
     <script>
         document.querySelectorAll('.btn-color-main').forEach(btn => {
             btn.addEventListener('click', function() {
-                const showColorDiv = document.querySelector('.show-color-main');
+                const showColorMain = document.querySelector('.show-color-main');
                 if (btn.value === 'choose') {
-                    showColorDiv.innerHTML =
+                    showColorMain.innerHTML =
                         `<input class="form-control" type="color" value="#000000" name="main_color" id="color-picker">`;
                 } else if (btn.value === 'enter') {
-                    showColorDiv.innerHTML =
+                    showColorMain.innerHTML =
                         `<input class="form-control" type="text" value="" name="main_color" id="color-input" placeholder="Mã Màu (VD: #FFFFFF)">`;
+                }
+            });
+        });
+
+        document.querySelectorAll('.btn-color-secondary').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const showColorSecondary = document.querySelector('.show-color-secondary');
+                if (btn.value === 'choose') {
+                    showColorSecondary.innerHTML =
+                        `<input class="form-control" type="color" value="#000000" name="secondary_color" id="color-picker">`;
+                } else if (btn.value === 'enter') {
+                    showColorSecondary.innerHTML =
+                        `<input class="form-control" type="text" value="" name="secondary_color" id="color-input" placeholder="Mã Màu (VD: #FFFFFF)">`;
                 }
             });
         });

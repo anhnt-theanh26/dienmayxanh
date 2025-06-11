@@ -42,7 +42,8 @@
                     <tr>
                         <th>id</th>
                         <th>Name</th>
-                        <th>Color</th>
+                        <th>Color Main</th>
+                        <th>Color Secondary</th>
                         <th>Status</th>
                         <th>Image</th>
                         <th>Action</th>
@@ -55,6 +56,10 @@
                             <td>{{ $item->name }}</td>
                             <td>
                                 <span class="badge badge-center" style="background: {{ $item->main_color }}"><i
+                                        class="ti ti-palette"></i></span>
+                            </td>
+                            <td>
+                                <span class="badge badge-center" style="background: {{ $item->secondary_color }}"><i
                                         class="ti ti-palette"></i></span>
                             </td>
                             <td>
@@ -77,8 +82,8 @@
                                             <form action="{{ route('admin.setting.status', ['id' => $item->id]) }}"
                                                 method="post">
                                                 @csrf
-                                                <button onclick="return confirm('Sử dụng cài đặt này?')" class="dropdown-item"><i
-                                                        class="ti ti-toggle-right me-1"></i>
+                                                <button onclick="return confirm('Sử dụng cài đặt này?')"
+                                                    class="dropdown-item"><i class="ti ti-toggle-right me-1"></i>
                                                     Using</button>
                                             </form>
                                         @endif
@@ -99,12 +104,17 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="px-4">
+                        {{ $settings->links('pagination::bootstrap-5') }}
+                    </div>
+
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>id</th>
                         <th>Name</th>
-                        <th>Color</th>
+                        <th>Color Main</th>
+                        <th>Color Secondary</th>
                         <th>Status</th>
                         <th>Image</th>
                         <th>Action</th>
@@ -116,4 +126,9 @@
 @endsection
 
 @section('js')
+    <script>
+        let tableName = 'setting';
+        let status = 'index';
+    </script>
+    @include('admin.elements.js')
 @endsection

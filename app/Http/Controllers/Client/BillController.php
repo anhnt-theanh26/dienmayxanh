@@ -257,11 +257,10 @@ class BillController extends Controller
         $images = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = 'storage/' . $image->store('reviews', 'public');
-                $images[] = $path;
+                $path = $image->store('reviews', 'public');
+                $images[] = url('storage/' . $path);
             }
         }
-
         $billItem = BillItem::where('id', $id)->first();
         if (!$billItem) {
             $delivered = Bill::where('status', 'Delivered')->orderBy('id', 'desc')->get();

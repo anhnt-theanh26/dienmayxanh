@@ -161,7 +161,7 @@
                                         <div id="variant-container-show">
                                             @foreach ($product->variants as $item)
                                                 <div class="row variant-row">
-                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                    <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                         <input type="hidden" name="variants[{{ $item->id }}][id]"
                                                             value="{{ $item->id }}" id="">
                                                         <label class="form-label">Name</label>
@@ -169,27 +169,36 @@
                                                             class="form-control" placeholder="Name"
                                                             value="{{ $item->name }}" />
                                                     </div>
-                                                    <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                    <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                         <label class="form-label">Price</label>
                                                         <input type="number" name="variants[{{ $item->id }}][price]"
                                                             class="form-control" placeholder="Price"
                                                             value="{{ $item->price }}" />
                                                     </div>
-                                                    <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                    <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                         <label class="form-label">Price Old</label>
                                                         <input type="number"
                                                             name="variants[{{ $item->id }}][price_old]"
                                                             class="form-control" placeholder="Price Old"
                                                             value="{{ $item->price_old }}" />
                                                     </div>
-                                                    <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                    <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
+                                                        <label class="form-label">Import Price</label>
+                                                        <input type="number" name="variants[0][import_price]"
+                                                            class="form-control" placeholder="Price"
+                                                            value="{{ $item->import_price }}" />
+                                                        @error('variants.*.import_price')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                         <label class="form-label">Quantity</label>
                                                         <input type="number"
                                                             name="variants[{{ $item->id }}][stock_quantity]"
                                                             class="form-control" placeholder="Quantity"
                                                             value="{{ $item->stock_quantity }}" />
                                                     </div>
-                                                    <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                    <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
                                                         <label class="form-label">Status</label>
                                                         <select name="variants[{{ $item->id }}][status]"
                                                             class="form-control">
@@ -217,27 +226,32 @@
                                         {{-- Template ẩn dùng để clone --}}
                                         <template id="variant-template">
                                             <div class="row variant-row">
-                                                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Name</label>
                                                     <input type="text" name="newvariants[__index__][name]"
                                                         class="form-control" placeholder="Name" />
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Price</label>
                                                     <input type="number" name="newvariants[__index__][price]"
                                                         class="form-control" placeholder="Price" />
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Price Old</label>
                                                     <input type="number" name="newvariants[__index__][price_old]"
                                                         class="form-control" placeholder="Price old" />
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                 <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
+                                                    <label class="form-label">Import Price</label>
+                                                    <input type="number" name="newvariants[__index__][import_price]"
+                                                        class="form-control" placeholder="Price old" />
+                                                </div>
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Quantity</label>
                                                     <input type="number" name="newvariants[__index__][stock_quantity]"
                                                         class="form-control" placeholder="Quantity" />
                                                 </div>
-                                                <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-3 col-12 mb-0">
                                                     <label class="form-label">Status</label>
                                                     <select name="newvariants[__index__][status]" class="form-control">
                                                         <option value="published">Published</option>
@@ -253,7 +267,6 @@
                                             </div>
                                             <hr />
                                         </template>
-                                        <hr />
                                         <div class="mb-0">
                                             <button type="button" id="add-variant" class="btn btn-primary">
                                                 <i class="ti ti-plus me-1"></i>

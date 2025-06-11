@@ -14,7 +14,7 @@ class SettingController extends Controller
     public function index()
     {
         if (Auth::user()->can('index setting')) {
-            $settings = Setting::get();
+            $settings = Setting::paginate(10);
             return view('admin.page.setting.index', compact('settings'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -72,12 +72,13 @@ class SettingController extends Controller
                     'logo' => $request['logo'],
                     'support' => json_encode($support),
                     'main_color' => $request['main_color'],
+                    'secondary_color' => $request['secondary_color'],
                     'seo_products' => json_encode($seo_products),
                     'seo_posts' => json_encode($seo_posts),
                     'layout_not_found' => $request['layout'],
                     'title_login_admin' => json_encode($title_login_admin),
                 ];
-                $settings = Setting::get();
+                $settings = Setting::paginate(10);
                 if (count($settings) == 0) {
                     $data['status'] = true;
                 }
@@ -160,6 +161,7 @@ class SettingController extends Controller
                     'logo' => $request['logo'],
                     'support' => json_encode($support),
                     'main_color' => $request['main_color'],
+                    'secondary_color' => $request['secondary_color'],
                     'seo_products' => json_encode($seo_products),
                     'seo_posts' => json_encode($seo_posts),
                     'layout_not_found' => $request['layout'],
@@ -185,7 +187,7 @@ class SettingController extends Controller
         if (Auth::user()->can('edit setting')) {
             try {
 
-                $settings = Setting::where('id', '!=', $id)->get();
+                $settings = Setting::where('id', '!=', $id)->paginate(10);
                 $setting = Setting::where('id', $id)->first();
                 if (!$setting) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay setting');
@@ -228,6 +230,23 @@ class SettingController extends Controller
                 Alert::error('Có lỗi xảy ra', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
+    }
+
+    public function search(Request $request, string $keyword)
+    {
+        if (Auth::user()->can('index setting')) {
+            $status = $request->status;
+            if ($status == 'index') {
+                $results = Setting::where('name', 'LIKE', '%' . $keyword . '%')->orderBy('id', 'desc')->paginate(10);
+                if ($keyword == ' ') {
+                    $results = Setting::orderBy('id', 'desc')->paginate(10);
+                }
+            }
+            return view('admin.page.setting.search', compact('results', 'status'));
         } else {
             Alert::error('Không có quyền truy cập');
             return redirect()->route('admin.dashboard');

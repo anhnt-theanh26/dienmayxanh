@@ -9,7 +9,7 @@
 @endphp
 @if ($bannerheadertop && $bannerheadertop->isNotEmpty())
     <section>
-        <div style="background-color: rgb(57, 140, 239);">
+        <div style="background-color: var(--secondary-color);">
             <div class="container">
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                     <div class="owl-carousel advertisement-00">

@@ -25,6 +25,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         // check bill
         \App\Http\Middleware\CheckBillMiddleware::class,
+        // check user 
+        \App\Http\Middleware\CheckVerifyUser::class,
     ];
 
     /**

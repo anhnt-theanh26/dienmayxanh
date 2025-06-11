@@ -77,7 +77,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [CategoryParentController::class, 'index'])->name('index');
 
         Route::get('/create', [CategoryParentController::class, 'create'])->name('create');
-        Route::post('/', [CategoryParentController::class, 'store'])->name('store');
+        Route::post('/store', [CategoryParentController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [CategoryParentController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [CategoryParentController::class, 'update'])->name('update');
@@ -96,7 +96,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [CategoryController::class, 'index'])->name('index');
 
         Route::get('/create', [CategoryController::class, 'create'])->name('create');
-        Route::post('/', [CategoryController::class, 'store'])->name('store');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [CategoryController::class, 'update'])->name('update');
@@ -115,7 +115,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [PostController::class, 'index'])->name('index');
 
         Route::get('/create', [PostController::class, 'create'])->name('create');
-        Route::post('/', [PostController::class, 'store'])->name('store');
+        Route::post('/store', [PostController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [PostController::class, 'update'])->name('update');
@@ -134,7 +134,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [AttributeController::class, 'index'])->name('index');
 
         Route::get('/create', [AttributeController::class, 'create'])->name('create');
-        Route::post('/', [AttributeController::class, 'store'])->name('store');
+        Route::post('/store', [AttributeController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [AttributeController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [AttributeController::class, 'update'])->name('update');
@@ -153,7 +153,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [ProductController::class, 'index'])->name('index');
 
         Route::get('/create', [ProductController::class, 'create'])->name('create');
-        Route::post('/', [ProductController::class, 'store'])->name('store');
+        Route::post('/store', [ProductController::class, 'store'])->name('store');
 
         Route::get('/{id}/show', [ProductController::class, 'show'])->name('show');
         Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('edit');
@@ -178,7 +178,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [VoucherController::class, 'index'])->name('index');
 
         Route::get('/create', [VoucherController::class, 'create'])->name('create');
-        Route::post('/', [VoucherController::class, 'store'])->name('store');
+        Route::post('/store', [VoucherController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [VoucherController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [VoucherController::class, 'update'])->name('update');
@@ -193,7 +193,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [UserController::class, 'index'])->name('index');
 
         Route::get('/create', [UserController::class, 'create'])->name('create');
-        Route::post('/', [UserController::class, 'store'])->name('store');
+        Route::post('/store', [UserController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [UserController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [UserController::class, 'update'])->name('update');
@@ -234,7 +234,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     // role
     Route::prefix('role')->as('role.')->group(function () {
         Route::get('/', [RoleController::class, 'index'])->name('index');
-        Route::post('/', [RoleController::class, 'store'])->name('store');
+        Route::post('/store', [RoleController::class, 'store'])->name('store');
         Route::delete('{id}/', [RoleController::class, 'destroy'])->name('destroy');
         Route::put('/{id}/update', [RoleController::class, 'update'])->name('update');
     });
@@ -242,7 +242,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     // permission
     Route::prefix('permission')->as('permission.')->group(function () {
         Route::get('/', [PermissionController::class, 'index'])->name('index');
-        Route::post('/', [PermissionController::class, 'store'])->name('store');
+        Route::post('/store', [PermissionController::class, 'store'])->name('store');
         Route::delete('{id}/', [PermissionController::class, 'destroy'])->name('destroy');
         Route::put('/{id}/update', [PermissionController::class, 'update'])->name('update');
         Route::get('/{keyword}/search', [PermissionController::class, 'search'])->name('search');
@@ -259,7 +259,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [LocationMenuController::class, 'index'])->name('index');
 
         Route::get('/create', [LocationMenuController::class, 'create'])->name('create');
-        Route::post('/', [LocationMenuController::class, 'store'])->name('store');
+        Route::post('/store', [LocationMenuController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [LocationMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [LocationMenuController::class, 'update'])->name('update');
@@ -272,7 +272,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [MenuController::class, 'index'])->name('index');
 
         Route::get('/create', [MenuController::class, 'create'])->name('create');
-        Route::post('/', [MenuController::class, 'store'])->name('store');
+        Route::post('/store', [MenuController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [MenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [MenuController::class, 'update'])->name('update');
@@ -294,7 +294,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [LocationProductMenuController::class, 'index'])->name('index');
 
         Route::get('/create', [LocationProductMenuController::class, 'create'])->name('create');
-        Route::post('/', [LocationProductMenuController::class, 'store'])->name('store');
+        Route::post('/store', [LocationProductMenuController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [LocationProductMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [LocationProductMenuController::class, 'update'])->name('update');
@@ -307,7 +307,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [ProductMenuController::class, 'index'])->name('index');
 
         Route::get('/create', [ProductMenuController::class, 'create'])->name('create');
-        Route::post('/', [ProductMenuController::class, 'store'])->name('store');
+        Route::post('/store', [ProductMenuController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [ProductMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [ProductMenuController::class, 'update'])->name('update');
@@ -328,7 +328,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [LocationBannerMenuController::class, 'index'])->name('index');
 
         Route::get('/create', [LocationBannerMenuController::class, 'create'])->name('create');
-        Route::post('/', [LocationBannerMenuController::class, 'store'])->name('store');
+        Route::post('/store', [LocationBannerMenuController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [LocationBannerMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [LocationBannerMenuController::class, 'update'])->name('update');
@@ -341,7 +341,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/', [BannerMenuController::class, 'index'])->name('index');
 
         Route::get('/create', [BannerMenuController::class, 'create'])->name('create');
-        Route::post('/', [BannerMenuController::class, 'store'])->name('store');
+        Route::post('/store', [BannerMenuController::class, 'store'])->name('store');
 
         Route::get('/{id}/edit', [BannerMenuController::class, 'edit'])->name('edit');
         Route::put('/{id}/update', [BannerMenuController::class, 'update'])->name('update');
@@ -366,6 +366,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::put('/{id}/update', [SettingController::class, 'update'])->name('update');
         Route::post('/{id}/status', [SettingController::class, 'status'])->name('status');
         Route::delete('/{id}/destroy', [SettingController::class, 'destroy'])->name('destroy');
+        Route::get('/{keyword}/search', [SettingController::class, 'search'])->name('search');
     });
 });
 
@@ -377,7 +378,8 @@ Route::prefix('/')->as('')->group(function () {
     Route::get('/', [ClientHomeController::class, 'index'])->name('index');
     Route::get('/home', [ClientHomeController::class, 'index'])->name('home');
     Route::prefix('product')->as('product.')->group(function () {
-        Route::get('{slug}/show', [ClientProductDetailController::class, 'show'])->name('show');
+        Route::get('{slug}', [ClientProductDetailController::class, 'show'])->name('show');
+        Route::get('{slug}/review', [ClientProductDetailController::class, 'review'])->name('review');
     });
 
     Route::prefix('search')->as('search.')->group(function () {
@@ -442,9 +444,9 @@ Route::prefix('/')->as('')->group(function () {
     });
 
     // // error
-    Route::fallback(function () {
-        return view('error.client.404')->with('statusCode', 404);
-    });
+    // Route::fallback(function () {
+    //     return view('error.client.404')->with('statusCode', 404);
+    // });
 });
 
 // email verify

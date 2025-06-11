@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\SendEmail;
+use App\Models\Setting;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class LoginController extends Controller
         if (Auth::check()) {
             return redirect()->route('admin.dashboard');
         }
-        return view("admin.page.logandre.login");
+        $setting = Setting::where('status', true)->first();
+        return view("admin.page.logandre.login", compact('setting'));
     }
 
     public function login(Request $request)
