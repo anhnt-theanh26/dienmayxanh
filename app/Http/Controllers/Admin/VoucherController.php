@@ -99,7 +99,7 @@ class VoucherController extends Controller
                 return view('admin.page.voucher.edit', compact('voucher', 'products', 'users'));
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.voucher.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -151,7 +151,7 @@ class VoucherController extends Controller
                 return redirect()->back()->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.voucher.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -174,7 +174,7 @@ class VoucherController extends Controller
                 return redirect()->route('admin.voucher.index')->with('success', 'Xoa voucher thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.voucher.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');

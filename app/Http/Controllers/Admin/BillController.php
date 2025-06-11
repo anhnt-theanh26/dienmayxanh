@@ -226,7 +226,7 @@ class BillController extends Controller
                 return redirect()->back()->with('error', 'Không chuyển đổi trạng thái đơn hàng!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');

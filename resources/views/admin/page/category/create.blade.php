@@ -35,6 +35,9 @@
                                         <label class="form-label" for="name">Name</label>
                                         <input type="text" class="form-control" id="name" name="name"
                                             value="{{ old('name') }}" placeholder="Name" />
+                                        @error('name')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="image">Image</label><br>

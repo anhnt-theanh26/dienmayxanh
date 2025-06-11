@@ -55,7 +55,7 @@ class CategoryParentController extends Controller
                 return redirect()->route('admin.category-parent.index')->with('success', 'Them moi thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.category-parent.index')->with('error', 'Co loi xay ra:' . $th->getMessage());
+                return redirect()->back()->with('error', 'Co loi xay ra:' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -77,7 +77,7 @@ class CategoryParentController extends Controller
                 return view('admin.page.category-parent.edit', compact('categoryParent'));
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -113,7 +113,7 @@ class CategoryParentController extends Controller
                 return redirect()->route('admin.category-parent.index')->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -135,7 +135,7 @@ class CategoryParentController extends Controller
                 return redirect()->route('admin.category-parent.index')->with('success', 'Xoa danh muc thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -166,7 +166,7 @@ class CategoryParentController extends Controller
                 return redirect()->route('admin.category-parent.index')->with('success', 'Khoi phuc danh muc thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -187,7 +187,7 @@ class CategoryParentController extends Controller
                 return redirect()->route('admin.category-parent.index')->with('success', 'Xóa danh mục thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.category-parent.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');

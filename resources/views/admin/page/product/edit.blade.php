@@ -184,7 +184,7 @@
                                                     </div>
                                                     <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                         <label class="form-label">Import Price</label>
-                                                        <input type="number" name="variants[0][import_price]"
+                                                        <input type="number" name="variants[{{ $item->id }}][import_price]"
                                                             class="form-control" placeholder="Price"
                                                             value="{{ $item->import_price }}" />
                                                         @error('variants.*.import_price')
@@ -381,7 +381,7 @@
     {{-- biến thể --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        let variantIndex = 0;
+        let variantIndex = -1000000000000000000;
 
         function attachDeleteEvents() {
             document.querySelectorAll('.btn-delete-variant').forEach(button => {

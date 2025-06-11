@@ -135,7 +135,7 @@ class UserController extends Controller
                 return redirect()->route('admin.user.edit', $user->id)->with('success', 'Chinh sua user thành công');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -175,7 +175,7 @@ class UserController extends Controller
                 }
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -198,7 +198,7 @@ class UserController extends Controller
                 return redirect()->route('admin.user.index')->with('success', 'Xoa user thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -220,7 +220,7 @@ class UserController extends Controller
                 return redirect()->route('admin.user.index')->with('success', 'Xoa user thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');

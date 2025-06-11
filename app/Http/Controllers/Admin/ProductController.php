@@ -132,7 +132,7 @@ class ProductController extends Controller
             } catch (\Throwable $th) {
                 DB::rollBack();
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -153,7 +153,7 @@ class ProductController extends Controller
                 return view('admin.page.product.show', compact('product'));
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -176,7 +176,7 @@ class ProductController extends Controller
                 return view('admin.page.product.edit', compact('categories', 'product', 'attributes'));
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -358,7 +358,7 @@ class ProductController extends Controller
             } catch (\Throwable $th) {
                 DB::rollBack();
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -381,7 +381,7 @@ class ProductController extends Controller
                 return redirect()->route('admin.product.index')->with('success', 'Xoa san pham thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -404,7 +404,7 @@ class ProductController extends Controller
                 return redirect()->route('admin.product.index')->with('success', 'Xoa san pham thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -421,7 +421,7 @@ class ProductController extends Controller
                 return view('admin.page.product.restore', compact('products'));
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -444,7 +444,7 @@ class ProductController extends Controller
                 return redirect()->route('admin.product.index')->with('success', 'Khoi phuc san pham thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.product.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');

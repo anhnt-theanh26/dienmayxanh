@@ -443,10 +443,10 @@ Route::prefix('/')->as('')->group(function () {
         Route::get('{slug}', [ClientPostController::class, 'show'])->name('show');
     });
 
-    // // error
-    // Route::fallback(function () {
-    //     return view('error.client.404')->with('statusCode', 404);
-    // });
+    // error
+    Route::fallback(function () {
+        return view('error.client.404')->with('statusCode', 404);
+    });
 });
 
 // email verify

@@ -35,6 +35,9 @@
                                         <label class="form-label" for="name">Name</label>
                                         <input type="text" class="form-control" id="name" name="name"
                                             value="{{ old('name') }}" placeholder="Name" />
+                                        @error('name')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                     <a class="btn btn-secondary" href="{{ route('admin.category-parent.index') }}"

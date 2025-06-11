@@ -14,14 +14,17 @@ class CheckVerifyUser
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         $users = User::get();
         foreach ($users as $user) {
             $afterMonth = \Carbon\Carbon::parse($user->updated_at)->addMonths(1);
-            if ($user->email_verified_at == null && now() > $afterMonth) {
-                $user->forceDelete();
+            if ($user->email_verified_at == null && now()->greaterThan($afterMonth)) {
+                $usersToDelete[] = $user->id;
             }
+        }
+        if (!empty($usersToDelete)) {
+            User::whereIn('id', $usersToDelete)->forceDelete();
         }
         return $next($request);
     }

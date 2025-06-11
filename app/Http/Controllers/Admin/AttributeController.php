@@ -14,13 +14,8 @@ class AttributeController extends Controller
     public function index()
     {
         if (Auth::user()->can('index attribute')) {
-            if (Auth::user()->can('index post')) {
-                $attributes = Attribute::orderBy('id', 'desc')->paginate(10);
-                return view('admin.page.attribute.index', compact('attributes'));
-            } else {
-                Alert::error('Không có quyền truy cập');
-                return redirect()->route('admin.dashboard');
-            }
+            $attributes = Attribute::orderBy('id', 'desc')->paginate(10);
+            return view('admin.page.attribute.index', compact('attributes'));
         } else {
             Alert::error('Không có quyền truy cập');
             return redirect()->route('admin.dashboard');
@@ -82,7 +77,7 @@ class AttributeController extends Controller
                 return view('admin.page.attribute.edit', compact('attribute'));
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -118,7 +113,7 @@ class AttributeController extends Controller
                 return redirect()->route('admin.attribute.index')->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -141,7 +136,7 @@ class AttributeController extends Controller
                 return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -163,7 +158,7 @@ class AttributeController extends Controller
                 return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -196,7 +191,7 @@ class AttributeController extends Controller
                 return redirect()->route('admin.attribute.index')->with('success', 'Khoi phuc thuoc tinh thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.attribute.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
