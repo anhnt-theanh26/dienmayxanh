@@ -3,7 +3,9 @@
  */
 
 'use strict';
-
+function getRandomHexColor() {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+}
 (function () {
   let cardColor, labelColor, headingColor, borderColor, legendColor;
 
@@ -27,7 +29,8 @@
       series1: config.colors.success,
       series2: '#28c76fb3',
       series3: '#28c76f80',
-      series4: config.colors_label.success
+      series4: config.colors_label.success,
+      series5: getRandomHexColor(),
     }
   };
 
@@ -299,6 +302,7 @@
 
   // Generated Leads Chart
   // --------------------------------------------------------------------
+  const soldThisMonth = document.querySelector('#soldThisMonth').value;
   const generatedLeadsChartEl = document.querySelector('#generatedLeadsChart'),
     generatedLeadsChartConfig = {
       chart: {
@@ -307,13 +311,15 @@
         parentHeightOffset: 0,
         type: 'donut'
       },
-      labels: ['Electronic', 'Sports', 'Decor', 'Fashion'],
-      series: [45, 58, 30, 50],
+      labels: ['Electronic', 'Sports', 'Decor', 'Fashion', 'last'],
+      series: [45, 58, 30, 50, 59],
       colors: [
         chartColors.donut.series1,
         chartColors.donut.series2,
         chartColors.donut.series3,
-        chartColors.donut.series4
+        chartColors.donut.series4,
+        getRandomHexColor(),
+
       ],
       stroke: {
         width: 0
@@ -372,7 +378,7 @@
                 label: 'Total',
                 fontFamily: 'Public Sans',
                 formatter: function (w) {
-                  return '184';
+                  return soldThisMonth; //total
                 }
               }
             }

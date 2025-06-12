@@ -41,9 +41,17 @@
                     }
                 }
             @endphp
-            <h4 class="mb-1 pt-2">{{ $title_admin['greeting'] ?? 'Welcome to Vuexy!' }}! 👋</h4>
-            <p class="mb-4">{{ $title_admin['instruct'] ?? 'Please sign-in to your account and start the adventure!' }}
-            </p>
+            @if ($title_admin)
+                <h4 class="mb-1 pt-2">{{ $title_admin['greeting'] }}! 👋</h4>
+                <p class="mb-4">
+                    {{ $title_admin['instruct'] }}
+                </p>
+            @else
+                <h4 class="mb-1 pt-2">{{ 'Welcome to Vuexy!' }}! 👋</h4>
+                <p class="mb-4">
+                    {{ 'Please sign-in to your account and start the adventure!' }}
+                </p>
+            @endif
 
             <form class="mb-3" action="{{ route('admin.login.process') }}" method="POST">
                 @csrf

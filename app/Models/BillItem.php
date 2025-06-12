@@ -19,6 +19,8 @@ class BillItem extends Model
         'quantity',
         'price',
         'total_price',
+        'profit',
+        'import_price',
         'review_status',
     ];
 

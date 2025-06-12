@@ -89,10 +89,10 @@ class AttributeController extends Controller
     public function update(Request $request, string $id)
     {
         if (Auth::user()->can('edit attribute')) {
-            $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
             try {
+                $request->validate([
+                    'name' => 'required|string|max:255',
+                ]);
                 $attribute = Attribute::where('id', $id)->first();
                 if (!$attribute) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');

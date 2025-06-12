@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->text('logo')->nullable();
             $table->text('support')->nullable();
             $table->text('main_color')->nullable();
+            $table->text('secondary_color')->nullable();
             $table->text('seo_products')->nullable();
             $table->text('seo_posts')->nullable();
             $table->text('layout_not_found')->nullable();

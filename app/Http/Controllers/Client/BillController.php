@@ -122,22 +122,6 @@ class BillController extends Controller
                 if (!empty($errors)) {
                     return redirect()->back()->with('js_errors', $errors);
                 }
-                if (!empty($request['id-voucher'])) {
-                    $voucher = Voucher::where('id', $request['id-voucher'])->first();
-                    if ($voucher->max_use < 1) {
-                        Alert::error('Voucher hết lượt sử dụng', 'Voucher bạn đang dùng đã hết lượt sử dụng!');
-                        return redirect()->back();
-                    }
-                    if (!empty($voucher->users)) {
-                        $users = json_decode($voucher->users);
-                        $users = array_map(function ($value) {
-                            return $value == Auth::user()->id ? null : $value;
-                        }, $users);
-                        $voucher->users = json_encode($users);
-                    }
-                    $voucher->max_use -= 1;
-                    $voucher->save();
-                }
                 $dataOrder = [
                     'user_id' => Auth::user()->id,
                     'code' => $code,
@@ -154,9 +138,34 @@ class BillController extends Controller
                     'refund' => false,
                     'refund_amount' => $request['total-price'],
                 ];
+                $voucher = null;
+                if (!empty($request['id-voucher'])) {
+                    $voucher = Voucher::where('id', $request['id-voucher'])->first();
+                    if ($voucher->max_use < 1) {
+                        Alert::error('Voucher hết lượt sử dụng', 'Voucher bạn đang dùng đã hết lượt sử dụng!');
+                        return redirect()->back();
+                    }
+                    if (!empty($voucher->users)) {
+                        $users = json_decode($voucher->users);
+                        $users = array_map(function ($value) {
+                            return $value == Auth::user()->id ? null : $value;
+                        }, $users);
+                        $voucher->users = json_encode($users);
+                    }
+                    $voucher->max_use -= 1;
+                    $voucher->save();
+                }
                 $bill = Bill::create($dataOrder);
                 $dataOrderItem = [];
                 foreach ($variants as $item) {
+                    $profit = $item->options->import_price;
+                    if ($voucher) {
+                        $totalPrice = Cart::total(0, '', '');
+                        $disscount = $request['discount'];
+                        $disscount_percentage = ($item->qty * $item->price) / $totalPrice * 100;
+                        $disscountThisProduct = $disscount * $disscount_percentage / 100;
+                        $profit = ($item->qty * $item->price - $item->options->import_price * $item->qty) - $disscountThisProduct; 
+                    }
                     $dataOrderItem[] = [
                         'bill_id' => $bill->id,
                         'product_id' => $item->options->product->id,
@@ -167,6 +176,8 @@ class BillController extends Controller
                         'quantity' => $item->qty,
                         'price' => $item->price,
                         'total_price' => $item->qty * $item->price,
+                        'import_price' => $item->options->import_price * $item->qty,
+                        'profit' => $profit,
                     ];
                 }
                 foreach ($dataOrderItem as $value) {

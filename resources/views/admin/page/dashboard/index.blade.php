@@ -14,7 +14,7 @@
             <div class="card">
                 @php
                     $billsUsers = [];
-                    foreach ($bills as $bill) {
+                    foreach ($billsThisMonth as $bill) {
                         $key = $bill->user_id;
                         if ($bill->status == 'Delivered') {
                             if (!isset($billsUsers[$key])) {
@@ -31,15 +31,17 @@
                     // echo count($totalAmount);
                     $max = [];
                     foreach ($totalAmount as $key => $value) {
-                        echo $key + 1;
+                        // echo $key + 1;
                     }
                     // echo $totalAmount[2][0];
                 @endphp
                 <div class="d-flex align-items-end row">
                     <div class="col-7">
                         <div class="card-body text-nowrap">
-                            <h5 class="card-title mb-0">Xin chúc mừng John! 🎉</h5>
-                            <p class="mb-2">Người mua nhiều hàng nhất</p>
+                            <h5 class="card-title mb-0">
+                                Top Buyer John! 🎉</h5>
+                            <p class="mb-2">
+                                Top Buyer</p>
                             <h4 class="text-primary mb-1">$48.9k</h4>
                             <a href="javascript:;" class="btn btn-primary">View Sales</a>
                         </div>
@@ -72,17 +74,21 @@
                                     <i class="ti ti-chart-pie-2 ti-sm"></i>
                                 </div>
                                 @php
-                                    $sold = 0;
-                                    $totalPrice = 0;
-                                    foreach ($bills as $bill) {
-                                        $totalPrice += $bill->total_amount;
+                                    $soldThisMonth = 0;
+                                    $profitThisMonth = 0;
+                                    $importPriceThisMonth = 0;
+                                    foreach ($billsThisMonth as $bill) {
                                         foreach ($bill->billItems as $value) {
-                                            $sold += $value->quantity;
+                                            $profitThisMonth += $value->profit;
+                                            $soldThisMonth += $value->quantity;
+                                            $importPriceThisMonth += $value->import_price;
                                         }
                                     }
                                 @endphp
                                 <div class="card-info">
-                                    <h5 class="mb-0">{{ number_format($sold, 0, '.', '.') ?? '' }}</h5>
+                                    <h5 class="mb-0">
+                                        {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($soldThisMonth) }}
+                                    </h5>
                                     <small>Sales</small>
                                 </div>
                             </div>
@@ -93,7 +99,9 @@
                                     <i class="ti ti-users ti-sm"></i>
                                 </div>
                                 <div class="card-info">
-                                    <h5 class="mb-0">{{ number_format(count($users), 0, '.', '.') ?? '' }}</h5>
+                                    <h5 class="mb-0">
+                                        {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN(count($users)) }}
+                                    </h5>
                                     <small>Customers</small>
                                 </div>
                             </div>
@@ -104,7 +112,9 @@
                                     <i class="ti ti-shopping-cart ti-sm"></i>
                                 </div>
                                 <div class="card-info">
-                                    <h5 class="mb-0">{{ number_format(count($products), 0, '.', '.') ?? '' }}</h5>
+                                    <h5 class="mb-0">
+                                        {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN(count($products)) }}
+                                    </h5>
                                     <small>Products</small>
                                 </div>
                             </div>
@@ -115,8 +125,10 @@
                                     <i class="ti ti-currency-dollar ti-sm"></i>
                                 </div>
                                 <div class="card-info">
-                                    <h5 class="mb-0">{{ number_format($totalPrice, 0, '.', '.') ?? '' }} VNĐ</h5>
-                                    <small>Total</small>
+                                    <h5 class="mb-0">
+                                        {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($profitThisMonth) }}
+                                    </h5>
+                                    <small>Revenue</small>
                                 </div>
                             </div>
                         </div>
@@ -129,16 +141,39 @@
         <div class="col-xl-4 col-12">
             <div class="row">
                 <!-- Expenses -->
+                @php
+                    $soldLastMonth = 0;
+                    $profitLastMonth = 0;
+                    $importPriceLastMonth = 0;
+                    foreach ($billsLastMonth as $bill) {
+                        foreach ($bill->billItems as $value) {
+                            $profitLastMonth += $value->profit;
+                            $importPriceLastMonth += $value->import_price;
+                            $soldLastMonth += $value->quantity;
+                        }
+                    }
+                @endphp
                 <div class="col-xl-6 mb-4 col-md-3 col-6">
                     <div class="card">
                         <div class="card-header pb-0">
-                            <h5 class="card-title mb-0">82.5k</h5>
+                            <h5 class="card-title mb-0">
+                                {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($importPriceThisMonth) }}
+                            </h5>
                             <small class="text-muted">Expenses</small>
                         </div>
                         <div class="card-body">
-                            <div id="expensesChart"></div>
                             <div class="mt-md-2 text-center mt-lg-3 mt-3">
-                                <small class="text-muted mt-3">$21k Expenses more than last month</small>
+                                <small class="text-muted mt-3">
+                                    @if ($importPriceThisMonth > $importPriceLastMonth)
+                                        Expenses increased by
+                                        {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($importPriceThisMonth - $importPriceLastMonth) }}
+                                        from last month
+                                    @else
+                                        Expenses down
+                                        {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($importPriceLastMonth - $importPriceThisMonth) }}
+                                        from last month
+                                    @endif
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -153,10 +188,22 @@
                             <small class="text-muted">Last Month</small>
                         </div>
                         <div class="card-body">
-                            <div id="profitLastMonth"></div>
                             <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-                                <h4 class="mb-0">624k</h4>
-                                <small class="text-success">+8.24%</small>
+                                <h4 class="mb-0">
+                                    {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($profitLastMonth) }}
+                                </h4>
+                                @if ($profitThisMonth > $profitLastMonth)
+                                    @php
+                                        $upProfit = ($profitLastMonth / $profitThisMonth) * 100;
+                                    @endphp
+                                    <small class="text-success">+{{ number_format($upProfit, 0, '.', '.') ?? '' }}%</small>
+                                @else
+                                    @php
+                                        $downProfit = ($profitThisMonth / $profitLastMonth) * 100;
+                                    @endphp
+                                    <small
+                                        class="text-danger">-{{ number_format($downProfit, 0, '.', '.') ?? '' }}%</small>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -174,9 +221,27 @@
                                         <small>Monthly Report</small>
                                     </div>
                                     <div class="chart-statistics">
-                                        <h3 class="card-title mb-1">4,350</h3>
-                                        <small class="text-success text-nowrap fw-semibold"><i
-                                                class="ti ti-chevron-up me-1"></i> 15.8%</small>
+                                        <h3 class="card-title mb-1">
+                                            {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($soldThisMonth) }}
+                                            <input type="hidden" id="soldThisMonth" value="{{ $soldThisMonth }}">
+                                        </h3>
+                                        @if ($soldThisMonth > $soldLastMonth)
+                                            @php
+                                                $upSold = ($soldLastMonth / $soldThisMonth) * 100;
+                                            @endphp
+                                            <small class="text-success text-nowrap fw-semibold">
+                                                <i class="ti ti-chevron-up me-1"></i>
+                                                {{ number_format($upSold, 0, '.', '.') ?? '' }}%
+                                            </small>
+                                        @else
+                                            @php
+                                                $downSold = ($soldThisMonth / $soldLastMonth) * 100;
+                                            @endphp
+                                            <small class="text-danger text-nowrap fw-semibold">
+                                                <i class="ti ti-chevron-down me-1"></i>
+                                                {{ number_format($downSold, 0, '.', '.') ?? '' }}%
+                                            </small>
+                                        @endif
                                     </div>
                                 </div>
                                 <div id="generatedLeadsChart"></div>
@@ -187,8 +252,33 @@
                 <!--/ Generated Leads -->
             </div>
         </div>
+        @php
+            $soldArrPrd = [];
+            foreach ($billsThisMonth as $billThisMonth) {
+                foreach ($billThisMonth->billItems as $bill) {
+                    if (!isset($soldArrPrd[$bill->product->category->name])) {
+                        $soldArrPrd[$bill->product->category->name] = [];
+                    }
+                    $soldArrPrd[$bill->product->category->name][] = $bill->quantity;
+                }
+            }
+            $arrNameCate = [];
+            $arrCateSold = [];
+            foreach ($soldArrPrd as $key => $value) {
+                if (!isset($soldArrPrd[$key])) {
+                    array_push($arrNameCate, $key);
+                }
+                array_push($arrCateSold, array_sum($value));
+            }
+        @endphp
+        {{-- @foreach ($soldArrPrd as $key => $value)
+            <h1>{{ $key }}<br>
+                <h1>{{ print_r($value) }}</h1>
+            </h1>
+            <hr>
+        @endforeach --}}
 
-        <!-- Revenue Report -->
+        {{-- <!-- Revenue Report -->
         <div class="col-12 col-xl-8 mb-4 col-lg-7">
             <div class="card">
                 <div class="card-header pb-3">
@@ -240,7 +330,7 @@
                 </div>
             </div>
         </div>
-        <!--/ Revenue Report -->
+        <!--/ Revenue Report --> --}}
 
         <!-- Earning Reports -->
         <div class="col-xl-4 col-lg-5 col-md-6 mb-4">
@@ -373,8 +463,8 @@
                         </li>
                         <li class="d-flex mb-4 pb-1">
                             <div class="me-3">
-                                <img src="{{ asset('/administrator/assets/img/products/headphones.png') }}" alt="User"
-                                    class="rounded" width="46" />
+                                <img src="{{ asset('/administrator/assets/img/products/headphones.png') }}"
+                                    alt="User" class="rounded" width="46" />
                             </div>
                             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                 <div class="me-2">
@@ -656,7 +746,7 @@
         </div>
         <!--/ Sales by Countries tabs -->
 
-        <!-- Transactions -->
+        {{-- <!-- Transactions -->
         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="card h-100">
                 <div class="card-header d-flex justify-content-between">
@@ -780,7 +870,7 @@
                 </div>
             </div>
         </div>
-        <!--/ Transactions -->
+        <!--/ Transactions --> --}}
 
         <!-- Invoice table -->
         <div class="col-lg-8">

@@ -227,7 +227,9 @@
         <div class="row my-3">
             @php
                 $totalRating = 0;
-                $totalReviews = count($reviews);
+                if ($reviews) {
+                    $totalReviews = count($reviews) ?? 0;
+                }
 
                 if ($totalReviews > 0) {
                     foreach ($reviews as $review) {
@@ -238,7 +240,6 @@
                     $averageRating = 0;
                 }
             @endphp
-
             <div class="col-3 d-flex align-items-center">
                 <div class="text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -256,9 +257,11 @@
                     <div class="d-flex align-items-center py-2">
                         @php
                             $fiveStarCount = 0;
-                            foreach ($reviews as $review) {
-                                if ($review->rating == 5) {
-                                    $fiveStarCount++;
+                            if ($reviews) {
+                                foreach ($reviews as $review) {
+                                    if ($review->rating == 5) {
+                                        $fiveStarCount++;
+                                    }
                                 }
                             }
                             $fiveStarPercent = $totalReviews > 0 ? ($fiveStarCount / $totalReviews) * 100 : 0;
@@ -281,9 +284,11 @@
                     <div class="d-flex align-items-center py-2">
                         @php
                             $fourStarCount = 0;
-                            foreach ($reviews as $review) {
-                                if ($review->rating == 4) {
-                                    $fourStarCount++;
+                            if ($reviews) {
+                                foreach ($reviews as $review) {
+                                    if ($review->rating == 4) {
+                                        $fourStarCount++;
+                                    }
                                 }
                             }
                             $fourStarPercent = $totalReviews > 0 ? ($fourStarCount / $totalReviews) * 100 : 0;
@@ -306,9 +311,11 @@
                     <div class="d-flex align-items-center py-2">
                         @php
                             $threeStarCount = 0;
-                            foreach ($reviews as $review) {
-                                if ($review->rating == 3) {
-                                    $threeStarCount++;
+                            if ($reviews) {
+                                foreach ($reviews as $review) {
+                                    if ($review->rating == 3) {
+                                        $threeStarCount++;
+                                    }
                                 }
                             }
                             $threeStarPercent = $totalReviews > 0 ? ($threeStarCount / $totalReviews) * 100 : 0;
@@ -331,9 +338,11 @@
                     <div class="d-flex align-items-center py-2">
                         @php
                             $twoStarCount = 0;
-                            foreach ($reviews as $review) {
-                                if ($review->rating == 2) {
-                                    $twoStarCount++;
+                            if ($reviews) {
+                                foreach ($reviews as $review) {
+                                    if ($review->rating == 2) {
+                                        $twoStarCount++;
+                                    }
                                 }
                             }
                             $twoStarPercent = $totalReviews > 0 ? ($twoStarCount / $totalReviews) * 100 : 0;
@@ -356,9 +365,11 @@
                     <div class="d-flex align-items-center py-2">
                         @php
                             $oneStarCount = 0;
-                            foreach ($reviews as $review) {
-                                if ($review->rating == 1) {
-                                    $oneStarCount++;
+                            if ($reviews) {
+                                foreach ($reviews as $review) {
+                                    if ($review->rating == 1) {
+                                        $oneStarCount++;
+                                    }
                                 }
                             }
                             $oneStarPercent = $totalReviews > 0 ? ($oneStarCount / $totalReviews) * 100 : 0;
@@ -384,492 +395,514 @@
                 <div class="row">
                     @php
                         $linkImageJsons = null;
-                        foreach ($reviews as $review) {
-                            $linkImageDEcode = json_decode($review->image, true);
-                            foreach ($linkImageDEcode as $key => $value) {
-                                $linkImageJsons[] = $value;
+                        if ($reviews) {
+                            foreach ($reviews as $review) {
+                                $linkImageDEcode = json_decode($review->image, true);
+                                foreach ($linkImageDEcode as $key => $value) {
+                                    $linkImageJsons[] = $value;
+                                }
                             }
                         }
                     @endphp
-                    @foreach ($linkImageJsons as $key => $image)
-                        @if ($key < 5)
-                            <div class="col-4">
-                                <div class="d-flex align-items-center justify-content-center mt-3">
-                                    <img class="img-fluid object-fit-cover border rounded"
-                                        style="height: 70px; width: 100%;" src="{{ $image }}" alt="image">
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                    <div class="col-4">
-                        <div class=" position-relative mt-3">
-                            <img class="img-fluid object-fit-cover border rounded" width="70"
-                                src="{{ asset('./storage/default.jpg') }}" alt=""
-                                data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
-                            <button data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
-                                class="position-absolute btn fw-bold"
-                                style="top: 0; right: 0; left: 0; bottom: 0; font-size: 14px; color: var(--main-color);">
-                                Xem {{ count($linkImageJsons) }} ảnh
-                            </button>
-                        </div>
-                        <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
-                            aria-labelledby="exampleModalToggle2Label" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="text-center">
-                                            <h6 class="fw-bold">52 ảnh từ khách hàng</h6>
-                                        </div>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                    @if ($linkImageJsons)
+                        @foreach ($linkImageJsons as $key => $image)
+                            @if ($key < 5)
+                                <div class="col-4">
+                                    <div class="d-flex align-items-center justify-content-center mt-3">
+                                        <img class="img-fluid object-fit-cover border rounded"
+                                            style="height: 70px; width: 100%;" src="{{ $image }}"
+                                            alt="image">
                                     </div>
-                                    <div class="modal-body">
+                                </div>
+                            @endif
+                        @endforeach
+                    @endif
+                    @if ($linkImageJsons)
+                        <div class="col-4">
+                            <div class=" position-relative mt-3">
+                                <img class="img-fluid object-fit-cover border rounded" width="70"
+                                    src="{{ asset('./storage/default.jpg') }}" alt=""
+                                    data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                                <button data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
+                                    class="position-absolute btn fw-bold"
+                                    style="top: 0; right: 0; left: 0; bottom: 0; font-size: 14px; color: var(--main-color);">
+                                    Xem {{ count($linkImageJsons) ?? 0 }} ảnh
+                                </button>
+                            </div>
+                            <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
+                                aria-labelledby="exampleModalToggle2Label" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="text-center">
+                                                <h6 class="fw-bold">52 ảnh từ khách hàng</h6>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
 
-                                        <ul class="nav nav-tabs-custom" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-bs-toggle="tab"
-                                                    href="#all-review-tab" role="tab">Tất cả</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#five-stars-tab"
-                                                    role="tab">5
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" fill="currentColor"
-                                                        class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#four-stars-tab"
-                                                    role="tab">4
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" fill="currentColor"
-                                                        class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#three-stars-tab"
-                                                    role="tab">3
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" fill="currentColor"
-                                                        class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#two-stars-tab"
-                                                    role="tab">2
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" fill="currentColor"
-                                                        class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#one-star-tab"
-                                                    role="tab">1
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" fill="currentColor"
-                                                        class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" style="height: 500px; overflow-y: auto;">
-                                            <div class="tab-pane active" id="all-review-tab" role="tabpanel">
-                                                <div class="row">
-                                                    @foreach ($reviews as $review)
-                                                        @php
-                                                            $imageJson = json_decode($review->image, true);
-                                                            if (json_last_error() !== JSON_ERROR_NONE) {
-                                                                $imageJson = null;
-                                                            }
-                                                            $imageJsonStarFills = $review->rating;
-                                                            $imageJsonStarNotFill = 5 - $imageJsonStarFills;
-                                                        @endphp
-                                                        @if ($imageJson)
-                                                            @foreach ($imageJson as $image)
-                                                                <div class="col-2 p-2">
-                                                                    <div class="text-center">
-                                                                        <img width="114px" height="114px"
-                                                                            class="object-fit-cover rounded-3"
-                                                                            src="{{ $image }}" alt="image">
-                                                                        @for ($i = 0; $i < $imageJsonStarFills; $i++)
-                                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                width="12" height="12"
-                                                                                fill="currentColor"
-                                                                                class="bi bi-star-fill text-warning"
-                                                                                viewBox="0 0 16 16">
-                                                                                <path
-                                                                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                                            </svg>
-                                                                        @endfor
-                                                                        @if ($imageJsonStarNotFill > 0)
-                                                                            @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="12" height="12"
-                                                                                    fill="currentColor"
-                                                                                    class="bi bi-star"
-                                                                                    viewBox="0 0 16 16">
-                                                                                    <path
-                                                                                        d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
-                                                                                </svg>
-                                                                            @endfor
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
+                                            <ul class="nav nav-tabs-custom" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-bs-toggle="tab"
+                                                        href="#all-review-tab" role="tab">Tất cả</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#five-stars-tab"
+                                                        role="tab">5
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#four-stars-tab"
+                                                        role="tab">4
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#three-stars-tab"
+                                                        role="tab">3
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#two-stars-tab"
+                                                        role="tab">2
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#one-star-tab"
+                                                        role="tab">1
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content" style="height: 500px; overflow-y: auto;">
+                                                <div class="tab-pane active" id="all-review-tab" role="tabpanel">
+                                                    <div class="row">
+                                                        @if ($reviews)
+                                                            @foreach ($reviews as $review)
+                                                                @php
+                                                                    $imageJson = json_decode($review->image, true);
+                                                                    if (json_last_error() !== JSON_ERROR_NONE) {
+                                                                        $imageJson = null;
+                                                                    }
+                                                                    $imageJsonStarFills = $review->rating;
+                                                                    $imageJsonStarNotFill = 5 - $imageJsonStarFills;
+                                                                @endphp
+                                                                @if ($imageJson)
+                                                                    @foreach ($imageJson as $image)
+                                                                        <div class="col-2 p-2">
+                                                                            <div class="text-center">
+                                                                                <img width="114px" height="114px"
+                                                                                    class="object-fit-cover rounded-3"
+                                                                                    src="{{ $image }}"
+                                                                                    alt="image">
+                                                                                @for ($i = 0; $i < $imageJsonStarFills; $i++)
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                        width="12" height="12"
+                                                                                        fill="currentColor"
+                                                                                        class="bi bi-star-fill text-warning"
+                                                                                        viewBox="0 0 16 16">
+                                                                                        <path
+                                                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                                                    </svg>
+                                                                                @endfor
+                                                                                @if ($imageJsonStarNotFill > 0)
+                                                                                    @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                            width="12" height="12"
+                                                                                            fill="currentColor"
+                                                                                            class="bi bi-star"
+                                                                                            viewBox="0 0 16 16">
+                                                                                            <path
+                                                                                                d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                                                                        </svg>
+                                                                                    @endfor
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    @endforeach
+                                                                @endif
                                                             @endforeach
                                                         @endif
-                                                    @endforeach
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="tab-pane" id="five-stars-tab" role="tabpanel">
-                                                <h5 class="font-size-14 mb-4">
-                                                    <div class="row">
-                                                        @foreach ($reviews as $review)
-                                                            @if ($review->rating == 5)
-                                                                @php
-                                                                    $imageJson = json_decode($review->image, true);
-                                                                    if (json_last_error() !== JSON_ERROR_NONE) {
-                                                                        $imageJson = null;
-                                                                    }
-                                                                    $imageJsonStarFills = $review->rating;
-                                                                @endphp
-                                                                @if ($imageJson)
-                                                                    @foreach ($imageJson as $image)
-                                                                        <div class="col-2 p-2">
-                                                                            <div class="text-center">
-                                                                                <img width="114px" height="114px"
-                                                                                    class="object-fit-cover rounded-3"
-                                                                                    src="{{ $image }}"
-                                                                                    alt="image">
-                                                                                @for ($i = 0; $i < $imageJsonStarFills; $i++)
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="12" height="12"
-                                                                                        fill="currentColor"
-                                                                                        class="bi bi-star-fill text-warning"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                                                    </svg>
-                                                                                @endfor
-                                                                            </div>
-                                                                        </div>
-                                                                    @endforeach
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </h5>
-                                            </div>
-                                            <div class="tab-pane" id="four-stars-tab" role="tabpanel">
-                                                <h5 class="font-size-14 mb-4">
-                                                    <div class="row">
-                                                        @foreach ($reviews as $review)
-                                                            @if ($review->rating == 4)
-                                                                @php
-                                                                    $imageJson = json_decode($review->image, true);
-                                                                    if (json_last_error() !== JSON_ERROR_NONE) {
-                                                                        $imageJson = null;
-                                                                    }
-                                                                    $imageJsonStarFills = $review->rating;
-                                                                    $imageJsonStarNotFill = 5 - $imageJsonStarFills;
-                                                                @endphp
-                                                                @if ($imageJson)
-                                                                    @foreach ($imageJson as $image)
-                                                                        <div class="col-2 p-2">
-                                                                            <div class="text-center">
-                                                                                <img width="114px" height="114px"
-                                                                                    class="object-fit-cover rounded-3"
-                                                                                    src="{{ $image }}"
-                                                                                    alt="image">
-                                                                                @for ($i = 0; $i < $imageJsonStarFills; $i++)
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="12" height="12"
-                                                                                        fill="currentColor"
-                                                                                        class="bi bi-star-fill text-warning"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                                                    </svg>
-                                                                                @endfor
-                                                                                @if ($imageJsonStarNotFill > 0)
-                                                                                    @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
+                                                <div class="tab-pane" id="five-stars-tab" role="tabpanel">
+                                                    <h5 class="font-size-14 mb-4">
+                                                        <div class="row">
+                                                            @foreach ($reviews as $review)
+                                                                @if ($review->rating == 5)
+                                                                    @php
+                                                                        $imageJson = json_decode($review->image, true);
+                                                                        if (json_last_error() !== JSON_ERROR_NONE) {
+                                                                            $imageJson = null;
+                                                                        }
+                                                                        $imageJsonStarFills = $review->rating;
+                                                                    @endphp
+                                                                    @if ($imageJson)
+                                                                        @foreach ($imageJson as $image)
+                                                                            <div class="col-2 p-2">
+                                                                                <div class="text-center">
+                                                                                    <img width="114px" height="114px"
+                                                                                        class="object-fit-cover rounded-3"
+                                                                                        src="{{ $image }}"
+                                                                                        alt="image">
+                                                                                    @for ($i = 0; $i < $imageJsonStarFills; $i++)
                                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="12"
-                                                                                            height="12"
+                                                                                            width="12" height="12"
                                                                                             fill="currentColor"
-                                                                                            class="bi bi-star"
+                                                                                            class="bi bi-star-fill text-warning"
                                                                                             viewBox="0 0 16 16">
                                                                                             <path
-                                                                                                d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                                                                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                                                                         </svg>
                                                                                     @endfor
-                                                                                @endif
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    @endforeach
+                                                                        @endforeach
+                                                                    @endif
                                                                 @endif
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </h5>
-                                            </div>
-                                            <div class="tab-pane" id="three-stars-tab" role="tabpanel">
-                                                <h5 class="font-size-14 mb-4">
-                                                    <div class="row">
-                                                        @foreach ($reviews as $review)
-                                                            @if ($review->rating == 3)
-                                                                @php
-                                                                    $imageJson = json_decode($review->image, true);
-                                                                    if (json_last_error() !== JSON_ERROR_NONE) {
-                                                                        $imageJson = null;
-                                                                    }
-                                                                    $imageJsonStarFills = $review->rating;
-                                                                    $imageJsonStarNotFill = 5 - $imageJsonStarFills;
-                                                                @endphp
-                                                                @if ($imageJson)
-                                                                    @foreach ($imageJson as $image)
-                                                                        <div class="col-2 p-2">
-                                                                            <div class="text-center">
-                                                                                <img width="114px" height="114px"
-                                                                                    class="object-fit-cover rounded-3"
-                                                                                    src="{{ $image }}"
-                                                                                    alt="image">
-                                                                                @for ($i = 0; $i < $imageJsonStarFills; $i++)
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="12" height="12"
-                                                                                        fill="currentColor"
-                                                                                        class="bi bi-star-fill text-warning"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                                                    </svg>
-                                                                                @endfor
-                                                                                @if ($imageJsonStarNotFill > 0)
-                                                                                    @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
+                                                            @endforeach
+                                                        </div>
+                                                    </h5>
+                                                </div>
+                                                <div class="tab-pane" id="four-stars-tab" role="tabpanel">
+                                                    <h5 class="font-size-14 mb-4">
+                                                        <div class="row">
+                                                            @foreach ($reviews as $review)
+                                                                @if ($review->rating == 4)
+                                                                    @php
+                                                                        $imageJson = json_decode($review->image, true);
+                                                                        if (json_last_error() !== JSON_ERROR_NONE) {
+                                                                            $imageJson = null;
+                                                                        }
+                                                                        $imageJsonStarFills = $review->rating;
+                                                                        $imageJsonStarNotFill = 5 - $imageJsonStarFills;
+                                                                    @endphp
+                                                                    @if ($imageJson)
+                                                                        @foreach ($imageJson as $image)
+                                                                            <div class="col-2 p-2">
+                                                                                <div class="text-center">
+                                                                                    <img width="114px" height="114px"
+                                                                                        class="object-fit-cover rounded-3"
+                                                                                        src="{{ $image }}"
+                                                                                        alt="image">
+                                                                                    @for ($i = 0; $i < $imageJsonStarFills; $i++)
                                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="12"
-                                                                                            height="12"
+                                                                                            width="12" height="12"
                                                                                             fill="currentColor"
-                                                                                            class="bi bi-star"
+                                                                                            class="bi bi-star-fill text-warning"
                                                                                             viewBox="0 0 16 16">
                                                                                             <path
-                                                                                                d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                                                                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                                                                         </svg>
                                                                                     @endfor
-                                                                                @endif
+                                                                                    @if ($imageJsonStarNotFill > 0)
+                                                                                        @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                width="12"
+                                                                                                height="12"
+                                                                                                fill="currentColor"
+                                                                                                class="bi bi-star"
+                                                                                                viewBox="0 0 16 16">
+                                                                                                <path
+                                                                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                                                                            </svg>
+                                                                                        @endfor
+                                                                                    @endif
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    @endforeach
+                                                                        @endforeach
+                                                                    @endif
                                                                 @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </h5>
+                                                </div>
+                                                <div class="tab-pane" id="three-stars-tab" role="tabpanel">
+                                                    <h5 class="font-size-14 mb-4">
+                                                        <div class="row">
+                                                            @if ($reviews)
+                                                                @foreach ($reviews as $review)
+                                                                    @if ($review->rating == 3)
+                                                                        @php
+                                                                            $imageJson = json_decode($review->image, true);
+                                                                            if (json_last_error() !== JSON_ERROR_NONE) {
+                                                                                $imageJson = null;
+                                                                            }
+                                                                            $imageJsonStarFills = $review->rating;
+                                                                            $imageJsonStarNotFill = 5 - $imageJsonStarFills;
+                                                                        @endphp
+                                                                        @if ($imageJson)
+                                                                            @foreach ($imageJson as $image)
+                                                                                <div class="col-2 p-2">
+                                                                                    <div class="text-center">
+                                                                                        <img width="114px" height="114px"
+                                                                                            class="object-fit-cover rounded-3"
+                                                                                            src="{{ $image }}"
+                                                                                            alt="image">
+                                                                                        @for ($i = 0; $i < $imageJsonStarFills; $i++)
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                width="12"
+                                                                                                height="12"
+                                                                                                fill="currentColor"
+                                                                                                class="bi bi-star-fill text-warning"
+                                                                                                viewBox="0 0 16 16">
+                                                                                                <path
+                                                                                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                                                            </svg>
+                                                                                        @endfor
+                                                                                        @if ($imageJsonStarNotFill > 0)
+                                                                                            @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                    width="12"
+                                                                                                    height="12"
+                                                                                                    fill="currentColor"
+                                                                                                    class="bi bi-star"
+                                                                                                    viewBox="0 0 16 16">
+                                                                                                    <path
+                                                                                                        d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                                                                                </svg>
+                                                                                            @endfor
+                                                                                        @endif
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    @endif
+                                                                @endforeach
                                                             @endif
-                                                        @endforeach
-                                                    </div>
-                                                </h5>
-                                            </div>
-                                            <div class="tab-pane" id="two-stars-tab" role="tabpanel">
-                                                <h5 class="font-size-14 mb-4">
-                                                    <div class="row">
-                                                        @foreach ($reviews as $review)
-                                                            @if ($review->rating == 2)
-                                                                @php
-                                                                    $imageJson = json_decode($review->image, true);
-                                                                    if (json_last_error() !== JSON_ERROR_NONE) {
-                                                                        $imageJson = null;
-                                                                    }
-                                                                    $imageJsonStarFills = $review->rating;
-                                                                    $imageJsonStarNotFill = 5 - $imageJsonStarFills;
-                                                                @endphp
-                                                                @if ($imageJson)
-                                                                    @foreach ($imageJson as $image)
-                                                                        <div class="col-2 p-2">
-                                                                            <div class="text-center">
-                                                                                <img width="114px" height="114px"
-                                                                                    class="object-fit-cover rounded-3"
-                                                                                    src="{{ $image }}"
-                                                                                    alt="image">
-                                                                                @for ($i = 0; $i < $imageJsonStarFills; $i++)
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="12" height="12"
-                                                                                        fill="currentColor"
-                                                                                        class="bi bi-star-fill text-warning"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                                                    </svg>
-                                                                                @endfor
-                                                                                @if ($imageJsonStarNotFill > 0)
-                                                                                    @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
+                                                        </div>
+                                                    </h5>
+                                                </div>
+                                                <div class="tab-pane" id="two-stars-tab" role="tabpanel">
+                                                    <h5 class="font-size-14 mb-4">
+                                                        <div class="row">
+                                                            @foreach ($reviews as $review)
+                                                                @if ($review->rating == 2)
+                                                                    @php
+                                                                        $imageJson = json_decode($review->image, true);
+                                                                        if (json_last_error() !== JSON_ERROR_NONE) {
+                                                                            $imageJson = null;
+                                                                        }
+                                                                        $imageJsonStarFills = $review->rating;
+                                                                        $imageJsonStarNotFill = 5 - $imageJsonStarFills;
+                                                                    @endphp
+                                                                    @if ($imageJson)
+                                                                        @foreach ($imageJson as $image)
+                                                                            <div class="col-2 p-2">
+                                                                                <div class="text-center">
+                                                                                    <img width="114px" height="114px"
+                                                                                        class="object-fit-cover rounded-3"
+                                                                                        src="{{ $image }}"
+                                                                                        alt="image">
+                                                                                    @for ($i = 0; $i < $imageJsonStarFills; $i++)
                                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="12"
-                                                                                            height="12"
+                                                                                            width="12" height="12"
                                                                                             fill="currentColor"
-                                                                                            class="bi bi-star"
+                                                                                            class="bi bi-star-fill text-warning"
                                                                                             viewBox="0 0 16 16">
                                                                                             <path
-                                                                                                d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                                                                                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                                                                         </svg>
                                                                                     @endfor
-                                                                                @endif
+                                                                                    @if ($imageJsonStarNotFill > 0)
+                                                                                        @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                width="12"
+                                                                                                height="12"
+                                                                                                fill="currentColor"
+                                                                                                class="bi bi-star"
+                                                                                                viewBox="0 0 16 16">
+                                                                                                <path
+                                                                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                                                                            </svg>
+                                                                                        @endfor
+                                                                                    @endif
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    @endforeach
+                                                                        @endforeach
+                                                                    @endif
                                                                 @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </h5>
+                                                </div>
+                                                <div class="tab-pane" id="one-star-tab" role="tabpanel">
+                                                    <h5 class="font-size-14 mb-4">
+                                                        <div class="row">
+                                                            @if ($review)
+                                                                @foreach ($reviews as $review)
+                                                                    @if ($review->rating == 1)
+                                                                        @php
+                                                                            $imageJson = json_decode($review->image, true);
+                                                                            if (json_last_error() !== JSON_ERROR_NONE) {
+                                                                                $imageJson = null;
+                                                                            }
+                                                                            $imageJsonStarFills = $review->rating;
+                                                                            $imageJsonStarNotFill = 5 - $imageJsonStarFills;
+                                                                        @endphp
+                                                                        @if ($imageJson)
+                                                                            @foreach ($imageJson as $image)
+                                                                                <div class="col-2 p-2">
+                                                                                    <div class="text-center">
+                                                                                        <img width="114px" height="114px"
+                                                                                            class="object-fit-cover rounded-3"
+                                                                                            src="{{ $image }}"
+                                                                                            alt="image">
+                                                                                        @for ($i = 0; $i < $imageJsonStarFills; $i++)
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                width="12"
+                                                                                                height="12"
+                                                                                                fill="currentColor"
+                                                                                                class="bi bi-star-fill text-warning"
+                                                                                                viewBox="0 0 16 16">
+                                                                                                <path
+                                                                                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                                                            </svg>
+                                                                                        @endfor
+                                                                                        @if ($imageJsonStarNotFill > 0)
+                                                                                            @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                    width="12"
+                                                                                                    height="12"
+                                                                                                    fill="currentColor"
+                                                                                                    class="bi bi-star"
+                                                                                                    viewBox="0 0 16 16">
+                                                                                                    <path
+                                                                                                        d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                                                                                </svg>
+                                                                                            @endfor
+                                                                                        @endif
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    @endif
+                                                                @endforeach
                                                             @endif
-                                                        @endforeach
-                                                    </div>
-                                                </h5>
-                                            </div>
-                                            <div class="tab-pane" id="one-star-tab" role="tabpanel">
-                                                <h5 class="font-size-14 mb-4">
-                                                    <div class="row">
-                                                        @foreach ($reviews as $review)
-                                                            @if ($review->rating == 1)
-                                                                @php
-                                                                    $imageJson = json_decode($review->image, true);
-                                                                    if (json_last_error() !== JSON_ERROR_NONE) {
-                                                                        $imageJson = null;
-                                                                    }
-                                                                    $imageJsonStarFills = $review->rating;
-                                                                    $imageJsonStarNotFill = 5 - $imageJsonStarFills;
-                                                                @endphp
-                                                                @if ($imageJson)
-                                                                    @foreach ($imageJson as $image)
-                                                                        <div class="col-2 p-2">
-                                                                            <div class="text-center">
-                                                                                <img width="114px" height="114px"
-                                                                                    class="object-fit-cover rounded-3"
-                                                                                    src="{{ $image }}"
-                                                                                    alt="image">
-                                                                                @for ($i = 0; $i < $imageJsonStarFills; $i++)
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                        width="12" height="12"
-                                                                                        fill="currentColor"
-                                                                                        class="bi bi-star-fill text-warning"
-                                                                                        viewBox="0 0 16 16">
-                                                                                        <path
-                                                                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                                                    </svg>
-                                                                                @endfor
-                                                                                @if ($imageJsonStarNotFill > 0)
-                                                                                    @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="12"
-                                                                                            height="12"
-                                                                                            fill="currentColor"
-                                                                                            class="bi bi-star"
-                                                                                            viewBox="0 0 16 16">
-                                                                                            <path
-                                                                                                d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
-                                                                                        </svg>
-                                                                                    @endfor
-                                                                                @endif
-                                                                            </div>
-                                                                        </div>
-                                                                    @endforeach
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </h5>
+                                                        </div>
+                                                    </h5>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="person-review p-3">
             @php
-                $showReviews = $reviews->take(3);
+                $showReviews = null;
+                if ($reviews) {
+                    $showReviews = $reviews->take(3);
+                }
             @endphp
-            @foreach ($showReviews as $review)
-                <div class="">
-                    <h6>{{ $review->billItem->bill->recipient_name }}
-                        <span class="text-success px-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-check-circle " viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path
-                                    d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
-                            </svg>
-                            <span class="" style="font-size: 14px; font-weight: normal;">
-                                Đã mua tại ĐMX
-                            </span>
-                        </span>
-                    </h6>
-                    <div class="d-flex align-items-center">
-                        <div>
-                            @php
-                                $starFills = $review->rating;
-                                $starNotFill = 5 - $starFills;
-                            @endphp
-                            @for ($i = 0; $i < $starFills; $i++)
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                    fill="currentColor" class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
+            @if ($showReviews)
+                @foreach ($showReviews as $review)
+                    <div class="">
+                        <h6>{{ $review->billItem->bill->recipient_name }}
+                            <span class="text-success px-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-check-circle " viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                                     <path
-                                        d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                        d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
                                 </svg>
-                            @endfor
-                            @if ($starNotFill > 0)
-                                @for ($i = 0; $i < $starNotFill; $i++)
+                                <span class="" style="font-size: 14px; font-weight: normal;">
+                                    Đã mua tại ĐMX
+                                </span>
+                            </span>
+                        </h6>
+                        <div class="d-flex align-items-center">
+                            <div>
+                                @php
+                                    $starFills = $review->rating;
+                                    $starNotFill = 5 - $starFills;
+                                @endphp
+                                @for ($i = 0; $i < $starFills; $i++)
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                        fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                        fill="currentColor" class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
                                         <path
-                                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                     </svg>
                                 @endfor
-                            @endif
+                                @if ($starNotFill > 0)
+                                    @for ($i = 0; $i < $starNotFill; $i++)
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                            fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                                        </svg>
+                                    @endfor
+                                @endif
+                            </div>
+                            <div class="px-2">
+                                <div class="vr"></div>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    fill="currentColor" class="bi bi-heart-fill text-danger" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                                </svg>
+                                <span style="font-size: 12px;">Sẽ giới thiệu cho bạn bè, người thân</span>
+                            </div>
                         </div>
-                        <div class="px-2">
-                            <div class="vr"></div>
-                        </div>
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                fill="currentColor" class="bi bi-heart-fill text-danger" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                        <p class="m-0 p-0 py-1" style="font-size: 14px;">{{ $review->comment }}</p>
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
                             </svg>
-                            <span style="font-size: 12px;">Sẽ giới thiệu cho bạn bè, người thân</span>
+                            <span class="px-1" style="font-size: 14px;">Hữu ích(16)</span>
+                            <div class="px-2">
+                                <div class="vr"></div>
+                            </div>
+                            <span style="font-size: 12px;" class="text-body-tertiary">Đã dùng khoảng 3
+                                tháng</span>
                         </div>
+                        <hr>
                     </div>
-                    <p class="m-0 p-0 py-1" style="font-size: 14px;">{{ $review->comment }}</p>
-                    <div class="d-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
-                            <path
-                                d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
-                        </svg>
-                        <span class="px-1" style="font-size: 14px;">Hữu ích(16)</span>
-                        <div class="px-2">
-                            <div class="vr"></div>
-                        </div>
-                        <span style="font-size: 12px;" class="text-body-tertiary">Đã dùng khoảng 3
-                            tháng</span>
-                    </div>
-                    <hr>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
             <div class="d-flex align-content-center justify-content-center">
-                {{-- @if ($totalReviews > 3) --}}
-                    <a href="{{ route('product.review', ['slug'=>$product->slug]) }}" class="btn btn-outline-secondary w-50">Xem {{ $totalReviews }} đánh
+                @if ($totalReviews > 3)
+                    <a href="{{ route('product.review', ['slug' => $product->slug]) }}"
+                        class="btn btn-outline-secondary w-50">Xem {{ $totalReviews }} đánh
                         giá</a>
-                {{-- @endif --}}
+                @endif
                 <a href="{{ route('bill.index') }}" class="btn btn-primary w-50">Viết đánh
                     giá</a>
             </div>

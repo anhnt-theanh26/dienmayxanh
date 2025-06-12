@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Setting;
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -16,6 +17,7 @@ class CategoryController extends Controller
         $style = 'category';
         $keyword = $slug;
         $setting = Setting::where('status', true)->first();
+        $category = Category::where('slug', $slug)->first();
         $seoProducts = null;
         if ($setting->seo_products) {
             $seoProducts = json_decode($setting->seo_products, true);
@@ -23,7 +25,13 @@ class CategoryController extends Controller
                 $seoProducts = null;
             }
         }
-        $pageTitle = $results->first()->category->name . ' | ' . config('app.name');
+        if ($category) {
+            $pageTitle = $category->name . ' | ' . config('app.name');
+        } else if ($seoProducts['title_products']) {
+            $pageTitle = $seoProducts['title_products'];
+        } else {
+            $pageTitle = config('app.name');
+        }
         $pageDescription = $seoProducts['description_products'] ?? '';
         $pageRobots = $seoProducts['robots_products'] ?? 'index, follow';
         $pageImage = $seoProducts['seoimage_products'] ?? asset('./storage/default.jpg');

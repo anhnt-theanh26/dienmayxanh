@@ -55,20 +55,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::post('welcome/store', [AdminController::class, 'welcome'])->name('welcome.store');
-Route::get('test', [AdminController::class, 'test'])->name('test');
-
-
 // login and register
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/login', [LoginController::class, 'showlogin'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.process');
-
     Route::get('/register', [LoginController::class, 'showregister'])->name('register');
 });
+
 Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 

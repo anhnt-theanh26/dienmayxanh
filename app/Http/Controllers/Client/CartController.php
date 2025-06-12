@@ -73,7 +73,9 @@ class CartController extends Controller
                             'image' => $variant->product->image,
                             'size' => 0,
                             'variant' => $variant->name,
+                            'quantity' => $variant->stock_quantity,
                             'product' => $variant->product,
+                            'import_price' => $variant->import_price,
                         ],
                     ]);
                     return [
@@ -98,6 +100,7 @@ class CartController extends Controller
                         'variant' => $variant->name,
                         'quantity' => $variant->stock_quantity,
                         'product' => $variant->product,
+                        'import_price' => $variant->import_price,
                     ],
                 ]);
                 return [

@@ -7,20 +7,21 @@
                         alt="{{ $item->name }}">
                 </div>
                 <div class="product-content px-2" style="width: 85%;">
-                    <div class="product-content-name d-flex justify-content-between">
-                        <div class="product-content-name-left" style="max-width: 75%;">
+                    <div class="product-content-name d-flex justify-content-between m-0 p-0">
+                        <div class="product-content-name-left m-0 p-0" style="max-width: 75%;">
                             <a class="text-decoration-none text-black"
                                 href="{{ route('product.show', ['slug' => $item->options->product->slug]) }}">
                                 {{ $item->name }}
                             </a>
                         </div>
-                        <div class="product-content-name-left" style="max-width: 25%;">
-                            <p class="text-danger">{{ number_format($item->price, 0, '.', '.') }}
+                        <div class="product-content-name-left m-0 p-0" style="max-width: 25%;">
+                            <p class="text-danger m-0 p-0">{{ number_format($item->price, 0, '.', '.') }}
                                 VND</p>
                         </div>
                     </div>
-                    <div class="product-content-variant py-1 pt-2">
-                        <p class="bg-light p-2 rounded-2" style="width: fit-content;"> {{ $item->options->variant }}
+                    <div class="product-content-variant m-0 p-0">
+                        <p class="bg-light p-2 rounded-2 m-0 p-0" style="width: fit-content;">
+                            {{ $item->options->variant }}
                         </p>
                     </div>
                     <div class="d-flex justify-content-end align-items-center">
