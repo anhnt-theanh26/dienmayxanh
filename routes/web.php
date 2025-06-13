@@ -66,21 +66,10 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 
     // category-parent
+    Route::resource('category-parent', CategoryParentController::class);
     Route::prefix('category-parent')->as('category-parent.')->group(function () {
-        Route::get('/', [CategoryParentController::class, 'index'])->name('index');
-
-        Route::get('/create', [CategoryParentController::class, 'create'])->name('create');
-        Route::post('/store', [CategoryParentController::class, 'store'])->name('store');
-
-        Route::get('/{id}/edit', [CategoryParentController::class, 'edit'])->name('edit');
-        Route::put('/{id}/update', [CategoryParentController::class, 'update'])->name('update');
-
         Route::get('/deleted', [CategoryParentController::class, 'deleted'])->name('deleted');
-        Route::post('/{id}/restore', [CategoryParentController::class, 'restore'])->name('restore');
-
         Route::delete('/{id}/delete', [CategoryParentController::class, 'delete'])->name('delete');
-        Route::delete('/{id}/destroy', [CategoryParentController::class, 'destroy'])->name('destroy');
-
         Route::get('/{keyword}/search', [CategoryParentController::class, 'search'])->name('search');
     });
 

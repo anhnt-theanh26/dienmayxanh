@@ -70,14 +70,14 @@
                                         <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <form action="{{ route('admin.category-parent.restore', ['id' => $item->id]) }}"
+                                        <form action="{{ route('admin.category-parent.restore', $item->id) }}"
                                             method="post">
                                             @csrf
                                             <button class="dropdown-item">
                                                 <i class="ti ti-repeat me-1"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.category-parent.destroy', ['id' => $item->id]) }}"
+                                        <form action="{{ route('admin.category-parent.destroy', $item->id) }}"
                                             method="post">
                                             @csrf
                                             @method('delete')

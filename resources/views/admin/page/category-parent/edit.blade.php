@@ -38,24 +38,25 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.category-parent.update', ['id' => $categoryParent->id]) }}"
-                        method="post">
+                    <form action="{{ route('admin.category-parent.update', $categoryParent->id) }}" method="post">
                         @csrf
                         @method('put')
                         <div class="col-12">
                             <div class="card mb-4">
-                              <div class="card-body">
-                                  <div class="mb-3">
-                                      <label class="form-label" for="name">Name</label>
-                                      <input type="text" class="form-control" id="name" name="name"
-                                          value="{{ $categoryParent->name }}" placeholder="Name" />
-                                  </div>
-                                  <button type="submit" class="btn btn-warning">Submit</button>
-                                  <a class="btn btn-secondary" href="{{ route('admin.category-parent.index') }}"
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            value="{{ $categoryParent->name }}" placeholder="Name" />
+                                    </div>
+                                    <button type="submit" class="btn btn-warning">Submit</button>
+                                    <a class="btn btn-secondary" href="{{ route('admin.category-parent.index') }}"
                                         class="text-muted float-end">Back</a>
-                              </div>
+                                    <a class="btn btn-success" href="{{ route('admin.category-parent.create') }}"
+                                        class="text-muted float-end">Create</a>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>

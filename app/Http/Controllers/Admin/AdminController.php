@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Attribute;
 use App\Models\Bill;
 use App\Models\Product;
 use App\Models\User;
@@ -25,9 +24,32 @@ class AdminController extends Controller
                 ->whereYear('created_at', Carbon::now()->subMonth()->year)
                 ->whereNotIn('status', ['Cancelled', 'Returned', 'Refunded', 'Failed'])
                 ->get();
+            $startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY);
+            $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY);
+            $billsThisWeek = Bill::whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                ->whereNotIn('status', ['Cancelled', 'Returned', 'Refunded', 'Failed'])
+                ->get()
+                ->groupBy(function ($bill) {
+                    return $bill->created_at->format('Y-m-d');
+                });
+            $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek(Carbon::MONDAY);
+            $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek(Carbon::SUNDAY);
+            $billsLastWeek = Bill::whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
+                ->whereNotIn('status', ['Cancelled', 'Returned', 'Refunded', 'Failed'])
+                ->get()
+                ->groupBy(function ($bill) {
+                    return $bill->created_at->format('Y-m-d');
+                });
+            $daysOfThisWeek = collect();
+            for ($date = $startOfWeek->copy(); $date->lte($endOfWeek); $date->addDay()) {
+                $formattedDate = $date->format('Y-m-d');
+                $daysOfThisWeek->put($formattedDate, $billsThisWeek->get($formattedDate, collect()));
+            }
+            $orders = Bill::orderByDesc('id')->paginate(7);
             $users = User::get();
-            $products = Product::get();
-            return view("admin.page.dashboard.index", compact('billsThisMonth', 'billsLastMonth', 'users', 'products'));
+            $products = Product::count();
+            $popularProducts = Product::orderByDesc('sold')->paginate(6);
+            return view("admin.page.dashboard.index", compact('billsThisMonth', 'billsLastMonth', 'billsThisWeek', 'billsLastWeek', 'daysOfThisWeek', 'orders', 'users', 'products', 'popularProducts'));
         } else {
             Auth::logout();
             $request->session()->invalidate();

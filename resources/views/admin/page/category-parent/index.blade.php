@@ -69,7 +69,7 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item"
-                                            href="{{ route('admin.category-parent.edit', ['id' => $item->id]) }}">
+                                            href="{{ route('admin.category-parent.edit', $item->id) }}">
                                             <i class="ti ti-pencil me-1"></i> Edit
                                         </a>
                                         <form action="{{ route('admin.category-parent.delete', ['id' => $item->id]) }}"

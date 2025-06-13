@@ -36,7 +36,7 @@
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <a href="{{ route('admin.dashboard') }}" class="menu-link">
-                            <div data-i18n="index">index</div>
+                            <div data-i18n="eCommerce">eCommerce</div>
                         </a>
                     </li>
                 </ul>
@@ -331,10 +331,10 @@
                 </ul>
             </li>
         @endif
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Login Session</span>
-        </li>
-        @if (Auth::user()->can('index authenticationlog') || Auth::user()->can('create authenticationlog'))
+        @if (Auth::user()->can('index authentication'))
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Login Session</span>
+            </li>
             <li class="menu-item {{ request()->routeIs('admin.authenticationlog.*') ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-clock"></i>

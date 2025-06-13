@@ -193,7 +193,8 @@
                                                 @foreach ($post->category->posts as $item)
                                                     @if ($item->id != $post->id)
                                                         <li>
-                                                            <a href="" class="text-decoration-none">
+                                                            <a href="{{ route('post.show', ['slug' => $item->slug]) }}"
+                                                                class="text-decoration-none">
                                                                 {{ $item->title }}
                                                             </a>
                                                         </li>
@@ -233,7 +234,8 @@
                                 @foreach ($post->category->posts as $item)
                                     @if ($item->id != $post->id)
                                         <div class="new-item">
-                                            <a href="" class="text-decoration-none text-black">
+                                            <a href="{{ route('post.show', ['slug' => $item->slug]) }}"
+                                                class="text-decoration-none text-black">
                                                 <div class="d-flex">
                                                     <div style="width: 120px">
                                                         <img style="width: 120px;" src="{{ asset($item->image) }}"

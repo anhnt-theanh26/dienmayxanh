@@ -4,8 +4,33 @@
 
 'use strict';
 function getRandomHexColor() {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+  return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
 }
+let arrNameCate = document.querySelectorAll('#arrNameCate');
+let arrCateSold = document.querySelectorAll('#arrCateSold');
+let profitArr = document.querySelectorAll('#profitArr');
+let soldWeek = document.querySelectorAll('#soldWeek');
+let arrNameCates = [];
+let arrCateSolds = [];
+let profitArrs = [];
+let arrSoldWeek = [];
+
+arrCateSolds.forEach(element => {
+  colorsSold.push(getRandomHexColor());
+});
+profitArr.forEach(element => {
+  profitArrs.push(Number(element.value));
+});
+let importPriceDownUp = Number(document.querySelector('#importPriceDownUp').value);
+arrNameCate.forEach(element => {
+  arrNameCates.push(element.value);
+});
+arrCateSold.forEach(element => {
+  arrCateSolds.push(Number(element.value));
+});
+soldWeek.forEach(element => {
+  arrSoldWeek.push(Number(element.value));
+});
 (function () {
   let cardColor, labelColor, headingColor, borderColor, legendColor;
 
@@ -22,6 +47,11 @@ function getRandomHexColor() {
     headingColor = config.colors.headingColor;
     borderColor = config.colors.borderColor;
   }
+  let colorsSold = [];
+  for (let index = 0; index < arrCateSold.length; index++) {
+    let color = getRandomHexColor();
+    colorsSold.push(color);
+  }
 
   // Donut Chart Colors
   const chartColors = {
@@ -33,7 +63,6 @@ function getRandomHexColor() {
       series5: getRandomHexColor(),
     }
   };
-
   // Expenses Radial Bar Chart
   // --------------------------------------------------------------------
   const expensesRadialChartEl = document.querySelector('#expensesChart'),
@@ -47,7 +76,7 @@ function getRandomHexColor() {
         type: 'radialBar'
       },
       colors: [config.colors.warning],
-      series: [78],
+      series: [importPriceDownUp],
       plotOptions: {
         radialBar: {
           offsetY: 0,
@@ -220,7 +249,7 @@ function getRandomHexColor() {
       },
       series: [
         {
-          data: [0, 25, 10, 40, 25, 55]
+          data: profitArrs
         }
       ],
       tooltip: {
@@ -311,16 +340,9 @@ function getRandomHexColor() {
         parentHeightOffset: 0,
         type: 'donut'
       },
-      labels: ['Electronic', 'Sports', 'Decor', 'Fashion', 'last'],
-      series: [45, 58, 30, 50, 59],
-      colors: [
-        chartColors.donut.series1,
-        chartColors.donut.series2,
-        chartColors.donut.series3,
-        chartColors.donut.series4,
-        getRandomHexColor(),
-
-      ],
+      labels: arrNameCates,
+      series: arrCateSolds,
+      colors: colorsSold,
       stroke: {
         width: 0
       },
@@ -737,7 +759,7 @@ function getRandomHexColor() {
       },
       series: [
         {
-          data: [40, 95, 60, 45, 90, 50, 75]
+          data: arrSoldWeek
         }
       ],
       legend: {
@@ -926,18 +948,18 @@ function getRandomHexColor() {
             var data = $.map(columns, function (col, i) {
               return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
                 ? '<tr data-dt-row="' +
-                    col.rowIndex +
-                    '" data-dt-column="' +
-                    col.columnIndex +
-                    '">' +
-                    '<td>' +
-                    col.title +
-                    ':' +
-                    '</td> ' +
-                    '<td>' +
-                    col.data +
-                    '</td>' +
-                    '</tr>'
+                col.rowIndex +
+                '" data-dt-column="' +
+                col.columnIndex +
+                '">' +
+                '<td>' +
+                col.title +
+                ':' +
+                '</td> ' +
+                '<td>' +
+                col.data +
+                '</td>' +
+                '</tr>'
                 : '';
             }).join('');
 

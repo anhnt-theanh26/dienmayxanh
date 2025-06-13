@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
-
 class CategoryParentController extends Controller
 {
     public function index()
@@ -95,7 +94,7 @@ class CategoryParentController extends Controller
             try {
                 $categoryParent = CategoryParent::where('id', $id)->first();
                 if (!$categoryParent) {
-                    return redirect()->route('admin.category-parent.index')->with('error', 'Khong tim thay danh muc!');
+                    return redirect()->back()->with('error', 'Khong tim thay danh muc!');
                 }
                 $originalSlug = Str::slug($request->name);
                 $newSlug = $originalSlug;
@@ -110,7 +109,7 @@ class CategoryParentController extends Controller
                     'slug' => $newSlug,
                 ];
                 $categoryParent->update($data);
-                return redirect()->route('admin.category-parent.index')->with('success', 'Cập nhật thành công!');
+                return redirect()->back()->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
