@@ -66,12 +66,12 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 
     // category-parent
-    Route::resource('category-parent', CategoryParentController::class);
     Route::prefix('category-parent')->as('category-parent.')->group(function () {
+        Route::get('/search/{keyword}', [CategoryParentController::class, 'search'])->name('search');
         Route::get('/deleted', [CategoryParentController::class, 'deleted'])->name('deleted');
         Route::delete('/{id}/delete', [CategoryParentController::class, 'delete'])->name('delete');
-        Route::get('/{keyword}/search', [CategoryParentController::class, 'search'])->name('search');
     });
+    Route::resource('category-parent', CategoryParentController::class);
 
     // category
     Route::prefix('category')->as('category.')->group(function () {
@@ -89,7 +89,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/delete', [CategoryController::class, 'delete'])->name('delete');
         Route::delete('/{id}/destroy', [CategoryController::class, 'destroy'])->name('destroy');
 
-        Route::get('/{keyword}/search', [CategoryController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [CategoryController::class, 'search'])->name('search');
     });
 
     // post
@@ -108,7 +108,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/delete', [PostController::class, 'delete'])->name('delete');
         Route::delete('/{id}/destroy', [PostController::class, 'destroy'])->name('destroy');
 
-        Route::get('/{keyword}/search', [PostController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [PostController::class, 'search'])->name('search');
     });
 
     // Attribute
@@ -127,7 +127,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/delete', [AttributeController::class, 'delete'])->name('delete');
         Route::delete('/{id}/destroy', [AttributeController::class, 'destroy'])->name('destroy');
 
-        Route::get('/{keyword}/search', [AttributeController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [AttributeController::class, 'search'])->name('search');
     });
 
     // Product
@@ -147,7 +147,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/delete', [ProductController::class, 'delete'])->name('delete');
         Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('destroy');
 
-        Route::get('/{keyword}/search', [ProductController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [ProductController::class, 'search'])->name('search');
     });
 
     // Image
@@ -167,7 +167,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
         Route::delete('/{id}/destroy', [VoucherController::class, 'destroy'])->name('destroy');
 
-        Route::get('/{keyword}/search', [VoucherController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [VoucherController::class, 'search'])->name('search');
     });
 
     // User
@@ -187,7 +187,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::delete('/{id}/delete', [UserController::class, 'delete'])->name('delete');
         Route::delete('/{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
 
-        Route::get('/{keyword}/search', [UserController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [UserController::class, 'search'])->name('search');
 
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     });
@@ -209,7 +209,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::get('/reply-cancel', [BillController::class, 'replyCancel'])->name('reply-cancel');
         Route::get('/reply-refund', [BillController::class, 'replyRefund'])->name('reply-refund');
         Route::get('{id}/show', [BillController::class, 'show'])->name('show');
-        Route::get('/{keyword}/search', [BillController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [BillController::class, 'search'])->name('search');
     });
 
 
@@ -227,13 +227,13 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::post('/store', [PermissionController::class, 'store'])->name('store');
         Route::delete('{id}/', [PermissionController::class, 'destroy'])->name('destroy');
         Route::put('/{id}/update', [PermissionController::class, 'update'])->name('update');
-        Route::get('/{keyword}/search', [PermissionController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [PermissionController::class, 'search'])->name('search');
     });
 
     // authenticationlog
     Route::prefix('authenticationlog')->as('authenticationlog.')->group(function () {
         Route::get('/', [AuthenticationlogController::class, 'index'])->name('index');
-        Route::get('/{keyword}/search', [AuthenticationlogController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [AuthenticationlogController::class, 'search'])->name('search');
     });
 
     // Location Menu
@@ -348,7 +348,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
         Route::put('/{id}/update', [SettingController::class, 'update'])->name('update');
         Route::post('/{id}/status', [SettingController::class, 'status'])->name('status');
         Route::delete('/{id}/destroy', [SettingController::class, 'destroy'])->name('destroy');
-        Route::get('/{keyword}/search', [SettingController::class, 'search'])->name('search');
+        Route::get('/search/{keyword}', [SettingController::class, 'search'])->name('search');
     });
 });
 
@@ -427,7 +427,7 @@ Route::prefix('/')->as('')->group(function () {
 
     // error
     Route::fallback(function () {
-        return view('error.client.404')->with('statusCode', 404);
+        return response()->view('error.client.404', ['statusCode' => 404], 404);
     });
 });
 
@@ -447,5 +447,5 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Liên kết xác minh đã được gửi!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-
+// php artisan optimize:clear
 // https://github.com/craftpip/jquery-confirm

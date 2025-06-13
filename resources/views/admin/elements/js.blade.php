@@ -11,7 +11,7 @@
                     keyword = ' ';
                 }
                 $.ajax({
-                        url: '/admin/' + tableName + '/' + keyword + '/search',
+                        url: '/admin/' + tableName + '/search' + '/' + keyword,
                         type: 'GET',
                         data: {
                             status: status
