@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckBillMiddleware
@@ -24,6 +25,8 @@ class CheckBillMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        // Log::info('CheckBillMiddleware start');
+
         $bills = Bill::get();
         if ($bills) {
             foreach ($bills as $bill) {
@@ -109,6 +112,8 @@ class CheckBillMiddleware
                 }
             }
         }
+        
+        // Log::info('CheckBillMiddleware end');
         return $next($request);
     }
 }

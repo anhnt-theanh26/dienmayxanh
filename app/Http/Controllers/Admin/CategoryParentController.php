@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CategoryParent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 class CategoryParentController extends Controller
@@ -36,9 +37,11 @@ class CategoryParentController extends Controller
     public function store(Request $request)
     {
         if (Auth::user()->can('create category parent')) {
+            Log::info('create category parent start');
             $request->validate([
                 "name" => "required|string|max:255",
             ]);
+            Log::info('create category parent end');
             try {
                 $originalSlug = Str::slug($request->name);
                 $slug = $originalSlug;

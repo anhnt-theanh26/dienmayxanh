@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -14,11 +14,13 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
-            return $next($request);
+        // Log::info('CheckAdminMiddleware start');
+        if (!auth()->check()) {
+            return redirect()->route('admin.login')->with('error', 'Bạn cần đăng nhập để truy cập trang quản trị!');
         }
-        return redirect()->route('admin.login')->with('error', 'Bạn cần đăng nhập để truy cập trang quản trị!');
+        // Log::info('CheckAdminMiddleware end');
+        return $next($request);
     }
 }

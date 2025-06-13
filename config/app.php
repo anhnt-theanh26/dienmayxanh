@@ -196,7 +196,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
-        ZanySoft\ResponsiveFileManager\FileManagerServiceProvider::class,
+        
         Spatie\Permission\PermissionServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class, // hiện mà không cần gọi
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class, // seo 
