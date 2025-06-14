@@ -62,10 +62,10 @@
                     <i class="ti ti-dots-vertical"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ route('admin.voucher.edit', ['id' => $item->id]) }}">
+                    <a class="dropdown-item" href="{{ route('admin.voucher.edit', $item->id) }}">
                         <i class="ti ti-pencil me-1"></i> Edit
                     </a>
-                    <form action="{{ route('admin.voucher.destroy', ['id' => $item->id]) }}" method="post">
+                    <form action="{{ route('admin.voucher.destroy', $item->id) }}" method="post">
                         @csrf
                         @method('delete')
                         <button onclick="return confirm('Xoa voucher?')" class="dropdown-item"><i

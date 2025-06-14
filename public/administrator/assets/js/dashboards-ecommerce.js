@@ -6,31 +6,8 @@
 function getRandomHexColor() {
   return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
 }
-let arrNameCate = document.querySelectorAll('#arrNameCate');
-let arrCateSold = document.querySelectorAll('#arrCateSold');
-let profitArr = document.querySelectorAll('#profitArr');
-let soldWeek = document.querySelectorAll('#soldWeek');
-let arrNameCates = [];
-let arrCateSolds = [];
-let profitArrs = [];
-let arrSoldWeek = [];
 
-arrCateSolds.forEach(element => {
-  colorsSold.push(getRandomHexColor());
-});
-profitArr.forEach(element => {
-  profitArrs.push(Number(element.value));
-});
-let importPriceDownUp = Number(document.querySelector('#importPriceDownUp').value);
-arrNameCate.forEach(element => {
-  arrNameCates.push(element.value);
-});
-arrCateSold.forEach(element => {
-  arrCateSolds.push(Number(element.value));
-});
-soldWeek.forEach(element => {
-  arrSoldWeek.push(Number(element.value));
-});
+
 (function () {
   let cardColor, labelColor, headingColor, borderColor, legendColor;
 
@@ -47,11 +24,6 @@ soldWeek.forEach(element => {
     headingColor = config.colors.headingColor;
     borderColor = config.colors.borderColor;
   }
-  let colorsSold = [];
-  for (let index = 0; index < arrCateSold.length; index++) {
-    let color = getRandomHexColor();
-    colorsSold.push(color);
-  }
 
   // Donut Chart Colors
   const chartColors = {
@@ -65,6 +37,7 @@ soldWeek.forEach(element => {
   };
   // Expenses Radial Bar Chart
   // --------------------------------------------------------------------
+  let importPriceDownUp = Number(document.querySelector('#importPriceDownUp').value);
   const expensesRadialChartEl = document.querySelector('#expensesChart'),
     expensesRadialChartConfig = {
       chart: {
@@ -212,6 +185,11 @@ soldWeek.forEach(element => {
 
   // Profit last month Line Chart
   // --------------------------------------------------------------------
+  let profitArr = document.querySelectorAll('#profitArr');
+  let profitArrs = [];
+  profitArr.forEach(element => {
+    profitArrs.push(Number(element.value));
+  });
   const profitLastMonthEl = document.querySelector('#profitLastMonth'),
     profitLastMonthConfig = {
       chart: {
@@ -331,6 +309,21 @@ soldWeek.forEach(element => {
 
   // Generated Leads Chart
   // --------------------------------------------------------------------
+  let arrCateSold = document.querySelectorAll('#arrCateSold');
+  let arrCateSolds = [];
+  let colorsSold = [];
+  arrCateSold.forEach(element => {
+    arrCateSolds.push(Number(element.value));
+  });
+  for (let index = 0; index < arrCateSold.length; index++) {
+    let color = getRandomHexColor();
+    colorsSold.push(color);
+  }
+  let arrNameCate = document.querySelectorAll('#arrNameCate');
+  let arrNameCates = [];
+  arrNameCate.forEach(element => {
+    arrNameCates.push(element.value);
+  });
   const soldThisMonth = document.querySelector('#soldThisMonth').value;
   const generatedLeadsChartEl = document.querySelector('#generatedLeadsChart'),
     generatedLeadsChartConfig = {
@@ -442,16 +435,27 @@ soldWeek.forEach(element => {
 
   // Total Revenue Report Chart - Bar Chart
   // --------------------------------------------------------------------
+  let profitMonth = document.querySelectorAll('#profitMonth');
+  let profitMonthArr = [];
+  profitMonth.forEach(element => {
+    profitMonthArr.push(parseInt(element.value));
+  });
+  let expenseMonth = document.querySelectorAll('#expenseMonth');
+  let expenseMonthArr = [];
+  expenseMonth.forEach(element => {
+    expenseMonthArr.push(parseInt(-element.value));
+  });
   const totalRevenueChartEl = document.querySelector('#totalRevenueChart'),
     totalRevenueChartOptions = {
+
       series: [
         {
           name: 'Earning',
-          data: [270, 210, 180, 200, 250, 280, 250, 270, 150]
+          data: profitMonthArr
         },
         {
           name: 'Expense',
-          data: [-140, -160, -180, -150, -100, -60, -80, -100, -180]
+          data: expenseMonthArr
         }
       ],
       chart: {
@@ -664,11 +668,11 @@ soldWeek.forEach(element => {
       series: [
         {
           name: 'Last Month',
-          data: [20, 10, 30, 16, 24, 5, 40, 23, 28, 5, 30]
+          data: expenseMonthArr
         },
         {
           name: 'This Month',
-          data: [50, 40, 60, 46, 54, 35, 70, 53, 58, 35, 60]
+          data: profitMonthArr
         }
       ],
       stroke: {
@@ -717,6 +721,18 @@ soldWeek.forEach(element => {
 
   // Earning Reports Bar Chart
   // --------------------------------------------------------------------
+  const jsDay = new Date().getDay();
+  const today = jsDay === 0 ? 6 : jsDay - 1;
+  const colorsFillThisDay = Array.from({
+    length: 7
+  }, (_, i) =>
+    i === today ? config.colors.primary : config.colors_label.primary
+  );
+  let soldWeek = document.querySelectorAll('#soldWeek');
+  let arrSoldWeek = [];
+  soldWeek.forEach(element => {
+    arrSoldWeek.push(Number(element.value));
+  });
   const reportBarChartEl = document.querySelector('#reportBarChart'),
     reportBarChartConfig = {
       chart: {
@@ -745,15 +761,7 @@ soldWeek.forEach(element => {
           right: -10
         }
       },
-      colors: [
-        config.colors_label.primary,
-        config.colors_label.primary,
-        config.colors_label.primary,
-        config.colors_label.primary,
-        config.colors.primary,
-        config.colors_label.primary,
-        config.colors_label.primary
-      ],
+      colors: colorsFillThisDay,
       dataLabels: {
         enabled: false
       },

@@ -373,7 +373,8 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img class="object-fit-cover rounded-pill" src="{{ Auth::check() ? asset(Auth::user()->image) : asset('/administrator/assets/img/avatars/1.png') }}"
+                        <img class="object-fit-cover rounded-pill"
+                            src="{{ Auth::check() ? asset(Auth::user()->image) : asset('/administrator/assets/img/avatars/1.png') }}"
                             alt="User Avatar" class="h-auto rounded-circle" />
                     </div>
                 </a>
@@ -398,7 +399,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="pages-profile-user.html">
+                        <a class="dropdown-item" href="{{ route('admin.profile.index') }}">
                             <i class="ti ti-user-check me-2 ti-sm"></i>
                             <span class="align-middle">My Profile</span>
                         </a>
@@ -444,7 +445,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <form action="{{ route('admin.user.logout') }}" method="post">
+                        <form action="{{ route('admin.logout') }}" method="post">
                             <button class="dropdown-item">
                                 <i class="ti ti-logout me-2 ti-sm"></i>
                                 @csrf

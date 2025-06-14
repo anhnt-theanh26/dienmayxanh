@@ -123,7 +123,8 @@
                                             <div class="col-11">
                                                 <span style="font-size: 14px;">Nhập mã VNPAYTGDD2 giảm từ 80,000đ
                                                     đến 150,000đ (áp dụng tùy giá trị đơn hàng) khi thanh toán qua
-                                                    VNPAY-QR <a class="text-decoration-none" href="">(Xem chi tiết
+                                                    VNPAY-QR <a class="text-decoration-none" href="">(Xem chi
+                                                        tiết
                                                         tại đây)</a></span>
                                             </div>
                                         </div>
@@ -137,7 +138,8 @@
                                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                                     </svg>
                                     <span>
-                                        <a style="font-size: 14px;" class="text-decoration-none" href="">Chọn địa
+                                        <a style="font-size: 14px;" class="text-decoration-none" href="">Chọn
+                                            địa
                                             chỉ nhận hàng để biết thời
                                             gian giao.</a>
                                     </span>
@@ -151,6 +153,7 @@
                                 </div>
                                 <div class="d-grid gap-2 d-flex">
                                     <button class="btn btn-outline-primary w-50" type="button"
+                                        {{ $variant->stock_quantity <= 0 ? 'disabled readonly' : '' }}
                                         onclick="addtocart({{ $variant->id }})">
                                         <div class="py-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -162,19 +165,6 @@
                                                 Thêm vào giỏ hàng</h6>
                                         </div>
                                     </button>
-                                    {{-- <a class="btn btn-outline-primary w-50" type="button"
-                                        href="{{ route('add-to-cart', ['id' => $variant->id]) }}">
-                                        <h1>{{ $variant->id }}</h1>
-                                        <div class="py-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                                            </svg>
-                                            <h6 style="font-size: 12px;" class="m-0 p-0">
-                                                Thêm vào giỏ hàng</h6>
-                                        </div>
-                                    </a> --}}
                                     <button class="btn btn-warning w-50" type="button">
                                         <div class="py-1">
                                             <h6 style="font-size: 12px;" class="m-0 p-0 text-white">Mua ngay</h6>
@@ -203,7 +193,8 @@
                                     </svg>
                                     <span>
                                         Gọi đặt mua
-                                        <a style="font-size: 14px;" class="text-decoration-none" href="">1900 232
+                                        <a style="font-size: 14px;" class="text-decoration-none" href="">1900
+                                            232
                                             461</a>
                                         (8:00 - 21:30)
                                     </span>
@@ -214,7 +205,8 @@
                                         <path
                                             d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z" />
                                     </svg>
-                                    <a style="font-size: 14px;" class="text-decoration-none" href="">Xem siêu thị
+                                    <a style="font-size: 14px;" class="text-decoration-none" href="">Xem siêu
+                                        thị
                                         có
                                         hàng trưng bày</a>
                                     </span>
@@ -307,7 +299,7 @@
                         hidingProductRecent.style.display = 'none';
                     })
                 </script>
-    
+
             </div>
         </div>
     </div>

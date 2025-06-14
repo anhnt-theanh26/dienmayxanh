@@ -14,7 +14,6 @@ class PostController extends Controller
 {
     public function index()
     {
-
         if (Auth::user()->can('index post')) {
             $posts = Post::orderBy('id', 'desc')->paginate(10);
             return view('admin.page.post.index', compact('posts'));
@@ -76,7 +75,7 @@ class PostController extends Controller
                 return redirect()->route('admin.post.index')->with('success', 'Thêm mới danh mục thành công');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.post.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -93,7 +92,7 @@ class PostController extends Controller
                 $categories = Category::orderBy('id', 'desc')->get();
                 if (!$post) {
                     Alert::error('Khong tim thay bai viet:');
-                    return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet');
+                    return redirect()->back()->with('error', 'Khong tim thay bai viet');
                 }
                 return view('admin.page.post.edit', compact('categories', 'post'));
             } catch (\Throwable $th) {
@@ -125,7 +124,7 @@ class PostController extends Controller
                 $post = Post::where('id', $id)->first();
                 if (!$post) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
-                    return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
+                    return redirect()->back()->with('error', 'Khong tim thay bai viet!');
                 }
                 $originalSlug = Str::slug($request->title);
                 $newSlug = $originalSlug;
@@ -150,10 +149,8 @@ class PostController extends Controller
                     'user_id' => 1,
                 ];
                 $post->update($data);
-                if ($post->update($data)) {
-                    Alert::success('Thanh cong', 'Cap nhap bai viet thanh cong');
-                }
-                return redirect()->route('admin.post.index')->with('success', 'Cập nhật thành công!');
+                Alert::success('Thanh cong', 'Cap nhap bai viet thanh cong');
+                return redirect()->back()->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -172,11 +169,11 @@ class PostController extends Controller
                 $post = Post::onlyTrashed()->where('id', $id)->first();
                 if (!$post) {
                     Alert::error('Khong thay bai viet', 'Bai viet khong ton tai');
-                    return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
+                    return redirect()->back()->with('error', 'Khong tim thay bai viet!');
                 }
                 $post->forceDelete();
                 Alert::success('Thanh cong', 'Xoa vinh vien bai viet thanh cong');
-                return redirect()->route('admin.post.index')->with('success', 'Xoa bai viet thanh cong!');
+                return redirect()->back()->with('success', 'Xoa bai viet thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -194,11 +191,11 @@ class PostController extends Controller
                 $post = Post::where('id', $id)->first();
                 if (!$post) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
-                    return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
+                    return redirect()->back()->with('error', 'Khong tim thay bai viet!');
                 }
                 $post->delete();
                 Alert::success('Thanh cong', 'Xoa bai viet thanh cong');
-                return redirect()->route('admin.post.index')->with('success', 'Xoa bai viet thanh cong!');
+                return redirect()->back()->with('success', 'Xoa bai viet thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -227,11 +224,11 @@ class PostController extends Controller
                 $post = Post::withTrashed()->where("id", $id)->first();
                 if (!$post) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay bai viet');
-                    return redirect()->route('admin.post.index')->with('error', 'Khong tim thay bai viet!');
+                    return redirect()->back()->with('error', 'Khong tim thay bai viet!');
                 }
                 $post->restore();
                 Alert::success('Thanh cong', 'Khoi phuc bai viet thanh cong');
-                return redirect()->route('admin.post.index')->with('success', 'Khoi phuc bai viet thanh cong!');
+                return redirect()->back()->with('success', 'Khoi phuc bai viet thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());

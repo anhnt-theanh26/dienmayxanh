@@ -13,7 +13,7 @@
         <td>{{ $item->category->name }}</td>
         <td>
             <div class="dropdown">
-                <a href="{{ route('admin.product.show', ['id' => $item->id]) }}" data-bs-toggle="tooltip" class="text-body"
+                <a href="{{ route('admin.product.show', $item->id) }}" data-bs-toggle="tooltip" class="text-body"
                     data-bs-placement="top" aria-label="Show" data-bs-original-title="Show">
                     <i class="ti ti-eye mx-2 ti-sm"></i>
                 </a>
@@ -22,10 +22,10 @@
                 </button>
                 <div class="dropdown-menu">
                     @if ($status == 'index')
-                        <a class="dropdown-item" href="{{ route('admin.product.edit', ['id' => $item->id]) }}">
+                        <a class="dropdown-item" href="{{ route('admin.product.edit', $item->id) }}">
                             <i class="ti ti-pencil me-1"></i> Edit
                         </a>
-                        <form action="{{ route('admin.product.delete', ['id' => $item->id]) }}" method="post">
+                        <form action="{{ route('admin.product.delete', $item->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button onclick="return confirm('Xoa danh muc?')" class="dropdown-item"><i
@@ -33,13 +33,13 @@
                                 Delete</button>
                         </form>
                     @else
-                        <form action="{{ route('admin.product.restore', ['id' => $item->id]) }}" method="post">
+                        <form action="{{ route('admin.product.restore', $item->id) }}" method="post">
                             @csrf
                             <button class="dropdown-item">
                                 <i class="ti ti-repeat me-1"></i> Restore
                             </button>
                         </form>
-                        <form action="{{ route('admin.product.destroy', ['id' => $item->id]) }}" method="post">
+                        <form action="{{ route('admin.product.destroy', $item->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button onclick="return confirm('Hanh dong nay se xoa vinh vien san pham?')"

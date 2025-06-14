@@ -58,7 +58,6 @@ class CategoryController extends Controller
                     'category_parent_id' => $request->category_parent_id,
                     'image' => $request->image,
                 ];
-
                 Category::create($data);
                 Alert::success('Thanh cong', 'Them moi danh muc thanh cong');
                 return redirect()->route('admin.category.index')->with('success', 'Thêm mới danh mục thành công');
@@ -79,6 +78,10 @@ class CategoryController extends Controller
             try {
                 $categoryParents = CategoryParent::orderBy('id', 'desc')->get();
                 $category = Category::where('id', $id)->first();
+                if (!$category) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
+                    return redirect()->back()->with('error', 'Khong tim thay danh muc!');
+                }
                 return view('admin.page.category.edit', compact('category', 'categoryParents'));
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
@@ -96,7 +99,7 @@ class CategoryController extends Controller
         if (Auth::user()->can('edit category')) {
             $request->validate([
                 'name' => 'required|string|max:255',
-                'image' => 'nullable|url|max:255',
+                'image' => 'nullable|max:255',
                 'is_hot' => 'nullable',
                 'category_parent_id' => 'required|exists:category_parents,id',
             ]);
@@ -104,7 +107,7 @@ class CategoryController extends Controller
                 $category = Category::where('id', $id)->first();
                 if (!$category) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
-                    return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
+                    return redirect()->back()->with('error', 'Khong tim thay danh muc!');
                 }
                 $originalSlug = Str::slug($request->name);
                 $newSlug = $originalSlug;
@@ -122,7 +125,8 @@ class CategoryController extends Controller
                     'image' => $request->image,
                 ];
                 $category->update($data);
-                return redirect()->route('admin.category.index')->with('success', 'Cập nhật thành công!');
+                Alert::success('Thanh cong', 'Cập nhật danh mục thành công');
+                return redirect()->back()->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -141,16 +145,11 @@ class CategoryController extends Controller
                 $category = Category::onlyTrashed()->where('id', $id)->first();
                 if (!$category) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
-                    return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
+                    return redirect()->back()->with('error', 'Khong tim thay danh muc!');
                 }
                 $category->forceDelete();
-                if (!empty($category->image)) {
-                    $oldImagePath = public_path($category->image);
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
-                    }
-                }
-                return redirect()->route('admin.category.index')->with('success', 'Xoa danh muc thanh cong!');
+                Alert::success('Thanh cong', 'Xoa danh muc thanh cong');
+                return redirect()->back()->with('success', 'Xoa danh muc thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -168,10 +167,11 @@ class CategoryController extends Controller
                 $category = Category::where('id', $id)->first();
                 if (!$category) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
-                    return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
+                    return redirect()->back()->with('error', 'Khong tim thay danh muc!');
                 }
                 $category->delete();
-                return redirect()->route('admin.category.index')->with('success', 'Xoa danh muc thanh cong!');
+                Alert::success('Thanh cong', 'Xoa danh muc thanh cong');
+                return redirect()->back()->with('success', 'Xoa danh muc thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -200,10 +200,11 @@ class CategoryController extends Controller
                 $category = Category::withTrashed()->where("id", $id)->first();
                 if (!$category) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay danh muc');
-                    return redirect()->route('admin.category.index')->with('error', 'Khong tim thay danh muc!');
+                    return redirect()->back()->with('error', 'Khong tim thay danh muc!');
                 }
                 $category->restore();
-                return redirect()->route('admin.category.index')->with('success', 'Khoi phuc danh muc thanh cong!');
+                Alert::success('Thanh cong', 'Khoi phuc danh muc thanh cong');
+                return redirect()->back()->with('success', 'Khoi phuc danh muc thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());

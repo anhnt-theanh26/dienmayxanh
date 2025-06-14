@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'Dashboard')
+@section('title', 'eCommerce')
 
 @section('css')
     <link rel="stylesheet"
@@ -168,15 +168,15 @@
                                     @if ($importPriceThisMonth > $importPriceLastMonth)
                                         Expenses increased by
                                         {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($importPriceThisMonth - $importPriceLastMonth) }}
-                                        from last month
+                                        {{-- from last month --}}
                                         <input type="hidden" name="" id="importPriceDownUp" readonly
-                                            value="{{ round(($importPriceLastMonth / $importPriceThisMonth) * 100, 2) }}">
+                                            value="{{ round((($importPriceThisMonth - $importPriceLastMonth) / $importPriceLastMonth) * 100, 2) }}">
                                     @else
                                         Expenses down
                                         {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($importPriceLastMonth - $importPriceThisMonth) }}
-                                        from last month
+                                        {{-- from last month --}}
                                         <input type="hidden" name="" id="importPriceDownUp" readonly
-                                            value="{{ round(($importPriceThisMonth / $importPriceLastMonth) * 100, 2) }}">
+                                            value="{{ round((($importPriceLastMonth - $importPriceThisMonth) / $importPriceThisMonth) * 100, 2) }}">
                                     @endif
                                 </small>
                             </div>
@@ -236,24 +236,52 @@
                                         </h3>
                                         @if ($soldThisMonth > $soldLastMonth)
                                             @php
-                                                $upSold = ($soldLastMonth / $soldThisMonth) * 100;
+                                                $upSold = ($soldThisMonth / $soldLastMonth) * 100;
                                             @endphp
                                             <small class="text-success text-nowrap fw-semibold">
                                                 <i class="ti ti-chevron-up me-1"></i>
-                                                {{ number_format($upSold, 0, '.', '.') ?? '' }}%
+                                                {{ $upSold ?? '' }}%
                                             </small>
                                         @else
                                             @php
-                                                $downSold = ($soldThisMonth / $soldLastMonth) * 100;
+                                                $downSold = ($soldLastMonth / $soldThisMonth) * 100;
                                             @endphp
                                             <small class="text-danger text-nowrap fw-semibold">
                                                 <i class="ti ti-chevron-down me-1"></i>
-                                                {{ number_format($downSold, 0, '.', '.') ?? '' }}%
+                                                {{ $downSold ?? '' }}%
                                             </small>
                                         @endif
                                     </div>
                                 </div>
-                                <div id="generatedLeadsChart"></div>
+                                <div id="generatedLeadsChart">
+                                    @php
+                                        $soldArrPrd = [];
+                                        foreach ($billsThisMonth as $billThisMonth) {
+                                            foreach ($billThisMonth->billItems as $bill) {
+                                                if (!isset($soldArrPrd[$bill->product->category->name])) {
+                                                    $soldArrPrd[$bill->product->category->name] = [];
+                                                }
+                                                $soldArrPrd[$bill->product->category->name][] = $bill->quantity;
+                                            }
+                                        }
+                                        $arrNameCate = [];
+                                        $arrCateSold = [];
+                                        foreach ($soldArrPrd as $key => $value) {
+                                            if (!in_array($key, $arrNameCate)) {
+                                                array_push($arrNameCate, $key);
+                                            }
+                                            array_push($arrCateSold, array_sum($value));
+                                        }
+                                    @endphp
+                                    @foreach ($arrNameCate as $item)
+                                        <input type="hidden" name="arrNameCate" id="arrNameCate"
+                                            value="{{ $item }}" readonly>
+                                    @endforeach
+                                    @foreach ($arrCateSold as $item)
+                                        <input type="hidden" name="arrCateSold" id="arrCateSold"
+                                            value="{{ $item }}" readonly>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -261,31 +289,6 @@
                 <!--/ Generated Leads -->
             </div>
         </div>
-        @php
-            $soldArrPrd = [];
-            foreach ($billsThisMonth as $billThisMonth) {
-                foreach ($billThisMonth->billItems as $bill) {
-                    if (!isset($soldArrPrd[$bill->product->category->name])) {
-                        $soldArrPrd[$bill->product->category->name] = [];
-                    }
-                    $soldArrPrd[$bill->product->category->name][] = $bill->quantity;
-                }
-            }
-            $arrNameCate = [];
-            $arrCateSold = [];
-            foreach ($soldArrPrd as $key => $value) {
-                if (!in_array($key, $arrNameCate)) {
-                    array_push($arrNameCate, $key);
-                }
-                array_push($arrCateSold, array_sum($value));
-            }
-        @endphp
-        @foreach ($arrNameCate as $item)
-            <input type="hidden" name="arrNameCate" id="arrNameCate" value="{{ $item }}" readonly>
-        @endforeach
-        @foreach ($arrCateSold as $item)
-            <input type="hidden" name="arrCateSold" id="arrCateSold" value="{{ $item }}" readonly>
-        @endforeach
 
         <!-- Revenue Report -->
         <div class="col-12 col-xl-8 mb-4 col-lg-7">
@@ -296,44 +299,49 @@
                 <div class="card-body">
                     <div class="row row-bordered g-0">
                         <div class="col-md-8">
-                            <div id="totalRevenueChart"></div>
+                            <div id="totalRevenueChart">
+                                @foreach ($billsEachMonthOfYear as $month => $bills)
+                                    @if ($bills->isEmpty())
+                                        <input type="hidden" name="" id="profitMonth" value="0" readonly>
+                                        <input type="hidden" name="" id="expenseMonth" value="0" readonly>
+                                    @else
+                                        @php
+                                            $profitMonth = 0;
+                                            $expenseMonth = 0;
+                                            foreach ($bills as $bill) {
+                                                foreach ($bill->billItems as $billItem) {
+                                                    $profitMonth += $billItem->profit;
+                                                    $expenseMonth += $billItem->import_price;
+                                                }
+                                            }
+                                        @endphp
+                                        <input type="hidden" name="" id="profitMonth"
+                                            value="{{ round($profitMonth / 1000000, 0) }}" readonly>
+                                        <input type="hidden" name="" id="expenseMonth"
+                                            value="{{ round($expenseMonth / 1000000, 0) }}" readonly>
+                                    @endif
+                                @endforeach
+                                @php
+                                    $profitThisYear = 0;
+                                    foreach ($billsEachMonthOfYear as $bills) {
+                                        foreach ($bills as $bill) {
+                                            foreach ($bill->billItems as $billItem) {
+                                                $profitThisYear += $billItem->profit;
+                                            }
+                                        }
+                                    }
+                                @endphp
+                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
                             <div class="text-center mt-4">
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
-                                        id="budgetId" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <script>
-                                            document.write(new Date().getFullYear());
-                                        </script>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="budgetId">
-                                        <a class="dropdown-item prev-year1" href="javascript:void(0);">
-                                            <script>
-                                                document.write(new Date().getFullYear() - 1);
-                                            </script>
-                                        </a>
-                                        <a class="dropdown-item prev-year2" href="javascript:void(0);">
-                                            <script>
-                                                document.write(new Date().getFullYear() - 2);
-                                            </script>
-                                        </a>
-                                        <a class="dropdown-item prev-year3" href="javascript:void(0);">
-                                            <script>
-                                                document.write(new Date().getFullYear() - 3);
-                                            </script>
-                                        </a>
-                                    </div>
+                                <h3 class="text-center pt-4 mb-0">
+                                    {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($profitThisYear) }}
+                                </h3>
+                                <p class="mb-4 text-center"><span class="fw-semibold">Budget: </span>0</p>
+                                <div class="px-3">
+                                    <div id="budgetChart"></div>
                                 </div>
-                            </div>
-                            <h3 class="text-center pt-4 mb-0">$25,825</h3>
-                            <p class="mb-4 text-center"><span class="fw-semibold">Budget: </span>56,800</p>
-                            <div class="px-3">
-                                <div id="budgetChart"></div>
-                            </div>
-                            <div class="text-center mt-4">
-                                <button type="button" class="btn btn-primary">Increase Button</button>
                             </div>
                         </div>
                     </div>
@@ -341,6 +349,7 @@
             </div>
         </div>
         <!--/ Revenue Report -->
+
         <!-- Earning Reports -->
         <div class="col-xl-4 col-lg-5 col-md-6 mb-4">
             <div class="card h-100">
@@ -349,17 +358,6 @@
                         <h5 class="m-0 me-2">Earning Reports</h5>
                         <small class="text-muted">Weekly Earnings Overview</small>
                     </div>
-                    {{-- <div class="dropdown">
-                        <button class="btn p-0" type="button" id="earningReports" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="ti ti-dots-vertical ti-sm text-muted"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="earningReports">
-                            <a class="dropdown-item" href="javascript:void(0);">Download</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="card-body pb-0">
                     @php
@@ -411,15 +409,15 @@
                                         {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($profitThisWeek) }}
                                     </small>
                                     @if ($profitThisWeek > $profitLastWeek)
-                                        <i class="ti ti-chevron-up text-success ms-3"></i>
+                                        <i class="ti ti-chevron-up text-success"></i>
                                         <small class="text-muted">
-                                            {{ round(($profitLastWeek / $profitThisWeek) * 100, 1) }}
+                                            {{ round(($profitThisWeek / $profitLastWeek) * 100) }}
                                             %
                                         </small>
                                     @else
-                                        <i class="ti ti-chevron-down text-danger ms-3"></i>
+                                        <i class="ti ti-chevron-down text-danger"></i>
                                         <small class="text-muted">
-                                            {{ round(($profitThisWeek / $profitLastWeek) * 100, 1) }}
+                                            {{ round(($profitLastWeek / $profitThisWeek) * 100) }}
                                             %
                                         </small>
                                     @endif
@@ -441,15 +439,15 @@
                                         {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($totalIncomeThisWeek) }}
                                     </small>
                                     @if ($totalIncomeThisWeek > $totalIncomeLastWeek)
-                                        <i class="ti ti-chevron-up text-success ms-3"></i>
+                                        <i class="ti ti-chevron-up text-success"></i>
                                         <small class="text-muted">
-                                            {{ round(($totalIncomeLastWeek / $totalIncomeThisWeek) * 100, 1) }}
+                                            {{ round(($totalIncomeThisWeek / $totalIncomeLastWeek) * 100) }}
                                             %
                                         </small>
                                     @else
-                                        <i class="ti ti-chevron-down text-danger ms-3"></i>
+                                        <i class="ti ti-chevron-down text-danger"></i>
                                         <small class="text-muted">
-                                            {{ round(($totalIncomeThisWeek / $totalIncomeLastWeek) * 100, 1) }}
+                                            {{ round(($totalIncomeLastWeek / $totalIncomeThisWeek) * 100) }}
                                             %
                                         </small>
                                     @endif
@@ -471,15 +469,15 @@
                                         {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($totalExpensesThisWeek) }}
                                     </small>
                                     @if ($totalExpensesThisWeek > $totalExpensesLastWeek)
-                                        <i class="ti ti-chevron-up text-success ms-3"></i>
+                                        <i class="ti ti-chevron-up text-success"></i>
                                         <small class="text-muted">
-                                            {{ round(($totalExpensesLastWeek / $totalExpensesThisWeek) * 100, 1) }}
+                                            {{ round(($totalExpensesThisWeek / $totalExpensesLastWeek) * 100) }}
                                             %
                                         </small>
                                     @else
-                                        <i class="ti ti-chevron-down text-danger ms-3"></i>
+                                        <i class="ti ti-chevron-down text-danger"></i>
                                         <small class="text-muted">
-                                            {{ round(($totalExpensesThisWeek / $totalExpensesLastWeek) * 100, 1) }}
+                                            {{ round(($totalExpensesLastWeek / $totalExpensesThisWeek) * 100) }}
                                             %
                                         </small>
                                     @endif
@@ -492,19 +490,17 @@
                             @if ($bills->isEmpty())
                                 <input readonly id="soldWeek" type="hidden" value="0">
                             @else
-                                <ul>
-                                    @php
-                                        $soldWeek = 0;
-                                    @endphp
-                                    @foreach ($bills as $bill)
-                                        @foreach ($bill->billItems as $billItem)
-                                            @php
-                                                $soldWeek += $billItem->quantity;
-                                            @endphp
-                                        @endforeach
+                                @php
+                                    $soldWeek = 0;
+                                @endphp
+                                @foreach ($bills as $bill)
+                                    @foreach ($bill->billItems as $billItem)
+                                        @php
+                                            $soldWeek += $billItem->quantity;
+                                        @endphp
                                     @endforeach
-                                    <input readonly id="soldWeek" type="hidden" value="{{ $soldWeek }}">
-                                </ul>
+                                @endforeach
+                                <input readonly id="soldWeek" type="hidden" value="{{ $soldWeek }}">
                             @endif
                         @endforeach
                     </div>
@@ -512,7 +508,6 @@
             </div>
         </div>
         <!--/ Earning Reports -->
-
 
         <!-- Popular Product -->
         <div class="col-md-6 col-xl-4 mb-4">
@@ -545,9 +540,9 @@
                                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                     <div class="me-2">
                                         <h6 class="mb-0">
-                                            {{ \Illuminate\Support\Str::limit($popularProduct->name, 30) }}
+                                            {{ \Illuminate\Support\Str::limit($popularProduct->name, 20) }}
                                         </h6>
-                                        <small class="text-muted d-block">Item: #{{ $popularProduct->sku }}</small>
+                                        <small class="text-muted d-block">Sku: #{{ $popularProduct->sku }}</small>
                                     </div>
                                     <div class="user-progress d-flex align-items-center gap-1">
                                         <p class="mb-0 fw-semibold">
@@ -569,7 +564,7 @@
                 <div class="card-header d-flex justify-content-between pb-2 mb-1">
                     <div class="card-title mb-1">
                         <h5 class="m-0 me-2">Sales</h5>
-                        <small class="text-muted">62 Deliveries in Progress</small>
+                        <small class="text-muted">{{ count($billsThisMonth) }} Deliveries in Progress</small>
                     </div>
                 </div>
                 <div class="card-body">
@@ -752,120 +747,53 @@
                 <div class="card-header d-flex justify-content-between">
                     <div class="card-title m-0 me-2">
                         <h5 class="m-0 me-2">Transactions</h5>
-                        <small class="text-muted">Total 58 Transactions done in this Month</small>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="ti ti-dots-vertical ti-sm text-muted"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-                            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-                        </div>
+                        <small class="text-muted">Total {{ count($billsThisMonth) }} Transactions done in this
+                            Month</small>
                     </div>
                 </div>
                 <div class="card-body">
                     <ul class="p-0 m-0">
-                        <li class="d-flex mb-3 pb-1 align-items-center">
-                            <div class="badge bg-label-primary me-3 rounded p-2">
-                                <i class="ti ti-wallet ti-sm"></i>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Wallet</h6>
-                                    <small class="text-muted d-block">Starbucks</small>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0 text-danger">-$75</h6>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-3 pb-1 align-items-center">
-                            <div class="badge bg-label-success rounded me-3 p-2">
-                                <i class="ti ti-browser-check ti-sm"></i>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Bank Transfer</h6>
-                                    <small class="text-muted d-block">Add Money</small>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0 text-success">+$480</h6>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-3 pb-1 align-items-center">
-                            <div class="badge bg-label-danger rounded me-3 p-2">
-                                <i class="ti ti-brand-paypal ti-sm"></i>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Paypal</h6>
-                                    <small class="text-muted d-block mb-1">Client Payment</small>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0 text-success">+$268</h6>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-3 pb-1 align-items-center">
-                            <div class="badge bg-label-secondary me-3 rounded p-2">
-                                <i class="ti ti-credit-card ti-sm"></i>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Master Card</h6>
-                                    <small class="text-muted d-block mb-1">Ordered iPhone 13</small>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0 text-danger">-$699</h6>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-3 pb-1 align-items-center">
-                            <div class="badge bg-label-info me-3 rounded p-2">
-                                <i class="ti ti-currency-dollar ti-sm"></i>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Bank Transactions</h6>
-                                    <small class="text-muted d-block mb-1">Refund</small>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0 text-success">+$98</h6>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-3 pb-1 align-items-center">
-                            <div class="badge bg-label-danger me-3 rounded p-2">
-                                <i class="ti ti-brand-paypal ti-sm"></i>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Paypal</h6>
-                                    <small class="text-muted d-block mb-1">Client Payment</small>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0 text-success">+$126</h6>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            <div class="badge bg-label-success me-3 rounded p-2">
-                                <i class="ti ti-browser-check ti-sm"></i>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Bank Transfer</h6>
-                                    <small class="text-muted d-block mb-1">Pay Office Rent</small>
-                                </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                    <h6 class="mb-0 text-danger">-$1290</h6>
-                                </div>
-                            </div>
-                        </li>
+                        @foreach ($orders as $item)
+                            @if ($item->payment_method == 'offline')
+                                <li class="d-flex mb-3 pb-1 align-items-center">
+                                    <div class="badge bg-label-primary me-3 rounded p-2">
+                                        <i class="ti ti-wallet ti-sm"></i>
+                                    </div>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <h6 class="mb-0">Wallet</h6>
+                                            <small class="text-muted d-block">
+                                                {{ $item->code }}
+                                            </small>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0 text-success">
+                                                {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($item->total_amount) }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </li>
+                            @else
+                                <li class="d-flex mb-3 pb-1 align-items-center">
+                                    <div class="badge bg-label-success rounded me-3 p-2">
+                                        <i class="ti ti-browser-check ti-sm"></i>
+                                    </div>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <h6 class="mb-0">Bank Transfer</h6>
+                                            <small class="text-muted d-block">
+                                                {{ $item->code }}
+                                            </small>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0 text-success">
+                                                {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($item->total_amount) }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -895,44 +823,134 @@
                                         aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                                         style="width: 39px; display: none;"
                                         aria-label=": activate to sort column ascending"></th>
-                                    <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0"
-                                        rowspan="1" colspan="1" style="width: 64px;" aria-sort="descending"
-                                        aria-label="ID: activate to sort column ascending">ID</th>
-                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                        colspan="1" style="width: 75px;"
-                                        aria-label=": activate to sort column ascending"><i class="ti ti-trending-up"></i>
+                                    <th>ID</th>
+                                    <th><i class="ti ti-trending-up"></i>
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                        colspan="1" style="width: 120px;"
-                                        aria-label="Total: activate to sort column ascending">Total</th>
-                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                        colspan="1" style="width: 209px;"
-                                        aria-label="Issued Date: activate to sort column ascending">Issued Date</th>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 147px;"
-                                        aria-label="Actions">Actions</th>
+                                    <th>Total</th>
+                                    <th>Issued Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="search">
                                 @foreach ($orders as $item)
                                     <tr>
                                         <td>{{ $item->code }}</td>
-                                        <td>{{ $item->code }}</td>
+                                        <td>
+                                            @if ($item->payment_method == 'offline')
+                                                <div class="badge bg-label-primary me-3 rounded p-2">
+                                                    <i class="ti ti-wallet ti-sm"></i>
+                                                </div>
+                                            @else
+                                                <div class="badge bg-label-success rounded me-3 p-2">
+                                                    <i class="ti ti-browser-check ti-sm"></i>
+                                                </div>
+                                            @endif
+                                        </td>
                                         <td>
                                             <span class="fw-bold text-success">
-                                                {{ number_format($item->total_amount, 0, '.', '.') ?? '' }}</span>
-                                            <span>VNĐ</span>
+                                                {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($item->total_amount) }}
+                                            </span>
                                         </td>
                                         <td>{{ \Carbon\Carbon::parse($item->order_date)->format('d/m/Y') }}</td>
-                                        <td>{{ $item->code }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <a href="{{ route('admin.bill.show', ['id' => $item->id]) }}"
+                                                    data-bs-toggle="tooltip" class="text-body" data-bs-placement="top"
+                                                    aria-label="Show" data-bs-original-title="Show">
+                                                    <i class="ti ti-eye mx-2 ti-sm"></i>
+                                                </a>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown">
+                                                        <i class="ti ti-dots-vertical"></i>
+                                                    </button>
+                                                    @if ($item->status != 'Cancelled' && $item->status_cancel == 'requested')
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.reply-cancel', ['id' => $item->id, 'status' => 'accepted']) }}">
+                                                                <i class="ti ti-pencil me-1"></i> Accept
+                                                            </a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.reply-cancel', ['id' => $item->id, 'status' => 'rejected']) }}">
+                                                                <i class="ti ti-pencil me-1"></i> Refuse
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                    @if ($item->status == 'Pending' && $item->payment_method == 'offline' && $item->status_cancel != 'requested')
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Confirmed']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Confirmed
+                                                            </a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Preparing']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Preparing
+                                                            </a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Shipping']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Shipping
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                    @if ($item->status == 'Confirmed' && $item->status_cancel != 'requested')
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Preparing']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Preparing
+                                                            </a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Shipping']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Shipping
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                    @if ($item->status == 'Preparing' && $item->status_cancel != 'requested')
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Shipping']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Shipping
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                    @if ($item->status = 'Shipping')
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.status', ['id' => $item->id, 'status' => 'Delivered']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Delivered
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                    @if ($item->status == 'Cancelled' && $item->refund_status == 'Pending')
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.reply-refund', ['id' => $item->id, 'status' => 'Success']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Accept
+                                                            </a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.bill.reply-refund', ['id' => $item->id, 'status' => 'Failed']) }}">
+                                                                <i class="ti ti-pencil me-1"></i>
+                                                                Refuse
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
+                                <div class="px-4">
+                                    {{ $orders->links('pagination::bootstrap-5') }}
+                                </div>
                             </tbody>
                         </table>
-                        <div class="row mx-2">
-                            <div class="px-4">
-                                {{ $orders->links('pagination::bootstrap-5') }}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -942,6 +960,10 @@
 @endsection
 
 @section('js')
+    <script>
+        let tableName = 'dashboard';
+        let status = 'index';
+    </script>
+    @include('admin.elements.js')
     <script src="{{ asset('/administrator/assets/js/dashboards-ecommerce.js') }}"></script>
-    <script></script>
 @endsection

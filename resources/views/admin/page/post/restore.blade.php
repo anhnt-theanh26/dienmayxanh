@@ -74,15 +74,13 @@
                                         <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <form action="{{ route('admin.post.restore', ['id' => $item->id]) }}"
-                                            method="post">
+                                        <form action="{{ route('admin.post.restore', $item->id) }}" method="post">
                                             @csrf
                                             <button class="dropdown-item">
                                                 <i class="ti ti-repeat me-1"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.post.destroy', ['id' => $item->id]) }}"
-                                            method="post">
+                                        <form action="{{ route('admin.post.destroy', $item->id) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button onclick="return confirm('Hanh dong nay se xoa vinh vien danh muc?')"

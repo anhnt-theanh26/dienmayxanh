@@ -16,10 +16,10 @@
                 </button>
                 <div class="dropdown-menu">
                     @if ($status == 'index')
-                        <a class="dropdown-item" href="{{ route('admin.user.edit', ['id' => $item->id]) }}">
+                        <a class="dropdown-item" href="{{ route('admin.user.edit', $item->id) }}">
                             <i class="ti ti-pencil me-1"></i> Edit
                         </a>
-                        <form action="{{ route('admin.user.delete', ['id' => $item->id]) }}" method="post">
+                        <form action="{{ route('admin.user.delete', $item->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button onclick="return confirm('Xoa user?')" class="dropdown-item"><i
@@ -27,13 +27,13 @@
                                 Delete</button>
                         </form>
                     @else
-                        <form action="{{ route('admin.user.restore', ['id' => $item->id]) }}" method="post">
+                        <form action="{{ route('admin.user.restore', $item->id) }}" method="post">
                             @csrf
                             <button class="dropdown-item">
                                 <i class="ti ti-repeat me-1"></i> Restore
                             </button>
                         </form>
-                        <form action="{{ route('admin.user.destroy', ['id' => $item->id]) }}" method="post">
+                        <form action="{{ route('admin.user.destroy', $item->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button onclick="return confirm('Hanh dong nay se xoa vinh vien user?')"

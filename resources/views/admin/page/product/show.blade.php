@@ -89,6 +89,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Price</th>
+                                <th>Import Price</th>
                                 <th>Stock Quantity</th>
                                 <th>Status</th>
                             </tr>
@@ -96,9 +97,9 @@
                         <tbody>
                             @foreach ($product->variants as $item)
                                 <tr>
-                                    <td class="text-nowrap">{{ $item->name }}</td>
-                                    <td class="text-nowrap">{{ number_format($item->price, 0, '.', '.') }} đ</td>
-
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ number_format($item->price, 0, '.', '.') }} đ</td>
+                                    <td>{{ number_format($item->import_price, 0, '.', '.') }} đ</td>
                                     <td>{{ $item->stock_quantity }}</td>
                                     <td>{{ $item->status }}</td>
                                 </tr>

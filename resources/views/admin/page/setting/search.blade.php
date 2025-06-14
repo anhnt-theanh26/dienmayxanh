@@ -25,17 +25,17 @@
                 </button>
                 <div class="dropdown-menu">
                     @if ($item->status == false)
-                        <form action="{{ route('admin.setting.status', ['id' => $item->id]) }}" method="post">
+                        <form action="{{ route('admin.setting.status', $item->id) }}" method="post">
                             @csrf
                             <button onclick="return confirm('Sử dụng cài đặt này?')" class="dropdown-item"><i
                                     class="ti ti-toggle-right me-1"></i>
                                 Using</button>
                         </form>
                     @endif
-                    <a class="dropdown-item" href="{{ route('admin.setting.edit', ['id' => $item->id]) }}">
+                    <a class="dropdown-item" href="{{ route('admin.setting.edit', $item->id) }}">
                         <i class="ti ti-pencil me-1"></i> Edit
                     </a>
-                    <form action="{{ route('admin.setting.destroy', ['id' => $item->id]) }}" method="post">
+                    <form action="{{ route('admin.setting.destroy', $item->id) }}" method="post">
                         @csrf
                         @method('delete')
                         <button onclick="return confirm('Xóa cài đặt?')" class="dropdown-item"><i

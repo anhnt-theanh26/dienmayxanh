@@ -53,7 +53,7 @@ class AttributeController extends Controller
                 ];
                 Attribute::create($data);
                 Alert::success('Thanh cong', 'Them moi thuoc tinh thanh cong');
-                return redirect()->route('admin.attribute.index')->with('success', 'Thêm mới thuộc tính thành công');
+                return redirect()->back()->with('success', 'Thêm mới thuộc tính thành công');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -96,7 +96,7 @@ class AttributeController extends Controller
                 $attribute = Attribute::where('id', $id)->first();
                 if (!$attribute) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay bai viet!');
+                    return redirect()->back()->with('error', 'Khong tim thay bai viet!');
                 }
                 $originalSlug = Str::slug($request->name);
                 $newSlug = $originalSlug;
@@ -110,7 +110,7 @@ class AttributeController extends Controller
                 ];
                 $attribute->update($data);
                 Alert::success('Thanh cong', 'Cap nhap thuoc tinh thanh cong');
-                return redirect()->route('admin.attribute.index')->with('success', 'Cập nhật thành công!');
+                return redirect()->back()->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -129,11 +129,11 @@ class AttributeController extends Controller
                 $attribute = Attribute::onlyTrashed()->where('id', $id)->first();
                 if (!$attribute) {
                     Alert::error('Khong thay thuoc tinh', 'thuoc tinh khong ton tai');
-                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+                    return redirect()->back()->with('error', 'Khong tim thay thuoc tinh!');
                 }
                 $attribute->forceDelete();
                 Alert::success('Thanh cong', 'Xoa vinh vien thuoc tinh thanh cong');
-                return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
+                return redirect()->back()->with('success', 'Xoa thuoc tinh thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -151,11 +151,11 @@ class AttributeController extends Controller
                 $attribute = Attribute::where('id', $id)->first();
                 if (!$attribute) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+                    return redirect()->back()->with('error', 'Khong tim thay thuoc tinh!');
                 }
                 $attribute->delete();
                 Alert::success('Thanh cong', 'Xoa thuoc tinh thanh cong');
-                return redirect()->route('admin.attribute.index')->with('success', 'Xoa thuoc tinh thanh cong!');
+                return redirect()->back()->with('success', 'Xoa thuoc tinh thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -184,11 +184,11 @@ class AttributeController extends Controller
                 $attribute = Attribute::withTrashed()->where("id", $id)->first();
                 if (!$attribute) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay thuoc tinh');
-                    return redirect()->route('admin.attribute.index')->with('error', 'Khong tim thay thuoc tinh!');
+                    return redirect()->back()->with('error', 'Khong tim thay thuoc tinh!');
                 }
                 $attribute->restore();
                 Alert::success('Thanh cong', 'Khoi phuc thuoc tinh thanh cong');
-                return redirect()->route('admin.attribute.index')->with('success', 'Khoi phuc thuoc tinh thanh cong!');
+                return redirect()->back()->with('success', 'Khoi phuc thuoc tinh thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());

@@ -122,10 +122,10 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item"
-                                            href="{{ route('admin.voucher.edit', ['id' => $item->id]) }}">
+                                            href="{{ route('admin.voucher.edit', $item->id) }}">
                                             <i class="ti ti-pencil me-1"></i> Edit
                                         </a>
-                                        <form action="{{ route('admin.voucher.destroy', ['id' => $item->id]) }}"
+                                        <form action="{{ route('admin.voucher.destroy', $item->id) }}"
                                             method="post">
                                             @csrf
                                             @method('delete')

@@ -38,7 +38,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.category.update', ['id' => $category->id]) }}" method="post"
+                    <form action="{{ route('admin.category.update', $category->id) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -50,9 +50,10 @@
                                         <input type="text" class="form-control" id="name" name="name"
                                             value="{{ $category->name }}" placeholder="Name" />
                                     </div>
-                                   <div class="mb-3">
+                                    <div class="mb-3">
                                         <label class="form-label" for="image">Image</label><br>
-                                        <input id="thumbnail" class="form-control" type="hidden" name="image" value="{{ $category->image }}">
+                                        <input id="thumbnail" class="form-control" type="hidden" name="image"
+                                            value="{{ $category->image }}">
                                         <div class="d-flex align-items-center">
                                             <div class="input-group"
                                                 style="position: relative; display: inline-block; width: 80px;">
@@ -67,8 +68,8 @@
                                                 </button>
                                             </div>
                                             <div id="holder" class="mx-2" style="width: 100%">
-                                                <img class="btn-image rounded-1 object-fit-contain" src="{{ asset($category->image) }}"
-                                                    height="80px" alt="Image">
+                                                <img class="btn-image rounded-1 object-fit-contain"
+                                                    src="{{ asset($category->image) }}" height="80px" alt="Image">
                                             </div>
                                         </div>
                                         @error('image')
@@ -100,6 +101,8 @@
                                     <button type="submit" class="btn btn-warning">Submit</button>
                                     <a class="btn btn-secondary" href="{{ route('admin.category.index') }}"
                                         class="text-muted float-end">Back</a>
+                                    <a class="btn btn-success" href="{{ route('admin.category.create') }}"
+                                        class="text-muted float-end">Create</a>
                                 </div>
                             </div>
                         </div>

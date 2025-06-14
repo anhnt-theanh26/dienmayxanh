@@ -61,14 +61,12 @@ class UserController extends Controller
                     $imagePath = 'storage/' . $request->file('image')->store('user', 'public');
                     $data['image'] = $imagePath;
                 }
-                $user = User::create($data);
-                if ($user) {
-                    Alert::success('Thanh cong', 'Them moi user thanh cong');
-                    return redirect()->route('admin.user.index')->with('success', 'Thêm mới user thành công');
-                }
+                User::create($data);
+                Alert::success('Thanh cong', 'Them moi user thanh cong');
+                return redirect()->route('admin.user.index')->with('success', 'Thêm mới user thành công');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
-                return redirect()->route('admin.user.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
             }
         } else {
             Alert::error('Không có quyền truy cập');
@@ -84,7 +82,7 @@ class UserController extends Controller
             $user = User::where('id', $id)->first();
             if (!$user) {
                 Alert::error('Khong tim thay user:');
-                return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
+                return redirect()->back()->with('error', 'Khong tim thay user');
             }
             return view('admin.page.user.edit', compact('user'));
         } else {
@@ -100,7 +98,7 @@ class UserController extends Controller
             $user = User::where('id', $id)->first();
             if (!$user) {
                 Alert::error('Khong tim thay user:');
-                return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
+                return redirect()->back()->with('error', 'Khong tim thay user');
             }
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
@@ -132,7 +130,7 @@ class UserController extends Controller
                 }
                 $user->update($data);
                 Alert::success('Thanh cong', 'Chinh sua user thanh cong');
-                return redirect()->route('admin.user.edit', $user->id)->with('success', 'Chinh sua user thành công');
+                return redirect()->back()->with('success', 'Chinh sua user thành công');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -150,7 +148,7 @@ class UserController extends Controller
                 $user = User::where('id', $id)->first();
                 if (!$user) {
                     Alert::error('Khong tim thay user:');
-                    return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user');
+                    return redirect()->back()->with('error', 'Khong tim thay user');
                 }
                 $validated = $request->validate([
                     'old_password' => 'required|string|max:255',
@@ -159,20 +157,18 @@ class UserController extends Controller
                 ]);
                 if (!Hash::check($request->old_password, $user->password)) {
                     Alert::error('Mật khẩu cũ không đúng!!!!');
-                    return redirect()->route('admin.user.edit', $user->id)->with('password_is_incorrect', 'Mat khau cu khong dung!!');
+                    return redirect()->back()->with('password_is_incorrect', 'Mat khau cu khong dung!!');
                 }
                 if (Hash::check($request->new_password, $user->password)) {
                     Alert::error('Mật khẩu mới không được giống mật khẩu cũ!!!!');
-                    return redirect()->route('admin.user.edit', $user->id)->with('oldpassword_like_newpassword', 'Mat khau mới không được giống mật khẩu cũ!!');
+                    return redirect()->back()->with('oldpassword_like_newpassword', 'Mat khau mới không được giống mật khẩu cũ!!');
                 }
                 $data = [
                     'password' => Hash::make($validated['new_password']),
                 ];
                 $user->update($data);
-                if ($user->update($data)) {
-                    Alert::success('Thanh cong', 'Cap nhap mat khau user thanh cong');
-                    return redirect()->route('admin.user.edit', $user->id)->with('success', 'Cap nhap mat khau user thanh cong');
-                }
+                Alert::success('Thanh cong', 'Cap nhap mat khau user thanh cong');
+                return redirect()->back()->with('success', 'Cap nhap mat khau user thanh cong');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -191,11 +187,11 @@ class UserController extends Controller
                 $user = User::onlyTrashed()->where('id', $id)->first();
                 if (!$user) {
                     Alert::error('Khong thay user', 'user khong ton tai');
-                    return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
+                    return redirect()->back()->with('error', 'Khong tim thay user!');
                 }
                 $user->forceDelete();
                 Alert::success('Thanh cong', 'Xoa vinh vien user thanh cong');
-                return redirect()->route('admin.user.index')->with('success', 'Xoa user thanh cong!');
+                return redirect()->back()->with('success', 'Xoa user thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -213,11 +209,11 @@ class UserController extends Controller
                 $user = User::where('id', $id)->first();
                 if (!$user) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay user');
-                    return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
+                    return redirect()->back()->with('error', 'Khong tim thay user!');
                 }
                 $user->delete();
                 Alert::success('Thanh cong', 'Xoa user thanh cong');
-                return redirect()->route('admin.user.index')->with('success', 'Xoa user thanh cong!');
+                return redirect()->back()->with('success', 'Xoa user thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -246,7 +242,7 @@ class UserController extends Controller
                 $user = User::withTrashed()->where("id", $id)->first();
                 if (!$user) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay user');
-                    return redirect()->route('admin.user.index')->with('error', 'Khong tim thay user!');
+                    return redirect()->back()->with('error', 'Khong tim thay user!');
                 }
                 $user->restore();
                 Alert::success('Thanh cong', 'Khoi phuc user thanh cong');

@@ -32,7 +32,8 @@
                 <input type="search" class="form-control" name="search" placeholder="Search...">
             </label>
             <div class="">
-                <a class="btn btn-success" href="{{ route('admin.product.create') }}" class="text-muted float-end">Create</a>
+                <a class="btn btn-success" href="{{ route('admin.product.create') }}"
+                    class="text-muted float-end">Create</a>
             </div>
         </div>
         <div class="card-datatable">
@@ -63,8 +64,8 @@
                             <td>{{ $item->category->name }}</td>
                             <td>
                                 <div class="dropdown">
-                                    <a href="{{ route('admin.product.show', ['id' => $item->id]) }}"
-                                        data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" aria-label="Show"
+                                    <a href="{{ route('admin.product.show', $item->id) }}" data-bs-toggle="tooltip"
+                                        class="text-body" data-bs-placement="top" aria-label="Show"
                                         data-bs-original-title="Show">
                                         <i class="ti ti-eye mx-2 ti-sm"></i>
                                     </a>
@@ -73,15 +74,13 @@
                                         <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <form action="{{ route('admin.product.restore', ['id' => $item->id]) }}"
-                                            method="post">
+                                        <form action="{{ route('admin.product.restore', $item->id) }}" method="post">
                                             @csrf
                                             <button class="dropdown-item">
                                                 <i class="ti ti-repeat me-1"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.product.destroy', ['id' => $item->id]) }}"
-                                            method="post">
+                                        <form action="{{ route('admin.product.destroy', $item->id) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button onclick="return confirm('Hanh dong nay se xoa vinh vien san pham?')"

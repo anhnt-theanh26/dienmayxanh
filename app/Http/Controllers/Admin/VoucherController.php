@@ -92,7 +92,7 @@ class VoucherController extends Controller
                 $voucher = Voucher::where('id', $id)->first();
                 if (!$voucher) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay voucher:');
-                    return redirect()->route('admin.voucher.index')->with('error', 'Khong tim thay voucher');
+                    return redirect()->back()->with('error', 'Khong tim thay voucher');
                 }
                 $products = Product::orderBy('id', 'desc')->get();
                 $users = User::orderBy('id', 'desc')->get();
@@ -114,7 +114,7 @@ class VoucherController extends Controller
             $voucher = Voucher::where('id', $id)->first();
             if (!$voucher) {
                 Alert::error('Có lỗi xảy ra', 'Khong tim thay voucher:');
-                return redirect()->route('admin.voucher.index')->with('error', 'Khong tim thay voucher');
+                return redirect()->back()->with('error', 'Khong tim thay voucher');
             }
             $request->validate([
                 'promo_code' => 'required|max:255|unique:vouchers,promo_code,' . $voucher->id,
@@ -167,11 +167,11 @@ class VoucherController extends Controller
                 $voucher = Voucher::where('id', $id)->first();
                 if (!$voucher) {
                     Alert::error('Khong thay voucher', 'Voucher khong ton tai');
-                    return redirect()->route('admin.voucher.index')->with('error', 'Khong tim thay voucher!');
+                    return redirect()->back()->with('error', 'Khong tim thay voucher!');
                 }
                 $voucher->delete();
                 Alert::success('Thanh cong', 'Xoa voucher thanh cong');
-                return redirect()->route('admin.voucher.index')->with('success', 'Xoa voucher thanh cong!');
+                return redirect()->back()->with('success', 'Xoa voucher thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());

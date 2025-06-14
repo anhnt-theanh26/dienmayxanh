@@ -31,7 +31,6 @@ class BillController extends Controller
             $bills = Bill::orderBy('id', 'desc')
                 ->where('status', '!=', 'Cancelled')
                 ->where('status_cancel', 'requested')
-                ->where('status_cancel', 'requested')
                 ->paginate(10);
             return view('admin.page.bill.requestCancellation', compact('bills'));
         } else {
@@ -99,7 +98,9 @@ class BillController extends Controller
     public function shipping()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Shipping')->paginate(10);
+            $bills = Bill::orderBy('id', 'desc')
+                ->where('status', 'Shipping')
+                ->paginate(10);
             return view('admin.page.bill.shipping', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -110,7 +111,10 @@ class BillController extends Controller
     public function refund()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Cancelled')->where('refund_status', 'Pending')->paginate(10);
+            $bills = Bill::orderBy('id', 'desc')
+                ->where('status', 'Cancelled')
+                ->where('refund_status', 'Pending')
+                ->paginate(10);
             return view('admin.page.bill.refund', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -121,7 +125,9 @@ class BillController extends Controller
     public function delivered()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Delivered')->paginate(10);
+            $bills = Bill::orderBy('id', 'desc')
+                ->where('status', 'Delivered')
+                ->paginate(10);
             return view('admin.page.bill.delivered', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -132,7 +138,9 @@ class BillController extends Controller
     public function cancelled()
     {
         if (Auth::user()->can('index bill')) {
-            $bills = Bill::orderBy('id', 'desc')->where('status', 'Cancelled')->paginate(10);
+            $bills = Bill::orderBy('id', 'desc')
+                ->where('status', 'Cancelled')
+                ->paginate(10);
             return view('admin.page.bill.cancelled', compact('bills'));
         } else {
             Alert::error('Không có quyền truy cập');
@@ -361,7 +369,6 @@ class BillController extends Controller
                 $results = Bill::orderBy('id', 'desc')->paginate(10);
             }
             return view('admin.page.bill-search.index', compact('results'));
-
         }
         if ($status == 'requestCancellation') {
             $results = Bill::orderBy('id', 'desc')

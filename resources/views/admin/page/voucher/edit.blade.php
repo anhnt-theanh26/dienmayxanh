@@ -5,16 +5,8 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/flatpickr/flatpickr.css') }}" />
     <link rel="stylesheet"
-        href="{{ asset('/administrator/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
-    <link rel="stylesheet"
         href="{{ asset('/administrator/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/jquery-timepicker/jquery-timepicker.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/pickr/pickr-themes.css') }}" />
-
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/select2/select2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/bootstrap-select/bootstrap-select.css') }}" />
-
 @endsection
 
 @section('content')
@@ -46,7 +38,7 @@
             <div class="card mb-4">
                 <h5 class="card-header">Update</h5>
                 <div class="card-body">
-                    <form action="{{ route('admin.voucher.update', ['id' => $voucher->id]) }}" method="post"
+                    <form action="{{ route('admin.voucher.update', $voucher->id) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -105,6 +97,8 @@
                                 <button type="submit" class="btn btn-warning">Submit</button>
                                 <a class="btn btn-secondary" href="{{ route('admin.voucher.index') }}"
                                     class="text-muted float-end">Back</a>
+                                <a class="btn btn-success" href="{{ route('admin.voucher.create') }}"
+                                    class="text-muted float-end">Create</a>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <div class="mb-3">
@@ -201,18 +195,8 @@
 @section('js')
     <script src="{{ asset('/administrator/assets/vendor/libs/moment/moment.js') }}"></script>
     <script src="{{ asset('/administrator/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js') }}">
-    </script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/jquery-timepicker/jquery-timepicker.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/pickr/pickr.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js') }}"></script>
     <script src="{{ asset('/administrator/assets/js/forms-pickers.js') }}"></script>
-
     <script src="{{ asset('/administrator/assets/vendor/libs/select2/select2.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/tagify/tagify.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/bloodhound/bloodhound.js') }}"></script>
     <script src="{{ asset('/administrator/assets/js/forms-selects.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/js/forms-tagify.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/js/forms-typeahead.js') }}"></script>
 @endsection

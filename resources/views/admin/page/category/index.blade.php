@@ -71,12 +71,10 @@
                                         <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                            href="{{ route('admin.category.edit', ['id' => $item->id]) }}">
+                                        <a class="dropdown-item" href="{{ route('admin.category.edit', $item->id) }}">
                                             <i class="ti ti-pencil me-1"></i> Edit
                                         </a>
-                                        <form action="{{ route('admin.category.delete', ['id' => $item->id]) }}"
-                                            method="post">
+                                        <form action="{{ route('admin.category.delete', $item->id) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button onclick="return confirm('Xoa danh muc?')" class="dropdown-item"><i

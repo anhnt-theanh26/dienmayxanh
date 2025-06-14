@@ -148,7 +148,7 @@ class ProductController extends Controller
                 $product = Product::withTrashed()->where('id', $id)->first();
                 if (!$product) {
                     Alert::error('Khong tim thay san pham:');
-                    return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham');
+                    return redirect()->back()->with('error', 'Khong tim thay san pham');
                 }
                 return view('admin.page.product.show', compact('product'));
             } catch (\Throwable $th) {
@@ -171,7 +171,7 @@ class ProductController extends Controller
                 $categories = Category::orderBy('id', 'desc')->get();
                 if (!$product) {
                     Alert::error('Khong tim thay san pham:');
-                    return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham');
+                    return redirect()->back()->with('error', 'Khong tim thay san pham');
                 }
                 return view('admin.page.product.edit', compact('categories', 'product', 'attributes'));
             } catch (\Throwable $th) {
@@ -203,7 +203,7 @@ class ProductController extends Controller
             $product = Product::where('id', $id)->first();
             if (!$product) {
                 Alert::error('Khong tim thay san pham:');
-                return redirect()->route('admin.product.index')->with('error', 'Không tìm thấy sản phẩm');
+                return redirect()->back()->with('error', 'Không tìm thấy sản phẩm');
             }
             $request->validate([ // validate
                 'sku' => 'required|string|max:255|unique:products,sku,' . $product->id,
@@ -349,12 +349,9 @@ class ProductController extends Controller
                         ProductAttributeValue::create($attr);
                     }
                 }
-                if ($product->update($dataProduct)) {
-                    Alert::success('Thanh cong', 'Cap nhap san pham thanh cong');
-                }
+                Alert::success('Thanh cong', 'Cap nhap san pham thanh cong');
                 DB::commit();
                 return redirect()->back()->with('success', 'Cập nhật thành công!');
-                // return redirect()->route('admin.product.index')->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 DB::rollBack();
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
@@ -374,11 +371,11 @@ class ProductController extends Controller
                 $product = Product::onlyTrashed()->where('id', $id)->first();
                 if (!$product) {
                     Alert::error('Khong thay san pham', 'san pham khong ton tai');
-                    return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
+                    return redirect()->back()->with('error', 'Khong tim thay san pham!');
                 }
                 $product->forceDelete();
                 Alert::success('Thanh cong', 'Xoa vinh vien san pham thanh cong');
-                return redirect()->route('admin.product.index')->with('success', 'Xoa san pham thanh cong!');
+                return redirect()->back()->with('success', 'Xoa san pham thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -397,11 +394,11 @@ class ProductController extends Controller
                 $product = Product::where('id', $id)->first();
                 if (!$product) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham');
-                    return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
+                    return redirect()->back()->with('error', 'Khong tim thay san pham!');
                 }
                 $product->delete();
                 Alert::success('Thanh cong', 'Xoa san pham thanh cong');
-                return redirect()->route('admin.product.index')->with('success', 'Xoa san pham thanh cong!');
+                return redirect()->back()->with('success', 'Xoa san pham thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -437,11 +434,11 @@ class ProductController extends Controller
                 $product = Product::withTrashed()->where("id", $id)->first();
                 if (!$product) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay san pham');
-                    return redirect()->route('admin.product.index')->with('error', 'Khong tim thay san pham!');
+                    return redirect()->back()->with('error', 'Khong tim thay san pham!');
                 }
                 $product->restore();
                 Alert::success('Thanh cong', 'Khoi phuc san pham thanh cong');
-                return redirect()->route('admin.product.index')->with('success', 'Khoi phuc san pham thanh cong!');
+                return redirect()->back()->with('success', 'Khoi phuc san pham thanh cong!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -475,5 +472,4 @@ class ProductController extends Controller
             return redirect()->route('admin.dashboard');
         }
     }
-
 }

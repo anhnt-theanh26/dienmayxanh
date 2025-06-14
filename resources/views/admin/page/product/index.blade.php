@@ -64,8 +64,8 @@
                             <td>{{ $item->category->name }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('admin.product.show', ['id' => $item->id]) }}"
-                                        data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" aria-label="Show"
+                                    <a href="{{ route('admin.product.show', $item->id) }}" data-bs-toggle="tooltip"
+                                        class="text-body" data-bs-placement="top" aria-label="Show"
                                         data-bs-original-title="Show">
                                         <i class="ti ti-eye mx-2 ti-sm"></i>
                                     </a>
@@ -75,12 +75,10 @@
                                             <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item"
-                                                href="{{ route('admin.product.edit', ['id' => $item->id]) }}">
+                                            <a class="dropdown-item" href="{{ route('admin.product.edit', $item->id) }}">
                                                 <i class="ti ti-pencil me-1"></i> Edit
                                             </a>
-                                            <form action="{{ route('admin.product.delete', ['id' => $item->id]) }}"
-                                                method="post">
+                                            <form action="{{ route('admin.product.delete', $item->id) }}" method="post">
                                                 @csrf
                                                 @method('delete')
                                                 <button onclick="return confirm('Xoa san pham?')" class="dropdown-item"><i

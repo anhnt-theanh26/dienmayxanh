@@ -17,26 +17,29 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.attribute.update', ['id' => $attribute->id]) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.attribute.update', $attribute->id) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="col-12">
                             <div class="card mb-4">
-                              <div class="card-body">
-                                  <div class="mb-3">
-                                      <label class="form-label" for="name">Name</label>
-                                      <input type="text" class="form-control" id="name" name="name"
-                                          value="{{  $attribute->name }}" placeholder="Name" />
-                                      @error('name')
-                                          <p class="text-danger">{{ $message }}</p>
-                                      @enderror
-                                  </div>
-                                  <button type="submit" class="btn btn-warning">Submit</button>
-                                  <a class="btn btn-secondary" href="{{ route('admin.attribute.index') }}"
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            value="{{ $attribute->name }}" placeholder="Name" />
+                                        @error('name')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-warning">Submit</button>
+                                    <a class="btn btn-secondary" href="{{ route('admin.attribute.index') }}"
                                         class="text-muted float-end">Back</a>
-                              </div>
+                                    <a class="btn btn-success" href="{{ route('admin.attribute.create') }}"
+                                        class="text-muted float-end">Create</a>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>

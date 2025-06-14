@@ -24,8 +24,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.user.update', ['id' => $user->id]) }}" method="post"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('admin.user.update', $user->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="col-12">
@@ -84,6 +83,8 @@
                                     <button type="submit" class="btn btn-warning">Submit</button>
                                     <a class="btn btn-secondary" href="{{ route('admin.user.index') }}"
                                         class="text-muted float-end">Back</a>
+                                    <a class="btn btn-success" href="{{ route('admin.user.create') }}"
+                                        class="text-muted float-end">Create</a>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +95,7 @@
         <div class="col-md-6">
             <div class="card mb-4">
                 <h5 class="card-header">Change Password</h5>
-                <form action="{{ route('admin.user.password', ['id' => $user->id]) }}" method="post">
+                <form action="{{ route('admin.user.password', $user->id) }}" method="post">
                     @csrf
                     @method('put')
                     <div class="card-body">

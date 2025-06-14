@@ -18,7 +18,7 @@
             @endforeach
         @endif
     </div>
-    <form action="{{ route('admin.setting.update', ['id' => $setting->id]) }}" method="post">
+    <form action="{{ route('admin.setting.update', $setting->id) }}" method="post">
         @csrf
         @method('put')
         <div class="row">
@@ -194,8 +194,8 @@
                             </div>
 
                             <div class="show-color-secondary mt-3">
-                                <input class="form-control" type="color" value="{{ $setting->secondary_color }}" name="secondary_color"
-                                    id="color-picker">
+                                <input class="form-control" type="color" value="{{ $setting->secondary_color }}"
+                                    name="secondary_color" id="color-picker">
                             </div>
                         </div>
                     </div>

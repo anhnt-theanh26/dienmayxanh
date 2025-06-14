@@ -21,7 +21,7 @@
                     <small class="text-muted float-end">Update</small>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.product.update', ['id' => $product->id]) }}" method="post"
+                    <form action="{{ route('admin.product.update', $product->id) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -184,7 +184,8 @@
                                                     </div>
                                                     <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                         <label class="form-label">Import Price</label>
-                                                        <input type="number" name="variants[{{ $item->id }}][import_price]"
+                                                        <input type="number"
+                                                            name="variants[{{ $item->id }}][import_price]"
                                                             class="form-control" placeholder="Price"
                                                             value="{{ $item->import_price }}" />
                                                         @error('variants.*.import_price')
@@ -241,7 +242,7 @@
                                                     <input type="number" name="newvariants[__index__][price_old]"
                                                         class="form-control" placeholder="Price old" />
                                                 </div>
-                                                 <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
+                                                <div class="mb-3 col-lg-6 col-xl-4 col-12 mb-0">
                                                     <label class="form-label">Import Price</label>
                                                     <input type="number" name="newvariants[__index__][import_price]"
                                                         class="form-control" placeholder="Price old" />
@@ -354,6 +355,8 @@
                         <button type="submit" class="btn btn-warning mt-3">Submit</button>
                         <a class="btn btn-secondary mt-3" href="{{ route('admin.product.index') }}"
                             class="text-muted float-end">Back</a>
+                        <a class="btn btn-success mt-3" href="{{ route('admin.product.create') }}"
+                            class="text-muted float-end">Create</a>
                     </form>
                 </div>
             </div>
