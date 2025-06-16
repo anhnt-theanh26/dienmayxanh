@@ -25,12 +25,12 @@
 @if ($productmenuitemsecond && $productmenuitemsecond->isNotEmpty())
     <section>
         <div class="container" style="flex-shrink: 0;">
-            <h4 class="fw-bold py-4">{{ $secondProductMenu->productmenus->first()->name }}</h4>
             <div class="bg-white rounded-4 p-2">
+                <h4 class="fw-bold py-2">{{ $secondProductMenu->productmenus->first()->name }}</h4>
                 <div class="row">
                     @if ($productmenuitemseconddatatake12 && $productmenuitemseconddatatake12->isNotEmpty())
                         @foreach ($productmenuitemseconddatatake12 as $product)
-                            <div class="col-2 my-2">
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-xs-6 col-6 my-2">
                                 <a href="{{ route('product.show', ['slug' => $product->slug]) }}"
                                     class="text-decoration-none text-black">
                                     <div class="p-3 border rounded-2" style="min-height: 450px; max-height: 450px;">

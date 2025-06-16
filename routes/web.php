@@ -35,13 +35,8 @@ use App\Http\Controllers\Client\PostController as ClientPostController;
 use App\Http\Controllers\Client\ProductDetailController as ClientProductDetailController;
 use App\Http\Controllers\Client\SearchController as ClientSearchController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
-// use App\Http\Controllers\SendEmailController;
-// use App\Mail\SendEmail;
-// use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-// use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -129,6 +124,10 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
     // Profile
     Route::prefix('profile')->as('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
+        Route::put('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/delete', [ProfileController::class, 'delete'])->name('delete');
+        Route::get('/security', [ProfileController::class, 'security'])->name('security');
+        Route::put('/security', [ProfileController::class, 'securityUpdate'])->name('update-security');
     });
 
     // Image

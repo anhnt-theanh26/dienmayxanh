@@ -76,6 +76,7 @@ class SettingController extends Controller
                     'seo_products' => json_encode($seo_products),
                     'seo_posts' => json_encode($seo_posts),
                     'layout_not_found' => $request['layout'],
+                    'informational' => $request['informational'],
                     'title_login_admin' => json_encode($title_login_admin),
                 ];
                 $settings = Setting::paginate(10);
@@ -165,6 +166,7 @@ class SettingController extends Controller
                     'seo_products' => json_encode($seo_products),
                     'seo_posts' => json_encode($seo_posts),
                     'layout_not_found' => $request['layout'],
+                    'informational' => $request['informational'],
                     'title_login_admin' => json_encode($title_login_admin),
                 ];
                 $setting->update($data);

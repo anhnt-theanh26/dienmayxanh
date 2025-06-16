@@ -19,8 +19,9 @@ return new class extends Migration {
             $table->text('secondary_color')->nullable();
             $table->text('seo_products')->nullable();
             $table->text('seo_posts')->nullable();
-            $table->text('layout_not_found')->nullable();
             $table->text('title_login_admin')->nullable();
+            $table->text('layout_not_found')->nullable();
+            $table->text('informational')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

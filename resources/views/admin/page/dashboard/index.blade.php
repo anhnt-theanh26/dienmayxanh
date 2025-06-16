@@ -411,14 +411,22 @@
                                     @if ($profitThisWeek > $profitLastWeek)
                                         <i class="ti ti-chevron-up text-success"></i>
                                         <small class="text-muted">
-                                            {{ round(($profitThisWeek / $profitLastWeek) * 100) }}
-                                            %
+                                            @if ($profitLastWeek <= 0 || $profitThisWeek <= 0)
+                                                0%
+                                            @else
+                                                {{ round(($profitThisWeek / $profitLastWeek) * 100) }}
+                                                %
+                                            @endif
                                         </small>
                                     @else
                                         <i class="ti ti-chevron-down text-danger"></i>
                                         <small class="text-muted">
-                                            {{ round(($profitLastWeek / $profitThisWeek) * 100) }}
-                                            %
+                                            @if ($profitLastWeek <= 0 || $profitThisWeek <= 0)
+                                                0%
+                                            @else
+                                                {{ round(($profitLastWeek / $profitThisWeek) * 100) ?? 0 }}
+                                                %
+                                            @endif
                                         </small>
                                     @endif
                                 </div>
@@ -441,14 +449,22 @@
                                     @if ($totalIncomeThisWeek > $totalIncomeLastWeek)
                                         <i class="ti ti-chevron-up text-success"></i>
                                         <small class="text-muted">
-                                            {{ round(($totalIncomeThisWeek / $totalIncomeLastWeek) * 100) }}
-                                            %
+                                            @if ($totalIncomeThisWeek <= 0 || $totalIncomeLastWeek <= 0)
+                                                0%
+                                            @else
+                                                {{ round(($totalIncomeThisWeek / $totalIncomeLastWeek) * 100) }}
+                                                %
+                                            @endif
                                         </small>
                                     @else
                                         <i class="ti ti-chevron-down text-danger"></i>
                                         <small class="text-muted">
-                                            {{ round(($totalIncomeLastWeek / $totalIncomeThisWeek) * 100) }}
-                                            %
+                                            @if ($totalIncomeThisWeek <= 0 || $totalIncomeLastWeek <= 0)
+                                                0%
+                                            @else
+                                                {{ round(($totalIncomeLastWeek / $totalIncomeThisWeek) * 100) }}
+                                                %
+                                            @endif
                                         </small>
                                     @endif
                                 </div>
@@ -471,14 +487,22 @@
                                     @if ($totalExpensesThisWeek > $totalExpensesLastWeek)
                                         <i class="ti ti-chevron-up text-success"></i>
                                         <small class="text-muted">
-                                            {{ round(($totalExpensesThisWeek / $totalExpensesLastWeek) * 100) }}
-                                            %
+                                            @if ($totalExpensesThisWeek <= 0 || $totalExpensesLastWeek <= 0)
+                                                0%
+                                            @else
+                                                {{ round(($totalExpensesThisWeek / $totalExpensesLastWeek) * 100) }}
+                                                %
+                                            @endif
                                         </small>
                                     @else
                                         <i class="ti ti-chevron-down text-danger"></i>
                                         <small class="text-muted">
-                                            {{ round(($totalExpensesLastWeek / $totalExpensesThisWeek) * 100) }}
-                                            %
+                                            @if ($totalExpensesThisWeek <= 0 || $totalExpensesLastWeek <= 0)
+                                                0%
+                                            @else
+                                                {{ round(($totalExpensesLastWeek / $totalExpensesThisWeek) * 100) }}
+                                                %
+                                            @endif
                                         </small>
                                     @endif
                                 </div>
@@ -836,15 +860,19 @@
                                     <tr>
                                         <td>{{ $item->code }}</td>
                                         <td>
-                                            @if ($item->payment_method == 'offline')
-                                                <div class="badge bg-label-primary me-3 rounded p-2">
-                                                    <i class="ti ti-wallet ti-sm"></i>
-                                                </div>
-                                            @else
-                                                <div class="badge bg-label-success rounded me-3 p-2">
-                                                    <i class="ti ti-browser-check ti-sm"></i>
-                                                </div>
-                                            @endif
+                                            <div class="waves-effect waves-light" data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                data-bs-original-title="{{ $item->payment_status }}">
+                                                @if ($item->payment_method == 'offline')
+                                                    <div class="badge bg-label-primary me-3 rounded p-2">
+                                                        <i class="ti ti-wallet ti-sm"></i>
+                                                    </div>
+                                                @else
+                                                    <div class="badge bg-label-success rounded me-3 p-2">
+                                                        <i class="ti ti-browser-check ti-sm"></i>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </td>
                                         <td>
                                             <span class="fw-bold text-success">

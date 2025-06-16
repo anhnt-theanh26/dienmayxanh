@@ -15,8 +15,8 @@
                     <div class="owl-carousel advertisement-00">
                         <div class="item">
                             <a href="{{ $bannerheadertop?->first()?->link ?? '' }}">
-                                <img class="rounded-2 object-fit-contain"
-                                    src="{{ asset($bannerheadertop?->first()?->image) }}" alt="">
+                                <img class="object-fit-contain" src="{{ asset($bannerheadertop?->first()?->image) }}"
+                                    alt="">
                             </a>
                         </div>
                     </div>
@@ -49,6 +49,35 @@
 
 <div class="" style="background-color: var(--main-color);">
     <div class="container" style="flex-shrink: 0;">
+        <div class="xs-menu-cont">
+            <a id="menutoggle"><i class="fa fa-align-justify"></i> </a>
+            <nav class="xs-menu displaynone">
+                <ul>
+                    <li class="active">
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Team</a>
+                    </li>
+                    <li>
+                        <a href="#">Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="#">Blog</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
         <nav class="menu py-1 pt-2">
             <ul style="margin: 0; padding: 0;" class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('index') }}">
@@ -175,8 +204,8 @@
                 @else
                     <a href="{{ route('login.form') }}">
                         <button type="button" class="btn btn-outline-light" style="border: none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-person" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                 <path
                                     d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                             </svg>
@@ -282,7 +311,7 @@
     <section>
         <div class="d-flex justify-content-center" style="background-color: #eaecf0; flex-shrink: 0;">
             <ul class="nav">
-                @foreach ($menufirst?->take(10) as $menuitem)
+                @foreach ($menufirst?->take(9) as $menuitem)
                     <li class="nav-item">
                         <a class="nav-link" style="text-transform:lowercase; color: var(--main-color);"
                             aria-current="page" href="{{ $menuitem?->link ?? '' }}">{{ $menuitem?->name }}</a>

@@ -4,12 +4,6 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/flatpickr/flatpickr.css') }}" />
-    <link rel="stylesheet"
-        href="{{ asset('/administrator/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
-    <link rel="stylesheet"
-        href="{{ asset('/administrator/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/jquery-timepicker/jquery-timepicker.css') }}" />
-    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/pickr/pickr-themes.css') }}" />
 @endsection
 
 @section('content')
@@ -91,8 +85,7 @@
                                         <label class="form-label" for="image">Image</label>
                                         <input type="file" class="form-control" id="image" name="image"
                                             value="{{ old('image') }}" placeholder="image" />
-                                        <img src="" alt="" width="50px" id="img"
-                                            class="py-1">
+                                        <img src="" alt="" width="50px" id="img" class="py-1">
                                         @error('image')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -112,14 +105,7 @@
 @endsection
 
 @section('js')
-    <!-- publish at -->
-    <script src="{{ asset('/administrator/assets/vendor/libs/moment/moment.js') }}"></script>
     <script src="{{ asset('/administrator/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js') }}">
-    </script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/jquery-timepicker/jquery-timepicker.js') }}"></script>
-    <script src="{{ asset('/administrator/assets/vendor/libs/pickr/pickr.js') }}"></script>
     <script src="{{ asset('/administrator/assets/js/forms-pickers.js') }}"></script>
     <script>
         // 1 ảnh

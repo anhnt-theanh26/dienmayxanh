@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
             onStatusChanged: function (areFieldsValid) {
               areFieldsValid
                 ? // Enable the submit button
-                  // so user has a chance to submit the form again
-                  deactivateButton.removeAttribute('disabled')
+                // so user has a chance to submit the form again
+                deactivateButton.removeAttribute('disabled')
                 : // Disable the submit button
-                  deactivateButton.setAttribute('disabled', 'disabled');
+                deactivateButton.setAttribute('disabled', 'disabled');
             }
           }),
           // Submit the form when all fields are valid
@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             buttonsStyling: false
           }).then(function (result) {
             if (result.value) {
+              deactivateAcc.submit();
               Swal.fire({
                 icon: 'success',
                 title: 'Deleted!',

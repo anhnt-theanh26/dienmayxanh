@@ -28,7 +28,7 @@
         <div class="py-4">
             <div class="container bg-white rounded-3" style="flex-shrink: 0;">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-xl-3 col-md-4 col-xs-6 col-12">
                         <div class="row">
                             @if ($randomMenuCategoryHotItems)
                                 @foreach ($randomMenuCategoryHotItems as $category_hot)
@@ -56,11 +56,11 @@
                         </div>
                     </div>
 
-                    <div class="col-9">
+                    <div class="col-xl-9 col-md-8 col-xs-6 col-12">
                         <div class="row">
                             @if ($randomMenuCategoryNormalItems)
                                 @foreach ($randomMenuCategoryNormalItems as $category_normal)
-                                    <div class="col-2 p-3">
+                                    <div class="col-xl-2 col-md-3 col-6 p-3">
                                         <a href="{{ $category_normal->link }}" class="text-decoration-none text-black">
                                             <div class="text-center">
                                                 <img class="rounded-2 object-fit-contain"
@@ -74,7 +74,7 @@
                                     </div>
                                 @endforeach
                             @endif
-                            <div class="col-2 p-3">
+                            <div class="col-xl-2 col-md-3 col-6 p-3">
                                 <div class="text-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">

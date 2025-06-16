@@ -60,7 +60,8 @@ class CategoryController extends Controller
                 ];
                 Category::create($data);
                 Alert::success('Thanh cong', 'Them moi danh muc thanh cong');
-                return redirect()->route('admin.category.index')->with('success', 'Thêm mới danh mục thành công');
+                return redirect()->back()->with('success', 'Thêm mới danh mục thành công');
+                // return redirect()->route('admin.category.index')->with('success', 'Thêm mới danh mục thành công');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());

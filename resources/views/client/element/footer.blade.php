@@ -2,7 +2,7 @@
     <div class="bg-white border-top">
         <div class="container" style="font-size: 15px; flex-shrink: 0;">
             <div class="row p-2 pt-3">
-                <div class="col-3">
+                <div class="col-xl-3 col-lg-4 col-12">
                     <p class="fw-bold">Tổng đài hỗ trợ</p>
                     @php
                         $supportArr = null;
@@ -28,7 +28,7 @@
                         @endforeach
                     @endif
                 </div>
-                <div class="col-5">
+                <div class="col-xl-5 col-lg-8 col-12">
                     <div class="row">
                         @php
                             $menufooterfirst = null;
@@ -42,7 +42,7 @@
                             }
                         @endphp
                         @if ($menufooterfirst && $menufooterfirst->isNotEmpty())
-                            <div class="col-5">
+                            <div class="col-md-5 col-12">
                                 <p class="fw-bold">{{ $footerFirstMenu?->menus?->first()->name }}</p>
                                 @foreach ($menufooterfirst->take(5) as $menuitem)
                                     <p class="p-0 m-0 py-1"><a href="{{ $menuitem->link }}"
@@ -81,7 +81,7 @@
                             }
                         @endphp
                         @if ($menufootersecond && $menufootersecond->isNotEmpty())
-                            <div class="col-7">
+                            <div class="col-md-7 col-12">
                                 <p class="fw-bold">{{ $footerSecondMenu?->menus?->first()->name }}</p>
                                 @foreach ($menufootersecond->take(5) as $menuitem)
                                     <p class="p-0 m-0 py-1"><a href="{{ $menuitem->link }}"
@@ -110,7 +110,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-xl-4 col-lg-12 col-12">
                     <p class="">Website cùng tập đoàn</p>
                     <div class="row">
                         <div class="col-3 my-2">
@@ -179,12 +179,17 @@
     <div class="">
         <div class="container" style="flex-shrink: 0;">
             <p class="py-4" style="font-size: 15px;">
-                © 2018. Công ty cổ phần Thế Giới Di Động. GPDKKD: 0303217354 do sở KH & ĐT TP.HCM cấp ngày
-                02/01/2007. GPMXH: 21/GP-BTTTT do Bộ Thông Tin và Truyền Thông cấp ngày 11/01/2021.
-                Địa chỉ: 128 Trần Quang Khải, P.Tân Định, Q.1, TP.Hồ Chí Minh. Địa chỉ liên hệ và gửi chứng từ: Lô
-                T2-1.2, Đường D1, Đ. D1, P.Tân Phú, TP.Thủ Đức, TP.Hồ Chí Minh. Điện thoại: 028 38125960. Email:
-                cskh@thegioididong.com. Chịu trách nhiệm nội dung: Huỳnh Văn Tốt. Email:
-                hotrotmdt@thegioididong.com. <a class="text-decoration-none" href="">Xem chính sách sử dụng</a>
+                @if ($setting && $setting->informational !== null)
+                    {!! $setting->informational !!}
+                @else
+                    © 2018. Công ty cổ phần Thế Giới Di Động. GPDKKD: 0303217354 do sở KH & ĐT TP.HCM cấp ngày
+                    02/01/2007. GPMXH: 21/GP-BTTTT do Bộ Thông Tin và Truyền Thông cấp ngày 11/01/2021.
+                    Địa chỉ: 128 Trần Quang Khải, P.Tân Định, Q.1, TP.Hồ Chí Minh. Địa chỉ liên hệ và gửi chứng từ: Lô
+                    T2-1.2, Đường D1, Đ. D1, P.Tân Phú, TP.Thủ Đức, TP.Hồ Chí Minh. Điện thoại: 028 38125960. Email:
+                    cskh@thegioididong.com. Chịu trách nhiệm nội dung: Huỳnh Văn Tốt. Email:
+                    hotrotmdt@thegioididong.com. <a class="text-decoration-none" href="">Xem chính sách sử
+                        dụng</a>
+                @endif
             </p>
         </div>
     </div>

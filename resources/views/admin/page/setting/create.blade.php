@@ -273,7 +273,24 @@
                                 <label class="form-label" for="layout">Layout</label>
                                 <textarea name="layout"
                                     placeholder='<h1>Xin lỗi, chúng tôi không tìm thấy trang mà bạn cần!<h1><img src="https://not-found.png" alt="">...'
-                                    id="layout" class="form-control" rows="8"></textarea>
+                                    id="layout" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <h5 class="card-header">Informational Footer</h5>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label" for="informational">
+                                Thông tin pháp lý
+                            </label>
+                            <div class="col-12">
+                                <label class="form-label" for="informational">Thông tin liên hệ công ty.</label>
+                                <textarea name="informational"
+                                    placeholder='<h1>Xin lỗi, chúng tôi không tìm thấy trang mà bạn cần!<h1><img src="https://not-found.png" alt="">...'
+                                    id="informational" class="form-control" rows="4"></textarea>
                             </div>
                         </div>
                     </div>

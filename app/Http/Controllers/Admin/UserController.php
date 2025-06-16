@@ -58,7 +58,7 @@ class UserController extends Controller
                     'email_verified_at' => Carbon::now(),
                 ];
                 if ($request->hasFile('image')) {
-                    $imagePath = 'storage/' . $request->file('image')->store('user', 'public');
+                    $imagePath = 'storage/' . $request->file('image')->store('avatar', 'public');
                     $data['image'] = $imagePath;
                 }
                 User::create($data);
@@ -120,7 +120,7 @@ class UserController extends Controller
                     if ($user->image && file_exists(public_path($user->image))) {
                         unlink(public_path($user->image));
                     }
-                    $imagePath = 'storage/' . $request->file('image')->store('user', 'public');
+                    $imagePath = 'storage/' . $request->file('image')->store('avatar', 'public');
                     $data['image'] = $imagePath;
                     if ($imagePath != null) {
                         if ($user->image != null && file_exists(public_path($user->image))) {
@@ -188,6 +188,9 @@ class UserController extends Controller
                 if (!$user) {
                     Alert::error('Khong thay user', 'user khong ton tai');
                     return redirect()->back()->with('error', 'Khong tim thay user!');
+                }
+                if ($user->image != null && file_exists(public_path($user->image))) {
+                    unlink(public_path($user->image));
                 }
                 $user->forceDelete();
                 Alert::success('Thanh cong', 'Xoa vinh vien user thanh cong');

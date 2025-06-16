@@ -60,7 +60,7 @@ class UserController extends Controller
                 if ($user->image && file_exists(public_path($user->image))) {
                     unlink(public_path($user->image));
                 }
-                $imagePath = 'storage/' . $request->file('image')->store('user', 'public');
+                $imagePath = 'storage/' . $request->file('image')->store('avatar', 'public');
                 $data['image'] = $imagePath;
                 if ($imagePath != null) {
                     if ($user->image != null && file_exists(public_path($user->image))) {

@@ -56,7 +56,7 @@
                                     $productmenuitemfirstdatatake12 = $categories?->category?->products?->take(12);
                                 @endphp
                                 @foreach ($productmenuitemfirstdatatake12 as $product)
-                                    <div class="col-2 my-2">
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-xs-6 col-6 my-2">
                                         <a href="{{ route('product.show', ['slug' => $product->slug]) }}"
                                             class="text-decoration-none text-black">
                                             <div class="p-3 border rounded-2"

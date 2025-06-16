@@ -34,7 +34,7 @@
                             }
                         }
                     @endphp
-                    <div class="col-4">
+                    <div class="col-xl-4 col-lg-5 col-md-6 col-12">
                         @if ($bannermain4 && $bannermain4->isNotEmpty())
                             <a href="{{ $bannermain4->first()->link ?? '' }}">
                                 <img src="{{ $bannermain4->first()->image ? asset($bannermain4->first()->image) : asset('storage/default.jpg') }}"
@@ -42,7 +42,7 @@
                             </a>
                         @endif
                     </div>
-                    <div class="col-8">
+                    <div class="col-xl-8 col-lg-7 col-md-6 col-12">
                         <div class="owl-carousel privilege">
                             @foreach ($productmenuitemthirddata as $product)
                                 <div class="item row">
@@ -125,9 +125,15 @@
                                         items: 1
                                     },
                                     600: {
-                                        items: 2
+                                        items: 1
                                     },
                                     1000: {
+                                        items: 2
+                                    },
+                                    1200: {
+                                        items: 3
+                                    },
+                                    1400: {
                                         items: 4
                                     }
                                 }

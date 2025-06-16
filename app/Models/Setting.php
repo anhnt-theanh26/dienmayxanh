@@ -17,8 +17,9 @@ class Setting extends Model
         'secondary_color',
         'seo_products',
         'seo_posts',
-        'layout_not_found',
         'title_login_admin',
+        'layout_not_found',
+        'informational',
         'status',
     ];
 }

@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="{{ asset('/client/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('/client/css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('/client/css/my-css.css') }}">
+<link rel="stylesheet" href="{{ asset('/client/css/responsive.css') }}">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="{{ asset('/client/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('/client/js/my-script.js') }}"></script>
