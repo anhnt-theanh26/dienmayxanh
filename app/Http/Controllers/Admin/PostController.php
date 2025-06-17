@@ -43,7 +43,7 @@ class PostController extends Controller
                 'title' => 'required|string|max:255',
                 'excerpt' => 'required|string|max:255',
                 'content' => 'nullable|string',
-                'image' => 'nullable|url|max:255',
+                'image' => 'nullable|max:255',
                 'published_at' => 'required|date',
                 'is_hot' => 'nullable|boolean',
                 'category_id' => 'required|exists:categories,id',
@@ -54,7 +54,7 @@ class PostController extends Controller
                 $originalSlug = Str::slug($request->title);
                 $slug = $originalSlug;
                 $count = 1;
-                while (Post::where('slug', $slug)->exists()) {
+                while (Post::withTrashed()->where('slug', $slug)->exists()) {
                     $slug = $originalSlug . '-' . $count++;
                 }
                 $data = [
@@ -113,7 +113,7 @@ class PostController extends Controller
                 'title' => 'required|string|max:255',
                 'excerpt' => 'required|string|max:255',
                 'content' => 'nullable|string',
-                'image' => 'nullable|url|max:255',
+                'image' => 'nullable|max:255',
                 'published_at' => 'required|date',
                 'is_hot' => 'nullable|boolean',
                 'category_id' => 'required|exists:categories,id',
@@ -129,7 +129,7 @@ class PostController extends Controller
                 $originalSlug = Str::slug($request->title);
                 $newSlug = $originalSlug;
                 $count = 1;
-                while (Post::where('slug', $newSlug)->where('id', '!=', $post->id)->exists()) {
+                while (Post::withTrashed()->where('slug', $newSlug)->where('id', '!=', $post->id)->exists()) {
                     $newSlug = $originalSlug . '-' . $count++;
                 }
                 $request->merge([

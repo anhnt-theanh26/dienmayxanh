@@ -44,7 +44,7 @@ class AttributeController extends Controller
                 $originalSlug = Str::slug($request->name);
                 $slug = $originalSlug;
                 $count = 1;
-                while (Attribute::where('slug', $slug)->exists()) {
+                while (Attribute::withTrashed()->where('slug', $slug)->exists()) {
                     $slug = $originalSlug . '-' . $count++;
                 }
                 $data = [
@@ -101,7 +101,7 @@ class AttributeController extends Controller
                 $originalSlug = Str::slug($request->name);
                 $newSlug = $originalSlug;
                 $count = 1;
-                while (Attribute::where('slug', $newSlug)->where('id', '!=', $attribute->id)->exists()) {
+                while (Attribute::withTrashed()->where('slug', $newSlug)->where('id', '!=', $attribute->id)->exists()) {
                     $newSlug = $originalSlug . '-' . $count++;
                 }
                 $data = [

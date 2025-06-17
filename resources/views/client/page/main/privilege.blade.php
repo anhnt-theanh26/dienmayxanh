@@ -8,7 +8,7 @@
         }
         if ($productmenuitemthird) {
             foreach ($productmenuitemthird as $categories) {
-                foreach ($categories?->category?->products as $product) {
+                foreach ($categories?->category?->products ?? collect() as $product) {
                     $productmenuitemthirddata[] = $product;
                 }
             }

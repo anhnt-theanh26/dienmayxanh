@@ -24,8 +24,8 @@
                                 role="tab" aria-controls="tab-content-{{ $index }}"
                                 aria-selected="{{ $loop->first ? 'true' : 'false' }}">
                                 <img class="object-fit-contain" style="width: 100px; height: 40px;"
-                                    src="{{ $productmenucategoryitem->category->image ? asset($productmenucategoryitem->category->image) : asset('storage/default.jpg') }}"
-                                    alt="{{ $productmenucategoryitem->category->name }}">
+                                    src="{{ optional($productmenucategoryitem->category)->image ? asset(optional($productmenucategoryitem->category)->image) : asset('storage/default.jpg') }}"
+                                    alt="{{ optional($productmenucategoryitem->category)->name ?? 'Khong co anh' }}">
                             </button>
                         </li>
                     @endforeach
@@ -53,7 +53,7 @@
                             aria-labelledby="tab-{{ $index }}">
                             <div class="row">
                                 @php
-                                    $productmenuitemfirstdatatake12 = $categories?->category?->products?->take(12);
+                                    $productmenuitemfirstdatatake12 = $categories?->category?->products?->take(12) ?? collect();
                                 @endphp
                                 @foreach ($productmenuitemfirstdatatake12 as $product)
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-xs-6 col-6 my-2">

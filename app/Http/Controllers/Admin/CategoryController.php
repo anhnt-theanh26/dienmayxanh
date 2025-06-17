@@ -48,7 +48,7 @@ class CategoryController extends Controller
                 $originalSlug = Str::slug($request->name);
                 $slug = $originalSlug;
                 $count = 1;
-                while (Category::where('slug', $slug)->exists()) {
+                while (Category::withTrashed()->where('slug', $slug)->exists()) {
                     $slug = $originalSlug . '-' . $count++;
                 }
                 $data = [
@@ -61,7 +61,7 @@ class CategoryController extends Controller
                 Category::create($data);
                 Alert::success('Thanh cong', 'Them moi danh muc thanh cong');
                 return redirect()->back()->with('success', 'Thêm mới danh mục thành công');
-                // return redirect()->route('admin.category.index')->with('success', 'Thêm mới danh mục thành công');
+                return redirect()->route('admin.category.index')->with('success', 'Thêm mới danh mục thành công');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());
                 return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
@@ -114,7 +114,7 @@ class CategoryController extends Controller
                 $newSlug = $originalSlug;
                 $count = 1;
                 while (
-                    Category::where('slug', $newSlug)->where('id', '!=', $category->id)->exists()
+                    Category::withTrashed()->where('slug', $newSlug)->where('id', '!=', $category->id)->exists()
                 ) {
                     $newSlug = $originalSlug . '-' . $count++;
                 }
@@ -127,6 +127,7 @@ class CategoryController extends Controller
                 ];
                 $category->update($data);
                 Alert::success('Thanh cong', 'Cập nhật danh mục thành công');
+                // return redirect()->route('admin.category.index')->with('success', 'Cập nhật thành công!');
                 return redirect()->back()->with('success', 'Cập nhật thành công!');
             } catch (\Throwable $th) {
                 Alert::error('Có lỗi xảy ra:', $th->getMessage());

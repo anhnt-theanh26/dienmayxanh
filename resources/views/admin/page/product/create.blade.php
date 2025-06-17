@@ -80,7 +80,9 @@
                                             <label for="category_id" class="form-label">Category</label>
                                             <select id="category_id" name="category_id" class="form-select">
                                                 @foreach ($categories as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}
+                                                    <option value="{{ $item->id }}"
+                                                        {{ old('category_id') == $item->id ? 'selected' : '' }}>
+                                                        {{ $item->name }}
                                                         ({{ $item->parent->name }})
                                                     </option>
                                                 @endforeach

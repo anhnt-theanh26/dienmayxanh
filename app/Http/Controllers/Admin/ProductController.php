@@ -49,11 +49,11 @@ class ProductController extends Controller
                 'sku' => 'required|string|max:255|unique:products,sku',
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
-                'image' => 'nullable|url|max:255',
+                'image' => 'nullable|max:255',
                 'is_hot' => 'nullable|boolean',
                 'category_id' => 'required|exists:categories,id',
                 // images table 
-                'images' => 'nullable|url',
+                'images' => 'nullable',
                 // attributes table
                 'attribute_value' => 'nullable|array',
                 'attribute_value.*' => 'array',
@@ -71,7 +71,7 @@ class ProductController extends Controller
                 $originalSlug = Str::slug($request->name);
                 $slug = $originalSlug;
                 $count = 1;
-                while (Product::where('slug', $slug)->exists()) {
+                while (Product::withTrashed()->where('slug', $slug)->exists()) {
                     $slug = $originalSlug . '-' . $count++;
                 }
                 $dataProduct = [
@@ -209,11 +209,11 @@ class ProductController extends Controller
                 'sku' => 'required|string|max:255|unique:products,sku,' . $product->id,
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
-                'image' => 'nullable|url|max:255',
+                'image' => 'nullable|max:255',
                 'is_hot' => 'nullable|boolean',
                 'category_id' => 'required|exists:categories,id',
                 // images table 
-                'images' => 'nullable|url',
+                'images' => 'nullable',
                 // attributes table
                 'attribute_value' => 'nullable|array',
                 'attribute_value.*' => 'array',
@@ -234,7 +234,7 @@ class ProductController extends Controller
                 $originalSlug = Str::slug($request->name);
                 $newSlug = $originalSlug;
                 $count = 1;
-                while (Product::where('slug', $newSlug)->where('id', '!=', $product->id)->exists()) {
+                while (Product::withTrashed()->where('slug', $newSlug)->where('id', '!=', $product->id)->exists()) {
                     $newSlug = $originalSlug . '-' . $count++;
                 }
                 $dataProduct = [ // dataproduct

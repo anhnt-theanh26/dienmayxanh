@@ -258,10 +258,10 @@
                                         $soldArrPrd = [];
                                         foreach ($billsThisMonth as $billThisMonth) {
                                             foreach ($billThisMonth->billItems as $bill) {
-                                                if (!isset($soldArrPrd[$bill->product->category->name])) {
-                                                    $soldArrPrd[$bill->product->category->name] = [];
+                                                if (!isset($soldArrPrd[$bill->product->category->name ?? ''])) {
+                                                    $soldArrPrd[$bill->product->category->name ?? ''] = [];
                                                 }
-                                                $soldArrPrd[$bill->product->category->name][] = $bill->quantity;
+                                                $soldArrPrd[$bill->product->category->name ?? ''][] = $bill->quantity;
                                             }
                                         }
                                         $arrNameCate = [];

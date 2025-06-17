@@ -45,7 +45,7 @@ class CategoryParentController extends Controller
                 $originalSlug = Str::slug($request->name);
                 $slug = $originalSlug;
                 $count = 1;
-                while (CategoryParent::where('slug', $slug)->exists()) {
+                while (CategoryParent::withTrashed()->where('slug', $slug)->exists()) {
                     $slug = $originalSlug . '-' . $count++;
                 }
                 $data = [
@@ -66,7 +66,9 @@ class CategoryParentController extends Controller
     }
 
 
-    public function show(string $id) {}
+    public function show(string $id)
+    {
+    }
 
 
     public function edit(string $id)
@@ -105,7 +107,7 @@ class CategoryParentController extends Controller
                 $newSlug = $originalSlug;
                 $count = 1;
                 while (
-                    CategoryParent::where('slug', $newSlug)->where('id', '!=', $categoryParent->id)->exists()
+                    CategoryParent::withTrashed()->where('slug', $newSlug)->where('id', '!=', $categoryParent->id)->exists()
                 ) {
                     $newSlug = $originalSlug . '-' . $count++;
                 }

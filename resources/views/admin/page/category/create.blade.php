@@ -34,7 +34,7 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="name">Name</label>
                                         <input type="text" class="form-control" id="name" name="name"
-                                            value="{{ old('name') }}" placeholder="Name" />
+                                            value="{{ old('name') }}" placeholder="Name" autofocus />
                                         @error('name')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror

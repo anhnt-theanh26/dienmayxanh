@@ -61,7 +61,7 @@
                                 <img src="{{ asset($item->image) }}" alt="" width="50px" id="img"
                                     class="py-1">
                             </td>
-                            <td>{{ $item->parent->name }}</td>
+                            <td>{{ $item->parent->name ?? '' }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
