@@ -3,11 +3,29 @@
 @section('title', 'Show Account')
 
 @section('css')
+    <style>
+        #loadingIndicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/spinkit/spinkit.css') }}" />
     @include('admin.elements.css')
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/quill/katex.css') }}" />
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/quill/editor.css') }}" />
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/css/pages/app-email.css') }}" />
+
+    <link rel="stylesheet"
+        href="{{ asset('/administrator/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/libs/select2/select2.css') }}" />
 @endsection
 
 @section('content')
@@ -99,20 +117,21 @@
         </div>
         <div class="app-email-compose modal" id="emailComposeSidebar" tabindex="-1"
             aria-labelledby="emailComposeSidebarLabel" aria-hidden="true">
-            <div class="modal-dialog m-0 me-md-4 mb-4 modal-lg">
+            <div class="modal-dialog modal-dialog-scrollable m-0 me-md-4 mb-4 modal-lg">
                 <div class="modal-content p-0">
                     <div class="modal-header py-3 bg-body">
                         <h5 class="modal-title fs-5">Compose Mail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body flex-grow-1 pb-sm-0 p-4 py-2">
-                        <form action="{{ route('admin.user.sendmail') }}" method="post" class="email-compose-form">
+                        <form action="{{ route('admin.user.sendmail') }}" id="sendMailForm" method="post"
+                            class="email-compose-form" enctype="multipart/form-data">
                             @csrf
                             <div class="email-compose-to d-flex justify-content-between align-items-center">
                                 <label class="form-label mb-0" for="emailContacts">To:</label>
                                 <div class="select2-primary border-0 shadow-none flex-grow-1 mx-2">
                                     <select class="select2 select-email-contacts form-select" id="emailContacts"
-                                        name="send_to_email[]" multiple>
+                                        name="send_to_email[]" multiple required>
                                         @foreach ($users as $item)
                                             <option data-avatar="{{ asset($item->image) }}" value="{{ $item->email }}"
                                                 {{ $user->email == $item->email ? 'selected' : '' }}>
@@ -128,37 +147,46 @@
                             </div>
 
                             <div class="email-compose-cc d-none">
-                                <hr class="container-m-nx my-2" />
-                                <div class="d-flex align-items-center">
-                                    <label for="email-cc" class="form-label mb-0">Cc: </label>
-                                    <input type="text" class="form-control border-0 shadow-none flex-grow-1 mx-2"
-                                        id="email-cc" name="email_cc" placeholder="someone@email.com" />
-                                </div>
+                                <label for="email-cc" class="form-label mb-0">Cc: </label>
+                                <select id="select2Primary" class="select2 form-select" name="email_cc[]" multiple>
+                                    <optgroup label="CC">
+                                        @foreach ($users as $item)
+                                            <option value="{{ $item->email }}">
+                                                {{ $item->email }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
                             </div>
                             <div class="email-compose-bcc d-none">
-                                <hr class="container-m-nx my-2" />
-                                <div class="d-flex align-items-center">
-                                    <label for="email-bcc" class="form-label mb-0">Bcc: </label>
-                                    <input type="text" class="form-control border-0 shadow-none flex-grow-1 mx-2"
-                                        id="email-bcc" name="email_bcc" placeholder="someone@email.com" />
-                                </div>
+                                <label for="email-bcc" class="form-label mb-0">Bcc: </label>
+                                <select id="select2Multiple" class="select2 form-select" name="email_bcc[]" multiple>
+                                    <optgroup label="BCC">
+                                        @foreach ($users as $item)
+                                            <option value="{{ $item->email }}">
+                                                {{ $item->email }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
                             </div>
                             <hr class="container-m-nx my-2" />
                             <div class="email-compose-subject d-flex align-items-center mb-2">
                                 <label for="email-subject" class="form-label mb-0">Subject:</label>
                                 <input type="text" class="form-control border-0 shadow-none flex-grow-1 mx-2"
-                                    id="email-subject"name="email_subject" placeholder="Project Details" />
+                                    id="email-subject"name="email_subject" placeholder="Project Details" required />
                             </div>
                             <div class="mb-3">
-                                <textarea id="my-editor" name="content" class="form-control"></textarea>
+                                <textarea id="my-editor" name="content" class="form-control" rows="1"></textarea>
                             </div>
                             <hr class="container-m-nx mt-0 mb-2" />
                             <div class="email-compose-actions d-flex justify-content-between align-items-center mt-3 mb-3">
                                 <div class="d-flex align-items-center">
                                     <div class="btn-group">
-                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                                            aria-label="Close">
+                                        <button type="submit" class="btn btn-primary">
                                             <i class="ti ti-send ti-xs me-1"></i>Send
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                            aria-label="Close">
+                                            Close
                                         </button>
                                     </div>
                                     <label for="attach-file"><i class="ti ti-paperclip cursor-pointer ms-2"></i></label>
@@ -176,12 +204,25 @@
             </div>
         </div>
     </div>
+    <div id="loadingIndicator" style="display: none;">
+        <div class="sk-circle sk-primary">
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+            <div class="sk-circle-dot"></div>
+        </div>
+    </div>
 @endsection
 
 @section('js')
-    <script>
-        $('#lfm').filemanager('image');
-    </script>
     {{-- editor --}}
     <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
     <script>
@@ -200,4 +241,22 @@
     <script src="{{ asset('/administrator/assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('/administrator/assets/vendor/libs/block-ui/block-ui.js') }}"></script>
     <script src="{{ asset('/administrator/assets/js/app-email.js') }}"></script>
+
+    <script src="{{ asset('/administrator/assets/vendor/libs/moment/moment.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js') }}">
+    </script>
+
+    <script src="{{ asset('/administrator/assets/vendor/libs/select2/select2.js') }}"></script>
+    <script src="{{ asset('/administrator/assets/js/forms-selects.js') }}"></script>
+
+    <script>
+        document.getElementById('sendMailForm').addEventListener('submit', function() {
+            // Hiện loading
+            document.getElementById('loadingIndicator').style.display = 'block';
+
+            // Disable nút gửi để tránh gửi nhiều lần
+            this.querySelector('button[type="submit"]').disabled = true;
+        });
+    </script>
 @endsection

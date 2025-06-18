@@ -5,6 +5,8 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -17,9 +19,11 @@ class SendMailUser extends Mailable
      * Create a new message instance.
      */
     public $info;
-    public function __construct($info)
+    public $attachmentFile;
+    public function __construct($info, $attachmentFile)
     {
         $this->info = $info;
+        $this->attachmentFile = $attachmentFile;
     }
 
     /**
@@ -28,15 +32,11 @@ class SendMailUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Mail User',
+            // from: new Address('admin@yourdomain.com', 'Admin'),
+            subject: $this->info['subject'],
         );
     }
 
-    public function build()
-    {
-        return $this->view('mail.sendmailuser')->with(['info' => $this->info]);
-    }
-    
     /**
      * Get the message content definition.
      */
@@ -44,6 +44,7 @@ class SendMailUser extends Mailable
     {
         return new Content(
             view: 'mail.sendmailuser',
+            with: ['info' => $this->info],
         );
     }
 
@@ -54,6 +55,14 @@ class SendMailUser extends Mailable
      */
     public function attachments(): array
     {
+        if ($this->attachmentFile) {
+            return [
+                Attachment::fromPath($this->attachmentFile->getRealPath())
+                    ->as($this->attachmentFile->getClientOriginalName())
+                    ->withMime($this->attachmentFile->getClientMimeType()),
+            ];
+        }
+
         return [];
     }
 }
