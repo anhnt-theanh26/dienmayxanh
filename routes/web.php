@@ -112,6 +112,7 @@ Route::middleware('auth.admin')->prefix('/admin')->as('admin.')->group(function 
 
     // User
     Route::prefix('user')->as('user.')->group(function () {
+        Route::post('/sendmail', [UserController::class, 'sendmail'])->name('sendmail');
         Route::put('/{id}/password', [UserController::class, 'password'])->name('password');
         Route::post('/{id}/restore', [UserController::class, 'restore'])->name('restore');
         Route::delete('/{id}/delete', [UserController::class, 'delete'])->name('delete');
@@ -366,6 +367,7 @@ Route::prefix('/')->as('')->group(function () {
     // post 
     Route::prefix('post')->as('post.')->group(function () {
         Route::get('{slug}/index', [ClientPostController::class, 'index'])->name('index');
+        Route::get('{slug}/category', [ClientPostController::class, 'category'])->name('category');
         Route::get('{slug}', [ClientPostController::class, 'show'])->name('show');
     });
 
@@ -382,7 +384,7 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    Alert::success('Xác minh email thành công', 'Chào mừng bạn đến với điện máy xanh');
+    Alert::success('Xác minh email thành công', 'Chào mừng bạn đến với ' . config('setting.site_name'));
     return redirect('/home');
 })->middleware(['auth'])->name('verification.verify');
 

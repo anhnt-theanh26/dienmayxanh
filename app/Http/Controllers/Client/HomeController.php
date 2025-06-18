@@ -28,7 +28,7 @@ class HomeController extends Controller
             }
         }
 
-        $pageTitle = config('app.name');
+        $pageTitle = config('setting.site_name');
         $pageDescription = $seoProducts['description_products'] ?? '';
         $pageRobots = $seoProducts['robots_products'] ?? 'index, follow';
         $pageImage = $seoProducts['seoimage_products'] ?? asset('./storage/default.jpg');

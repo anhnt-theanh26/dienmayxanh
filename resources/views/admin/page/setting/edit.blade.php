@@ -35,6 +35,33 @@
                 </div>
 
                 <div class="card mb-4">
+                    <h5 class="card-header">Favorite Icon</h5>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label" for="favorite_icon">Favorite Icon</label>
+                            <input id="thumbnail_favorite_icon" class="form-control" type="hidden" name="favorite_icon"
+                                value="{{ $setting->favorite_icon }}">
+                            <div class="d-flex align-items-center">
+                                <div class="input-group" style="position: relative; display: inline-block; width: 80px;">
+                                    <img id="img_favorite_icon" class="btn-image rounded-1"
+                                        src="{{ asset('./storage/default.jpg') }}" width="80px" alt="image">
+                                    <button id="lfm_favorite_icon" data-input="thumbnail_favorite_icon"
+                                        data-preview="holder_favorite_icon" type="button"
+                                        class="btn btn-light btn-image rounded-1"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: rgba(0, 0, 0, 0.4); border: none; color: white; font-weight: bold; text-align: center;">
+                                        Choose
+                                    </button>
+                                </div>
+                                <div id="holder_favorite_icon" class="mx-2" style="width: 100%">
+                                    <img class="btn-image rounded-1 object-fit-contain"
+                                        src="{{ asset($setting->favorite_icon) }}"width="80px" alt="Image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
                     <h5 class="card-header">Logo</h5>
                     <div class="card-body">
                         <div class="mb-3">
@@ -520,6 +547,7 @@
 @section('js')
     <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script>
+        $('#lfm_favorite_icon').filemanager('image');
         $('#lfm').filemanager('image');
         $('#lfm_products').filemanager('image');
         $('#lfm_posts').filemanager('image');

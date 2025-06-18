@@ -26,18 +26,18 @@ class AdminController extends Controller
                 ->whereYear('created_at', Carbon::now()->subMonth()->year)
                 ->whereNotIn('status', ['Cancelled', 'Returned', 'Refunded', 'Failed'])
                 ->get();
+            // hóa đơn tuần này
             $startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY);
             $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY);
-            // hóa đơn tuần này
             $billsThisWeek = Bill::whereBetween('created_at', [$startOfWeek, $endOfWeek])
                 ->whereNotIn('status', ['Cancelled', 'Returned', 'Refunded', 'Failed'])
                 ->get()
                 ->groupBy(function ($bill) {
                     return $bill->created_at->format('Y-m-d');
                 });
+            // hóa đơn tuần trước
             $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek(Carbon::MONDAY);
             $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek(Carbon::SUNDAY);
-            // hóa đơn tuần trước
             $billsLastWeek = Bill::whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
                 ->whereNotIn('status', ['Cancelled', 'Returned', 'Refunded', 'Failed'])
                 ->get()
@@ -60,12 +60,23 @@ class AdminController extends Controller
                     ->get();
                 $billsEachMonthOfYear->put(Carbon::create()->month($month)->format('F'), $bills);
             }
-
+            // top user
+            $topUser = $billsThisWeek->flatten()
+                ->groupBy('user_id')
+                ->map(function ($bills) {
+                    return [
+                        'count' => $bills->count(),
+                        'total_amount' => $bills->sum('total_amount'),
+                        'user' => $bills->first()->user
+                    ];
+                })
+                ->sortByDesc('count')
+                ->first();
             $orders = Bill::orderByDesc('id')->paginate(7);
             $users = User::get();
             $products = Product::count();
-            $popularProducts = Product::orderByDesc('sold')->paginate(6);
-            return view("admin.page.dashboard.index", compact('billsThisMonth', 'billsLastMonth', 'billsThisWeek', 'billsLastWeek', 'daysOfThisWeek', 'orders', 'users', 'products', 'popularProducts', 'billsEachMonthOfYear'));
+            $popularProducts = Product::orderByDesc('is_hot')->paginate(6);
+            return view("admin.page.dashboard.index", compact('billsThisMonth', 'billsLastMonth', 'billsThisWeek', 'billsLastWeek', 'daysOfThisWeek', 'topUser', 'orders', 'users', 'products', 'popularProducts', 'billsEachMonthOfYear'));
         } else {
             Auth::logout();
             $request->session()->invalidate();

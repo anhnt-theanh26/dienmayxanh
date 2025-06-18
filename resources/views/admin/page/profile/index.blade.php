@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Profile /</span> List</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Profile /</span> Show</h4>
     <div class="card-body">
 
         @if (session('success'))
@@ -89,7 +89,7 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text">+84</span>
                                     <input type="text" id="phone" name="phone" class="form-control"
-                                        value="{{ Auth::user()->phone }}" placeholder="0348022004" />
+                                        value="{{ Auth::user()->phone }}" placeholder="0123456789" />
                                 </div>
                                 @error('phone')
                                     <p class="text-danger">{{ $message }}</p>

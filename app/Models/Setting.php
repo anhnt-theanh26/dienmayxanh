@@ -11,6 +11,7 @@ class Setting extends Model
 
     protected $fillable = [
         'name',
+        'favorite_icon',
         'logo',
         'support',
         'main_color',

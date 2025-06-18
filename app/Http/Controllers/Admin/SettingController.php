@@ -68,7 +68,8 @@ class SettingController extends Controller
                     }
                 }
                 $data = [
-                    'name' => $request['name'] ?? 'Setting',
+                    'name' => $request['name'] ?? 'My Default Site',
+                    'favorite_icon' => $request['favorite_icon'],
                     'logo' => $request['logo'],
                     'support' => json_encode($support),
                     'main_color' => $request['main_color'],
@@ -158,7 +159,8 @@ class SettingController extends Controller
                     }
                 }
                 $data = [
-                    'name' => $request['name'] ?? 'Setting',
+                    'name' => $request['name'] ?? 'My Default Site',
+                    'favorite_icon' => $request['favorite_icon'],
                     'logo' => $request['logo'],
                     'support' => json_encode($support),
                     'main_color' => $request['main_color'],

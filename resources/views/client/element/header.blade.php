@@ -116,10 +116,19 @@
                                         @foreach ($categoryparent->categories as $category)
                                             <div class="col-2">
                                                 <div class="submenu-content text-center">
-                                                    <a href="{{ route('category.show', ['slug' => $category->slug]) }}">
-                                                        <img src="{{ $category->image ? asset($category->image) : asset('storage/default.jpg') }}"
-                                                            width="48" height="48" alt="">
-                                                    </a>
+                                                    @if ($category->products->count() > 0)
+                                                        <a
+                                                            href="{{ route('category.show', ['slug' => $category->slug]) }}">
+                                                            <img src="{{ $category->image ? asset($category->image) : asset('storage/default.jpg') }}"
+                                                                width="48" height="48" alt="">
+                                                        </a>
+                                                    @else
+                                                        <a
+                                                            href="{{ route('post.category', ['slug' => $category->slug]) }}">
+                                                            <img src="{{ $category->image ? asset($category->image) : asset('storage/default.jpg') }}"
+                                                                width="48" height="48" alt="">
+                                                        </a>
+                                                    @endif
                                                     <h6 style="font-weight: normal; font-size: 12px;">
                                                         {{ $category->name }}
                                                     </h6>

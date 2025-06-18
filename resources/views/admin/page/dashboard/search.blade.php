@@ -2,15 +2,25 @@
     <tr>
         <td>{{ $item->code }}</td>
         <td>
-            @if ($item->payment_method == 'offline')
-                <div class="badge bg-label-primary me-3 rounded p-2">
-                    <i class="ti ti-wallet ti-sm"></i>
-                </div>
-            @else
-                <div class="badge bg-label-success rounded me-3 p-2">
-                    <i class="ti ti-browser-check ti-sm"></i>
-                </div>
-            @endif
+            <div class="waves-effect waves-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                data-bs-original-title="{{ $item->payment_status }}">
+                @if ($item->payment_method == 'offline')
+                    <div class="badge bg-label-primary me-3 rounded p-2">
+                        <i class="ti ti-wallet ti-sm"></i>
+                    </div>
+                @else
+                    @if ($item->payment_status == 'Paid')
+                        <div class="badge bg-label-success rounded me-3 p-2">
+                            <i class="ti ti-browser-check ti-sm"></i>
+                        </div>
+                    @endif
+                    @if ($item->payment_status == 'Payment Failed')
+                        <div class="badge bg-label-warning rounded me-3 p-2">
+                            <i class="ti ti-browser-check ti-sm"></i>
+                        </div>
+                    @endif
+                @endif
+            </div>
         </td>
         <td>
             <span class="fw-bold text-success">

@@ -12,44 +12,23 @@
         <!-- View sales -->
         <div class="col-xl-4 mb-4 col-lg-5 col-12">
             <div class="card">
-                @php
-                    $billsUsers = [];
-                    foreach ($billsThisMonth as $bill) {
-                        $key = $bill->user_id;
-                        if ($bill->status == 'Delivered') {
-                            if (!isset($billsUsers[$key])) {
-                                $billsUsers[$key] = [];
-                            }
-                            $billsUsers[$key][] = $bill->total_amount;
-                        }
-                    }
-                    $totalAmount = [];
-                    foreach ($billsUsers as $key => $value) {
-                        $totalAmount[$key][] = array_sum($value);
-                    }
-                    $totalFlattan = [];
-                    // echo count($totalAmount);
-                    $max = [];
-                    foreach ($totalAmount as $key => $value) {
-                        // echo $key + 1;
-                    }
-                    // echo $totalAmount[2][0];
-                @endphp
                 <div class="d-flex align-items-end row">
                     <div class="col-7">
                         <div class="card-body text-nowrap">
                             <h5 class="card-title mb-0">
-                                Top Buyer John! 🎉</h5>
+                                Biggest Buyer {{ $topUser['user']->name }}! 🎉</h5>
                             <p class="mb-2">
-                                Top Buyer</p>
-                            <h4 class="text-primary mb-1">$48.9k</h4>
-                            <a href="javascript:;" class="btn btn-primary">View Sales</a>
+                                Quantity of orders: {{ $topUser['count'] }}
+                            </p>
+                            <h4 class="text-primary mb-1">{{ number_format($topUser['total_amount'], 0, ',', '.') }} đ</h4>
+                            <a href="{{ route('admin.user.show', $topUser['user']->id) }}" class="btn btn-primary">
+                                See User
+                            </a>
                         </div>
                     </div>
                     <div class="col-5 text-center text-sm-left">
                         <div class="card-body pb-0 px-0 px-md-4">
-                            <img src="{{ asset('/administrator/assets/img/illustrations/card-advance-sale.png') }}"
-                                height="140" alt="view sales" />
+                            <img src="{{ asset($topUser['user']->image) }}" height="140" alt="view sales" />
                         </div>
                     </div>
                 </div>
@@ -564,9 +543,10 @@
                                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                     <div class="me-2">
                                         <h6 class="mb-0">
-                                            {{ \Illuminate\Support\Str::limit($popularProduct->name, 20) }}
+                                            {{ \Illuminate\Support\Str::limit($popularProduct->name, 30) }}
                                         </h6>
-                                        <small class="text-muted d-block">Sku: #{{ $popularProduct->sku }}</small>
+                                        <small class="text-muted d-block">Sku:
+                                            #{{ \Illuminate\Support\Str::limit($popularProduct->sku, 30) }}</small>
                                     </div>
                                     <div class="user-progress d-flex align-items-center gap-1">
                                         <p class="mb-0 fw-semibold">
@@ -632,10 +612,10 @@
                                                     <small class="text-success text-uppercase fw-semibold">sender</small>
                                                 </div>
                                                 <h6 class="mb-0">
-                                                    {{ \Illuminate\Support\Str::limit(config('app.name'), 30) }}
+                                                    {{ \Illuminate\Support\Str::limit(config('setting.site_name'), 30) }}
                                                 </h6>
                                                 <p class="text-muted mb-0 text-nowrap">
-                                                    {{ \Illuminate\Support\Str::limit(config('app.name'), 30) }}
+                                                    {{ \Illuminate\Support\Str::limit(config('setting.site_name'), 30) }}
                                                 </p>
                                             </div>
                                         </li>
@@ -681,10 +661,10 @@
                                                     <small class="text-success text-uppercase fw-semibold">sender</small>
                                                 </div>
                                                 <h6 class="mb-0">
-                                                    {{ \Illuminate\Support\Str::limit(config('app.name'), 30) }}
+                                                    {{ \Illuminate\Support\Str::limit(config('setting.site_name'), 30) }}
                                                 </h6>
                                                 <p class="text-muted mb-0 text-nowrap">
-                                                    {{ \Illuminate\Support\Str::limit(config('app.name'), 30) }}
+                                                    {{ \Illuminate\Support\Str::limit(config('setting.site_name'), 30) }}
                                                 </p>
                                             </div>
                                         </li>
@@ -729,10 +709,10 @@
                                                     <small class="text-success text-uppercase fw-semibold">sender</small>
                                                 </div>
                                                 <h6 class="mb-0">
-                                                    {{ \Illuminate\Support\Str::limit(config('app.name'), 30) }}
+                                                    {{ \Illuminate\Support\Str::limit(config('setting.site_name'), 30) }}
                                                 </h6>
                                                 <p class="text-muted mb-0 text-nowrap">
-                                                    {{ \Illuminate\Support\Str::limit(config('app.name'), 30) }}
+                                                    {{ \Illuminate\Support\Str::limit(config('setting.site_name'), 30) }}
                                                 </p>
                                             </div>
                                         </li>
@@ -843,13 +823,8 @@
                             aria-describedby="DataTables_Table_0_info" style="width: 922px;">
                             <thead>
                                 <tr>
-                                    <th class="control sorting dtr-hidden" tabindex="0"
-                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                        style="width: 39px; display: none;"
-                                        aria-label=": activate to sort column ascending"></th>
                                     <th>ID</th>
-                                    <th><i class="ti ti-trending-up"></i>
-                                    </th>
+                                    <th><i class="ti ti-trending-up"></i></th>
                                     <th>Total</th>
                                     <th>Issued Date</th>
                                     <th>Actions</th>
@@ -868,9 +843,16 @@
                                                         <i class="ti ti-wallet ti-sm"></i>
                                                     </div>
                                                 @else
-                                                    <div class="badge bg-label-success rounded me-3 p-2">
-                                                        <i class="ti ti-browser-check ti-sm"></i>
-                                                    </div>
+                                                    @if ($item->payment_status == 'Paid')
+                                                        <div class="badge bg-label-success rounded me-3 p-2">
+                                                            <i class="ti ti-browser-check ti-sm"></i>
+                                                        </div>
+                                                    @endif
+                                                    @if ($item->payment_status == 'Payment Failed')
+                                                        <div class="badge bg-label-warning rounded me-3 p-2">
+                                                            <i class="ti ti-browser-check ti-sm"></i>
+                                                        </div>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </td>

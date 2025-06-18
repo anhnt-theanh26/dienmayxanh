@@ -41,7 +41,7 @@ class PostController extends Controller
         if (Auth::user()->can('create post')) {
             $request->validate([
                 'title' => 'required|string|max:255',
-                'excerpt' => 'required|string|max:255',
+                'excerpt' => 'required|string',
                 'content' => 'nullable|string',
                 'image' => 'nullable|max:255',
                 'published_at' => 'required|date',
@@ -111,7 +111,7 @@ class PostController extends Controller
         if (Auth::user()->can('edit post')) {
             $request->validate([
                 'title' => 'required|string|max:255',
-                'excerpt' => 'required|string|max:255',
+                'excerpt' => 'required|string',
                 'content' => 'nullable|string',
                 'image' => 'nullable|max:255',
                 'published_at' => 'required|date',

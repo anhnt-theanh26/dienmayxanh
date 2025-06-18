@@ -40,8 +40,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="excerpt">Excerpt</label>
-                                        <input type="text" class="form-control" id="excerpt" name="excerpt"
-                                            value="{{ $post->excerpt }}" placeholder="Excerpt" />
+                                        <textarea name="excerpt" placeholder='Excerpt' id="excerpt" class="form-control" rows="4">{{ $post->excerpt }}</textarea>
                                         @error('excerpt')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror

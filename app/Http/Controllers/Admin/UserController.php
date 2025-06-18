@@ -74,7 +74,26 @@ class UserController extends Controller
         }
     }
 
+    public function show(string $id)
+    {
+        if (Auth::user()->can('index user')) {
+            $user = User::where('id', $id)->first();
+            if (!$user) {
+                Alert::error('Khong tim thay user:');
+                return redirect()->back()->with('error', 'Khong tim thay user');
+            }
+            $users = User::get();
+            return view('admin.page.user.show', compact('user', 'users'));
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
+    }
 
+    public function sendmail(Request $request)
+    {
+        return view('mail.sendmailuser');
+    }
 
     public function edit(string $id)
     {
@@ -90,7 +109,6 @@ class UserController extends Controller
             return redirect()->route('admin.dashboard');
         }
     }
-
 
     public function update(Request $request, string $id)
     {

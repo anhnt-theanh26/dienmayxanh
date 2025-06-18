@@ -39,8 +39,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="excerpt">Excerpt</label>
-                                        <input type="text" class="form-control" id="excerpt" name="excerpt"
-                                            value="{{ old('excerpt') }}" placeholder="Excerpt" />
+                                        <textarea name="excerpt" placeholder='Excerpt' id="excerpt" class="form-control" rows="4">{{ old('excerpt') }}</textarea>
                                         @error('excerpt')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -111,7 +110,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="content">Content</label>
-                                        <textarea id="my-editor" name="content" class="form-control"></textarea>
+                                        <textarea id="my-editor" name="content" class="form-control">{{ old('content') }}</textarea>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                     <a class="btn btn-secondary" href="{{ route('admin.post.index') }}"

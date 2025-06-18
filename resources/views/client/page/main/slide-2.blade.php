@@ -8,8 +8,8 @@
     }
 @endphp
 @if ($bannermain3 && $bannermain3->isNotEmpty())
-    <section>
-        <div class="large-12 columns container my-3 position-relative advertisement-02-hiding"
+    <section class="m-0 p-0">
+        <div class="large-12 columns container mt-4 position-relative advertisement-02-hiding"
             style="flex-shrink: 0;">
             <div class="owl-carousel advertisement-02">
                 @foreach ($bannermain3 as $item)
@@ -40,6 +40,7 @@
                 margin: 10,
                 loop: true,
                 slideBy: 2,
+                dots: false,
                 responsive: {
                     0: {
                         items: 1

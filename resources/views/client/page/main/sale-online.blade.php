@@ -6,7 +6,7 @@
             $productmenuitemfirst = $firstProductMenu?->productmenus
                 ?->first()
                 ?->productmenuitems?->sortBy('location')
-                ?->take(10);
+                ?->take(9);
         }
     }
 @endphp
@@ -16,7 +16,7 @@
         <div class="container" style="flex-shrink: 0;">
             <h4 class="fw-bold py-4">{{ $firstProductMenu?->productmenus?->first()?->name }}</h4>
             <div class="bg-white rounded-4 p-3">
-                <ul class="nav d-flex nav-tabs" id="myTab" role="tablist">
+                <ul class="nav d-flex nav-tabs justify-content-between" id="myTab" role="tablist">
                     @foreach ($productmenuitemfirst as $index => $productmenucategoryitem)
                         <li class="nav-item" role="presentation">
                             <button class="nav-link p-2 {{ $loop->first ? 'active' : '' }}" id="tab-{{ $index }}"
@@ -53,7 +53,8 @@
                             aria-labelledby="tab-{{ $index }}">
                             <div class="row">
                                 @php
-                                    $productmenuitemfirstdatatake12 = $categories?->category?->products?->take(12) ?? collect();
+                                    $productmenuitemfirstdatatake12 =
+                                        $categories?->category?->products?->take(12) ?? collect();
                                 @endphp
                                 @foreach ($productmenuitemfirstdatatake12 as $product)
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-xs-6 col-6 my-2">
@@ -123,18 +124,21 @@
                                     </div>
                                 @endforeach
                                 <div class="text-center">
-                                    <a href="#" class="text-decoration-none">
-                                        <h6 class="text-primary pt-3">
-                                            <button class="btn fw-bold text-primary" type="button">
-                                                Xem thêm sản phẩm
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-                                                </svg>
-                                            </button>
-                                        </h6>
-                                    </a>
+                                    @if ($categories?->category?->products->count() > 12)
+                                        <a href="{{ $categories?->link }}" class="text-decoration-none">
+                                            <h6 class="text-primary pt-3">
+                                                <button class="btn fw-bold text-primary" type="button">
+                                                    Xem thêm sản phẩm
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor" class="bi bi-chevron-right"
+                                                        viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                                                    </svg>
+                                                </button>
+                                            </h6>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

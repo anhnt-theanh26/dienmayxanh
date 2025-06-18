@@ -50,7 +50,7 @@ class SearchController extends Controller
                     $seoProducts = null;
                 }
             }
-            $pageTitle = $keyword . ' | ' . config('app.name');
+            $pageTitle = $keyword . ' | ' . config('setting.site_name');
             $pageDescription = $seoProducts['description_products'] ?? '';
             $pageRobots = $seoProducts['robots_products'] ?? 'index, follow';
             $pageImage = $seoProducts['seoimage_products'] ?? asset('./storage/default.jpg');

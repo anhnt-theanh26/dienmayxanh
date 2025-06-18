@@ -55,7 +55,25 @@
                     <div class="col-xxl-2 col-xl-3 col-lg-3 col-sm-6 col-xs-6 col-12">
                         <p class="m-0 p-0">
                             <span>Tổng đài tư vấn: </span>
-                            <span class="fw-bold">0348022004</span>
+                            <span class="fw-bold">
+                                @php
+                                    $supportArr = null;
+                                    if (isset($setting) && !empty($setting)) {
+                                        if ($setting?->support) {
+                                            $supportArr = json_decode($setting?->support, true);
+                                            if (json_last_error() !== JSON_ERROR_NONE) {
+                                                $supportArr = null;
+                                            }
+                                        }
+                                    }
+                                    $firstSupport = $supportArr[0] ?? null;
+                                @endphp
+                                @if ($firstSupport)
+                                    <a href="{{ $firstSupport['href'] }}" class="text-decoration-none text-black">
+                                        {{ $firstSupport['phone'] }}
+                                    </a>
+                                @endif
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -64,9 +82,9 @@
                         <article class="article">
                             <div class="content-left" style="margin-right: 10px">
                                 <div class="">
-                                    <p class="fw-bold" style="font-size: 24px">
+                                    <h1 class="fw-bold" style="font-size: 24px">
                                         {{ $post->title }}
-                                    </p>
+                                    </h1>
                                     <p class="text-secondary m-0 p-0">
                                         <span>Đăng lúc</span>
                                         <span>{{ \Carbon\Carbon::parse($post->published_at)->format('H:i d/m/Y') }}</span>
@@ -75,9 +93,9 @@
                                     <hr>
                                 </div>
                                 <div class="">
-                                    <p class="fw-bold">
+                                    <h2 class="fw-bold" style="font-size: 17px">
                                         {{ $post->excerpt }}
-                                    </p>
+                                    </h2>
                                     <img class="img-fluid" src="{{ asset($post->image) }}" alt="">
                                     <div class="py-2 m-0 p-0">
                                         {!! $post->content !!}

@@ -118,7 +118,7 @@
         </script>
     </div>
     <div class="commit bg-white  rounded-3 px-3 mt-3">
-        <h5 class="py-3">Điện Máy XANH cam kết</h5>
+        <h5 class="py-3">{{ config('setting.site_name') }} cam kết</h5>
         <div class="row">
             <div class="col-6 py-3 d-flex align-items-center">
                 <img width="32px" height="32px" class=""
@@ -537,7 +537,8 @@
                                                                                 @if ($imageJsonStarNotFill > 0)
                                                                                     @for ($i = 0; $i < $imageJsonStarNotFill; $i++)
                                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="12" height="12"
+                                                                                            width="12"
+                                                                                            height="12"
                                                                                             fill="currentColor"
                                                                                             class="bi bi-star"
                                                                                             viewBox="0 0 16 16">
@@ -576,7 +577,8 @@
                                                                                         alt="image">
                                                                                     @for ($i = 0; $i < $imageJsonStarFills; $i++)
                                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="12" height="12"
+                                                                                            width="12"
+                                                                                            height="12"
                                                                                             fill="currentColor"
                                                                                             class="bi bi-star-fill text-warning"
                                                                                             viewBox="0 0 16 16">
@@ -616,7 +618,8 @@
                                                                                         alt="image">
                                                                                     @for ($i = 0; $i < $imageJsonStarFills; $i++)
                                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="12" height="12"
+                                                                                            width="12"
+                                                                                            height="12"
                                                                                             fill="currentColor"
                                                                                             class="bi bi-star-fill text-warning"
                                                                                             viewBox="0 0 16 16">
@@ -653,18 +656,23 @@
                                                                 @foreach ($reviews as $review)
                                                                     @if ($review->rating == 3)
                                                                         @php
-                                                                            $imageJson = json_decode($review->image, true);
+                                                                            $imageJson = json_decode(
+                                                                                $review->image,
+                                                                                true,
+                                                                            );
                                                                             if (json_last_error() !== JSON_ERROR_NONE) {
                                                                                 $imageJson = null;
                                                                             }
                                                                             $imageJsonStarFills = $review->rating;
-                                                                            $imageJsonStarNotFill = 5 - $imageJsonStarFills;
+                                                                            $imageJsonStarNotFill =
+                                                                                5 - $imageJsonStarFills;
                                                                         @endphp
                                                                         @if ($imageJson)
                                                                             @foreach ($imageJson as $image)
                                                                                 <div class="col-2 p-2">
                                                                                     <div class="text-center">
-                                                                                        <img width="114px" height="114px"
+                                                                                        <img width="114px"
+                                                                                            height="114px"
                                                                                             class="object-fit-cover rounded-3"
                                                                                             src="{{ $image }}"
                                                                                             alt="image">
@@ -725,7 +733,8 @@
                                                                                         alt="image">
                                                                                     @for ($i = 0; $i < $imageJsonStarFills; $i++)
                                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                            width="12" height="12"
+                                                                                            width="12"
+                                                                                            height="12"
                                                                                             fill="currentColor"
                                                                                             class="bi bi-star-fill text-warning"
                                                                                             viewBox="0 0 16 16">
@@ -762,18 +771,23 @@
                                                                 @foreach ($reviews as $review)
                                                                     @if ($review->rating == 1)
                                                                         @php
-                                                                            $imageJson = json_decode($review->image, true);
+                                                                            $imageJson = json_decode(
+                                                                                $review->image,
+                                                                                true,
+                                                                            );
                                                                             if (json_last_error() !== JSON_ERROR_NONE) {
                                                                                 $imageJson = null;
                                                                             }
                                                                             $imageJsonStarFills = $review->rating;
-                                                                            $imageJsonStarNotFill = 5 - $imageJsonStarFills;
+                                                                            $imageJsonStarNotFill =
+                                                                                5 - $imageJsonStarFills;
                                                                         @endphp
                                                                         @if ($imageJson)
                                                                             @foreach ($imageJson as $image)
                                                                                 <div class="col-2 p-2">
                                                                                     <div class="text-center">
-                                                                                        <img width="114px" height="114px"
+                                                                                        <img width="114px"
+                                                                                            height="114px"
                                                                                             class="object-fit-cover rounded-3"
                                                                                             src="{{ $image }}"
                                                                                             alt="image">

@@ -20,7 +20,7 @@ class PaymentController extends Controller
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = route('order.vnpay_callback');
         $vnp_TmnCode = "MMCD44EP"; //Mã website tại VNPAY 
-        $vnp_HashSecret = "4NL4RQ4DH4Y3JMJYLK4HA32YRP525CVF";
+        $vnp_HashSecret = "RM9OBPDL0ELEWYYD4S4HF7EB8YIIPAX2";
 
         $vnp_TxnRef = $code_cart;
         $vnp_OrderInfo = "Thanh toán đơn hàng #{$code_cart}";
@@ -89,7 +89,7 @@ class PaymentController extends Controller
 
     public function vnpayCallback(Request $request)
     {
-        $vnp_HashSecret = "4NL4RQ4DH4Y3JMJYLK4HA32YRP525CVF";
+        $vnp_HashSecret = "RM9OBPDL0ELEWYYD4S4HF7EB8YIIPAX2";
         $vnp_SecureHash = $_GET['vnp_SecureHash'];
         $inputData = array();
         foreach ($_GET as $key => $value) {

@@ -32,7 +32,7 @@
             <!-- /Logo -->
             @php
                 $title_admin = null;
-                if ($setting) {
+                if (isset($setting) && !empty($setting)) {
                     if ($setting->title_admin) {
                         $seoPosts = json_decode($setting->title_login_admin, true);
                         if (json_last_error() !== JSON_ERROR_NONE) {

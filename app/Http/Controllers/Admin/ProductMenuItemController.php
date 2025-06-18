@@ -77,7 +77,7 @@ class ProductMenuItemController extends Controller
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay product menu items');
                     return redirect()->route('admin.productmenu.index')->with('error', 'Khong tim thay product menu items!');
                 }
-                $categoryParents = CategoryParent::orderBy('id', 'desc')->get();
+                $categoryParents = CategoryParent::get();
                 if (!$categoryParents) {
                     Alert::error('Có lỗi xảy ra', 'Khong tim thay category parents');
                     return redirect()->route('admin.productmenu.index')->with('error', 'Khong tim thay category parents!');

@@ -232,7 +232,7 @@
                                     <div class="card-body">
                                         <div class="mb-3">
                                             <label class="form-label" for="description">Description</label>
-                                            <textarea id="my-editor" name="description" class="form-control"></textarea>
+                                            <textarea id="my-editor" name="description" class="form-control">{{old('description')}}</textarea>
                                         </div>
                                     </div>
                                 </div>

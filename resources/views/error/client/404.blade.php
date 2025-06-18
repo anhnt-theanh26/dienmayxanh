@@ -28,11 +28,11 @@
                         trang mà bạn cần!</p>
                     <div class="d-flex justify-content-around align-items-center">
                         <div class="text-center">
-                            <p class="m-0 pb-1" style="font-size: 12px">Trở về trang chủ<br>Điện máy Xanh</p>
+                            <p class="m-0 pb-1" style="font-size: 12px">Trở về trang chủ<br>{{ config('setting.site_name') }}</p>
                             <a href="{{ route('index') }}">
                                 <button type="button" class="btn btn-primary rounded-pill"
                                     style="width: 140px; height: 40px; font-size: 12px;">
-                                    Điện máy XANH
+                                    {{ config('setting.site_name') }}
                                 </button>
                             </a>
                         </div>

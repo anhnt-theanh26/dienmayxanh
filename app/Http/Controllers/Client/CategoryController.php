@@ -26,11 +26,11 @@ class CategoryController extends Controller
             }
         }
         if ($category) {
-            $pageTitle = $category->name . ' | ' . config('app.name');
+            $pageTitle = $category->name . ' | ' . config('setting.site_name');
         } else if ($seoProducts['title_products']) {
             $pageTitle = $seoProducts['title_products'];
         } else {
-            $pageTitle = config('app.name');
+            $pageTitle = config('setting.site_name');
         }
         $pageDescription = $seoProducts['description_products'] ?? '';
         $pageRobots = $seoProducts['robots_products'] ?? 'index, follow';

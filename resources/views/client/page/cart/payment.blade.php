@@ -19,7 +19,7 @@
             <a target="_blank" href="https://www.dienmayxanh.com/chinh-sach-xu-ly-du-lieu-ca-nhan"
                 class="text-decoration-none">Chính sách xử lý dữ liệu cá
                 nhân</a>
-            của Điện Máy Xanh</label>
+            của {{ config('setting.site_name') }}</label>
     </div>
     <div class="d-grid gap-2 py-2 pt-3">
         @if (Auth::check())
@@ -33,7 +33,6 @@
     </div>
 </div>
 <script>
-
     let formordersubmit = document.querySelector('.form-order-submit');
     formordersubmit.addEventListener('submit', function(e) {
         e.preventDefault();

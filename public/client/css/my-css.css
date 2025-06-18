@@ -277,15 +277,15 @@ nav.menu {
 
 .mega-menu .mm-6column {
   width: 75%;
-  min-height: 400px;
-  max-height: 400px;
+  min-height: 450px;
+  max-height: 450px;
   overflow-y: auto;
 }
 
 .mega-menu .mm-3column {
   width: 25%;
-  min-height: 400px;
-  max-height: 400px;
+  min-height: 450px;
+  max-height: 450px;
   overflow-y: auto;
 }
 

@@ -6,7 +6,7 @@
                     <p class="fw-bold">Tổng đài hỗ trợ</p>
                     @php
                         $supportArr = null;
-                        if ($setting) {
+                        if (isset($setting) && !empty($setting)) {
                             if ($setting?->support) {
                                 $supportArr = json_decode($setting?->support, true);
                                 if (json_last_error() !== JSON_ERROR_NONE) {

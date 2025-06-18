@@ -48,7 +48,7 @@
             {{-- Nút quay lại --}}
             <div class="text-center mt-4">
                 <a href="{{ route('logout') }}" class="btn btn-outline-secondary">
-                    ← Quay lại Điện Máy Xanh
+                    ← Quay lại {{ config('setting.site_name') }}
                 </a>
             </div>
 
