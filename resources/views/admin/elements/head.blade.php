@@ -35,5 +35,4 @@
 <script src="{{ asset('/administrator/assets/js/config.js') }}"></script>
 
 
-
 {{--  --}}

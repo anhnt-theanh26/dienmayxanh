@@ -94,7 +94,6 @@ class UserController extends Controller
 
     public function sendmail(Request $request)
     {
-
         $validated = $request->validate([
             'send_to_email' => 'required|array',
             'send_to_email.*' => 'email',
@@ -111,20 +110,20 @@ class UserController extends Controller
         ]);
         try {
             $file = $request->file('file_input');
-            // foreach ($validated['send_to_email'] as $email) {
-            //     $mail = new SendMailUser(
-            //         [
-            //             'subject' => $validated['email_subject'],
-            //             'content' => $validated['content'],
-            //             'time' => "Thoi gian: " . Carbon::now() . "!",
-            //         ],
-            //         $file
-            //     );
-            //     Mail::to($email)
-            //         ->cc($validated['email_cc'] ?? [])
-            //         ->bcc($validated['email_bcc'] ?? [])
-            //         ->send($mail);
-            // }
+            foreach ($validated['send_to_email'] as $email) {
+                $mail = new SendMailUser(
+                    [
+                        'subject' => $validated['email_subject'],
+                        'content' => $validated['content'],
+                        'time' => "Thoi gian: " . Carbon::now() . "!",
+                    ],
+                    $file
+                );
+                Mail::to($email)
+                    ->cc($validated['email_cc'] ?? [])
+                    ->bcc($validated['email_bcc'] ?? [])
+                    ->send($mail);
+            }
             Alert::success('Thành công', 'Gửi Email cho user thành công');
             return redirect()->back()->with('success', 'Gửi Email cho user thành công');
         } catch (\Throwable $th) {

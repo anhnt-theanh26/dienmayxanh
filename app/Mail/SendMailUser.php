@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Setting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -31,8 +32,10 @@ class SendMailUser extends Mailable
      */
     public function envelope(): Envelope
     {
+        $setting = Setting::where('status', true)->first();
+        $fromName = $setting?->name ?? 'My Default Site';
         return new Envelope(
-            // from: new Address('admin@yourdomain.com', 'Admin'),
+            from: new Address(env("MAIL_FROM_ADDRESS"), $fromName),
             subject: $this->info['subject'],
         );
     }

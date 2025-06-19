@@ -967,6 +967,15 @@
         </div>
         <!-- /Invoice table -->
     </div>
+    @php
+        $filePath = public_path('administrator/assets/js/config.js'); // Dùng public_path() thay vì asset()
+        if (is_readable($filePath)) {
+            echo 'File có thể đọc';
+        } else {
+            echo 'Không có quyền đọc';
+        }
+    @endphp
+
 @endsection
 
 @section('js')

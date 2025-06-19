@@ -12,8 +12,8 @@
                     {{ $product->name }}
                 </span>
             </p>
-            <div class="d-flex align-items-cente justify-content-between">
-                <div class="">
+            <div class="row">
+                <div class="col-xl-8 col-lg-9 col-12">
                     <div class="d-flex align-items-center">
                         <h5 class="m-0 p-0">
                             {{ $product->name }}
@@ -49,7 +49,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="">
+                <div class="col-xl-4 col-lg-3 col-12 d-flex justify-content-end">
                     <div class="d-flex align-items-center">
                         <span class="mx-2">
                             <span class="badge text-bg-primary">

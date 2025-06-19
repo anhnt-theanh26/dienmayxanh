@@ -1,4 +1,4 @@
-<div class="col-7">
+<div class="col-xl-7 col-lg-6 col-12">
     <div class="slider bg-white rounded-3">
         <div class="product-gallery p-5">
             @php

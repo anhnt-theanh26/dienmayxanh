@@ -4,13 +4,29 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\CategoryParent;
 use App\Models\Product;
+use App\Models\Search;
 use App\Models\Setting;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function index()
+    {
+        $categoryParents = CategoryParent::get();
+        $searchs = Search::limit(20)->orderByDesc('id')->get();
+        return view('client.page.category.index', compact('categoryParents', 'searchs'));
+    }
+
+    public function parent(Request $request, string $slug)
+    {
+        $categoryParent = CategoryParent::where('slug', $slug)->first();
+        $searchs = Search::limit(20)->orderByDesc('id')->get();
+        return view('client.page.category.index', compact('categoryParent', 'searchs'));
+    }
+
     public function show(Request $request, string $slug)
     {
         $results = Product::join('categories', 'categories.id', '=', 'products.category_id')->where('categories.slug', $slug)->select('products.*')->get();

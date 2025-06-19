@@ -71,7 +71,7 @@
                                                         alt="{{ $category_normal->category->name }}">
 
                                                     <p class="p-0 m-0 pt-1">
-                                                        {{ $category_hot?->category?->name }}
+                                                        {{ $category_normal?->category?->name }}
                                                     </p>
                                                 </div>
                                             </a>
@@ -81,12 +81,14 @@
                             @endif
                             <div class="col-xl-2 col-md-3 col-6 p-3">
                                 <div class="text-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                        fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-                                    </svg>
-                                    <p class="p-0 m-0 pt-1">Tất cả danh mục</p>
+                                    <a href="{{ route('category.index') }}" class="text-decoration-none text-black">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+                                        </svg>
+                                        <p class="p-0 m-0 pt-1">Tất cả danh mục</p>
+                                    </a>
                                 </div>
                             </div>
                         </div>

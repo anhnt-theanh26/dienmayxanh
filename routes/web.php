@@ -304,17 +304,24 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 Route::prefix('/')->as('')->group(function () {
     Route::get('/', [ClientHomeController::class, 'index'])->name('index');
     Route::get('/home', [ClientHomeController::class, 'index'])->name('home');
+
+    // product
     Route::prefix('product')->as('product.')->group(function () {
         Route::get('{slug}', [ClientProductDetailController::class, 'show'])->name('show');
-        Route::get('{slug}/review', [ClientProductDetailController::class, 'review'])->name('review');
+        Route::get('/review/{slug}', [ClientProductDetailController::class, 'review'])->name('review');
     });
 
+    // search
     Route::prefix('search')->as('search.')->group(function () {
         Route::get('/', [ClientSearchController::class, 'index'])->name('index');
         Route::get('/arrange', [ClientSearchController::class, 'arrange'])->name('arrange');
         Route::get('/filter', [ClientSearchController::class, 'filter'])->name('filter');
     });
+
+    // category
     Route::prefix('category')->as('category.')->group(function () {
+        Route::get('/index', [ClientCategoryController::class, 'index'])->name('index');
+        Route::get('/parent/{slug}', [ClientCategoryController::class, 'parent'])->name('parent');
         Route::get('{slug}', [ClientCategoryController::class, 'show'])->name('show');
     });
     // login
@@ -350,9 +357,9 @@ Route::prefix('/')->as('')->group(function () {
     // bill 
     Route::prefix('bill')->as('bill.')->group(function () {
         Route::get('/', [ClientBillController::class, 'index'])->name('index');
-        Route::post('/{id}/received', [ClientBillController::class, 'received'])->name('received');
-        Route::post('{id}/cancel', [ClientBillController::class, 'cancel'])->name('cancel');
-        Route::post('{id}/refund', [ClientBillController::class, 'refund'])->name('refund');
+        Route::post('/received/{id}', [ClientBillController::class, 'received'])->name('received');
+        Route::post('/cancel/{id}', [ClientBillController::class, 'cancel'])->name('cancel');
+        Route::post('/refund/{id}', [ClientBillController::class, 'refund'])->name('refund');
         Route::post('/review', [ClientBillController::class, 'review'])->name('review');
     });
 
@@ -366,8 +373,8 @@ Route::prefix('/')->as('')->group(function () {
 
     // post 
     Route::prefix('post')->as('post.')->group(function () {
-        Route::get('{slug}/index', [ClientPostController::class, 'index'])->name('index');
-        Route::get('{slug}/category', [ClientPostController::class, 'category'])->name('category');
+        Route::get('/index/{slug}', [ClientPostController::class, 'index'])->name('index');
+        Route::get('/category/{slug}', [ClientPostController::class, 'category'])->name('category');
         Route::get('{slug}', [ClientPostController::class, 'show'])->name('show');
     });
 

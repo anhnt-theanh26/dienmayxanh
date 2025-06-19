@@ -9,10 +9,10 @@
     <section>
         <div class="container p-5">
             <div class="row p-5">
-                <div class="col-6 d-flex justify-content-center align-items-center">
+                <div class="col-xxl-6 col-xl-6 col-12 d-flex justify-content-center align-items-center">
                     <img src="https://cdn.tgdd.vn/2022/10/banner/TGDD-540x270-1.png" class="img-fluid" alt="">
                 </div>
-                <div class="col-6 p-5 bg-white rounded-4 shadow">
+                <div class="col-xxl-6 col-xl-6 col-12 p-5 bg-white rounded-4 shadow">
                     <form action="{{ route('register.submit') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
