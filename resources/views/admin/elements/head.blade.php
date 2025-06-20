@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="{{ asset('/administrator/assets/vendor/css/pages/cards-advance.css') }}" />
 <script src="{{ asset('/administrator/assets/vendor/js/helpers.js') }}"></script>
 <script src="{{ asset('/administrator/assets/vendor/js/template-customizer.js') }}"></script>
-<script src="{{ asset('/administrator/assets/js/config.js') }}"></script>
+<script src="{{ asset('/administrator/assets/js/configFile.js') }}"></script>
 
 
 {{--  --}}
