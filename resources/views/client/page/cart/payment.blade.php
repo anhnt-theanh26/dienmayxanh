@@ -32,43 +32,4 @@
         @endif
     </div>
 </div>
-<script>
-    let formordersubmit = document.querySelector('.form-order-submit');
-    formordersubmit.addEventListener('submit', function(e) {
-        e.preventDefault();
-        let flag = true;
-        if (checkcompanyinvoice.checked) {
-            let companyName = document.querySelector('input[name="company-name"]');
-            if (companyName.value.trim() == '') {
-                flag = false;
-                $('#title-warning-company-name').empty().text('Vui lòng nhập tên công ty');
-            } else {
-                $('#title-warning-company-name').empty();
-            }
-            let companyAddress = document.querySelector('input[name="company-address"]');
-            if (companyAddress.value.trim() == '') {
-                flag = false;
-                $('#title-warning-company-address').empty().text('Vui lòng nhập địa chỉ công ty');
-            } else {
-                $('#title-warning-company-address').empty();
-            }
-            let taxCode = document.querySelector('input[name="tax-code"]');
-            if (taxCode.value.trim() == '') {
-                $('#title-warning-tax-code').empty().text('Vui lòng nhập mã số thuế');
-                flag = false;
-            } else {
-                $('#title-warning-tax-code').empty();
-            }
-        }
-        if (checkotherrequest.checked) {
-            let otherRequest = document.querySelector('input[name="note"]');
-            if (otherRequest.value.trim() == '') {
-                flag = false;
-                $('#title-warning-ofther-request').empty().text('Vui lòng nhập yêu cầu khác');
-            }
-        }
-        if (flag === true) {
-            formordersubmit.submit();
-        }
-    })
-</script>
+

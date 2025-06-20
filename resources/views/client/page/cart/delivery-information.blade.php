@@ -11,7 +11,7 @@
                         </div>
                         <div class="px-2" style="width: 90%;">
                             <a class="text-decoration-none text-black"
-                                href="/dan-loa-dvd/loa-karaoke-xach-tay-sumico-hexagon">
+                                href="{{ route('product.show', ['slug' => $item->options->product->slug]) }}">
                                 {{ $item->name }}
                             </a>
                             <div class="">

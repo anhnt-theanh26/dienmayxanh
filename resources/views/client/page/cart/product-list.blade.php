@@ -64,7 +64,7 @@
                 type: "GET",
             })
             .done((response) => {
-                $("#change-item-cart").empty().text(response['total']);
+                $(".change-item-cart").text(response['total']);
                 $("#cart-list").empty().html(response['html']);
                 if (response['status'] == true) {
                     alertify.success(response['title']);
@@ -131,7 +131,7 @@
                 },
             })
             .done((response) => {
-                $("#change-item-cart").empty().text(response['total']);
+                $(".change-item-cart").text(response['total']);
                 $('#total-price').empty().text((response['price'] + 20000).toLocaleString('it-IT', {
                     style: 'currency',
                     currency: 'VND'

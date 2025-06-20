@@ -90,8 +90,8 @@
                                                     @if ($product->attributeValues->first())
                                                         <p class="bg-secondary-subtle m-0 p-0 rounded-1 px-2 py-1"
                                                             style="font-size: 12px; width: fit-content;">
-                                                            {{ $product->attributeValues->first()->attribute->name ? $product->attributeValues->first()->attribute->name : '' }}:
-                                                            {{ $product->attributeValues->first()->value ? $product->attributeValues->first()->value : '' }}
+                                                            {{ \Illuminate\Support\Str::limit($product->attributeValues->first()->attribute->name ? $product->attributeValues->first()->attribute->name : '', 10) }}:
+                                                            {{ \Illuminate\Support\Str::limit($product->attributeValues->first()->value ? $product->attributeValues->first()->value : '', 10) }}
                                                         </p>
                                                     @endif
                                                     <p class="text-warning px-1 m-0 p-0 py-1"
