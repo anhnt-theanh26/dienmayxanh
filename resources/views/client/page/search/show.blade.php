@@ -8,7 +8,7 @@
         }
     @endphp
     @foreach ($takeResult12 as $product)
-        <div class="col-2 my-2">
+        <div class="col-xl-2 col-lg-3 col-md-4 col-xs-6 col-6 my-2">
             <a href="{{ route('product.show', ['slug' => $product->slug]) }}" class="text-decoration-none text-black">
                 <div class="p-3 border rounded-2" style="min-height: 450px; max-height: 450px;">
                     <div class="d-flex justify-content-between align-items-center">
@@ -47,13 +47,12 @@
                         @if ($product?->attributeValues?->first())
                             <p class="bg-secondary-subtle m-0 p-0 rounded-1 px-2 py-1"
                                 style="font-size: 12px; width: fit-content;">
-                                {{ $product?->attributeValues?->first()?->attribute?->name ? $product?->attributeValues?->first()?->attribute?->name : '' }}:
-                                {{ $product?->attributeValues?->first()?->value ? $product?->attributeValues?->first()?->value : '' }}
+                                {{ \Illuminate\Support\Str::limit($product?->attributeValues?->first()?->attribute?->name ? $product?->attributeValues?->first()?->attribute?->name : '', 10) }}:
+                                {{ \Illuminate\Support\Str::limit($product?->attributeValues?->first()?->value ? $product?->attributeValues?->first()?->value : '', 10) }}
                             </p>
                         @endif
-                        <p class="text-warning px-1 m-0 p-0 py-1" style="font-size: 12px; width: fit-content;">Online
-                            giá rẻ
-                            quá
+                        <p class="text-warning px-1 m-0 p-0 py-1" style="font-size: 12px; width: fit-content;">
+                            Online giá rẻ quá
                         </p>
                         <p class="d-flex align-items-center" style="font-size: 14px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -86,7 +85,7 @@
         <div class="collapse" id="collapseExample">
             <div class="row">
                 @foreach ($takeSkip12 as $product)
-                    <div class="col-2 my-2">
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-xs-6 col-6 my-2">
                         <a href="{{ route('product.show', ['slug' => $product->slug]) }}"
                             class="text-decoration-none text-black">
                             <div class="p-3 border rounded-2" style="min-height: 450px; max-height: 450px;">
@@ -128,8 +127,8 @@
                                     @if ($product?->attributeValues?->first())
                                         <p class="bg-secondary-subtle m-0 p-0 rounded-1 px-2 py-1"
                                             style="font-size: 12px; width: fit-content;">
-                                            {{ $product?->attributeValues?->first()?->attribute?->name ? $product?->attributeValues?->first()?->attribute?->name : '' }}:
-                                            {{ $product?->attributeValues?->first()?->value ? $product?->attributeValues?->first()?->value : '' }}
+                                            {{ \Illuminate\Support\Str::limit($product?->attributeValues?->first()?->attribute?->name ? $product?->attributeValues?->first()?->attribute?->name : '', 10) }}:
+                                            {{ \Illuminate\Support\Str::limit($product?->attributeValues?->first()?->value ? $product?->attributeValues?->first()?->value : '', 10) }}
                                         </p>
                                     @endif
                                     <p class="text-warning px-1 m-0 p-0 py-1"

@@ -53,6 +53,10 @@
             <a id="menutoggle"><i class="fa fa-align-justify"></i> </a>
             <nav class="xs-menu displaynone">
                 <ul>
+                    <a href="{{ route('index') }}">
+                        <img width="229" height="40" class="object-fit-cover" src="{{ $setting->logo ?? '' }}"
+                            alt="logo">
+                    </a>
                     @foreach ($categoryparents as $categoryparent)
                         <li class="active">
                             <a href="{{ route('category.parent', $categoryparent->slug) }}">
@@ -63,7 +67,7 @@
                     <li>
                         <form action="{{ route('search.index') }}" class="d-flex" role="search" method="get">
                             @csrf
-                            <input name="keyword" class="form-control me-2 rounded-pill input-search typeahead"
+                            <input name="keyword" class="form-control me-2 rounded-pill input-search typeahead search"
                                 type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search"
                                 autocomplete="off" required>
                         </form>
@@ -124,7 +128,7 @@
                                 <path
                                     d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                             </svg>
-                            <span class="badge rounded-pill bg-danger" id="change-item-cart"
+                            <span class="badge rounded-pill bg-danger change-item-cart" id="change-item-cart"
                                 style="position: absolute; top: 0; right: 0; font-size: 0.6rem; transform: translate(30%, -30%);">
                                 {{ Cart::count() }}
                             </span>
@@ -237,7 +241,7 @@
                 <li>
                     <form action="{{ route('search.index') }}" class="d-flex" role="search" method="get">
                         @csrf
-                        <input name="keyword" class="form-control me-2 rounded-pill input-search typeahead"
+                        <input name="keyword" class="form-control me-2 rounded-pill input-search typeahead search"
                             type="search" id="search" placeholder="Bạn tìm gì..." aria-label="Search"
                             autocomplete="off" required>
                     </form>
@@ -298,7 +302,7 @@
                             <path
                                 d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                         </svg>
-                        <span class="badge rounded-pill bg-danger" id="change-item-cart"
+                        <span class="badge rounded-pill bg-danger change-item-cart" id="change-item-cart"
                             style="position: absolute; top: 0; right: 0; font-size: 0.6rem; transform: translate(30%, -30%);">
                             {{ Cart::count() }}
                         </span>
@@ -396,7 +400,7 @@
 <script>
     $(document).ready(function() {
         const sampleData = {!! json_encode($productsSearch->toArray()) !!};
-        const searchInput = $('#search');
+        const searchInput = $('.search');
         const resultBox = $('.preview-show-search');
         let currentFocus = -1;
         let debounceTimer;

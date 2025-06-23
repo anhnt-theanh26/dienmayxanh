@@ -25,7 +25,7 @@
                 {{ $title }}
             </p>
             <div class="row">
-                <div class="col-4">
+                <div class="col-xl-4 col-lg-5 col-md-6 col-12">
                     @php
                         $totalRating = 0;
                         $totalReviews = count($reviews);
@@ -57,7 +57,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-xl-8 col-lg-7 col-md-6 col-12">
                     <div class="">
                         <div class="d-flex align-items-center py-2">
                             @php
@@ -183,13 +183,13 @@
                     </div>
                 </div>
                 <h6 class="fw-bold m-0 p-0 py-2">Lọc đánh giá</h6>
-                <div class="col-6 m-0 p-0">
+                <div class="col-xl-6 col-lg-8 col-12 m-0 p-0">
                     <ul class="nav nav-tabs-custom" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link border rounded-pill active" data-bs-toggle="tab" href="#all-review-tab" role="tab">Tất
                                 cả</a>
                         </li>
-                        <li class="nav-item" style="margin-left: 20px">
+                        <li class="nav-item" style="margin-left: 15px">
                             <a class="nav-link border rounded-pill" data-bs-toggle="tab" href="#five-stars-tab" role="tab">5
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
@@ -198,7 +198,7 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="nav-item" style="margin-left: 20px">
+                        <li class="nav-item" style="margin-left: 15px">
                             <a class="nav-link border rounded-pill" data-bs-toggle="tab" href="#four-stars-tab" role="tab">4
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
@@ -207,7 +207,7 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="nav-item" style="margin-left: 20px">
+                        <li class="nav-item" style="margin-left: 15px">
                             <a class="nav-link border rounded-pill" data-bs-toggle="tab" href="#three-stars-tab" role="tab">3
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
@@ -216,7 +216,7 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="nav-item" style="margin-left: 20px">
+                        <li class="nav-item" style="margin-left: 15px">
                             <a class="nav-link border rounded-pill" data-bs-toggle="tab" href="#two-stars-tab" role="tab">2
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
@@ -225,7 +225,7 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="nav-item" style="margin-left: 20px">
+                        <li class="nav-item" style="margin-left: 15px">
                             <a class="nav-link border rounded-pill" data-bs-toggle="tab" href="#one-star-tab" role="tab">1
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-star-fill text-warning" viewBox="0 0 16 16">

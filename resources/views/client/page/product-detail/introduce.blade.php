@@ -101,19 +101,19 @@
                 $('.owl-carousel .owl-nav button.owl-next').html('<i class="fa fa-chevron-right"></i>');
 
 
-                $('.main-content-read-more').readmore({
-                    speed: 75,
-                    collapsedHeight: 417,
-                    moreLink: '<div class="readmore"><a class="ac" href="#">Đọc thêm</a></div>',
-                    lessLink: '<div class="readmore"><a class="ac" href="#">Thu gọn</a></div>',
-                });
+                // $('.main-content-read-more').readmore({
+                //     speed: 75,
+                //     collapsedHeight: 417,
+                //     moreLink: '<div class="readmore"><a class="ac" href="#">Đọc thêm</a></div>',
+                //     lessLink: '<div class="readmore"><a class="ac" href="#">Thu gọn</a></div>',
+                // });
 
-                $('.main-content-read-more').readmore({
-                    speed: 75,
-                    collapsedHeight: 685,
-                    moreLink: '<div class="readmore"><a class="ac" href="#">Xem thông tin đầy đủ</a></div>',
-                    lessLink: '<div class="readmore"><a class="ac" href="#">Thu gọn</a></div>',
-                });
+                // $('.main-content-read-more').readmore({
+                //     speed: 75,
+                //     collapsedHeight: 685,
+                //     moreLink: '<div class="readmore"><a class="ac" href="#">Xem thông tin đầy đủ</a></div>',
+                //     lessLink: '<div class="readmore"><a class="ac" href="#">Thu gọn</a></div>',
+                // });
             });
         </script>
     </div>
@@ -223,7 +223,7 @@
         </div>
     </div>
     <div class="review bg-white rounded-3 px-3 mt-3">
-        <h5 class="py-3">Đánh giá Máy lạnh Nagakawa Inverter 1 HP NIS-C09R2T28</h5>
+        <h5 class="py-3">Đánh giá {{ $product->name }}</h5>
         <div class="row my-3">
             @php
                 $totalRating = 0;
@@ -240,7 +240,8 @@
                     $averageRating = 0;
                 }
             @endphp
-            <div class="col-3 d-flex align-items-center">
+            <div
+                class="col-xxl-3 col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 d-flex align-items-center justify-content-center">
                 <div class="text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                         class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
@@ -252,7 +253,7 @@
                     <p>{{ $totalReviews }} đánh giá</p>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-xxl-4 col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="">
                     <div class="d-flex align-items-center py-2">
                         @php
@@ -391,7 +392,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-xxl-5 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="row">
                     @php
                         $linkImageJsons = null;

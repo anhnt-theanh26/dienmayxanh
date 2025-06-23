@@ -28,7 +28,7 @@
                                             </div>
                                             <div>
                                                 <p class="card-text m-0 p-0 py-2">
-                                                    {{ \Illuminate\Support\Str::limit($productsamecategory->name, 40) }}</p>
+                                                    {{ \Illuminate\Support\Str::limit($productsamecategory->name, 30) }}</p>
                                                 <p class="card-title m-0 p-0 py-1 fw-bold text-danger"
                                                     style="font-size: 18px;">
                                                     {{ number_format($productsamecategory?->variants?->first()?->price, 0, '.', '.') }}₫
@@ -48,8 +48,8 @@
                                                 @if ($productsamecategory->attributeValues->first())
                                                     <p class="bg-secondary-subtle m-0 p-0 rounded-1 px-2 py-1"
                                                         style="font-size: 12px; width: fit-content;">
-                                                        {{ $productsamecategory->attributeValues->first()->attribute->name ? $productsamecategory->attributeValues->first()->attribute->name : '' }}:
-                                                        {{ $productsamecategory->attributeValues->first()->value ? $productsamecategory->attributeValues->first()->value : '' }}
+                                                        {{ \Illuminate\Support\Str::limit($productsamecategory->attributeValues->first()->attribute->name ? $productsamecategory->attributeValues->first()->attribute->name : '', 10) }}:
+                                                        {{ \Illuminate\Support\Str::limit($productsamecategory->attributeValues->first()->value ? $productsamecategory->attributeValues->first()->value : '', 10) }}
                                                     </p>
                                                 @endif
                                                 <p class="text-warning px-1 m-0 p-0 py-1"

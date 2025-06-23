@@ -1,5 +1,5 @@
 <div class="col-xl-5 col-lg-6 col-12">
-    <div class="" style="position: sticky; top: 0;">
+    <div class="">
         <div class="bg-white rounded-3 p-3">
             <div class="banner-product">
                 <div class="">
@@ -312,8 +312,7 @@
                 type: "GET",
             })
             .done((response) => {
-                $("#change-item-cart").empty();
-                $("#change-item-cart").text(response['total']);
+                $(".change-item-cart").text(response['total']);
                 if (response['status'] == true) {
                     alertify.success(response['title']);
                 }
