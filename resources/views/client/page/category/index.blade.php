@@ -3,6 +3,24 @@
 @section('title', 'Danh sách danh mục')
 
 @section('css')
+    <style>
+        @media (max-width: 767px) {
+            #simple-list-example {
+                position: absolute;
+                z-index: 10;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                overflow-y: auto;
+                max-height: calc(100vh - 100px);
+            }
+
+            .post-main {
+                margin-top: 20px;
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -26,7 +44,7 @@
                             @endif
                             @if (isset($categoryParent) && !empty($categoryParent))
                                 <a class="p-2 text-decoration-none text-black"
-                                    href="#simple-list-item-{{ $categoryParent->id }}"
+                                    href="#{{ $categoryParent->id }}-simple-list-item-{{ $categoryParent->id }}"
                                     style="font-size: 14px;">{{ $categoryParent->name }}</a>
                             @endif
                         </div>
@@ -52,7 +70,7 @@
                                 @endforeach
                             @endif
                             @if (isset($categoryParent) && !empty($categoryParent))
-                                <div id="simple-list-item-{{ $categoryParent->id }}">
+                                <div id="{{ $categoryParent->id }}-simple-list-item-{{ $categoryParent->id }}">
                                     <h5 class="fw-bold py-3">{{ $categoryParent->name }}</h5>
                                     <div class="row">
                                         @foreach ($categoryParent->categories as $item)
@@ -85,4 +103,20 @@
 @endsection
 
 @section('js')
+    <script>
+        document.querySelectorAll('#simple-list-example a').forEach(anchor => { // cuộn mượt hơn
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 @endsection
