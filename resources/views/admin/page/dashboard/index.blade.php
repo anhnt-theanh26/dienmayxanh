@@ -10,30 +10,63 @@
 @section('content')
     <div class="row">
         <!-- View sales -->
-        <div class="col-xl-4 mb-4 col-lg-5 col-12">
-            <div class="card">
-                <div class="d-flex align-items-end row">
-                    <div class="col-7">
-                        <div class="card-body text-nowrap">
-                            <h5 class="card-title mb-0">
-                                Biggest Buyer {{ $topUser['user']->name }}! 🎉</h5>
-                            <p class="mb-2">
-                                Quantity of orders: {{ $topUser['count'] }}
-                            </p>
-                            <h4 class="text-primary mb-1">{{ number_format($topUser['total_amount'], 0, ',', '.') }} đ</h4>
-                            <a href="{{ route('admin.user.show', $topUser['user']->id) }}" class="btn btn-primary">
-                                See User
-                            </a>
+        @if ($topUser)
+            <div class="col-xl-4 mb-4 col-lg-5 col-12">
+                <div class="card">
+                    <div class="d-flex align-items-end row">
+                        <div class="col-7">
+                            <div class="card-body text-nowrap">
+                                <h5 class="card-title mb-0">
+                                    Biggest Buyer {{ $topUser['user']->name ?? '' }}! 🎉</h5>
+                                <p class="mb-2">
+                                    Quantity of orders: {{ $topUser['count'] ?? '' }}
+                                </p>
+                                <h4 class="text-primary mb-1">
+                                    {{ number_format($topUser['total_amount'], 0, ',', '.') ?? '' }} đ
+                                </h4>
+                                <a href="{{ $topUser['user']->id ? route('admin.user.show', $topUser['user']->id) : '' }}"
+                                    class="btn btn-primary">
+                                    See User
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-5 text-center text-sm-left">
-                        <div class="card-body pb-0 px-0 px-md-4">
-                            <img src="{{ asset($topUser['user']->image) }}" height="140" alt="view sales" />
+                        <div class="col-5 text-center text-sm-left">
+                            <div class="card-body pb-0 px-0 px-md-4">
+                                <img src="{{ asset($topUser['user']->image) ?? '' }}" height="140" alt="view sales" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @else
+            <div class="col-xl-4 mb-4 col-lg-5 col-12">
+                <div class="card">
+                    <div class="d-flex align-items-end row">
+                        <div class="col-7">
+                            <div class="card-body text-nowrap">
+                                <h5 class="card-title mb-0">
+                                    Biggest Buyer ! 🎉</h5>
+                                <p class="mb-2">
+                                    Quantity of orders: 0
+                                </p>
+                                <h4 class="text-primary mb-1">
+                                    0 đ
+                                </h4>
+                                <a href="#"
+                                    class="btn btn-primary">
+                                    See User
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-5 text-center text-sm-left">
+                            <div class="card-body pb-0 px-0 px-md-4">
+                                <img src="{{ asset('./storage/default.jpg') }}" height="140" alt="view sales" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <!-- View sales -->
 
         <!-- Statistics -->
@@ -169,7 +202,7 @@
                     <div class="card">
                         <div class="card-header pb-0">
                             <h5 class="card-title mb-0">Profit</h5>
-                            <small class="text-muted">Last Month</small>
+                            <small class="text-muted">This Month</small>
                         </div>
                         <div class="card-body">
                             <div id="profitLastMonth">
