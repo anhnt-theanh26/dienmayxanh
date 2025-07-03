@@ -52,8 +52,7 @@
                                 <h4 class="text-primary mb-1">
                                     0 đ
                                 </h4>
-                                <a href="#"
-                                    class="btn btn-primary">
+                                <a href="#" class="btn btn-primary">
                                     See User
                                 </a>
                             </div>
@@ -181,14 +180,18 @@
                                         Expenses increased by
                                         {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($importPriceThisMonth - $importPriceLastMonth) }}
                                         {{-- from last month --}}
-                                        <input type="hidden" name="" id="importPriceDownUp" readonly
-                                            value="{{ round((($importPriceThisMonth - $importPriceLastMonth) / $importPriceLastMonth) * 100, 2) }}">
+                                        @if ($importPriceLastMonth > 0)
+                                            <input type="hidden" name="" id="importPriceDownUp" readonly
+                                                value="{{ round((($importPriceThisMonth - $importPriceLastMonth) / $importPriceLastMonth) * 100, 2) }}">
+                                        @endif
                                     @else
                                         Expenses down
                                         {{ \App\Http\Controllers\Admin\AdminController::formatCurrencyVN($importPriceLastMonth - $importPriceThisMonth) }}
                                         {{-- from last month --}}
-                                        <input type="hidden" name="" id="importPriceDownUp" readonly
-                                            value="{{ round((($importPriceLastMonth - $importPriceThisMonth) / $importPriceThisMonth) * 100, 2) }}">
+                                        @if ($importPriceThisMonth > 0)
+                                            <input type="hidden" name="" id="importPriceDownUp" readonly
+                                                value="{{ round((($importPriceLastMonth - $importPriceThisMonth) / $importPriceThisMonth) * 100, 2) }}">
+                                        @endif
                                     @endif
                                 </small>
                             </div>
@@ -256,7 +259,9 @@
                                             </small>
                                         @else
                                             @php
-                                                $downSold = ($soldLastMonth / $soldThisMonth) * 100;
+                                                if ($soldThisMonth > 0) {
+                                                    $downSold = ($soldLastMonth / $soldThisMonth) * 100;
+                                                }
                                             @endphp
                                             <small class="text-danger text-nowrap fw-semibold">
                                                 <i class="ti ti-chevron-down me-1"></i>
