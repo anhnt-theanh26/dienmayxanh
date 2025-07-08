@@ -88,7 +88,7 @@
                                                 @foreach ($categories as $item)
                                                     <option value="{{ $item->id }}"
                                                         {{ $product->category_id == $item->id ? 'selected' : '' }}>
-                                                        {{ $item->name }} ({{ $item->parent->name }})</option>
+                                                        {{ $item->name }} ({{ $item->parent->name ?? '' }})</option>
                                                 @endforeach
                                             </select>
                                             @error('category_id')

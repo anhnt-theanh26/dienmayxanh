@@ -10,7 +10,7 @@
                 {{ $item->is_hot ? 'Yes' : 'Not' }}
             </span>
         </td>
-        <td>{{ $item->category->name }}</td>
+        <td>{{ $item->category->name ?? ''}}</td>
         <td>
             <div class="dropdown">
                 <a href="{{ route('admin.product.show', $item->id) }}" data-bs-toggle="tooltip" class="text-body"
