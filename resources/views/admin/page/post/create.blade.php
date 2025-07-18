@@ -79,7 +79,7 @@
                                         <select id="category_id" name="category_id" class="form-select">
                                             @foreach ($categories as $item)
                                                 <option value="{{ $item->id }}">
-                                                    {{ $item->name }} ({{ $item->parent->name }})</option>
+                                                    {{ $item->name }} ({{ $item->parent->name ?? '' }})</option>
                                             @endforeach
                                         </select>
                                         @error('category_id')
