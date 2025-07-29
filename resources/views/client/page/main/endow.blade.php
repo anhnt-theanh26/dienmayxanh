@@ -1,0 +1,48 @@
+@php
+    $bannermain6 = null;
+    if (!empty($bannermenus) && $bannermenus !== null) {
+        $bannerMenu = $bannermenus->skip(6)->first();
+        if ($bannerMenu?->bannermenus) {
+            $bannermain6 = $bannerMenu?->bannermenus?->first()?->bannermenuitems?->sortBy('location');
+        }
+    }
+@endphp
+@if ($bannermain6 && $bannermain6->isNotEmpty())
+    <section>
+        <div class="container" style="flex-shrink: 0;">
+            <h4 class="fw-bold py-4">{{ $bannerMenu->bannermenus?->first()?->name }}</h4>
+            <div class="owl-carousel advertisement-03">
+                @foreach ($bannermain6 as $item)
+                    <div class="item">
+                        <a href="{{ $item->link ?? '' }}">
+                            <img class="rounded-2 object-fit-fill" style="height: 450px"
+                                src="{{ $item->image ? asset($item->image) : asset('storage/default.jpg') }}"
+                                alt="">
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+            <script>
+                var owl = $('.advertisement-03');
+                owl.owlCarousel({
+                    margin: 10,
+                    loop: false,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        600: {
+                            items: 2
+                        },
+                        1000: {
+                            items: 3
+                        },
+                        1200: {
+                            items: 4
+                        }
+                    }
+                })
+            </script>
+        </div>
+    </section>
+@endif

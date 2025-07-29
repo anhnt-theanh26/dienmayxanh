@@ -1,0 +1,155 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\CategoryParent;
+use App\Models\Menu;
+use App\Models\Menuitem;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+
+class MenuItemController extends Controller
+{
+    public function store(Request $request, string $id)
+    {
+        if (Auth::user()->can('create location menu')) {
+            try {
+                $menu = Menu::where('id', $id)->first();
+                if (!$menu) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
+                    return redirect()->back()->with('error', 'Khong tim thay menu!');
+                }
+                $request->validate([
+                    'name' => 'required|string|max:255',
+                ]);
+                $menu->name = $request->name;
+                $menu->save();
+                $index = 1;
+                if ($request->category) {
+                    $menuitemlast = Menuitem::where('menu_id', $id)->orderBy('location', 'desc')->first();
+                    if ($menuitemlast) {
+                        $index = ++$menuitemlast->location;
+                    }
+                    foreach ($request->category as $value) {
+                        $cate = Category::where('id', $value)->first();
+                        $data[] = [
+                            'name' => $cate->name,
+                            'link' => $cate->slug,
+                            'location' => $index++,
+                            'menu_id' => $id,
+                            'category_id' => $cate->id,
+                        ];
+                    }
+                }
+                if ($request->name_menu_item) {
+                    $menuitemlast = Menuitem::where('menu_id', $id)->orderBy('location', 'desc')->first();
+                    if ($menuitemlast) {
+                        $index = ++$menuitemlast->location;
+                    }
+                    $data[] = [
+                        'name' => strtolower($request->name_menu_item),
+                        'link' => $request->link_menu_item,
+                        'location' => $index++,
+                        'menu_id' => $id,
+                    ];
+                }
+                if (!empty($data)) {
+                    foreach ($data as $value) {
+                        $menuitem = Menuitem::where('name', $value['name'])->where('link', $value['link'])->where('menu_id', $value['menu_id'])->first();
+                        if (empty($menuitem)) {
+                            Menuitem::create($value);
+                        }
+                    }
+                }
+                Alert::success('Thanh cong', 'Cap nhap menu item thanh cong');
+                return redirect()->back()->with('success', 'Cap nhap menu item thanh cong');
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra:', $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            }
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
+    }
+
+
+    public function edit(string $id)
+    {
+        if (Auth::user()->can('edit location menu')) {
+            try {
+                $menu = Menu::where('id', $id)->first();
+                if (!$menu) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay menu');
+                    return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu!');
+                }
+                $menuitems = Menuitem::where('menu_id', $id)->orderBy('location', 'asc')->get();
+                if (!$menuitems) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay menu items');
+                    return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay menu items!');
+                }
+                $categoryParents = CategoryParent::get();
+                if (!$categoryParents) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay category parents');
+                    return redirect()->route('admin.menu.index')->with('error', 'Khong tim thay category parents!');
+                }
+                return view('admin.page.menuitem.edit', compact('menu', 'categoryParents', 'menuitems'));
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra', text: $th->getMessage());
+                return redirect()->route('admin.menu.index')->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            }
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
+    }
+
+
+    public function update(Request $request, string $id)
+    {
+        if (Auth::user()->can('edit location menu')) {
+            try {
+                $index = 1;
+                foreach ($request->location_stand as $value) {
+                    $menuitem = Menuitem::where('id', $value)->first();
+                    $menuitem->location = $index++;
+                    $menuitem->save();
+                }
+                return redirect()->route('admin.menuitem.edit', ['id' => $id])->with('success', 'Cap nhap menu item thanh cong');
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra', text: $th->getMessage());
+                return redirect()->route('admin.menuitem.edit', ['id' => $id])->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            }
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
+    }
+
+
+    public function destroy(string $id)
+    {
+        if (Auth::user()->can('delete location menu')) {
+            try {
+                $menuitem = Menuitem::where("id", $id)->first();
+                if (!$menuitem) {
+                    Alert::error('Có lỗi xảy ra', 'Khong tim thay menu item');
+                    return redirect()->route('admin.menuitem.edit', ['id' => $id])->with('error', 'Không tìm thấy item!');
+                }
+                $menuitem->delete();
+                Alert::success('Thanh cong', 'Xoa menu thanh cong');
+                return redirect()->back()->with('success', 'Xóa menu item thanh cong');
+
+            } catch (\Throwable $th) {
+                Alert::error('Có lỗi xảy ra', $th->getMessage());
+                return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $th->getMessage());
+            }
+        } else {
+            Alert::error('Không có quyền truy cập');
+            return redirect()->route('admin.dashboard');
+        }
+    }
+}

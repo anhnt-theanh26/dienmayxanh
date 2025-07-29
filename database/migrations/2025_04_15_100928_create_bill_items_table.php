@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('bill_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('bill_id')->nullable()->references('id')->on('bills')->onDelete('set null');
+            $table->unsignedBigInteger('product_id')->nullable()->references('id')->on('products')->onDelete('set null');
+            $table->unsignedBigInteger('product_variant_id')->nullable()->references('id')->on('product_variants')->onDelete('set null');
+            $table->string('name')->nullable();
+            $table->string('image')->nullable();
+            $table->string('variant')->nullable();
+            $table->integer('quantity')->default(0);
+            $table->decimal('price', 20, 0);
+            $table->decimal('total_price', 20, 0);
+            $table->decimal('import_price', 20, 0)->nullable();
+            $table->decimal('profit', 20, 0)->nullable();
+            $table->boolean('review_status')->default(false);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('bill_items');
+    }
+};
